@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/PLHieu/Newspaper#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "expressjs": "^1.0.1"
+    "express": "^4.17.1"
   }
 }
