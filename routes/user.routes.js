@@ -2,13 +2,13 @@ const controller = require('../controllers/testuser.controllers')
 const authorMdw = require('../middlewares/authorUser.mdw')
 
 module.exports = function (app) {
-    app.get('/admin', authorMdw.isAdmin ,controller.adminPage)
+    app.use('/admin', authorMdw.isAdmin ,require('./admin.routes'))
 
-    app.get('/writer',  authorMdw.isWriter, controller.writerPage)
+    app.use('/writer',  authorMdw.isWriter, require('./writer.routes'))
 
-    app.get('/subcriber',   authorMdw.isSubcriber , controller.SubcriberPage)
+    app.use('/subcriber',   authorMdw.isSubcriber , require('./subcriber.routes'))
 
-    app.get('/editor',  authorMdw.isEditor,controller.editorPage)
+    app.use('/editor',  authorMdw.isEditor, require('./editor.routes'))
 
     app.get('./guest' ,controller.guestPage)
 }

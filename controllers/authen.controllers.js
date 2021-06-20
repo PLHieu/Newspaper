@@ -46,5 +46,5 @@ function handle_login_successfully(role, rows, req, res) {
         logged: true
     };
     // TODO: render cac file sao cho phu hop voi tung role
-    return res.redirect("/" +role)
+    return res.redirect("/" +role )
 }
