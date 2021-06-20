@@ -1,19 +1,33 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 
-// middleware
+
+// body parser
+app.use(express.json());
 app.use(express.urlencoded({
-    extended: true
+  extended: true
 }));
+
+//static file
 app.use(express.static('public'));
-require('./middlewares/views.mdw')(app);
-require('./middlewares/routes.mdw')(app);
-
-var server = app.listen(3000, function () {
-    console.log('Newspaper Server is running')
+//session 
+require('./middlewares/sessionInit.mdw')(app);
+// routes
+app.get('/', function (req, res) {
+  res.send("Hello World");
 });
+require('./routes/authen.routes')(app);
+require('./routes/user.routes')(app);
 
+// views
+require('./middlewares/view.mdw')(app);
+
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
 
 
