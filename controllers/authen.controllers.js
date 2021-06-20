@@ -30,7 +30,7 @@ exports.signin = async (req, res) => {
 
 
 exports.signout = (req, res) => {
-    req.session.destroy();
+    req.session.user = null;
     res.redirect('/login');
 }
 

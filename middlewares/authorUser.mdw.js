@@ -1,5 +1,5 @@
 exports.isAdmin = (req, res, next) => {
-    console.log(req.session.user);
+    // console.log(req.session.user);
     if (req.session.user == null) {
         return res.status(403).send("Require Admin Role!");
     }
