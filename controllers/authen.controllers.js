@@ -30,7 +30,8 @@ exports.signin = async (req, res) => {
 
 
 exports.signout = (req, res) => {
-
+    req.session.destroy();
+    res.redirect('/login');
 }
 
 function handle_login_successfully(role, rows, req, res) {
@@ -41,7 +42,8 @@ function handle_login_successfully(role, rows, req, res) {
         address: rows[0].Address,
         birthday: rows[0].BirthDay,
         email: rows[0].Email,
-        role: role
+        role: role,
+        logged: true
     };
     // TODO: render cac file sao cho phu hop voi tung role
     return res.redirect("/" +role)
