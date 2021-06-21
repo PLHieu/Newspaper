@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/PLHieu/Newspaper#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.2",
     "express-handlebars-sections": "^1.0.1",

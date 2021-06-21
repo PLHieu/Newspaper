@@ -2,30 +2,33 @@ const admin = require('../models/admin.model')
 const editor = require('../models/editor.model')
 const subcriber = require('../models/subcriber.model')
 const writer = require('../models/writer.model')
+const bcrypt = require('bcryptjs');
 
 exports.signin = async (req, res) => {
-    var rows_admin = await admin.findByUsernamePassword(req.body.username, req.body.password);
+    const rows_admin = await admin.findByUsername(req.body.username);
     if (rows_admin != null) {
-        return handle_login_successfully("admin", rows_admin, req, res);
+        return checkPassword("admin", rows_admin, req, res);
     }
 
-    var rows_editor = await editor.findByUsernamePassword(req.body.username, req.body.password);
+    const rows_editor = await editor.findByUsername(req.body.username);
     if (rows_editor != null) {
-        return handle_login_successfully("editor", rows_editor, req, res);
+        return checkPassword("editor", rows_editor, req, res);
     }
 
-    var rows_subcriber = await subcriber.findByUsernamePassword(req.body.username, req.body.password);
+    const rows_subcriber = await subcriber.findByUsername(req.body.username);
     if (rows_subcriber != null) {
-        return handle_login_successfully("subcriber", rows_subcriber, req, res);
+        return checkPassword("subcriber", rows_subcriber, req, res);
     }
 
-    var row_writer = await writer.findByUsernamePassword(req.body.username, req.body.password);
+    const row_writer = await writer.findByUsername(req.body.username);
     if (row_writer != null) {
-        return handle_login_successfully("writer", row_writer, req, res);
+        return checkPassword("writer", row_writer, req, res);
     }
 
     // Khong ton tai tai khoang trong he thong 
-    return res.status(401).send("Can not login");
+    return res.render('login', {
+        err_message: 'Invalid Username',
+    })
 }
 
 
@@ -34,14 +37,24 @@ exports.signout = (req, res) => {
     res.redirect('/login');
 }
 
+function checkPassword(role, rows, req, res) {
+  const ret = bcrypt.compareSync(req.body.password, rows.Password);
+  if (ret===false){
+    return res.render('login', {
+        err_message: 'Invalid password',
+    })
+  }
+  handle_login_successfully(role, rows, req, res);
+}
+
 function handle_login_successfully(role, rows, req, res) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
     req.session.user = {
-        name: rows[0].Name,
-        username: rows[0].UserName,
-        address: rows[0].Address,
-        birthday: rows[0].BirthDay,
-        email: rows[0].Email,
+        name: rows.Name,
+        username: rows.UserName,
+        address: rows.Address,
+        birthday: rows.BirthDay,
+        email: rows.Email,
         role: role,
         logged: true
     };
