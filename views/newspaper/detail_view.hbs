@@ -1,0 +1,113 @@
+{{#section 'title'}}
+    <title>{{this.post.Title}}</title>
+{{/section}}
+
+{{#section 'css'}}
+    <link rel="stylesheet" href="../../public/css/detail_view.css">
+{{/section}}
+
+{{#section 'js'}}
+{{/section}}
+
+    <div class="container-fluid">
+        <div id="section-main" class="row">
+            <div class="col-md-8 ml-5 mb-2" id="content">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p><a href="http://localhost:3000/category/{{this.post.CatID}}">{{this.post.CatName}}</a></p>
+                    </div>
+                    <div class="text-right">
+                        <p class="d-inline font-italic">{{this.post.PubTime}}</p>
+                        <br/>
+                        <p class="d-inline">Soạn bởi: <a href="http://localhost:3000/category/{{this.post.WriterID}}" class="font-italic">{{this.post.WriterName}}</a></p>
+                        <p class="d-inline font-italic">, {{this.post.Views}} views</p>
+                    </div>
+                </div>
+
+                <h2 class="my-4 text-info">{{this.post.Title}}</h2>
+                <p>{{{this.post.Content}}}</p>
+                <p class="text-right">Tags: 
+                    {{#each this.post.tags}}
+                        <a href="#" class="font-italic">#{{Name}}</a> |
+                    {{/each}}
+                </p>
+            </div>
+
+            <div class="col-md-3" id="aside-right">
+                  <h3>Sidebar Menu</h3>
+                  <ul class="menu">
+                    <li><a href="#">Discussion</a></li>
+                    <li><a href="#">Authors</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact</a></li>
+                  </ul>
+                  <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-item section" id="comments">
+        <div class="container">   
+            <div class="row">
+                <div class="col-sm-8 col-lg-8">   
+                    <form action="" method="post">
+                        <h3 class="pull-left">Your Comment</h3>
+                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 hidden-xs">
+                                    <img class="img-responsive w-100 rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-9 col-md-10">
+                                    <textarea class="form-control" id="message" name="comment" placeholder="Your message"></textarea>
+                                </div>
+                            </div>  	
+                        </fieldset>
+                    </form>
+                    
+                    <h3>{{this.num_comments}} Comments</h3>
+                    {{#each this.comments}}
+                    <!-- COMMENT-START -->
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object rounded-circle" src="../../public/image/users/readers/1.jpg" alt=""></a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ReaderName}}</h4>
+                            <p>{{Content}}</p>
+                            <ul class="list-unstyled list-inline media-detail pull-left">
+                                <li><i class="fa fa-calendar"></i>{{PubTime}}</li>
+                                <li><i class="fa fa-thumbs-up"></i>0</li>
+                            </ul>
+                            <ul class="list-unstyled list-inline media-detail pull-right">
+                                <li class=""><a href="">Like</a></li>
+                                <li class=""><a href="">Reply</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- COMMENT-END -->
+                    {{/each}}
+                    <p class="more text-right"><a href="#">Read more &raquo;</a></p>
+                </div>
+
+                <div class="col-md-3 ml-5 right" id="aside-right">
+                  <h3>Sidebar Menu</h3>
+                  <ul class="menu">
+                    <li><a href="#">Discussion</a></li>
+                    <li><a href="#">Authors</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact</a></li>
+                  </ul>
+                  <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

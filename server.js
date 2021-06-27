@@ -12,12 +12,12 @@ app.use(express.urlencoded({
 }));
 
 //static file
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 //session 
 require('./middlewares/sessionInit.mdw')(app);
 // routes
 app.get('/', function (req, res) {
-  res.send("Hello World");
+  res.render('home');
 });
 require('./routes/authen.routes')(app);
 require('./routes/user.routes')(app);
@@ -25,6 +25,7 @@ require('./routes/user.routes')(app);
 // views
 require('./middlewares/view.mdw')(app);
 
+app.use('/read',require('./routes/newspaper.routes'));
 
 
 const PORT = process.env.PORT || 3000;
