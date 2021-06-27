@@ -25,6 +25,7 @@
     "express-session": "^1.17.2",
     "knex": "^0.95.6",
     "morgan": "^1.10.0",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "object-mapper": "^6.2.0"
   }
 }

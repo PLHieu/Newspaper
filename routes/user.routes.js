@@ -10,5 +10,7 @@ module.exports = function (app) {
 
     app.use('/editor',  authorMdw.isEditor, require('./editor.routes'))
 
+    app.use('/post', require('./post.routes'))
+
     app.get('./guest' ,controller.guestPage)
 }
