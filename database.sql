@@ -74,6 +74,12 @@ INSERT INTO `Categories` VALUES (12, 'Du lịch Thế Giới', 10);
 INSERT INTO `Categories` VALUES (13, 'Sức khỏe', NULL);
 INSERT INTO `Categories` VALUES (14, 'Dinh Dưỡng', 13);
 INSERT INTO `Categories` VALUES (15, 'Bệnh tật', 13);
+INSERT INTO `Categories` VALUES (16, 'Thể thao', NULL);
+INSERT INTO `Categories` VALUES (17, 'Bóng đá', 16);
+INSERT INTO `Categories` VALUES (18, 'Các môn khác', 16);
+INSERT INTO `Categories` VALUES (19, 'Giáo dục', NULL);
+INSERT INTO `Categories` VALUES (20, 'Tuyển sinh', 19);
+INSERT INTO `Categories` VALUES (21, 'Giáo dục 4.0', 19);
 COMMIT;
 
 -- ----------------------------
@@ -175,6 +181,12 @@ INSERT INTO `PostTag` VALUES (11, 14);
 INSERT INTO `PostTag` VALUES (14, 15);
 INSERT INTO `PostTag` VALUES (14, 16);
 INSERT INTO `PostTag` VALUES (14, 17);
+INSERT INTO `PostTag` VALUES (19, 25);
+INSERT INTO `PostTag` VALUES (21, 23);
+INSERT INTO `PostTag` VALUES (21, 24);
+INSERT INTO `PostTag` VALUES (22, 18);
+INSERT INTO `PostTag` VALUES (22, 19);
+INSERT INTO `PostTag` VALUES (22, 20);
 COMMIT;
 
 -- ----------------------------
@@ -222,6 +234,12 @@ INSERT INTO `Posts` VALUES (15, 'Nguy cơ mắc bệnh gout do uống nhiều tr
 INSERT INTO `Posts` VALUES (16, 'Kiểm soát cao huyết áp bằng thực phẩm', 1, 14, 0, '	Bác sĩ chuyên khoa 1 Hoàng Văn Đức - Phó trưởng khoa Nội Tim mạch, Bệnh viện 199 (Bộ Công An) cho biết: Một chế độ ăn uống lành mạnh là điều cần thiết để giảm huyết áp và duy trì mức huyết áp ổn định. Các nghiên cứu cho thấy một số loại thực phẩm, đặc biệt những sản phẩm chứa nhiều chất dinh dưỡng như kali và magiê, giúp giảm huyết áp.', 'Cá hồi, bí ngô, cần tây, bông cải xanh, chuối, kiwi, tỏi... là những thực phẩm nên bổ sung trong chế độ ăn hàng ngày với người bệnh cao huyết áp.', '2021-06-27 13:34:03', NULL, 0);
 INSERT INTO `Posts` VALUES (17, 'Tránh nguy cơ mắc bệnh mạn tính không lây bằng dự phòng thừa cân', 1, 15, 0, 'Giáo sư, tiến sĩ Nguyễn Gia Khánh, Chủ tịch Hội Nhi khoa Việt Nam cảnh báo, hiện nay nhiều cha mẹ vẫn giữ quan điểm \"con tròn trịa, mập mạp mới tốt, mới dễ thương\" mà không biết đó là dấu hiệu đặc trưng của thừa cân và béo phì - một gánh nặng sức khỏe toàn cầu.', 'Trẻ thừa cân, béo phì có nguy cơ mắc bệnh mãn tính như tim mạch, xương khớp… khi trưởng thành,', '2021-06-27 13:34:03', NULL, 0);
 INSERT INTO `Posts` VALUES (18, '3 quan niệm sai lầm của bố mẹ khiến con thừa cân, béo phì', 1, 15, 0, 'Trong 10 năm, tỷ lệ thừa cân, béo phì của trẻ em Việt Nam trong độ tuổi 5 - 19 tăng gấp đôi từ 8,5% (năm 2010) lên 19% (năm 2020), theo kết quả Tổng điều tra Dinh dưỡng toàn quốc năm 2019-2020 của Bộ Y tế. Một báo cáo của Viện Dinh dưỡng quốc gia năm 2019 sau khi khảo sát tại 75 trường học ở 5 tỉnh, thành phố ghi nhận tỷ lệ thừa cân béo phì của học sinh khu vực thành thị là 41,9%. Đây là những con số đáng báo động về tình trạng thừa cân của trẻ em từ lứa tuổi mầm non đến trung học. Mặc dù vậy, trong một khảo sát của Viện Dinh dưỡng tại Hà Nội năm 2019, có đến 53% phụ huynh không biết, thậm chí không chấp nhận rằng con mình thừa cân, béo phì.', 'Béo sẽ khỏe, ít đau ốm hay phát triển nhanh... là những quan niệm chưa đúng của nhiều bố mẹ Việt.', '2021-06-27 13:34:03', NULL, 0);
+INSERT INTO `Posts` VALUES (19, 'Lời khuyên về phương pháp giảng dạy trẻ trước khi vào lớp 1',1, 21, 0, 'Đây là content của bài lời khuyên phương pháp dạy học cho trẻ lớp 1','Đây là abstract của phương pháp dạy trẻ lớp 1', NOW(), null, 0 );
+INSERT INTO `Posts` VALUES (20, 'Lộ trình 4 bước học hè trực tuyến cho trẻ tiểu học',1, 21, 0, 'Đây là content của Lộ trình 4 bước học hè trực tuyến cho trẻ tiểu học','Đây là abstract của Lộ trình 4 bước học hè trực tuyến cho trẻ tiểu học', NOW(), null, 0 );
+INSERT INTO `Posts` VALUES (21, 'Điểm tuyển sinh đại học năm 2020 cao bất ngờ',1, 20, 0, 'Đây là content của bài Điểm tuyển sinh đại học năm 2020 cao bất ngờ','Đây là abstract của Điểm tuyển sinh đại học năm 2020 cao bất ngờ', NOW(), null, 0 );
+INSERT INTO `Posts` VALUES (22, 'Đội tuyển bóng đá Việt Nam vào vòng loại 3 khu vực Châu Á',1, 17, 0, 'Đây là content của bài Đội tuyển bóng đá Việt Nam vào vòng loại 3 khu vực Châu Á','Đây là abstract của Đội tuyển bóng đá Việt Nam vào vòng loại 3 khu vực Châu Á', NOW(), null, 0 );
+INSERT INTO `Posts` VALUES (23, 'Cờ vua môn thể thao trí tuệ cần được quan tâm',1, 18, 0, 'Đây là content của bài Cờ vua môn thể thao trí tuệ cần được quan tâm','Đây là abstract của Cờ vua môn thể thao trí tuệ cần được quan tâm', NOW(), null, 0 );
+
 COMMIT;
 
 -- ----------------------------
@@ -281,6 +299,16 @@ INSERT INTO `Tags` VALUES (13, 'thiennhien');
 INSERT INTO `Tags` VALUES (8, 'tinhcam');
 INSERT INTO `Tags` VALUES (10, 'trongnuoc');
 INSERT INTO `Tags` VALUES (11, 'vientuong');
+INSERT INTO `Tags` VALUES (18, 'doituyenquocgia');
+INSERT INTO `Tags` VALUES (19, 'bongdaVietNam');
+INSERT INTO `Tags` VALUES (20, 'worldcup');
+INSERT INTO `Tags` VALUES (21, 'thidau');
+INSERT INTO `Tags` VALUES (22, 'thpt');
+INSERT INTO `Tags` VALUES (23, 'daihoc');
+INSERT INTO `Tags` VALUES (24, 'diemchuan');
+INSERT INTO `Tags` VALUES (25, 'congnghe');
+INSERT INTO `Tags` VALUES (26, 'toanhoc');
+INSERT INTO `Tags` VALUES (27, 'giaovien');
 COMMIT;
 
 -- ----------------------------
