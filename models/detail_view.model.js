@@ -47,6 +47,9 @@ module.exports = {
 
    delComment(id_comment){
        return db('Comments').where('ID', id_comment).del();
-   }
+   },
 
+   updateComment(id_comment, new_content){
+       return db('Comments').where('ID', id_comment).update('Content',new_content);
+   }
 }

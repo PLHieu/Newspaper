@@ -1,8 +1,36 @@
 const admin = require('../models/admin.model')
 const editor = require('../models/editor.model')
-const subcriber = require('../models/subcriber.model')
+const reader = require('../models/reader.model')
 const writer = require('../models/writer.model')
 const bcrypt = require('bcryptjs');
+const moment = require('moment');
+
+
+exports.register = async function(req, res) {
+    const hash = bcrypt.hashSync(req.body.raw_password, 10);
+    const dob = moment(req.body.raw_dob,'DD/MM/YYYY').format('YYYY-MM-DD');
+    const user = {
+        UserName: req.body.username,
+        Password: hash,
+        BirthDay: dob,
+        Name: req.body.name,
+        Email: req.body.email,
+        Address: req.body.address,
+        ExpTime: null
+    }
+    await reader.add(user);
+  res.render('account/login', {
+      after_register: "Bạn đã đăng kí thành công"
+  });
+}
+
+exports.is_available = async (req, res)=>{
+    const rows = await reader.findByUsername(req.query.username);
+    if (rows.length===0) 
+        return res.json(true);
+    return res.json(false);
+}
+
 
 exports.signin = async (req, res) => {
     const rows_admin = await admin.findByUsername(req.body.username);
@@ -15,9 +43,11 @@ exports.signin = async (req, res) => {
         return checkPassword("editor", rows_editor, req, res);
     }
 
-    const rows_subcriber = await subcriber.findByUsername(req.body.username);
-    if (rows_subcriber != null) {
-        return checkPassword("subcriber", rows_subcriber, req, res);
+    const rows_reader = await reader.findByUsername(req.body.username);
+    if (rows_reader != null) {
+        if (rows_reader.ExpTime!=null)
+            return checkPassword("subcriber", rows_reader, req, res);
+        else return checkPassword("guest", rows_reader, req, res);
     }
 
     const row_writer = await writer.findByUsername(req.body.username);
@@ -26,7 +56,7 @@ exports.signin = async (req, res) => {
     }
 
     // Khong ton tai tai khoang trong he thong 
-    return res.render('login', {
+    return res.render('account/login', {
         err_message: 'Invalid Username',
     })
 }
@@ -40,7 +70,7 @@ exports.signout = (req, res) => {
 function checkPassword(role, rows, req, res) {
   const ret = bcrypt.compareSync(req.body.password, rows.Password);
   if (ret===false){
-    return res.render('login', {
+    return res.render('account/login', {
         err_message: 'Invalid password',
     })
   }

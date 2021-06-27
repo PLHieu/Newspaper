@@ -7,6 +7,7 @@
 {{/section}}
 
 {{#section 'js'}}
+
 {{/section}}
 
     <div class="container-fluid">
@@ -19,16 +20,16 @@
                     <div class="text-right">
                         <p class="d-inline font-italic">{{this.post.PubTime}}</p>
                         <br/>
-                        <p class="d-inline">Soạn bởi: <a href="http://localhost:3000/category/{{this.post.WriterID}}" class="font-italic">{{this.post.WriterName}}</a></p>
+                        <p class="d-inline">Soạn bởi: <a href="http://localhost:3000/writers/{{this.post.WriterID}}" class="font-italic">{{this.post.WriterName}}</a></p>
                         <p class="d-inline font-italic">, {{this.post.Views}} views</p>
                     </div>
                 </div>
 
                 <h2 class="my-4 text-info">{{this.post.Title}}</h2>
-                <p>{{{this.post.Content}}}</p>
+                <p class="mr-3">{{{this.post.Content}}}</p>
                 <p class="text-right">Tags: 
                     {{#each this.post.tags}}
-                        <a href="#" class="font-italic">#{{Name}}</a> |
+                        <a href="http://localhost:3000/tags/{{ID}}" class="font-italic">#{{Name}}</a> |
                     {{/each}}
                 </p>
             </div>
@@ -82,8 +83,10 @@
                                 <li><i class="fa fa-thumbs-up"></i>0</li>
                             </ul>
                             <ul class="list-unstyled list-inline media-detail pull-right">
-                                <li class=""><a href="">Like</a></li>
-                                <li class=""><a href="">Reply</a></li>
+                                <li class=""><a href="#">Like</a></li>
+                                <li class=""><a href="#">Reply</a></li>
+                                <li class=""><a href="/read/{{PostID}}/del-comment?id={{ID}}">Delete</a></li>
+                                <li class=""><a href="#" onclick="return editContent();">Edit</a></li>
                             </ul>
                         </div>
                     </div>

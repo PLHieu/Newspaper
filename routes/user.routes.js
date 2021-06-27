@@ -6,11 +6,11 @@ module.exports = function (app) {
 
     app.use('/writer',  authorMdw.isWriter, require('./writer.routes'))
 
-    app.use('/subcriber',   authorMdw.isSubcriber , require('./subcriber.routes'))
+    app.use('/subcriber',   authorMdw.isSubcriber , require('./reader.routes'))
 
     app.use('/editor',  authorMdw.isEditor, require('./editor.routes'))
 
     app.use('/post', require('./post.routes'))
 
-    app.get('./guest' ,controller.guestPage)
+    app.get('/guest' ,controller.guestPage)
 }

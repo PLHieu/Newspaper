@@ -1,5 +1,5 @@
 exports.guestPage = (req, res) => {
-    res.status(200).send("Public Content.");
+    res.status(200).render("home");
 };
 
 exports.editorPage = (req, res) => {
