@@ -169,6 +169,13 @@ CREATE TABLE `PostTag` (
 BEGIN;
 INSERT INTO `PostTag` VALUES (7, 2);
 INSERT INTO `PostTag` VALUES (5, 10);
+INSERT INTO `PostTag` VALUES (11, 12);
+INSERT INTO `PostTag` VALUES (11, 13);
+INSERT INTO `PostTag` VALUES (11, 14);
+INSERT INTO `PostTag` VALUES (14, 15);
+INSERT INTO `PostTag` VALUES (14, 16);
+INSERT INTO `PostTag` VALUES (14, 17);
+
 COMMIT;
 
 -- ----------------------------
@@ -270,6 +277,12 @@ INSERT INTO `Tags` VALUES (9, 'tainan');
 INSERT INTO `Tags` VALUES (8, 'tinhcam');
 INSERT INTO `Tags` VALUES (10, 'trongnuoc');
 INSERT INTO `Tags` VALUES (11, 'vientuong');
+INSERT INTO `Tags` VALUES (12, 'dulich');
+INSERT INTO `Tags` VALUES (13, 'thiennhien');
+INSERT INTO `Tags` VALUES (14, 'danhlamthangcanh');
+INSERT INTO `Tags` VALUES (15, 'amthuc');
+INSERT INTO `Tags` VALUES (16, 'chaua');
+INSERT INTO `Tags` VALUES (17, 'monngon');
 COMMIT;
 
 -- ----------------------------
