@@ -16,8 +16,8 @@ app.use('/public', express.static('public'));
 //session 
 require('./middlewares/sessionInit.mdw')(app);
 // routes
-app.get('/', function (req, res) {
-  res.render('home');
+app.get('/hieu', function (req, res) {
+  res.render('newspaper/categoried_posts');
 });
 require('./routes/authen.routes')(app);
 require('./routes/user.routes')(app);
