@@ -82,8 +82,37 @@ module.exports = {
             .count('*', { as: 'total' });
         // console.log(rows);
         return rows[0].total;
-    }
+    },
 
+    /*
+        Tim danh sach bai viet NOIBAT theo Tag
+    */
+    async findHightlightPostsByTag(tagID, limit, offset) {
+        const posts = await findPostIDByTag(tagID);
+        const postIDs = posts.map(p => p.PostID);
+        // console.log(postIDs);
+        const listPosts = await db('Posts')
+            .whereIn('ID', postIDs)
+            .orderBy('Views', 'desc')
+            .limit(limit)
+            .offset(offset);
+        // console.log(listPosts);
+        return listPosts;
+    },
+    /*
+    Tim bai viet NOIBAT theo Category
+    */
+    async findHightlightByCategory(IDcategory, limit, offset) {
+        let level = await findLevel(IDcategory);
+        // console.log(level);
+        if (level == false) {
+            return false;
+        }
+        if (level === 1) {
+            return await findHightlightByLevel1Category(IDcategory, limit, offset);
+        }
+        return await findHightlightByLevel2Category(IDcategory, limit, offset);
+    },
 
 }
 
@@ -147,4 +176,32 @@ async function countByLevel1Category(IDcategory) {
         .whereIn('CatID', childrenCateID)
         .count('*', { as: 'total' })
     return rows[0].total;
+}
+/*
+    Tim bai viet NOIBAT theo Category o Level 1 (cao)
+*/
+async function findHightlightByLevel1Category(IDcategory, limit, offset) {
+    const childrenCate = await findChildCategories(IDcategory);
+    const childrenCateID = childrenCate.map(ele => ele.ID);
+    // console.log(childrenCateID);
+    const rows = await db('Posts')
+        .whereIn('CatID', childrenCateID)
+        .orderBy('Views', 'desc')
+        .limit(limit)
+        .offset(offset)
+    return rows;
+}
+
+/*
+    Tim bai viet NOIBAT theo Category o Level 2 (thap)
+*/
+async function findHightlightByLevel2Category(IDcategory, limit, offset) {
+    const rows = await db('Posts')
+        .where({
+            CatID: IDcategory,
+        })
+        .orderBy('Views', 'desc')
+        .limit(limit)
+        .offset(offset)
+    return rows;
 }

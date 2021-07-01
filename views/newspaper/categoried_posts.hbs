@@ -149,45 +149,58 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <!-- Flow Socail -->
-                    <div class="d-flex justify-content-between">
-                        <div class="d-inline-block">Secretart for Economic Air plane that looks like</div>
-                        <img src="assets/img/gallery/whats_news_details1.png" class=" h-100" style="object-fit: cover"
-                            alt="">
+
+                    <!--Start pagination -->
+                    <div class="pagination-area mt-4 gray-bg pb-45">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="single-wrap">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-start">
+
+                                                {{#each this.page_numbers}}
+                                                {{#if isCurrent}}
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{else}}
+                                                <li class="page-item "><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{/if}}
+                                                {{/each}}
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- End pagination  -->
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                     <div class="w-100 tieude-right-sidebar">
+                        Nổi bật trong Du Lịch
+                    </div>
+
+                    {{#each this.hightlightPosts}}
+                    <a href = "/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
+                        <div class="w-75 d-inline-block p-3" style="font-size: medium;">{{Title}}</div>
+                        <img src="{{imgurl}}" class="d-inline-block w-25 p-1"
+                            style="border-radius: 10px;" alt="">
+                    </a>
+                    {{/each}}
 
                 </div>
             </div>
         </div>
     </div>
     <!-- About US End -->
-    <!--Start pagination -->
-    <div class="pagination-area  gray-bg pb-45">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="single-wrap">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-start">
-                                
-                                {{#each this.page_numbers}}
-                                {{#if isCurrent}}
-                                <li class="page-item active"><a class="page-link" href="?page={{value}}">{{value}}</a>
-                                </li>
-                                {{else}}
-                                <li class="page-item "><a class="page-link" href="?page={{value}}">{{value}}</a>
-                                </li>
-                                {{/if}}
-                                {{/each}}
-                                
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End pagination  -->
+
 </main>

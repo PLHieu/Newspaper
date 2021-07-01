@@ -26,3 +26,27 @@
     transform: scale(0.95);
     transition: 0.5s;
 }
+
+.news-right-sidebar{
+    color: black;
+    height: 100px;
+    transition: 0.4s;
+    background-color: white;
+}   
+
+.news-right-sidebar:hover{
+    color: #dc3545;
+    transition: 0.4s;
+    transform: translateX(10px);
+    cursor: pointer;
+}
+
+.tieude-right-sidebar{
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    color: #dc3545;
+    font-weight: bold;
+    /* font-style: italic; */
+    font-size: x-large;
+}

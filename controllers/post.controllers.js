@@ -1,5 +1,5 @@
 var objectMapper = require('object-mapper');
-const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag } = require("../models/post.model");
+const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag } = require("../models/post.model");
 const { findRelative, getTag } = require('../models/category.model');
 const { rule1 } = require('../utils/mapper');
 const { postsLimit } = require('../config/const.config');
@@ -37,6 +37,11 @@ module.exports = {
         }
 
         const relative = await findRelative(IDcategory);
+
+        // Tim danh sach cac Post noi bat cung chuyen muc        
+        const hightlightPosts = await findHightlightByCategory(IDcategory, 5, 0);
+
+
         // console.log(relative);
         // console.log(page_numbers);
         return res.render('newspaper/categoried_posts', {
@@ -44,7 +49,8 @@ module.exports = {
             isDad: relative.isDad,
             Dad: relative.Dad,
             Children: relative.Children,
-            page_numbers
+            page_numbers,
+            hightlightPosts
         });
     },
 
@@ -71,6 +77,7 @@ module.exports = {
         const offset = (page - 1) * limit;
         let currentTag = await getTag(IDtag, offset);
         let posts = await findPostsByTag(IDtag);
+        // console.log(posts);
         let result = [];
         for (let i = 0; i < posts.length; i++) {
             let des = objectMapper(posts[i], rule1)
@@ -79,10 +86,15 @@ module.exports = {
             result.push(des)
         }
         // console.log(currentTag)
+
+        // Tim danh sach cac Post noi bat cung tag       
+        const hightlightPosts = await findHightlightPostsByTag(IDtag, 5, 0);
+
         return res.render('newspaper/tagged_posts', {
             posts: result,
             tagname: currentTag.Name,
-            page_numbers
+            page_numbers,
+            hightlightPosts
         });
     }
 
