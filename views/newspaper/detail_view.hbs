@@ -4,113 +4,196 @@
 
 {{#section 'css'}}
     <link rel="stylesheet" href="../../public/css/detail_view.css">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="../../public/css/template/bootstrap.min.css">
+    <link rel="stylesheet" href="../../public/css/template/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../public/css/template/ticker-style.css">
+    <link rel="stylesheet" href="../../public/css/template/flaticon.css">
+    <link rel="stylesheet" href="../../public/css/template/slicknav.css">
+    <link rel="stylesheet" href="../../public/css/template/animate.min.css">
+    <link rel="stylesheet" href="../../public/css/template/magnific-popup.css">
+    {{!-- <link rel="stylesheet" href="../../public/css/template/fontawesome-all.min.css"> --}}
+    <link rel="stylesheet" href="../../public/css/template/themify-icons.css">
+    <link rel="stylesheet" href="../../public/css/template/slick.css">
+    <link rel="stylesheet" href="../../public/css/template/nice-select.css">
+    <link rel="stylesheet" href="../../public/css/template/style.css">    
 {{/section}}
 
 {{#section 'js'}}
+<script src="../../public/js/template/vendor/modernizr-3.5.0.min.js"></script>
+   <!-- Jquery, Popper, Bootstrap -->
+   <script src="../../public/js/template/vendor/jquery-1.12.4.min.js"></script>
+   <script src="../../public/js/template/popper.min.js"></script>
+   <script src="../../public/js/template/bootstrap.min.js"></script>
+   <!-- Jquery Mobile Menu -->
+   <script src="../../public/js/template/jquery.slicknav.min.js"></script>
 
+      <!-- Jquery Slick , Owl-Carousel Plugins -->
+   <script src="../../public/js/template/owl.carousel.min.js"></script>
+   <script src="../../public/js/template/slick.min.js"></script>
+   <!-- Date Picker -->
+   <script src="../../public/js/template/gijgo.min.js"></script>
+   <!-- One Page, Animated-HeadLin -->
+   <script src="../../public/js/template/wow.min.js"></script>
+      <script src="../../public/js/template/animated.headline.js"></script>
+   <script src="../../public/js/template/jquery.magnific-popup.js"></script>
+
+      <!-- Scrollup, nice-select, sticky -->
+   <script src="../../public/js/template/jquery.scrollUp.min.js"></script>
+   <script src="../../public/js/template/jquery.nice-select.min.js"></script>
+   <script src="../../public/js/template/jquery.sticky.js"></script>
+   
+   <!-- contact js -->
+   <script src="../../public/js/template/contact.js"></script>
+   <script src="../../public/js/template/jquery.form.js"></script>
+   <script src="../../public/js/template/jquery.validate.min.js"></script>
+   <script src="../../public/js/template/mail-script.js"></script>
+   <script src="../../public/js/template/jquery.ajaxchimp.min.js"></script>
+   
+   <!-- Jquery Plugins, main Jquery -->	
+   <script src="../../public/js/template/plugins.js"></script>
+   <script src="../../public/js/template/main.js"></script>
 {{/section}}
-
-    <div class="container-fluid">
-        <div id="section-main" class="row">
-            <div class="col-md-8 ml-5 mb-2" id="content">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p><a href="http://localhost:3000/category/{{this.post.CatID}}">{{this.post.CatName}}</a></p>
-                    </div>
-                    <div class="text-right">
-                        <p class="d-inline font-italic">{{this.post.PubTime}}</p>
-                        <br/>
-                        <p class="d-inline">Soạn bởi: <a href="http://localhost:3000/writers/{{this.post.WriterID}}" class="font-italic">{{this.post.WriterName}}</a></p>
-                        <p class="d-inline font-italic">, {{this.post.Views}} views</p>
-                    </div>
-                </div>
-
-                <h2 class="my-4 text-info">{{this.post.Title}}</h2>
-                <p class="mr-3">{{{this.post.Content}}}</p>
-                <p class="text-right">Tags: 
-                    {{#each this.post.tags}}
-                        <a href="http://localhost:3000/tags/{{ID}}" class="font-italic">#{{Name}}</a> |
-                    {{/each}}
-                </p>
-            </div>
-
-            <div class="col-md-3" id="aside-right">
-                  <h3>Sidebar Menu</h3>
-                  <ul class="menu">
-                    <li><a href="#">Discussion</a></li>
-                    <li><a href="#">Authors</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Contact</a></li>
-                  </ul>
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-            </div>
-        </div>
-    </div>
-    <div class="content-item section" id="comments">
-        <div class="container">   
+<main>
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-lg-8">   
-                    <form action="" method="post">
-                        <h3 class="pull-left">Your Comment</h3>
-                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-sm-3 col-md-2 hidden-xs">
-                                    <img class="img-responsive w-100 rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-9 col-md-10">
-                                    <textarea class="form-control" id="message" name="comment" placeholder="Your message"></textarea>
-                                </div>
-                            </div>  	
-                        </fieldset>
-                    </form>
-                    
-                    <h3>{{this.num_comments}} Comments</h3>
-                    {{#each this.comments}}
-                    <!-- COMMENT-START -->
-                    <div class="media">
-                        <a class="pull-left" href="#"><img class="media-object rounded-circle" src="../../public/image/users/readers/1.jpg" alt=""></a>
-                        <div class="media-body">
-                            <h4 class="media-heading">{{ReaderName}}</h4>
-                            <p>{{Content}}</p>
-                            <ul class="list-unstyled list-inline media-detail pull-left">
-                                <li><i class="fa fa-calendar"></i>{{PubTime}}</li>
-                                <li><i class="fa fa-thumbs-up"></i>0</li>
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            <img class="img-fluid rounded" src="../../public/image/posts/{{this.post.ID}}/bigavt.jpg" alt="">
+                        </div>
+                        <div class="blog_details">
+                            <h1>{{this.post.Title}}</h1>
+                            <ul class="blog-info-link mt-3 mb-4">
+                                <li><a href="http://localhost:3000/category/{{this.post.CatID}}"><i class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
+                                <li><a href="#comments"><i class="fa fa-comments"></i>{{this.num_comments}} Comments</a></li>
                             </ul>
-                            <ul class="list-unstyled list-inline media-detail pull-right">
-                                <li class=""><a href="#">Like</a></li>
-                                <li class=""><a href="#">Reply</a></li>
-                                <li class=""><a href="/read/{{PostID}}/del-comment?id={{ID}}">Delete</a></li>
-                                <li class=""><a href="#" onclick="return editContent();">Edit</a></li>
-                            </ul>
+                            <p>{{{this.post.Content}}}</p>
                         </div>
                     </div>
-                    <!-- COMMENT-END -->
-                    {{/each}}
-                    <p class="more text-right"><a href="#">Read more &raquo;</a></p>
-                </div>
-
-                <div class="col-md-3 ml-5 right" id="aside-right">
-                  <h3>Sidebar Menu</h3>
-                  <ul class="menu">
-                    <li><a href="#">Discussion</a></li>
-                    <li><a href="#">Authors</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Contact</a></li>
-                  </ul>
-                  <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="font-italic">Tags: 
+                        {{#each this.post.tags}}
+                            <a href="http://localhost:3000/tags/{{ID}}" class="text-info">#{{Name}}</a> 
+                        {{/each}}
+                    </p>
+                    <div id="writer_post" class="row">
+                        <img src="../../public/image/users/writers/{{this.post.WriterID}}/ava.jpg" class="rounded-circle col-1" id="writer_ava">
+                        <div id="writer_info" class="col-9">
+                            <h5>{{this.post.Writer.Name}}</h5>
+                            <p class="font-italic">{{this.post.PubTime}}</p>
+                        </div>
+                        <h6 class="col-2 font-weight-light float-right text-right">{{this.post.Views}} views</h6>
                     </div>
-                  </div>
+                    <div class="content-item section" id="comments">
+                        <form action="" method="post">
+                            <h3 class="pull-left text-large">Your Comment</h3>
+                            <button type="submit" class="btn btn-info pull-right">Submit</button>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 hidden-xs">
+                                        <img class="img-responsive w-100 rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-9 col-md-10">
+                                        <textarea class="form-control" id="message" name="comment" placeholder="Your message"></textarea>
+                                    </div>
+                                </div>  	
+                            </fieldset>
+                        </form>
+                        <h3 class ="text-dark font-weight-bold">{{this.num_comments}} Comments</h3>
+                        {{#each this.comments}}
+                        <!-- COMMENT-START -->
+                        <div class="media comments-area">
+                            <a class="thumb pull-left" href="#"><img class="media-object rounded-circle" src="../../public/image/users/readers/1.jpg" alt=""></a>
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="media-heading">{{ReaderName}}</h4>
+                                    <a href="/read/{{PostID}}/del-comment?id={{ID}}" class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>{{Content}}</p>
+                                    <a href="#" onclick="return editContent();"  class="text-primary">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+
+                                <ul class="list-unstyled list-inline media-detail pull-left">
+                                    <li><i class="fa fa-calendar"></i>{{PubTime}}</li>
+                                    <li><i class="fa fa-thumbs-up"></i>0</li>
+                                </ul>
+                                <ul class="list-unstyled list-inline media-detail pull-right">
+                                    <li class=""><a href="#">Like</a></li>
+                                    <li class=""><a href="#">Reply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- COMMENT-END -->
+                        {{/each}}
+                        <p class="more text-right"><a href="#">Read more &raquo;</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title">Relative Post</h3>
+                            {{#if this.post_like_cat}}
+                                {{#each this.post_like_cat}}
+                                    <div class="media post_item">
+                                        <img src="../../public/image/posts/{{ID}}/smallavt.jpg" alt="post">                                            <div class="media-body">
+                                        <a href="http://localhost:3000/read/{{ID}}"><h3>{{Title}}</h3></a>
+                                        <p>{{Abstract}}</p>
+                                        <p>
+                                            Tags:
+                                            {{#each tags}}
+                                                <a href="#">#{{Name}} </a>
+                                            {{/each}}
+                                        </p>
+                                        <p>{{PubTime}}</p>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{else}}
+                                <p>None post is in like category</p>
+                            {{/if}}
+                        </aside>
+                        <aside class="single_sidebar_widget tag_cloud_widget">
+                            <h4 class="widget_title">Tag Clouds</h4>
+                            <ul class="list">
+                                <li>
+                                    <a href="#">project</a>
+                                </li>
+                                <li>
+                                    <a href="#">love</a>
+                                </li>
+                            </ul>
+                        </aside>
+                        <aside class="single_sidebar_widget instagram_feeds">
+                            <h4 class="widget_title">Instagram Feeds</h4>
+                            <ul class="instagram_row flex-wrap">
+                                <li>
+                                    <a href="#">
+                                        <img class="img-fluid" src="assets/img/post/post_5.png" alt="">
+                                    </a>
+                                    <a href="#">
+                                        <img class="img-fluid" src="assets/img/post/post_6.png" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </aside>
+                        <aside class="single_sidebar_widget newsletter_widget">
+                            <h4 class="widget_title">Newsletter</h4>
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                                </div>
+                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                    type="submit">Subscribe</button>
+                            </form>
+                        </aside>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </section>
+</main>

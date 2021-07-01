@@ -9,8 +9,8 @@ module.exports = {
 
 
 /*
-       Tim danh sach Category la con cua Parent Category 
-   */
+Tim danh sach Category la con cua Parent Category 
+*/
 async function findChildCategories(parentCate) {
     const result = await db('Categories')
         .where({

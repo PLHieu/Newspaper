@@ -9,7 +9,7 @@ module.exports = {
         const post = rows[0];
 
         const WriterPost = await db('Writers').where('ID', post.WriterID);
-        post.WriterName = WriterPost[0].Name;
+        post.Writer= WriterPost[0];
         const CatPost = await db('Categories').where('ID', post.CatID)
         post.CatName = CatPost[0].Name;
         await db('Posts').where('ID', id_post).update('Views',post.Views + 1);//post.Views
@@ -26,6 +26,18 @@ module.exports = {
         return post;
    },
 
+   async findTagsByPostID(id_post){
+        tags_id = await db('PostTag').where('PostID', id_post);
+        if (tags.length > 0){
+            for (let i = 0; i < tags.length; i++) {
+                tag = await db('Tags').where('ID', tags[i].TagID);
+                tags[i] = tag[0];
+            }
+            return tags;
+        }
+        return null;
+   },
+
    async findCommentByID(id_post){
         const rows = await db('Comments').where('PostID', id_post);
         for (let i = 0; i < rows.length; i++) {
@@ -39,6 +51,11 @@ module.exports = {
             rows[i].PubTime =moment(rows[i].PubTime).format("DD/MM/YYYY HH:mm:ss")
         }
         return rows;
+   },
+
+   async full_text_search(text_search){
+       const query = `SELECT * FROM Posts WHERE MATCH (Title, Abstract,Content) AGAINST (${text_search} IN NATURAL LANGUAGE MODE)\G`;
+       return await db('Posts').raw(query);
    },
 
     addComment(new_comment){

@@ -19,7 +19,7 @@ exports.register = async function(req, res) {
         ExpTime: null
     }
     await reader.add(user);
-  res.render('account/login', {
+  res.redirect('/login', {
       after_register: "Bạn đã đăng kí thành công"
   });
 }

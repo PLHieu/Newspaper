@@ -18,7 +18,7 @@ module.exports = {
             return await findByLevel1Category(IDcategory, offset);
         }
 
-        if (level == 2) {
+        if (level === 2) {
             return await findByLevel2Category(IDcategory, offset);
         }
     },

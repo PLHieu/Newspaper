@@ -1,9 +1,3 @@
-body{margin-top:20px;}
-
-#content{
-	box-shadow: 3px 1px 3px -3px rgba(0, 0, 0, 0.432);
-}
-
 .content-item {
     padding:30px 0;
 	background-color:#FFFFFF;
@@ -56,8 +50,9 @@ body{margin-top:20px;}
 
 
 #comments {
-    box-shadow: 0 -1px 3px 1px rgba(0,0,0,0.1);
+    /* box-shadow: 0 -1px 3px 1px rgba(0,0,0,0.1); */
 	background-color:#FFFFFF;
+	border-top:1px ridge #DDDDDD;
 }
 
 #comments form {

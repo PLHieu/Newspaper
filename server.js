@@ -26,6 +26,7 @@ require('./routes/user.routes')(app);
 require('./middlewares/view.mdw')(app);
 
 app.use('/read',require('./routes/newspaper.routes'));
+app.use('/search',require('./routes/search.routes'));
 
 
 const PORT = process.env.PORT || 3000;
