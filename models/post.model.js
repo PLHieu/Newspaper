@@ -64,6 +64,24 @@ module.exports = {
             .limit(postsLimit)
             .offset(offset);
         return listPosts;
+    },
+    async countPostByCategory(IDcategory) {
+        const level = await findLevel(IDcategory);
+        if (level === 1) {
+            return await countByLevel1Category(IDcategory);
+        }
+
+        if (level === 2) {
+            return await countByLevel2Category(IDcategory);
+        }
+    },
+
+    async countPostByTag(IDTag) {
+        const rows = await db('PostTag')
+            .where('TagID', IDTag)
+            .count('*', { as: 'total' });
+        // console.log(rows);
+        return rows[0].total;
     }
 
 
@@ -107,4 +125,26 @@ async function findByLevel2Category(IDcategory, offset) {
         .limit(postsLimit)
         .offset(offset)
     return rows;
+}
+/*
+    So Luong bai viet theo Category o Level 2 (thap)
+*/
+async function countByLevel2Category(IDcategory) {
+    const rows = await db('Posts')
+        .where({
+            CatID: IDcategory,
+        })
+        .count('*', { as: 'total' })
+    return rows[0].total;
+}
+/*
+    So Luong bai viet theo Category o Level 1 (cao)
+*/
+async function countByLevel1Category(IDcategory) {
+    const childrenCate = await findChildCategories(IDcategory);
+    const childrenCateID = childrenCate.map(ele => ele.ID);
+    const rows = await db('Posts')
+        .whereIn('CatID', childrenCateID)
+        .count('*', { as: 'total' })
+    return rows[0].total;
 }
