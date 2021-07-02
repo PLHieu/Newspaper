@@ -1,12 +1,25 @@
 const db = require('../utils/db')
 module.exports = {
     findChildCategories: findChildCategories,
+    findDadCategories: findDadCategories,
     findLevel: findLevel,
     findRelative: findRelative,
     getTag: getTag,
+    all() {
+        return db('categories');
+    },
 }
 
-
+/*
+    Tim danh sach Category la Dad
+*/
+    async function findDadCategories() {
+    const result = await db('Categories')
+        .where({
+            ParentID: null
+        })
+    return result;
+}
 
 /*
 Tim danh sach Category la con cua Parent Category 

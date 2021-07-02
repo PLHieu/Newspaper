@@ -113,7 +113,28 @@ module.exports = {
         }
         return await findHightlightByLevel2Category(IDcategory, limit, offset);
     },
-
+    /*
+    Tim top 10 bài viết xem nhiều nhất
+    */
+    async findTop10MostRead() {
+        const rows = await db('Posts')
+            .orderBy('Views', 'desc')
+            .limit(10)
+        return rows;
+    },
+    async findTop10New() {
+        const rows = await db('Posts')
+            .orderBy('WriteTime', 'desc')
+            .limit(10)
+        return rows;
+    },
+    /*
+    async findTop1PostPer10Cate() {
+        const rows = await db('Categories')
+            .orderBy('WriteTime', 'desc')
+            .limit(10)
+        return rows;
+    }*/
 }
 
 /*
@@ -205,3 +226,4 @@ async function findHightlightByLevel2Category(IDcategory, limit, offset) {
         .offset(offset)
     return rows;
 }
+

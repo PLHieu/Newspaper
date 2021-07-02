@@ -1,6 +1,5 @@
 const exphbs = require('express-handlebars');
 hbs_sections = require('express-handlebars-sections');
-
 module.exports = function (app) {
     app.engine('hbs', exphbs({
         defaultLayout: 'main.hbs',
@@ -11,7 +10,6 @@ module.exports = function (app) {
     }));
     app.set('view engine', 'hbs');
 }
-
 
 function parseAuthorDate(post) {
     let published_date = new Date(post.NgayDang)

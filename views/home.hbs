@@ -1,3 +1,282 @@
-<a href="http://localhost:3000/read" class="btn btn-lg" target="_blank" >
-    Read a newspaper
-</a>
+{{#section 'title'}}
+    <title>Home</title>
+{{/section}}
+{{#section 'css'}}
+    <link rel="stylesheet" href="../../public/css/template/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../public/css/template/ticker-style.css">
+    <link rel="stylesheet" href="../../public/css/template/flaticon.css">
+    <link rel="stylesheet" href="../../public/css/template/slicknav.css">
+    <link rel="stylesheet" href="../../public/css/template/animate.min.css">
+    <link rel="stylesheet" href="../../public/css/template/magnific-popup.css">
+    {{!--
+    <link rel="stylesheet" href="../../public/css/template/fontawesome-all.min.css"> --}}
+    <link rel="stylesheet" href="../../public/css/template/themify-icons.css">
+    <link rel="stylesheet" href="../../public/css/template/slick.css">
+    <link rel="stylesheet" href="../../public/css/template/nice-select.css">
+    <link rel="stylesheet" href="../../public/css/template/style.css">
+    <link rel="stylesheet" href="../../public/css/csscuahieu.css">  
+{{/section}}
+
+{{#section 'js'}}
+<script src="../../public/js/template/vendor/modernizr-3.5.0.min.js"></script>
+   <!-- Jquery, Popper, Bootstrap -->
+   <script src="../../public/js/template/vendor/jquery-1.12.4.min.js"></script>
+   <script src="../../public/js/template/popper.min.js"></script>
+   <script src="../../public/js/template/bootstrap.min.js"></script>
+   <!-- Jquery Mobile Menu -->
+   <script src="../../public/js/template/jquery.slicknav.min.js"></script>
+
+      <!-- Jquery Slick , Owl-Carousel Plugins -->
+   <script src="../../public/js/template/owl.carousel.min.js"></script>
+   <script src="../../public/js/template/slick.min.js"></script>
+   <!-- Date Picker -->
+   <script src="../../public/js/template/gijgo.min.js"></script>
+   <!-- One Page, Animated-HeadLin -->
+   <script src="../../public/js/template/wow.min.js"></script>
+      <script src="../../public/js/template/animated.headline.js"></script>
+   <script src="../../public/js/template/jquery.magnific-popup.js"></script>
+
+      <!-- Scrollup, nice-select, sticky -->
+   <script src="../../public/js/template/jquery.scrollUp.min.js"></script>
+   <script src="../../public/js/template/jquery.nice-select.min.js"></script>
+   <script src="../../public/js/template/jquery.sticky.js"></script>
+   
+   <!-- contact js -->
+   <script src="../../public/js/template/contact.js"></script>
+   <script src="../../public/js/template/jquery.form.js"></script>
+   <script src="../../public/js/template/jquery.validate.min.js"></script>
+   <script src="../../public/js/template/mail-script.js"></script>
+   <script src="../../public/js/template/jquery.ajaxchimp.min.js"></script>
+   
+   <!-- Jquery Plugins, main Jquery -->	
+   <script src="../../public/js/template/plugins.js"></script>
+   <script src="../../public/js/template/main.js"></script>
+{{/section}}
+
+{{#section 'preload'}}
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="../public/image/logo/logo.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{{/section}}
+<main>
+    <!-- About US Start -->
+    <div class="about-area2 gray-bg pt-60 pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="whats-news-wrapper">
+                        <!-- Heading & Nav Button -->
+                        <div class="row justify-content-between align-items-end mb-15">
+                            <div class="col-xl-12">
+                                <div class="section-tittle mb-30 ml-15">
+                                    <h3><a href="#">Bài viết mới nhất</a></h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Tab content -->
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Nav Card -->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- card one -->
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                        aria-labelledby="nav-home-tab">
+
+                                        {{#each this.top10PostNew}}
+
+                                        <div class="row hangdanhmuc pb-20 mb-20">
+                                            <div class="col-xl-8 col-lg-8 col-md-12">
+                                                <div class="whats-news-single">
+                                                    <div class="whates-caption whates-caption2">
+                                                        <h4><a href="/read/{{ID}}">{{Title}}</a></h4>
+                                                        <span class="mb-2">{{WriteTime}}</span>
+                                                        <p>{{Abstract}}</p>
+                                                    </div>
+                                                    <div>
+                                                        {{#each this.CatID}}
+                                                        <span><a href="/post/category/{{CatID}}"
+                                                                class="badge badge-danger">{{CatID}}</a></span>
+                                                        {{/each}}
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-12">
+                                                <div class="anhdanhmuc">
+                                                    <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{/each}}
+
+
+                                    </div>
+                                    <!-- Card two -->
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+
+                                    </div>
+                                </div>
+                                <!-- End Nav Card -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Start pagination 
+                    <div class="pagination-area mt-4 gray-bg pb-45">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="single-wrap">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-start">
+
+                                                {{#each this.page_numbers}}
+                                                {{#if isCurrent}}
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{else}}
+                                                <li class="page-item "><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{/if}}
+                                                {{/each}}
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     End pagination  -->
+
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="whats-news-wrapper">
+                        <!-- Heading & Nav Button -->
+                        <div class="row justify-content-between align-items-end mb-15">
+                            <div class="col-xl-12">
+                                <div class="section-tittle mb-30 ml-15">
+                                    <h3><a href="#">Bài viết phổ biến</a></h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Tab content -->
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Nav Card -->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- card one -->
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                        aria-labelledby="nav-home-tab">
+
+                                        {{#each this.top10PostMostRead}}
+
+                                        <div class="row hangdanhmuc pb-20 mb-20">
+                                            <div class="col-xl-8 col-lg-8 col-md-12">
+                                                <div class="whats-news-single">
+                                                    <div class="whates-caption whates-caption2">
+                                                        <h4><a href="/read/{{ID}}">{{Title}}</a></h4>
+                                                        <span class="mb-2">{{WriteTime}}</span>
+                                                        <p>{{Abstract}}</p>
+                                                    </div>
+                                                    <div>
+                                                        {{#each this.CatID}}
+                                                        <span><a href="/post/category/{{CatID}}"
+                                                                class="badge badge-danger">{{CatID}}</a></span>
+                                                        {{/each}}
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-12">
+                                                <div class="anhdanhmuc">
+                                                    <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{/each}}
+
+
+                                    </div>
+                                    <!-- Card two -->
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+
+                                    </div>
+                                </div>
+                                <!-- End Nav Card -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Start pagination 
+                    <div class="pagination-area mt-4 gray-bg pb-45">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="single-wrap">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-start">
+
+                                                {{#each this.page_numbers}}
+                                                {{#if isCurrent}}
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{else}}
+                                                <li class="page-item "><a class="page-link"
+                                                        href="?page={{value}}">{{value}}</a>
+                                                </li>
+                                                {{/if}}
+                                                {{/each}}
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     End pagination  -->
+
+                </div>
+                <!--
+                <div class="col-lg-4">
+
+                     <div class="w-100 tieude-right-sidebar">
+                        Nổi bật trong Du Lịch
+                    </div>
+
+                    {{#each this.hightlightPosts}}
+                    <a href = "/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
+                        <div class="w-75 d-inline-block p-3" style="font-size: medium;">{{Title}}</div>
+                        <img src="{{imgurl}}" class="d-inline-block w-25 p-1"
+                            style="border-radius: 10px;" alt="">
+                    </a>
+                    {{/each}}
+
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    <!-- About US End -->
+    
+</main>

@@ -2,32 +2,104 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     {{{_sections.title}}}
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     {{{_sections.css}}}
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand">Navbar</a>
-        <form id ="search_frm" action="http://localhost:3000/search" class="form-inline" method="GET">
-            <input name="text_search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-        </form>
-    </nav>
+    {{{_sections.preload}}}
+    <div class ="container">
+         <img src="../../public/image/logo/logo.png" alt="logo" style="padding-right: 15px;">
+        <i class="fa fa-calendar" aria-hidden="true" > <i id ="dmy"></i> </i>
+            
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 shadow sticky-top">
+        <a class="navbar-brand" href="/">
+            <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {{#each lcCategories.cates}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            {{Name}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            
+                            {{#each child}}
+                                <a class="dropdown-item" href="/post/tag/{{ID}}">{{Name}} </a>
+                            {{/each}}
+                            
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>    
+            <ul class="navbar-nav">
+                {{#if auth}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Hi, <b>{{authUser.name}}</b>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/account/profile">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Sign Out
+                        </a>
+                    </div>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                <a class="nav-link" href="/account/register">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Register
+                </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/account/login">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    Sign In
+                </a>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
     {{{body}}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
     {{!-- <script>
         const form = $('#search_frm');
         $('#search_frm').on('submit', function(e){
@@ -45,6 +117,12 @@
             });
         });
     </script> --}}
+    <script type="text/javascript">
+        let date = new Date();
+        let data = date.getDay() + '/' +date.getMonth() + '/' + date.getFullYear();
+        $("#dmy").html(data)
+        
+    </script>
     {{{_sections.js}}}
     
 </body>
