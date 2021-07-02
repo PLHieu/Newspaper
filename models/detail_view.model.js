@@ -1,6 +1,5 @@
 const db = require('../utils/db');
 const moment = require('moment');
-const post_cat_tag_db = require('../models/post.model');
 
 module.exports = {
     async findPostByID(id_post){
@@ -16,24 +15,22 @@ module.exports = {
         await db('Posts').where('ID', id_post).update('Views',post.Views + 1);//post.Views
         post.Views += 1;
         post.PubTime = moment(post.PubTime).format("DD/MM/YYYY HH:mm:ss");
-        const tags = await db('PostTag').where('PostID', id_post);
-        if (tags.length > 0){
-            for (let i = 0; i < tags.length; i++) {
-                tag = await db('Tags').where('ID', tags[i].TagID);
-                tags[i] = tag[0];
-              }
-        }
-        post.tags = tags;
+        post.tags = await findTagsByPostID(id_post);
         post.comments = await findCommentByID(id_post);
         post.num_comments = post.comments.length;
-        five_post_like_cat = await post_cat_tag_db.findByCategory(post.CatID, 5);
+        five_post_like_cat = await findRelatedPostByCatID(post.ID,post.CatID);
         for (let i = 0; i <five_post_like_cat.length; i++){
             p = five_post_like_cat[i];
             tags = await findTagsByPostID(p.ID);
             five_post_like_cat[i].tags = tags;
+            five_post_like_cat[i].PubTime = moment(five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
+            const Writer = await db('Writers').where('ID', five_post_like_cat[i].WriterID);
+            five_post_like_cat[i].Writer= Writer[0];
+            const CatPost = await db('Categories').where('ID', five_post_like_cat[i].CatID)
+            five_post_like_cat[i].CatName = CatPost[0].Name;
         }
+        console.log(five_post_like_cat);
         post.five_post_like_cat = five_post_like_cat;
-        console.log(post);
         return post;
    },
 
@@ -55,6 +52,12 @@ module.exports = {
    }
 };
 
+async function findRelatedPostByCatID(postID,catID){
+    const offset = 5;
+    return await db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
+};
+
+
 async function findCommentByID(id_post){
     const rows = await db('Comments').where('PostID', id_post);
     for (let i = 0; i < rows.length; i++) {
@@ -71,7 +74,7 @@ async function findCommentByID(id_post){
 };
 
 async function findTagsByPostID(id_post){
-     tags_id = await db('PostTag').where('PostID', id_post);
+     tags = await db('PostTag').where('PostID', id_post);
      if (tags.length > 0){
          for (let i = 0; i < tags.length; i++) {
              tag = await db('Tags').where('ID', tags[i].TagID);

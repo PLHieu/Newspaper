@@ -78,7 +78,7 @@
                         <div class="blog_details">
                             <h1>{{this.post.Title}}</h1>
                             <ul class="blog-info-link mt-3 mb-4">
-                                <li><a href="http://localhost:3000/category/{{this.post.CatID}}"><i class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
+                                <li><a href="http://localhost:3000/post/category/{{this.post.CatID}}"><i class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
                                 <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Comments</a></li>
                             </ul>
                             <p>{{{this.post.Content}}}</p>
@@ -86,7 +86,7 @@
                     </div>
                     <p class="font-italic"><i class="fa fa-tags"></i> Tags: 
                         {{#each this.post.tags}}
-                            <a href="http://localhost:3000/tags/{{ID}}" class="text-info">#{{Name}}</a> 
+                            <a href="http://localhost:3000/post/tag/{{ID}}" class="text-info">#{{Name}}</a> 
                         {{/each}}
                     </p>
                     <div id="writer_post" class="row">
@@ -148,21 +148,31 @@
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title">Relative Post</h3>
-                            {{#if this.post.post_like_cat}}
-                                {{#each this.post.post_like_cat}}
-                                    <div class="media post_item">
-                                        <img src="../../public/image/posts/{{ID}}/smallavt.jpg" alt="post">                                            <div class="media-body">
-                                        <a href="http://localhost:3000/read/{{ID}}"><h3>{{Title}}</h3></a>
-                                        <p>{{Abstract}}</p>
-                                        <p>
-                                            Tags:
-                                            {{#each tags}}
-                                                <a href="#">#{{Name}} </a>
-                                            {{/each}}
-                                        </p>
-                                        <p>{{PubTime}}</p>
+                            {{#if this.post.five_post_like_cat}}
+                                {{#each this.post.five_post_like_cat}}
+                                    <article class="blog_item">
+                                        <div class="blog_item_img">
+                                            <img class="card-img rounded" src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                         </div>
-                                    </div>
+                                        <div class="blog_details">
+                                            <a class="d-inline-block" href="http://localhost:3000/read/{{ID}}">
+                                                <h2>{{Title}}</h2>
+                                            </a>
+                                            <small class="font-italic">by {{Writer.Name}} - {{PubTime}}</small>
+                                            <p>{{Abstract}}</p>
+                                            <ul class="blog-info-link">
+                                                <li class="font-italic">
+                                                    <i class="fa fa-tags">
+                                                    </i>
+                                                    
+                                                        Tags:
+                                                        {{#each tags}}
+                                                        <a href="http://localhost:3000/tag/{{ID}}" class="text-dark h6 font-italic">#{{Name}} </a>
+                                                        {{/each}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </article>
                                 {{/each}}
                             {{else}}
                                 <p>None post is in like category</p>

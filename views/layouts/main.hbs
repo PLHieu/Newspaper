@@ -54,6 +54,12 @@
                 {{/each}}
             </ul>    
             <ul class="navbar-nav">
+                <form id ="search_frm" action="http://localhost:3000/search" class="form-inline" method="GET">
+                    <input name="text_search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
                 {{#if auth}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
