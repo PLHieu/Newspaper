@@ -1,27 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const posts_db = require('../models/detail_view.model');
-const post_cat_tag_db = require('../models/post.model');
 const moment = require('moment');
 
 router.get('/:id', async function (req, res){
     id_post = req.params.id;
     post = await posts_db.findPostByID(id_post);
-    comments = await posts_db.findCommentByID(id_post);
     if (post === null){
         return res.status(404).send("Khong ton tai bai post");
     }
-    five_post_like_cat = await post_cat_tag_db.findByCategory(post.CatID, 5);
-    for (let i = 0; i <five_post_like_cat.length; i++){
-        p = five_post_like_cat[i];
-        tags = await posts_db.findTagsByPostID(p.ID);
-        five_post_like_cat[i].tags = tags;
-    }
-    console.log(five_post_like_cat[0]);
     res.status(200).render('newspaper/detail_view',{
         post: post,
-        comments: comments,
-        num_comments: comments.length,
         //post_like_cat: five_post_like_cat
     });
 });
@@ -37,14 +26,11 @@ router.post('/:id', async function (req, res){
     
     id_post = req.params.id;
     post = await posts_db.findPostByID(id_post);
-    comments = await posts_db.findCommentByID(id_post);
     if (post === null){
         return res.status(404).send("Khong ton tai bai post");
     }
     res.status(200).render('newspaper/detail_view',{
         post: post,
-        comments: comments,
-        num_comments: comments.length
     });
 });
 
