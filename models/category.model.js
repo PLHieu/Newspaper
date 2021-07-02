@@ -2,6 +2,7 @@ const db = require('../utils/db')
 module.exports = {
     findChildCategories: findChildCategories,
     findDadCategories: findDadCategories,
+    findListChild: findListChild,
     findLevel: findLevel,
     findRelative: findRelative,
     getTag: getTag,
@@ -20,7 +21,14 @@ module.exports = {
         })
     return result;
 }
-
+/*
+    Tim danh sach Category la Child
+*/
+async function findListChild() {
+    const result = await db('Categories')
+        .whereNotNull('ParentID')
+    return result;
+}
 /*
 Tim danh sach Category la con cua Parent Category 
 */

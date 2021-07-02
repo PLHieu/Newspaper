@@ -22,79 +22,104 @@
 <body>
     {{{_sections.preload}}}
     <div class ="container">
-         <img src="../../public/image/logo/logo.png" alt="logo" style="padding-right: 15px;">
-        <i class="fa fa-calendar" aria-hidden="true" > <i id ="dmy"></i> </i>
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-9">
+                <img src="../../public/image/logo/logo.png" alt="logo" style="padding-right: 15px;">
+                <i class="fa fa-calendar" aria-hidden="true" > <i id ="dmy"></i> </i>
+            </div>
             
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 shadow sticky-top">
-        <a class="navbar-brand" href="/">
-            <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {{#each lcCategories.cates}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="true">
-                            {{Name}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            
-                            {{#each child}}
-                                <a class="dropdown-item" href="/post/tag/{{ID}}">{{Name}} </a>
-                            {{/each}}
-                            
-                        </div>
-                    </li>
-                {{/each}}
-            </ul>    
-            <ul class="navbar-nav">
+            <div class="col-xl-4 col-lg-4 col-md-3 f-right mt-10">
                 <form id ="search_frm" action="http://localhost:3000/search" class="form-inline" method="GET">
-                    <input name="text_search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-success" type="submit">
+                    <input name="text_search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 80%; height:70%">
+                    <button class="btn btn-success" type="submit" style="width: 30px; height:30px; padding:0 0 0 0;">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </form>
-                {{#if auth}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Hi, <b>{{authUser.name}}</b>
+            </div>
+        </div>
+        
+        <!--
+        {{#if auth}}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Hi, <b>{{authUser.name}}</b>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/account/profile">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    Profile
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/account/profile">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        Sign Out
-                        </a>
-                    </div>
-                </li>
-                {{else}}
-                <li class="nav-item">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Sign Out
+                    </a>
+                </div>
+            </li>
+            {{else}}
+            <li class="nav-item">
                 <a class="nav-link" href="/account/register">
                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                     Register
                 </a>
-                </li>
-                <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/account/login">
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
                     Sign In
                 </a>
-                </li>
-                {{/if}}
-            </ul>
+            </li>
+        {{/if}}-->
+    </div>
+
+    <header>
+    <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                
+                <div class="header-bottom header-sticky">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-11 col-lg-11 col-md-12 header-flex">
+                                <!-- sticky 
+                                <div class="sticky-logo">
+                                    <a href="index.html"><img src="/public/image/logo/logo.png" alt=""></a>
+                                </div>-->
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-md-block">
+                                    <nav>                  
+                                        <ul id="navigation">
+                                            <li><a href="/"><i class="fa fa-home fa-lg" aria-hidden="true"></i></a></li>
+                                            {{#each lcCategories}}
+                                                <li><a href="/post/category/{{ID}}">{{Name}}</a>
+                                                    <ul class="submenu">
+                                                        {{#each child}}
+                                                            <li><a href="/post/tag/{{ID}}">{{Name}}</a></li>
+                                                        {{/each}}
+                                                        
+                                                    </ul>
+                                                </li>
+                                            {{/each}}
+                                            
+
+                                        </ul>
+                                    </nav>
+                                </div>    
+                            </div>  
+                            
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-md-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+        <!-- Header End -->
+    </header>
+    
     {{{body}}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -122,7 +147,7 @@
     </script> --}}
     <script type="text/javascript">
         let date = new Date();
-        let data = date.getDay() + '/' +date.getMonth() + '/' + date.getFullYear();
+        let data = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
         $("#dmy").html(data)
         
     </script>

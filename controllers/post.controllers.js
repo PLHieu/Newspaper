@@ -1,6 +1,6 @@
 var objectMapper = require('object-mapper');
 const moment = require('moment');
-const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag, findTop10MostRead, findTop10New } = require("../models/post.model");
+const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag, findTop10MostRead, findTop10New, findTop1PostPerCate, top5Post } = require("../models/post.model");
 const {findDadCategories, findRelative, getTag, findChildCategories} = require('../models/category.model');
 const { rule1 } = require('../utils/mapper');
 const { postsLimit } = require('../config/const.config');
@@ -114,7 +114,7 @@ module.exports = {
             result1.push(des)
         }
         //console.log(result1[0]);
-        console.log(result1)
+        //console.log(result1)
         return {
             cates: result1}
     },
@@ -122,6 +122,8 @@ module.exports = {
 
         const top10MostRead = await findTop10MostRead();
         const top10New = await findTop10New()
+        const listCate1Post = await findTop1PostPerCate();
+        const top5HighLightPost = await top5Post();
 
         for (let i = 0; i < top10MostRead.length; i++) {
             top10MostRead[i].WriteTime = moment(top10MostRead[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
@@ -129,44 +131,18 @@ module.exports = {
         for (let i = 0; i < top10New.length; i++) {
             top10New[i].WriteTime = moment(top10New[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
         }
-        /*
-        const limit = postsLimit;
-        const page = req.query.page || 1;
-        if (page < 1) page = 1;
-
-        const total = await  countPostByCategory(IDcategory);
-        // console.log(total);
-        let nPages = Math.floor(total / limit);
-        if (total % limit > 0) nPages++;
-
-        const page_numbers = [];
-        for (i = 1; i <= nPages; i++) {
-            page_numbers.push({
-                value: i,
-                isCurrent: i === +page
-            });
+        for (let i = 0; i < listCate1Post.length; i++) {
+            listCate1Post[i].post.WriteTime = moment(listCate1Post[i].post.WriteTime).format("DD/MM/YYYY HH:mm:ss");
         }
-
-        const offset = (page - 1) * limit;
-        const posts = await findByCategory(IDcategory, offset);
-        for (let i = 0; i < posts.length; i++) {
-            let des = objectMapper(posts[i], rule1)
-            const tags = await findTagsOfPost(posts[i].ID)
-            des.tags = tags;
-            result.push(des)
+        for (let i = 0; i < top5HighLightPost.length; i++) {
+            top5HighLightPost[i].WriteTime = moment(top5HighLightPost[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
         }
-
-        const relative = await findRelative(IDcategory);
-
-        // Tim danh sach cac Post noi bat cung chuyen muc        
-        const hightlightPosts = await findHightlightByCategory(IDcategory, 5, 0);
-        */
-
-        // console.log(relative);
-        // console.log(page_numbers); ,
+       
         return res.render( 'home',  {
             top10PostMostRead: top10MostRead,
             top10PostNew: top10New,
+            listCate1Post: listCate1Post,
+            top5HighLightPost: top5HighLightPost,
         });
     }
 

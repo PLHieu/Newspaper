@@ -1,6 +1,8 @@
+var objectMapper = require('object-mapper');
 const { postsLimit } = require('../config/const.config');
 const db = require('../utils/db');
-const { findChildCategories, findLevel } = require('./category.model');
+const { rule1 } = require('../utils/mapper');
+const { findListChild, findChildCategories, findLevel } = require('./category.model');
 
 module.exports = {
 
@@ -128,13 +130,42 @@ module.exports = {
             .limit(10)
         return rows;
     },
-    /*
-    async findTop1PostPer10Cate() {
-        const rows = await db('Categories')
-            .orderBy('WriteTime', 'desc')
-            .limit(10)
+    
+    async findTop1PostPerCate() {
+        let childCate =[];
+        let child = await findListChild();
+        for (let i =0; i<child.length; i++){
+            let count = await countByLevel2Category(child[i].ID)
+
+            if (count > 0){
+                childCate.push(child[i]);
+            }
+        }
+        //console.log(childCate);
+        let listCate = [];
+        for (let i =0; i<childCate.length; i++){
+            let des = objectMapper(childCate[i], rule1)
+            let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
+            des.Name = childCate[i].Name;
+            des.post=post;
+            listCate.push(des);
+        }
+        while(listCate.length > 10) {
+            listCate.pop()
+        };
+        //console.log(listCate);
+        return listCate;
+    },
+    async top5Post() {
+        var d = new Date();
+        d.setDate(d.getDate()-7);
+
+        const rows = await db('Posts')
+            .where('WriteTime','>',d)
+            .orderBy('Views', 'desc')
+            .limit(5)
         return rows;
-    }*/
+    }
 }
 
 /*
