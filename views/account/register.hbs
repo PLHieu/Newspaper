@@ -1,6 +1,11 @@
 
 {{#section 'css'}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+  <!-- Font Icon -->
+    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="../../public/css/style.css">
 {{/section}}
  
 {{#section 'title'}}
@@ -9,27 +14,16 @@
 
 {{#section 'js'}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<!-- JS -->
+    {{!-- <script src="../../public/js/template/vendor/jquery.min.js"></script>
+    <script src="../../public/js/template/main.js"></script> --}}
 <script>
-  function isValidEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-  }
-        
-  function isEmptyText(idtext, message){
-    const text = $(`#${idtext}`).val();
-    if (text.length === 0 || text ===`__/__/____`){
-      alert( `Invalid ${message}`);
-      $(`#${idtext}`).focus();
-      return true;
-      }
-    return false;
-  }
-        
   $('#txtDOB').datetimepicker({
     format:'d/m/Y',
     timepicker: false,
     mask: true,
-  });
+    maxDate: new Date()
+  }); 
   $('#formRegister').on('submit', function(e) {
     e.preventDefault();
     if (isEmptyText('txtUsername',"Username"))
@@ -44,7 +38,9 @@
       return;
     if (isEmptyText('txtDOB',"Date of Birth"))
       return;
+    const username = $('#txtUsername').val();
     $.getJSON(`/is-available?username=${username}`, function(data){
+      console.log(data);
       if (data === false){
         alert('Username is existed.');
         $('#txtConfirm').focus();
@@ -63,47 +59,72 @@
       $('#formRegister').off('submit').submit();
     });
   });
+
+  function isValidEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
+        
+  function isEmptyText(idtext, message){
+    const text = $(`#${idtext}`).val();
+    if (text.length === 0 || text ===`__/__/____`){
+      alert( `Invalid ${message}`);
+      $(`#${idtext}`).focus();
+      return true;
+      }
+    return false;
+  }
 </script>
 {{/section}}
 
-<div class="card">
-  <h4 class="card-header">
-    Register
-  </h4>
-  <div class="card-body">
-    <form id="formRegister" method="POST">
-      <div class="form-group">
-        <label for="txtCatName">Username</label>
-        <input type="text" class="form-control" id="txtUsername" name="username" autofocus>
-      </div>
-      <div class="form-group">
-        <label for="txtPassword">Password</label>
-        <input type="password" class="form-control" id="txtPassword" name="raw_password">
-      </div>
-      <div class="form-group">
-        <label for="txtConfirm">Confirm Password</label>
-        <input type="password" class="form-control" id="txtConfirm" name="">
-      </div>
-      <div class="form-group">
-        <label for="txtName">Name</label>
-        <input type="text" class="form-control" id="txtName" name="name">
-      </div>
-      <div class="form-group">
-        <label for="txtEmail">Email</label>
-        <input type="text" class="form-control" id="txtEmail" name="email">
-      </div>
-      <div class="form-group">
-        <label for="txtAddress">Address</label>
-        <input type="text" class="form-control" id="txtAddress" name="address">
-      </div>
-      <div class="form-group">
-        <label for="txtDOB">Date of Birth</label>
-        <input type="text" class="form-control" id="txtDOB" name="raw_dob">
-      </div>
-      <button type="submit" class="btn btn-success">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        Register
-      </button>
-    </form>
-  </div>
-</div>
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="formRegister">
+                            <div class="form-group">
+                                <label for="txtUsername"><i class="fa fa-user"></i></label>
+                                <input type="text" name="username" id="txtUsername" placeholder="Your Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtPassword"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="raw_password" id="txtPassword" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtConfirm"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="txtConfirm" placeholder="Repeat your password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="txtName" placeholder="Your Full Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtEmail"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="email" id="txtEmail" placeholder="Your Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtAddress"><i class="fa fa-map-marker"></i></label>
+                                <input type="text" name="address" id="txtAddress" placeholder="Your Address"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDOB"><i class="fa fa-birthday-cake"></i></label>
+                                <input type="text" name="raw_dob" id="txtDOB" placeholder="Your Date of Birth"/>
+                            </div>
+                            {{!-- <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div> --}}
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="../../public/image/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="/login" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>

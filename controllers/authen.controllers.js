@@ -19,14 +19,13 @@ exports.register = async function(req, res) {
         ExpTime: null
     }
     await reader.add(user);
-  res.redirect('/login', {
-      after_register: "Bạn đã đăng kí thành công"
-  });
+  res.redirect('/login?register=1');
 }
 
 exports.is_available = async (req, res)=>{
-    const rows = await reader.findByUsername(req.query.username);
-    if (rows.length===0) 
+    const username = req.query.username;
+    const rows = await reader.findByUsername(username);
+    if (rows === null) 
         return res.json(true);
     return res.json(false);
 }
@@ -59,6 +58,10 @@ exports.signin = async (req, res) => {
     return res.render('account/login', {
         err_message: 'Invalid Username',
     })
+}
+
+exports.reset_password = (req, res) => {
+    res.send("to do to Reset Password")
 }
 
 

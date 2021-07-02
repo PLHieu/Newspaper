@@ -79,12 +79,12 @@
                             <h1>{{this.post.Title}}</h1>
                             <ul class="blog-info-link mt-3 mb-4">
                                 <li><a href="http://localhost:3000/category/{{this.post.CatID}}"><i class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
-                                <li><a href="#comments"><i class="fa fa-comments"></i>{{this.num_comments}} Comments</a></li>
+                                <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Comments</a></li>
                             </ul>
                             <p>{{{this.post.Content}}}</p>
                         </div>
                     </div>
-                    <p class="font-italic">Tags: 
+                    <p class="font-italic"><i class="fa fa-tags"></i> Tags: 
                         {{#each this.post.tags}}
                             <a href="http://localhost:3000/tags/{{ID}}" class="text-info">#{{Name}}</a> 
                         {{/each}}
@@ -112,8 +112,8 @@
                                 </div>  	
                             </fieldset>
                         </form>
-                        <h3 class ="text-dark font-weight-bold">{{this.num_comments}} Comments</h3>
-                        {{#each this.comments}}
+                        <h3 class ="text-dark font-weight-bold">{{this.post.num_comments}} Comments</h3>
+                        {{#each this.post.comments}}
                         <!-- COMMENT-START -->
                         <div class="media comments-area">
                             <a class="thumb pull-left" href="#"><img class="media-object rounded-circle" src="../../public/image/users/readers/1.jpg" alt=""></a>
@@ -148,8 +148,8 @@
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title">Relative Post</h3>
-                            {{#if this.post_like_cat}}
-                                {{#each this.post_like_cat}}
+                            {{#if this.post.post_like_cat}}
+                                {{#each this.post.post_like_cat}}
                                     <div class="media post_item">
                                         <img src="../../public/image/posts/{{ID}}/smallavt.jpg" alt="post">                                            <div class="media-body">
                                         <a href="http://localhost:3000/read/{{ID}}"><h3>{{Title}}</h3></a>

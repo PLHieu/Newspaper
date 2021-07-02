@@ -1,29 +1,76 @@
-{{#if err_message}}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      {{err_message}}
-    </div>
-{{/if}}
-{{#if after_register}}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      {{after_register}}
-    </div>
-{{/if}}
-
-<form action="/login" method="POST">
-    <input type="text" name="username" id="username"><br>
-    <input type="password" name="password" id="password"><br><br>
-    <input type="submit" value="Submit">
-</form>
-<a href="/register" role="button" class="btn btn-primary">Register</a>
 
 {{#section 'js'}}
 <script>
-    console.log('test section');
 </script>
 {{/section}}
+
+{{#section 'title'}}
+<title>Login</title>
+{{/section}}
+
+{{#section 'css'}}
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="../../public/css/style.css">
+{{/section}}
+
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="../../public/image/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="/register" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        {{#if err_message}}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              {{err_message}}
+                            </div>
+                        {{/if}}
+                        {{#if after_register}}
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <p id="after_register">"Bạn đã đăng kí thành công"</p>
+                            </div>
+                        {{/if}}
+                        <form method="POST" class="register-form" id="login-form" action="">
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" placeholder="Password"/>
+                            </div>
+                            <div style="text-align: right;">
+                                <a id="forgot_pass" class="label-agree-term" href="/reset-password">Forgot Password</a>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
