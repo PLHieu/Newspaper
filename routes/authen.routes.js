@@ -11,10 +11,16 @@ module.exports = function (app) {
     app.post('/register',authentication.register);
 
     app.get('/login', authorMdw.checkAlreadyLoggedIn, (req, res) => {
-        res.render('account/login')
+        after_register = req.query.register || null;
+        console.log(after_register);
+        res.render('account/login',{ 
+            after_register: after_register
+        })
     });
 
     app.post('/login', authentication.signin);
+
+    app.get('/reset-password',authentication.reset_password);
 
     app.get('/signout', authentication.signout);
 }
