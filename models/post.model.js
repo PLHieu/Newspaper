@@ -126,8 +126,9 @@ module.exports = {
     },
     async findTop10New() {
         const rows = await db('Posts')
-            .orderBy('WriteTime', 'desc')
-            .limit(10)
+            .orderBy('PubTime', 'desc')
+            .limit(10);
+        //console.log(rows);
         return rows;
     },
     
@@ -156,17 +157,30 @@ module.exports = {
         //console.log(listCate);
         return listCate;
     },
-    async top5Post() {
+    async top3Post() {
         var d = new Date();
         d.setDate(d.getDate()-7);
-
+        // console.log(rows);
+        //return rows;
         const rows = await db('Posts')
             .where('WriteTime','>',d)
             .orderBy('Views', 'desc')
-            .limit(5)
+            .limit(3);
+        return rows;
+    },
+    /*
+    Tim danh sach ID bai viet theo Tag
+    */
+    async findNameCateByID(IDCate) {
+        const rows = await db('Categories')
+            .where({
+                ID: IDCate,
+            })
+            .select('Name');
+        //console.log(rows);
         return rows;
     }
-}
+    }
 
 /*
     Tim danh sach ID bai viet theo Tag

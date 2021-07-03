@@ -1,6 +1,6 @@
 var objectMapper = require('object-mapper');
 const moment = require('moment');
-const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag, findTop10MostRead, findTop10New, findTop1PostPerCate, top5Post } = require("../models/post.model");
+const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag, findTop10MostRead, findTop10New, findTop1PostPerCate, top3Post, findNameCateByID } = require("../models/post.model");
 const {findDadCategories, findRelative, getTag, findChildCategories} = require('../models/category.model');
 const { rule1 } = require('../utils/mapper');
 const { postsLimit } = require('../config/const.config');
@@ -123,26 +123,63 @@ module.exports = {
         const top10MostRead = await findTop10MostRead();
         const top10New = await findTop10New()
         const listCate1Post = await findTop1PostPerCate();
-        const top5HighLightPost = await top5Post();
+        const list = await top3Post();
+        let top3HighLightPost = [];
+        let retop10MostRead = [];
+        let retop10New = [];
 
         for (let i = 0; i < top10MostRead.length; i++) {
-            top10MostRead[i].WriteTime = moment(top10MostRead[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
+            let des = objectMapper(top10MostRead[i], rule1)
+            //console.log(des);
+            const nameCate = await findNameCateByID(top10MostRead[i].CatID)
+            //console.log(nameCate);
+            des.Title = top10MostRead[i].Title;
+            des.WriterID = top10MostRead[i].WriterID;
+            des.CateID = top10MostRead[i].CatID;
+            des.Abstract = top10MostRead[i].Abstract;
+            des.PubTime= moment(top10MostRead[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            des.Views = top10MostRead[i].Views;
+            des.CateName = nameCate[0].Name;
+            retop10MostRead.push(des);
         }
         for (let i = 0; i < top10New.length; i++) {
-            top10New[i].WriteTime = moment(top10New[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
+            let des = objectMapper(top10New[i], rule1)
+            //console.log(des);
+            const nameCate = await findNameCateByID(top10New[i].CatID)
+            //console.log(nameCate);
+            des.Title = top10New[i].Title;
+            des.WriterID = top10New[i].WriterID;
+            des.CateID = top10New[i].CatID;
+            des.Abstract = top10New[i].Abstract;
+            des.PubTime= moment(top10New[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            des.Views = top10New[i].Views;
+            des.CateName = nameCate[0].Name;
+            retop10New.push(des);
         }
         for (let i = 0; i < listCate1Post.length; i++) {
-            listCate1Post[i].post.WriteTime = moment(listCate1Post[i].post.WriteTime).format("DD/MM/YYYY HH:mm:ss");
+            listCate1Post[i].post.PubTime = moment(listCate1Post[i].post.PubTime).format("DD/MM/YYYY HH:mm:ss");
         }
-        for (let i = 0; i < top5HighLightPost.length; i++) {
-            top5HighLightPost[i].WriteTime = moment(top5HighLightPost[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
+        for (let i = 0; i < list.length; i++) {
+            let des = objectMapper(list[i], rule1)
+            //console.log(des);
+            const nameCate = await findNameCateByID(list[i].CatID)
+            //console.log(nameCate);
+            des.Title = list[i].Title;
+            des.WriterID = list[i].WriterID;
+            des.CateID = list[i].CatID;
+            des.Abstract = list[i].Abstract;
+            des.PubTime= moment(list[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            des.Views = list[i].Views;
+            des.CateName = nameCate[0].Name;
+            top3HighLightPost.push(des);
+            
         }
-       
+        
         return res.render( 'home',  {
-            top10PostMostRead: top10MostRead,
-            top10PostNew: top10New,
+            top10PostMostRead: retop10MostRead,
+            top10PostNew: retop10New,
             listCate1Post: listCate1Post,
-            top5HighLightPost: top5HighLightPost,
+            top3HighLightPost: top3HighLightPost,
         });
     }
 

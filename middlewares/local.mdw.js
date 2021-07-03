@@ -6,7 +6,7 @@ module.exports = function (app) {
         
         const list= await postsControl.renderChild();
         res.locals.lcCategories  = list.cates;
-        console.log(res.locals.lcCategories);
+        //console.log(res.locals.lcCategories);
         next();
     })
 }

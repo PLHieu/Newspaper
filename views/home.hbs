@@ -66,11 +66,78 @@
 </div>
 {{/section}}
 <main>
+    <!-- Trending Area Start {{ this.top5HighLightPost}} -->
+    {{#if this.top3HighLightPost.0.ID}}
+    <div class="trending-area fix pt-25 gray-bg">
+        <div class="container">
+            <div class="trending-main">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Trending Top -->
+                        <div class="slider-active">
+                            <!-- Single -->
+                            <div class="single-slider">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.0.ID}}/smallavt.jpg" alt="" class="img-fluid">
+                                        <div class="trend-top-cap">
+                                            <a href="/post/category/{{this.top3HighLightPost.0.ID}}">
+                                            <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{{this.top3HighLightPost.0.CateName}}</span></a>
+                                            <h2><a href="latest_news.html" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{this.top3HighLightPost.0.Title}}</a></h2>
+                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">{{this.top3HighLightPost.0.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- Right content -->
+                    <div class="col-lg-4">
+                            <!-- Trending Top -->
+                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6 col-sm-6">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.1.ID}}/smallavt.jpg" alt="" class="img-fluid">
+                                        <div class="trend-top-cap trend-top-cap2">
+                                            <a href="/post/category/{{this.top3HighLightPost.1.ID}}">
+                                                <span class="bgb">{{this.top3HighLightPost.1.CateName}}</span>
+                                            </a>
+                                            <h2><a href="latest_news.html">{{this.top3HighLightPost.1.Title}}</a></h2>
+                                            <p>{{this.top3HighLightPost.1.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6 col-sm-6">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.2.ID}}/smallavt.jpg" alt="" class="img-fluid">
+                                        <div class="trend-top-cap trend-top-cap2">
+                                            <a href="/post/category/{{this.top3HighLightPost.2.ID}}">
+                                                <span class="bgb">{{this.top3HighLightPost.2.CateName}}</span>
+                                            </a>
+                                            <h2><a href="latest_news.html">{{this.top3HighLightPost.2.Title}}</a></h2>
+                                            <p>{{this.top3HighLightPost.2.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
     <!-- About US Start -->
     <div class="about-area2 gray-bg pt-60 pb-60">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="whats-news-wrapper">
                         <!-- Heading & Nav Button -->
                         <div class="row justify-content-between align-items-end mb-15">
@@ -92,7 +159,6 @@
                                             <!-- Left Details Caption -->
                                             {{#each this.top10PostNew}}
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10">
-                                                    
                                                     <div class="whats-right-single mb-0">
                                                         <div class="whats-right-img col-xl-6">
                                                             <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="" class="img-fluid">
@@ -100,12 +166,11 @@
                                                         <div class="whats-right-cap col-xl-6 mb-0">
                                                             <h4 class = "mb-0"><a href="/read/{{ID}}">{{Title}}
                                                             </a></h4>
-                                                            <span class="mb-2">{{WriteTime}}</span>
-                                                            <!--
-                                                            {{#each this.CatID}}
+                                                            <span class="mb-2">{{PubTime}}</span>
+                                                            <p>
                                                                 <span><a href="/post/category/{{CatID}}"
-                                                                    class="badge badge-danger">{{CatID}}</a></span>
-                                                            {{/each}} -->
+                                                                    class="badge badge-danger">{{CateName}}</a></span>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <p class="mb-30 ml-2 mr-2" style="font-size: smaller; font-style:italic">{{Abstract}}</p> 
@@ -121,31 +186,11 @@
 
 
                 </div>
-
-                <div class="col-lg-4 ">
-                    <div class="w-100 tieude-right-sidebar">
-                        Bài viết nổi bật
-                    </div>
-
-                    {{#each this.top5HighLightPost}}
-                    <a href = "/read/{{ID}}" class="w-120 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
-                        <div class="w-60 d-inline-block p-2" style="font-size: medium;">{{Title}}
-                            <i class="" style="font-size:smaller; font-style:italic">
-                                <br>{{WriteTime}}
-                            </i>
-                        </div>
-
-                        <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="" class="img-fluid p-2" style="border-radius: 10px;" alt="">
-                    </a>
-                    {{/each}}
-                    
-                    
-                </div>
-              
+                
             </div>
         </div>
     </div>
-    <div class="weekly2-news-area pt-0 pb-30 gray-bg">
+    <div class="weekly2-news-area pt-0 pb-60 gray-bg">
         <div class="container">
             <div class="weekly2-wrapper">
                 <div class="row">
@@ -167,15 +212,15 @@
                                         <!-- Single -->
                                         {{#each this.listCate1Post}}
                                             <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                                                <div class="weekly2-img">
+                                                    <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                                                </div>
+                                                <div class="weekly2-caption">
+                                                    <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
+                                                    <span><a href="/post/category/{{ID}}"
+                                                    class="badge badge-danger">Category: {{Name}}</a></span>
+                                                </div>
                                             </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                                                <span><a href="/post/category/{{ID}}"
-                                                 class="badge badge-danger">Category: {{Name}}</a></span>
-                                            </div>
-                                        </div> 
                                         {{/each}}
                                         
                                     </div>
@@ -187,79 +232,51 @@
             </div>
         </div>
     </div>
-    <div class="weekly2-news-area pt-50 pb-30 gray-bg">
+    <div class="weekly2-news-area pt-0 pb-60 gray-bg">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-
-                </div>
-                <div class="col-lg-6">
-                    <div class="whats-news-wrapper">
-                        <!-- Heading & Nav Button -->
-                        <div class="row justify-content-between align-items-end mb-15">
-                            <div class="col-xl-12">
-                                <div class="section-tittle mb-30 ml-15">
-                                    <h3><a href="#">Bài viết phổ biến</a></h3>
+            <div class="weekly2-wrapper">
+                <div class="row">
+                    
+                    <div class="col-lg-12">
+                        <div class="slider-wrapper">
+                            <!-- section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="small-tittle mb-30">
+                                        <h3 > <b style="color: rgb(240, 56, 86);">Bài viết phổ biến</b></h3>
+                                    </div>
                                 </div>
                             </div>
-                            
-                        </div>
-                        <!-- Tab content -->
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Nav Card -->
-                                <div class="tab-content" id="nav-tabContent">
-                                    <!-- card one -->
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                        aria-labelledby="nav-home-tab">
-
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly2-news-active d-flex">
+                                        <!-- Single -->
                                         {{#each this.top10PostMostRead}}
-
-                                        <div class="row hangdanhmuc pb-20 mb-20">
-                                            <div class="col-xl-8 col-lg-8 col-md-12">
-                                                <div class="whats-news-single">
-                                                    <div class="whates-caption whates-caption2">
-                                                        <h4><a href="/read/{{ID}}">{{Title}}</a></h4>
-                                                        <span class="mb-2">{{WriteTime}}</span>
-                                                        <p>{{Abstract}}</p>
-                                                    </div>
-                                                    <div>
-                                                        {{#each this.CatID}}
+                                            <div class="weekly2-single">
+                                                <div class="weekly2-img">
+                                                    <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="" class="img-fluid">
+                                                </div>
+                                                <div class="weekly2-caption">
+                                                    <h4><a href="/read/{{ID}}">{{Title}}</a></h4>
+                                                    <span class="mb-2">{{PubTime}}</span>
+                                                    <p>
                                                         <span><a href="/post/category/{{CatID}}"
-                                                                class="badge badge-danger">{{CatID}}</a></span>
-                                                        {{/each}}
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-12">
-                                                <div class="anhdanhmuc">
-                                                    <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                                            class="badge badge-danger">{{CateName}}</a></span>
+                                                    </p>
+                                                    <p>{{Abstract}}</p>
                                                 </div>
                                             </div>
-                                        </div>
-
                                         {{/each}}
-
-
-                                    </div>
-                                    <!-- Card two -->
-                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                        aria-labelledby="nav-profile-tab">
-
+                                        
                                     </div>
                                 </div>
-                                <!-- End Nav Card -->
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- About US End -->
     
-</main>
+</main>    
