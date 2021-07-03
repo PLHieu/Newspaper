@@ -6,8 +6,27 @@ module.exports = function (app) {
         helpers: {
             section: hbs_sections(),
             info: parseAuthorDate,
-        }
-    }));
+            switch: function(val, options) {
+                this.switch_value = val;
+                return options.fn(this);
+            },
+            case: function(val, options) {
+                if (val === this.switch_value) {
+                    return options.fn(this);
+                }
+            },
+            math: function(lvalue, operator, rvalue) {
+                lvalue = parseFloat(lvalue);
+                rvalue = parseFloat(rvalue);
+                return {
+                    "+": lvalue + rvalue,
+                    "-": lvalue - rvalue,
+                    "*": lvalue * rvalue,
+                    "/": lvalue / rvalue,
+                    "%": lvalue % rvalue
+                }[operator];
+            },
+        }}));
     app.set('view engine', 'hbs');
 }
 

@@ -6,6 +6,10 @@ const { findListChild, findChildCategories, findLevel } = require('./category.mo
 
 module.exports = {
 
+    findByWriterID(writerID){
+        return db('Posts').where('WriterID', writerID);
+    },
+
     /*
     Tim bai viet theo Category
     */

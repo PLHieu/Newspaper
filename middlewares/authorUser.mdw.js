@@ -1,7 +1,7 @@
 const path = require('path');
 
 exports.isAdmin = (req, res, next) => {
-    if (req.session.user == null) {//chua dang nhap
+    if (req.session.user === null) {//chua dang nhap
         req.session.retURL = req.originalUrl;
         return res.redirect('/login');
     }
@@ -16,7 +16,8 @@ exports.isAdmin = (req, res, next) => {
 }
 
 exports.isWriter = async (req, res, next) => {
-    if (req.session.user == null) {//chua dang nhap
+    if (req.session.user === null) {//chua dang nhap
+        console.log('not login writer')
         req.session.retURL = req.originalUrl;
         return res.redirect('/login');
     }
@@ -27,11 +28,11 @@ exports.isWriter = async (req, res, next) => {
         `
         return res.status(403).send(res_str);
     }
-    next();
+    return next();
 }
 
 exports.isSubcriber = async (req, res, next) => {
-    if (req.session.user == null) {//chua dang nhap
+    if (req.session.user === null) {//chua dang nhap
         req.session.retURL = req.originalUrl;
         return res.redirect('/login');
     }
@@ -46,7 +47,7 @@ exports.isSubcriber = async (req, res, next) => {
 }
 
 exports.isEditor = async (req, res, next) => {
-    if (req.session.user == null) {//chua dang nhap
+    if (req.session.user === null) {//chua dang nhap
         req.session.retURL = req.originalUrl;
         return res.redirect('/login');
     }
@@ -61,13 +62,10 @@ exports.isEditor = async (req, res, next) => {
 }
 
 exports.checkAlreadyLoggedIn = (req, res, next) => {
-    if (req.session.user == null) {
-        next();
-        return;
-    }
-
+    console.log("checkAlreadyLoggedIn", req.session.user);
     if (req.session.user != null && req.session.user.logged) {
         // TODO: redirect cho tung role
-        return res.redirect('/');
+        return res.redirect('/'+req.session.user.role);
     }
+    next();
 }

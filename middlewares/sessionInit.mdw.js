@@ -6,7 +6,7 @@ module.exports = (app) => {
     app.use(sessions({
         secret: "thisismysecretkey",
         saveUninitialized: true,
-        cookie: {expires: expiryDate},
+        // cookie: {expires: expiryDate},
         resave: false
     }));
 }

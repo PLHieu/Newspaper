@@ -11,7 +11,7 @@ exports.adminPage = (req, res) => {
 };
 
 exports.writerPage = (req, res) => {
-    res.status(200).render("user/writer");
+    res.status(200).render("user/writer/main");
 };
 
 exports.SubcriberPage = (req, res) => {

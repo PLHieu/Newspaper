@@ -9,6 +9,18 @@ module.exports = {
     all() {
         return db('categories');
     },
+
+    getAllChildren(){
+        return db('categories').whereNot('ParentID', null);
+    },
+
+    async findNameCateByID(catID){
+        cat = await db('categories').where('ID',catID);
+        console.log(cat);
+        if (cat.length===0)
+            return null;
+        return cat[0].Name;
+    }
 }
 
 /*

@@ -4,9 +4,9 @@ const authorMdw = require('../middlewares/authorUser.mdw')
 module.exports = function (app) {
     app.use('/admin', authorMdw.isAdmin ,require('./admin.routes'))
 
-    app.use('/writer',  authorMdw.isWriter, require('./writer.routes'))
+    app.use('/writer', authorMdw.isWriter, require('./writer.routes'))
 
-    app.use('/subcriber',   authorMdw.isSubcriber , require('./reader.routes'))
+    app.use('/subcriber', authorMdw.isSubcriber , require('./reader.routes'))
 
     app.use('/editor',  authorMdw.isEditor, require('./editor.routes'))
 

@@ -12,7 +12,6 @@ module.exports = function (app) {
 
     app.get('/login', authorMdw.checkAlreadyLoggedIn, (req, res) => {
         after_register = req.query.register || null;
-        console.log(after_register);
         res.render('account/login',{ 
             after_register: after_register
         })

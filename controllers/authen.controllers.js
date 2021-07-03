@@ -83,6 +83,7 @@ function checkPassword(role, rows, req, res) {
 function handle_login_successfully(role, rows, req, res) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
     req.session.user = {
+        id: rows.ID,
         name: rows.Name,
         username: rows.UserName,
         address: rows.Address,
@@ -91,6 +92,7 @@ function handle_login_successfully(role, rows, req, res) {
         role: role,
         logged: true
     };
+    console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
     return res.redirect("/" +role )
 }

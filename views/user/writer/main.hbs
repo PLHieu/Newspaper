@@ -1,0 +1,59 @@
+
+{{#section 'title'}}
+    <title>Hello Writer</title>
+{{/section}}
+
+{{#section 'css'}}
+<style>
+
+.clickable-row {
+    cursor: pointer;
+}
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script>
+  $(".clickable-row").click(function() {
+          window.location = $(this).data("href");
+  });
+</script>
+{{/section}}
+
+<div class="card">
+    <h4 class="card-header">
+        Hello Writer
+    </h4>
+    <div class="card-body">
+        <table class="table table-hover">
+          <caption>Manage My Posts</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" colspan="2">Category</th>
+              <th scope="col" colspan="4">Title</th>
+              <th scope="col">Writing Time</th>
+              <th scope="col">State</th>
+              <th scope="col">Views</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.list_posts}}
+              <tr class='clickable-row' data-href='/writer/detail-post?postID={{ID}}'>
+                <th scope="row">{{math @index "+" 1}}</th>
+                <td colspan="3">{{CatName}}</td>
+                <td colspan="3">{{Title}}</td>
+                <td>{{WriteTime}}</td>
+                {{#switch StateID}}
+                  {{#case 1}}<td class="text-success">Published</td>{{/case}}
+                  {{#case 0}}<td class="text-warning">Pending</td>{{/case}}
+                  {{#case -1}}<td class="text-danger">Rejected</td>{{/case}}
+                {{/switch}}
+                <td>{{Views}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <a href="/writer/write-post" role="button" class="btn btn-lg-success">Create new post</a>
+    </div>
+</div>
