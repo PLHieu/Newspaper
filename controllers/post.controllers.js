@@ -78,7 +78,7 @@ module.exports = {
         const offset = (page - 1) * limit;
         let currentTag = await getTag(IDtag, offset);
         let posts = await findPostsByTag(IDtag);
-        // console.log(posts);
+        // console.log(currentTag);
         let result = [];
         for (let i = 0; i < posts.length; i++) {
             let des = objectMapper(posts[i], rule1)

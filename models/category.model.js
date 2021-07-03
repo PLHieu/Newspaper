@@ -99,6 +99,7 @@ async function getCategory(id) {
 
 
 async function getTag(idTag) {
+    // console.log("Hie map",idTag);
     const result = await db('Tags')
         .where({
             ID: idTag
