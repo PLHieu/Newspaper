@@ -50,3 +50,12 @@
     /* font-style: italic; */
     font-size: x-large;
 }
+p{
+    font-size: smaller; 
+    font-style:italic; 
+    text-align:justify;
+}
+h4{
+    text-align:justify;
+
+}

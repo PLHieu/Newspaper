@@ -159,6 +159,7 @@ module.exports = {
         for (let i = 0; i < listCate1Post.length; i++) {
             listCate1Post[i].post.PubTime = moment(listCate1Post[i].post.PubTime).format("DD/MM/YYYY HH:mm:ss");
         }
+        console.log(listCate1Post[0].post.PubTime)
         for (let i = 0; i < list.length; i++) {
             let des = objectMapper(list[i], rule1)
             //console.log(des);
@@ -174,7 +175,7 @@ module.exports = {
             top3HighLightPost.push(des);
             
         }
-        
+        console.log(top3HighLightPost.length)
         return res.render( 'home',  {
             top10PostMostRead: retop10MostRead,
             top10PostNew: retop10New,
