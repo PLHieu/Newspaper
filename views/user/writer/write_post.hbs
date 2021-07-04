@@ -4,10 +4,6 @@
 {{/section}}
 
 {{#section 'css'}}
-
-{{/section}}
-
-{{#section 'js'}}
 <script src="https://cdn.tiny.cloud/1/kfdqtmxvbc3j9y04vha77cyl4gs5br7u6q906lof2auidfz3/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
       tinymce.init({
@@ -18,8 +14,13 @@
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
       });
-    </script>
+</script>
 {{/section}}
+
+{{#section 'js'}}
+
+{{/section}}
+
 <h4 class="">Write New Posts</h4>
 <form method="post">
             <div class="form-group">
@@ -40,7 +41,7 @@
             </div>
             <div class="form-group">
               <label for="txtContent">Content</label>
-              <textarea type="text" name="content" id="txtContent" class="form-control" placeholder="Write post's Content here" value="{{this.content}}"></textarea>
+              <textarea rows="15" type="text" name="content" id="txtContent" class="form-control" placeholder="Write post's Content here" value="{{this.content}}"></textarea>
             </div>
             <button type="submit" class="btn btn-success">
                 <i class="fa fa-check" aria-hidden="true"></i>
