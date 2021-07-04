@@ -29,10 +29,18 @@ module.exports = {
             const CatPost = await db('Categories').where('ID', five_post_like_cat[i].CatID)
             five_post_like_cat[i].CatName = CatPost[0].Name;
         }
-        console.log(five_post_like_cat);
+        //console.log(five_post_like_cat);
         post.five_post_like_cat = five_post_like_cat;
         return post;
    },
+
+   addPost(new_post){
+       return db('Posts').insert(new_post);
+   },
+
+   editPost(edit_post, postID){
+    return db('Posts').update(edit_post).where('ID',postID);
+},
 
    async full_text_search(text_search){
        const query = `SELECT * FROM Posts WHERE MATCH (Title, Abstract,Content) AGAINST (${text_search} IN NATURAL LANGUAGE MODE)\G`;

@@ -7,10 +7,24 @@ const moment = require('moment');
 const { post } = require("./admin.routes");
 const router = express.Router();
 
+
+
+async function checkWriterAccessPostID(req, res, next){//
+    const accessedWrtID = req.session.user.id;
+    postID = req.query.postID;
+    const post = await detail_view_db.findPostByID(postID);
+    const acceptedWrtID = post.WriterID;
+    console.log(accessedWrtID, acceptedWrtID);
+    if (accessedWrtID != acceptedWrtID){
+        return res.status(401).send("You cannot access another's Post");
+    }
+    next();
+}    
+
+
+
 router.get('/', async function (req, res) {
-    console.log(req.session.user.id);
     list_posts = await post_db.findByWriterID(req.session.user.id);
-    console.log(list_posts);
     for (var i = 0; i <list_posts.length; i++){
         list_posts[i].CatName = await cat_db.findNameCateByID(list_posts[i].CatID);
         list_posts[i].WriteTime = moment(list_posts[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
@@ -22,39 +36,68 @@ router.get('/', async function (req, res) {
 
 router.get('/write-post', async function(req, res) {
     list_cat = await cat_db.getAllChildren();
-    console.log(list_cat);
     res.render('user/writer/write_post',{
         list_cat: list_cat
     });
 })
 
-router.post('/write-post', function(req, res){
-    const content = req.body.content;
-    const abstract = req.body.abstract;
-    console.log(content);
-    console.log(abstract);
+router.post('/write-post', async function(req, res) {
+    const {category, title, abstract, content} = req.body;
+    //console.log(category, title, abstract, content);
+    const new_post = {
+        Title: title,
+        WriterID: req.session.user.id,
+        CatID: category,
+        StateID: 0,
+        Content: content,
+        Abstract: abstract,
+        WriteTime: new Date(),
+    }
+    await detail_view_db.addPost(new_post);
     res.redirect('/writer');
 })
 
-router.get('/detail-post', function(req, res){
+router.get('/post-detail',checkWriterAccessPostID, function(req, res){
     id_post = req.query.postID;
     res.render('user/writer/detail_post',{
         postID: id_post,
     })
 })
 
-router.get('/post-detail/edit', async function(req, res){
+router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res){
     id_post = req.query.postID;
     aPost = await detail_view_db.findPostByID(id_post);
+    list_cat = await cat_db.getAllChildren();
+    for (let i = 0; i < list_cat.length; i++) {
+        if (aPost.CatID == list_cat[i].ID)
+            list_cat[i].selected = true;
+        else list_cat[i].selected = false;
+    }
+    console.log(list_cat);
     res.render('user/writer/write_post',{
+        category: aPost.CatID,
         title: aPost.Title,
         content: aPost.Content,
-        abstract:aPost.Abstract,
+        abstract: aPost.Abstract,
+        list_cat: list_cat
     })
 })
 
-router.get('/post-detail/del', function(req, res){
-    res.send('Chua xu ly')
+router.post('/post-detail/edit', async function(req, res){
+    const {category, title, abstract, content} = req.body;
+    console.log(category, title, abstract, content);
+    const edit_post = {
+        Title: title,
+        CatID: category,
+        Content: content,
+        Abstract: abstract,
+    }
+    await detail_view_db.editPost(edit_post,req.query.postID);
+    res.redirect('/writer');
+})
+
+router.get('/post-detail/del',checkWriterAccessPostID, function(req, res){
+    res.send('Chua xu ly');
 })
 
 module.exports = router;

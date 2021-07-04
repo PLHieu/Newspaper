@@ -16,7 +16,7 @@ module.exports = {
 
     async findNameCateByID(catID){
         cat = await db('categories').where('ID',catID);
-        console.log(cat);
+        //console.log(cat);
         if (cat.length===0)
             return null;
         return cat[0].Name;

@@ -15,6 +15,12 @@ module.exports = function (app) {
                     return options.fn(this);
                 }
             },
+            eq: function(val1, val2, options) {
+                if (val1 === val2) {
+                    return options.fn(this);
+                }
+                return options.inverse(this);
+            },
             math: function(lvalue, operator, rvalue) {
                 lvalue = parseFloat(lvalue);
                 rvalue = parseFloat(rvalue);

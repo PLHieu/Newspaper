@@ -94,5 +94,6 @@ function handle_login_successfully(role, rows, req, res) {
     };
     console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
-    return res.redirect("/" +role )
+    const url = req.session.retURL || "/" +role;
+    return res.redirect(url )
 }
