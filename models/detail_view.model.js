@@ -40,7 +40,11 @@ module.exports = {
 
    editPost(edit_post, postID){
     return db('Posts').update(edit_post).where('ID',postID);
-},
+    },
+
+    delPost(postID){
+        return db('Posts').where('ID',postID).del();
+    },
 
    async full_text_search(text_search){
        const query = `SELECT * FROM Posts WHERE MATCH (Title, Abstract,Content) AGAINST (${text_search} IN NATURAL LANGUAGE MODE)\G`;
