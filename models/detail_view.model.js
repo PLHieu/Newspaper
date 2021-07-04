@@ -46,10 +46,14 @@ module.exports = {
         return db('Posts').where('ID',postID).del();
     },
 
-   async full_text_search(text_search){
-       const query = `SELECT * FROM Posts WHERE MATCH (Title, Abstract,Content) AGAINST (${text_search} IN NATURAL LANGUAGE MODE)\G`;
-       return await db('Posts').raw(query);
-   },
+//    async full_text_search(text_search){
+//        const query = `SELECT * FROM Posts WHERE MATCH (Title) AGAINST (${text_search} IN NATURAL LANGUAGE MODE)\G`;
+//        for (let i = 0; i <query.length; i++){
+//            if (query[i].score<0.5)
+//                 query.splice(i, 1);
+//        }
+//        return await db('Posts').raw(query);
+//    },
 
     addComment(new_comment){
         return db('Comments').insert(new_comment);
