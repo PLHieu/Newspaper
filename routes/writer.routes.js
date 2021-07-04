@@ -16,11 +16,10 @@ async function checkWriterAccessPostID(req, res, next){//
     const acceptedWrtID = post.WriterID;
     console.log(accessedWrtID, acceptedWrtID);
     if (accessedWrtID != acceptedWrtID){
-        return res.status(401).send("You cannot access another's Post");
+        return res.status(403).send("You cannot access another's Post");
     }
     next();
 }    
-
 
 
 router.get('/', async function (req, res) {
