@@ -5,18 +5,10 @@ module.exports = {
         return db('Tags');
     },
 
-    async findByID(draftID){
-        const rows = await db('Tags').where('ID', draftID);
+    async findByID(idTag){
+        const rows = await db('Tags').where('ID', idTag);
         if (rows.length === 0)
           return null;
         return rows[0];
     },
-
-    findByPostID(postID){
-        return db('Drafts').where('PostID', postID);
-    },
-
-    findByEditorID(editorID){
-        return db('Drafts').where('EditorID', editorID);
-    }
 }

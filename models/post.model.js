@@ -3,6 +3,11 @@ const { postsLimit } = require('../config/const.config');
 const db = require('../utils/db');
 const { rule1 } = require('../utils/mapper');
 const { findListChild, findChildCategories, findLevel } = require('./category.model');
+const posttag_db = require('./post_tag.model');
+const comment_db = require('./comment.model');
+const writer_db = require('./writer.model');
+const cate_db = require('./category.model');
+const moment = require('moment');
 
 module.exports = {
 
@@ -183,8 +188,67 @@ module.exports = {
             .select('Name');
         //console.log(rows);
         return rows;
-    }
-    }
+    },
+
+    async findPostByID(id_post){
+        const post = await findOnlyByID(id_post);
+        post.Writer = await writer_db.findByID(post.WriterID);
+        post.CatName = await cate_db.findNameCateByID(post.CatID);
+        await upView(id_post,post.Views + 1);
+        post.Views += 1;
+        post.PubTime = moment(post.PubTime).format("DD/MM/YYYY HH:mm:ss");
+        post.tags = await posttag_db.findTagsByPostID(id_post);
+        post.comments = await comment_db.findCommentByID(id_post);
+        post.num_comments = post.comments.length;
+        five_post_like_cat = await findRelatedPostByCatID(post.ID,post.CatID);
+        for (let i = 0; i <five_post_like_cat.length; i++){
+            p = five_post_like_cat[i];
+            tags = await posttag_db.findTagsByPostID(p.ID);
+            five_post_like_cat[i].tags = tags;
+            five_post_like_cat[i].PubTime = moment(five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
+            console.log(five_post_like_cat[i].WriterID);
+            five_post_like_cat[i].Writer = await writer_db.findByID(five_post_like_cat[i].WriterID);
+            five_post_like_cat[i].CatName = await cate_db.findNameCateByID(five_post_like_cat[i].CatID);
+        }
+        //console.log(five_post_like_cat);
+        post.five_post_like_cat = five_post_like_cat;
+        return post;
+   },
+
+   addPost(new_post){
+    return db('Posts').insert(new_post);
+    },
+
+    editPost(edit_post, postID){
+    return db('Posts').update(edit_post).where('ID',postID);
+    },
+
+    delPost(postID){
+        return db('Posts').where('ID',postID).del();
+    },
+
+
+    async indRelatedPostByCatID(postID,catID){
+        const offset = 5;
+        return await db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
+    },
+}
+
+function findRelatedPostByCatID(postID,catID){
+    const offset = 5;
+    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhereNot('PubTime', null).limit(offset);
+};
+
+function upView(postID, new_View){
+    return db('Posts').where('ID', postID).update('Views',new_View);//post.Views
+}
+
+async function findOnlyByID(postID){
+    const rows = await db('Posts').where('ID', postID);
+    if (rows.length === 0)
+        return null;
+    return rows[0];
+}
 
 /*
     Tim danh sach ID bai viet theo Tag

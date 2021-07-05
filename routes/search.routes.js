@@ -1,6 +1,6 @@
 const express = require('express');
 const knex = require('../utils/db');
-const post_model = require('../models/detail_view.model');
+const post_model = require('../models/post.model');
 const router = express.Router();
 
 router.get('/', async function(req, res){

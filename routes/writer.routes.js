@@ -1,7 +1,6 @@
 const { writerPage } = require("../controllers/testuser.controllers");
 const cat_db = require("../models/category.model")
 const post_db = require("../models/post.model")
-const detail_view_db = require("../models/detail_view.model")
 const tag_db = require("../models/tag.model")
 const express = require('express');
 const moment = require('moment');
@@ -13,7 +12,7 @@ const router = express.Router();
 async function checkWriterAccessPostID(req, res, next){//
     const accessedWrtID = req.session.user.id;
     postID = req.query.postID;
-    const post = await detail_view_db.findPostByID(postID);
+    const post = await post_db.findPostByID(postID);
     const acceptedWrtID = post.WriterID;
     console.log(accessedWrtID, acceptedWrtID);
     if (accessedWrtID != acceptedWrtID){
@@ -55,7 +54,7 @@ router.post('/write-post', async function(req, res) {
         Abstract: abstract,
         WriteTime: new Date(),
     }
-    await detail_view_db.addPost(new_post);
+    await post_db.addPost(new_post);
     res.redirect('/writer');
 })
 
@@ -68,7 +67,7 @@ router.get('/post-detail',checkWriterAccessPostID, function(req, res){
 
 router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res){
     id_post = req.query.postID;
-    aPost = await detail_view_db.findPostByID(id_post);
+    aPost = await post_db.findPostByID(id_post);
     console.log(aPost);
     list_cat = await cat_db.getAllChildren();
     list_tag = await tag_db.allTags();
@@ -102,7 +101,7 @@ router.post('/post-detail/edit', async function(req, res){
         Content: content,
         Abstract: abstract,
     }
-    await detail_view_db.editPost(edit_post,req.query.postID);
+    await post_db.editPost(edit_post,req.query.postID);
     res.redirect('/writer');
 })
 

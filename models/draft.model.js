@@ -15,4 +15,5 @@ module.exports = {
     findByEditorID(editorID){
         return db('Drafts').where('EditorID', editorID);
     }
+    
 }

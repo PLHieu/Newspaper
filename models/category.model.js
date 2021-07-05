@@ -1,11 +1,13 @@
 const db = require('../utils/db')
+const tags_db = require('./tag.model')
+
 module.exports = {
     findChildCategories: findChildCategories,
     findDadCategories: findDadCategories,
     findListChild: findListChild,
     findLevel: findLevel,
     findRelative: findRelative,
-    getTag: getTag,
+    getTag: tags_db.findByID,
     all() {
         return db('categories');
     },
@@ -21,6 +23,8 @@ module.exports = {
             return null;
         return cat[0].Name;
     }
+
+    
 }
 
 /*
@@ -106,16 +110,5 @@ async function getCategory(id) {
         .where({
             ID: id
         })
-    return result[0];
-}
-
-
-async function getTag(idTag) {
-    // console.log("Hie map",idTag);
-    const result = await db('Tags')
-        .where({
-            ID: idTag
-        })
-    // console.log(result[0]);
     return result[0];
 }
