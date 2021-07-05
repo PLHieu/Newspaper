@@ -176,7 +176,7 @@ module.exports = {
             
         }
         console.log(top3HighLightPost.length)
-        return res.render( 'home',  {
+        return res.render( 'home2',  {
             top10PostMostRead: retop10MostRead,
             top10PostNew: retop10New,
             listCate1Post: listCate1Post,

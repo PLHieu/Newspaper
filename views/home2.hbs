@@ -1,0 +1,690 @@
+{{!-- {{> preload}} --}}
+<header>
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top black-bg d-none d-sm-block">
+                <div class="container">
+                    <div class="col-xl-12">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li class="title"><span class="flaticon-energy"></span> trending-title</li>
+                                    <li>Class property employ ancho red multi level mansion</li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right">
+                                <ul class="header-date">
+                                    <li><span class="flaticon-calendar"></span> +880166 253 232</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-mid gray-bg">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                            <div class="logo">
+                                <a href=""><img src="public/image/template/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9">
+                            <div class="header-banner f-right ">
+                                <img src="public/image/template/img/gallery/header_card.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{> nav}}
+
+
+
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+    <!-- Tin Noi bat Start -->
+    <div class="trending-area fix pt-25 gray-bg">
+        <div class="container">
+            <div class="trending-main">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Trending Top -->
+                        <div class="slider-active">
+                            <!-- Single -->
+                            <div class="single-slider">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.0.ID}}/smallavt.jpg"
+                                            alt="" class="img-fluid">
+                                        <div class="trend-top-cap">
+                                            <a href="/post/category/{{this.top3HighLightPost.0.ID}}">
+                                                <span class="bgr" data-animation="fadeInUp" data-delay=".2s"
+                                                    data-duration="1000ms">{{this.top3HighLightPost.0.CateName}}</span></a>
+                                            <h2><a href="/read/{{this.top3HighLightPost.0.ID}}"
+                                                    data-animation="fadeInUp" data-delay=".4s"
+                                                    data-duration="1000ms">{{this.top3HighLightPost.0.Title}}</a></h2>
+                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">
+                                                {{this.top3HighLightPost.0.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single -->
+                            <div class="single-slider">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="public/image/template/img/trending/trending_top02.jpg" alt="">
+                                        <div class="trend-top-cap">
+                                            <span class="bgr" data-animation="fadeInUp" data-delay=".2s"
+                                                data-duration="1000ms">Business</span>
+                                            <h2><a href="latest_news.html" data-animation="fadeInUp" data-delay=".4s"
+                                                    data-duration="1000ms">Anna Lora Stuns In White At Her Australian
+                                                    Premiere</a></h2>
+                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">by
+                                                Alice cloe - Jun 19, 2020</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single -->
+                            <div class="single-slider">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="public/image/template/img/trending/trending_top03.jpg" alt="">
+                                        <div class="trend-top-cap">
+                                            <span class="bgr" data-animation="fadeInUp" data-delay=".2s"
+                                                data-duration="1000ms">Business</span>
+                                            <h2><a href="latest_news.html" data-animation="fadeInUp" data-delay=".4s"
+                                                    data-duration="1000ms">Anna Lora Stuns In White At Her Australian
+                                                    Premiere</a></h2>
+                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">by
+                                                Alice cloe - Jun 19, 2020</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right content -->
+                    <div class="col-lg-4">
+                        <!-- Trending Top -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6 col-sm-6">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.1.ID}}/smallavt.jpg"
+                                            alt="" class="img-fluid">
+                                        <div class="trend-top-cap trend-top-cap2">
+                                            <a href="/post/category/{{this.top3HighLightPost.1.ID}}">
+                                                <span class="bgb">{{this.top3HighLightPost.1.CateName}}</span>
+                                            </a>
+                                            <h2><a
+                                                    href="/read/{{this.top3HighLightPost.1.ID}}">{{this.top3HighLightPost.1.Title}}</a>
+                                            </h2>
+                                            <p>{{this.top3HighLightPost.1.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6 col-sm-6">
+                                <div class="trending-top mb-30">
+                                    <div class="trend-top-img">
+                                        <img src="../public/image/posts/{{this.top3HighLightPost.2.ID}}/smallavt.jpg"
+                                            alt="" class="img-fluid">
+                                        <div class="trend-top-cap trend-top-cap2">
+                                            <a href="/post/category/{{this.top3HighLightPost.2.ID}}">
+                                                <span class="bgb">{{this.top3HighLightPost.2.CateName}}</span>
+                                            </a>
+                                            <h2><a
+                                                    href="/read/{{this.top3HighLightPost.2.ID}}">{{this.top3HighLightPost.2.Title}}</a>
+                                            </h2>
+                                            <p>{{this.top3HighLightPost.2.PubTime}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tin noi bat End -->
+    <!-- Tin moi Start -->
+    <section class="whats-news-area pt-50 pb-20 gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="whats-news-wrapper">
+                        <!-- Heading & Nav Button -->
+                        <div class="row justify-content-between align-items-end mb-15">
+                            <div class="col-xl-12">
+                                <div class="section-tittle mb-30 ml-15">
+                                    <h3 style="color: rgb(233, 67, 94);">Bài viết mới nhất</h3>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Tab content -->
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Nav Card -->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- card one -->
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                        aria-labelledby="nav-home-tab">
+                                        <div class="row">
+                                            <!-- Left Details Caption -->
+                                            {{#each this.top10PostNew}}
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10 mb-5">
+                                                <div class="whats-right-single mb-0">
+                                                    <div class="row">
+                                                        <div class="whats-right-img col-xl-6">
+                                                            <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt=""
+                                                                class="img-fluid">
+                                                        </div>
+                                                        <div class="whats-right-cap col-xl-6 mb-0">
+                                                            <h4 class="mb-0"><a href="/read/{{ID}}">{{Title}}
+                                                                </a></h4>
+                                                            <span class="mb-2 mr-2">{{PubTime}}</span>
+                                                            <span><a href="/post/category/{{CateID}}"
+                                                                    class="badge badge-danger">{{CateName}}</a></span>
+                                                            <p class="mb-30 ml-0 mr-2">{{Abstract}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-45">
+                <div class="col-lg-8 ">
+                    <!-- Banner -->
+                    <div class="banner-one h-100">
+                        <img class="h-100" src="public/image/template/img/gallery/body_card1.png " alt="">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!-- Flow Socail -->
+                    <div class="single-follow">
+                        <div class="single-box">
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="public/image/template/img/news/icon-fb.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div>
+                            </div>
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="public/image/template/img/news/icon-tw.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div>
+                            </div>
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="public/image/template/img/news/icon-ins.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div>
+                            </div>
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="public/image/template/img/news/icon-yo.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tin moi nhat End -->
+    <!-- Tin Pho Bien start -->
+    <div class="weekly2-news-area pt-50 pb-30 gray-bg">
+        <div class="container">
+            <div class="weekly2-wrapper">
+                <div class="row">
+                    <!-- Banner -->
+                    <div class="col-lg-3">
+                        <div class="home-banner2 d-none d-lg-block">
+                            <img src="public/image/template/img/gallery/body_card2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="slider-wrapper">
+                            <!-- section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="small-tittle mb-30">
+                                        <h4>Phổ biến nhất</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly2-news-active d-flex">
+                                        <!-- Single -->
+                                        {{#each this.listCate1Post}}
+                                            <div class="weekly2-single">
+                                                <div class="weekly2-img">
+                                                    <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                                                </div>
+                                                <div class="weekly2-caption">
+                                                    <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
+                                                    <p>
+                                                        <span class="mb-2 mr-2">{{this.post.PubTime}}</span> 
+
+                                                        <span><a href="/post/category/{{ID}}"
+                                                        class="badge badge-danger">Category: {{Name}}</a></span>
+
+                                                    </p>
+                                                    
+                                                </div>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tin pho bien End -->
+    
+    {{!-- <!--  Recent Articles start -->
+    <div class="recent-articles pt-80 pb-80">
+        <div class="container">
+            <div class="recent-wrapper">
+                <!-- section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle mb-30">
+                            <h3>Trending News</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="recent-active dot-style d-flex dot-style">
+                            <!-- Single -->
+                            <div class="single-recent">
+                                <div class="what-img">
+                                    <img src="public/image/template/img/gallery/tranding1.png" alt="">
+                                </div>
+                                <div class="what-cap">
+                                    <h4><a href="#">
+                                            <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                    ations</a></h4>
+                                        </a></h4>
+                                    <P>Jun 19, 2020</P>
+                                    <a class="popup-video btn-icon"
+                                        href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
+                                            class="flaticon-play-button"></span></a>
+
+                                </div>
+                            </div>
+                            <!-- Single -->
+                            <div class="single-recent">
+                                <div class="what-img">
+                                    <img src="public/image/template/img/gallery/tranding2.png" alt="">
+                                </div>
+                                <div class="what-cap">
+                                    <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a>
+                                    </h4>
+                                    <P>Jun 19, 2020</P>
+                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
+                                            class="flaticon-play-button"></span></a>
+                                </div>
+                            </div>
+                            <!-- Single -->
+                            <div class="single-recent">
+                                <div class="what-img">
+                                    <img src="public/image/template/img/gallery/tranding1.png" alt="">
+                                </div>
+                                <div class="what-cap">
+                                    <h4><a href="latest_news.html">
+                                            <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                    ations</a></h4>
+                                        </a></h4>
+                                    <P>Jun 19, 2020</P>
+                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
+                                            class="flaticon-play-button"></span></a>
+                                </div>
+                            </div>
+                            <!-- Single -->
+                            <div class="single-recent">
+                                <div class="what-img">
+                                    <img src="public/image/template/img/gallery/tranding2.png" alt="">
+                                </div>
+                                <div class="what-cap">
+                                    <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a>
+                                    </h4>
+                                    <P>Jun 19, 2020</P>
+                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
+                                            class="flaticon-play-button"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Recent Articles End -->
+    <!-- Start Video Area -->
+    <div class="youtube-area video-padding d-none d-sm-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="video-items-active">
+                        <div class="video-items text-center">
+                            <video controls>
+                                <source src="assets/video/news2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-items text-center">
+                            <video controls>
+                                <source src="assets/video/news1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-items text-center">
+                            <video controls>
+                                <source src="assets/video/news3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-items text-center">
+                            <video controls>
+                                <source src="assets/video/news1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-items text-center">
+                            <video controls>
+                                <source src="assets/video/news3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="testmonial-nav text-center">
+                            <div class="single-video">
+                                <video controls>
+                                    <source src="assets/video/news2.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-intro">
+                                    <h4>Old Spondon News - 2020 </h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <video controls>
+                                    <source src="assets/video/news1.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-intro">
+                                    <h4>Banglades News Video </h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <video controls>
+                                    <source src="assets/video/news3.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-intro">
+                                    <h4>Latest Video - 2020 </h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <video controls>
+                                    <source src="assets/video/news1.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-intro">
+                                    <h4>Spondon News -2019 </h4>
+                                </div>
+                            </div>
+                            <div class="single-video">
+                                <video controls>
+                                    <source src="assets/video/news3.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="video-intro">
+                                    <h4>Latest Video - 2020</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Start Video area-->
+    <!--   Weekly3-News start -->
+    <div class="weekly3-news-area pt-80 pb-130">
+        <div class="container">
+            <div class="weekly3-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider-wrapper">
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly3-news-active dot-style d-flex">
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="public/image/template/img/gallery/weekly2News1.png" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                        ations</a></h4>
+                                                <p>19 Jan 2020</p>
+                                            </div>
+                                        </div>
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="public/image/template/img/gallery/weekly2News2.png" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                        ations</a></h4>
+                                                <p>19 Jan 2020</p>
+                                            </div>
+                                        </div>
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="public/image/template/img/gallery/weekly2News3.png" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                        ations</a></h4>
+                                                <p>19 Jan 2020</p>
+                                            </div>
+                                        </div>
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="public/image/template/img/gallery/weekly2News4.png" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                        ations</a></h4>
+                                                <p>19 Jan 2020</p>
+                                            </div>
+                                        </div>
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="public/image/template/img/gallery/weekly2News2.png" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
+                                                        ations</a></h4>
+                                                <p>19 Jan 2020</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Weekly-News -->
+    <!-- banner-last Start -->
+    <div class="banner-area gray-bg pt-90 pb-90">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-10">
+                    <div class="banner-one">
+                        <img src="public/image/template/img/gallery/body_card3.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner-last End --> --}}
+</main>
+<footer>
+    <!-- Footer Start-->
+    <div class="footer-main footer-bg">
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-8">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="public/image/template/img/logo/logo2_footer.png"
+                                            alt=""></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p class="info1">Lorem ipsum dolor sit amet, nsectetur adipiscing elit, sed do
+                                            eiusmod tempor incididunt ut labore.</p>
+                                        <p class="info2">198 West 21th Street, Suite 721 New York,NY 10010</p>
+                                        <p class="info2">Phone: +95 (0) 123 456 789 Cell: +95 (0) 123 456 789</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Popular post</h4>
+                            </div>
+                            <!-- Popular post -->
+                            <div class="whats-right-single mb-20">
+                                <div class="whats-right-img">
+                                    <img src="public/image/template/img/gallery/footer_post1.png" alt="">
+                                </div>
+                                <div class="whats-right-cap">
+                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
+                                    <p>Jhon | 2 hours ago</p>
+                                </div>
+                            </div>
+                            <!-- Popular post -->
+                            <div class="whats-right-single mb-20">
+                                <div class="whats-right-img">
+                                    <img src="public/image/template/img/gallery/footer_post2.png" alt="">
+                                </div>
+                                <div class="whats-right-cap">
+                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
+                                    <p>Jhon | 2 hours ago</p>
+                                </div>
+                            </div>
+                            <!-- Popular post -->
+                            <div class="whats-right-single mb-20">
+                                <div class="whats-right-img">
+                                    <img src="public/image/template/img/gallery/footer_post3.png" alt="">
+                                </div>
+                                <div class="whats-right-cap">
+                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
+                                    <p>Jhon | 2 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="banner">
+                                <img src="public/image/template/img/gallery/body_card4.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer-bottom aera -->
+        <div class="footer-bottom-area footer-bg">
+            <div class="container">
+                <div class="footer-border">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right text-center">
+                                <p>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved |
+                                    This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End-->
+</footer>
+<!-- Search model Begin -->
+<div class="search-model-box">
+    <div class="d-flex align-items-center h-100 justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Searching key.....">
+        </form>
+    </div>
+</div>
+<!-- Search model end -->
