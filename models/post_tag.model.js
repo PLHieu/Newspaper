@@ -12,4 +12,8 @@ module.exports = {
         }
         return null;
    },
+
+   add(postTag){
+    return db('PostTag').insert(postTag);
+   },
 }

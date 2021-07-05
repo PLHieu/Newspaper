@@ -2,6 +2,7 @@ const { writerPage } = require("../controllers/testuser.controllers");
 const cat_db = require("../models/category.model")
 const post_db = require("../models/post.model")
 const tag_db = require("../models/tag.model")
+const posttag_db = require("../models/post_tag.model")
 const express = require('express');
 const moment = require('moment');
 const { post } = require("./admin.routes");
@@ -43,6 +44,7 @@ router.get('/write-post', async function(req, res) {
 })
 
 router.post('/write-post', async function(req, res) {
+    console.log(req.body);
     const {category, title, abstract, content, tag} = req.body;
     //console.log(category, title, abstract, content);
     const new_post = {
@@ -55,6 +57,15 @@ router.post('/write-post', async function(req, res) {
         WriteTime: new Date(),
     }
     await post_db.addPost(new_post);
+    just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
+    for (let i =0; i < tag.length; i++) {
+        let posttag = {
+            PostID: just_post.ID,
+            TagID: parseInt(tag[i]),
+        }
+        await posttag_db.add(posttag);
+    }
+    console.log(tag)
     res.redirect('/writer');
 })
 
@@ -77,7 +88,7 @@ router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res
         else list_cat[i].selected = false;
     }
     for (let i = 0; i < list_tag.length; i++) {
-        if (aPost.tags===null || aPost.tags.some(el => el.ID != list_tag[i].ID))
+        if (aPost.tags===null || !aPost.tags.some(el => el.ID === list_tag[i].ID))
             list_tag[i].selected = false;
         else list_tag[i].selected = true;
     }
@@ -103,6 +114,15 @@ router.post('/post-detail/edit', async function(req, res){
     }
     await post_db.editPost(edit_post,req.query.postID);
     res.redirect('/writer');
+})
+
+router.get('/is_duplicate_post', async function(req, res) {
+    const title = req.query.title;
+    const writerID = req.session.user.id;
+    const rows = await post_db.findPostByTitleWriter(title, writerID);
+    if (rows === null) 
+        return res.json(true);
+    return res.json(false);
 })
 
 // router.get('/post-detail/del',checkWriterAccessPostID, function(req, res){

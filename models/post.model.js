@@ -227,6 +227,12 @@ module.exports = {
         return db('Posts').where('ID',postID).del();
     },
 
+    async findPostByTitleWriter(title, writerID){
+        const rows = await db('Posts').where('Title', title).andWhere('WriterID', writerID);
+        if (rows.length === 0)
+            return null;
+        return rows[0];
+    },
 
     async indRelatedPostByCatID(postID,catID){
         const offset = 5;
