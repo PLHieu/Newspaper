@@ -1,4 +1,22 @@
 {{!-- {{> preload}} --}}
+{{#section 'js'}}
+<script src="public/js/jquery.flipster.min.js"></script>
+<script>
+    $('.my-flipster').flipster({
+        style: 'carousel',
+        spacing: 0,
+        nav: true,
+        buttons: true,
+    });
+</script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="../../public/css/jquery.flipster.css">
+<link rel="stylesheet" type="text/css" href="../public/css/homepage.css">
+{{/section}}
+
+
 <header>
     <!-- Header Start -->
     <div class="header-area">
@@ -157,6 +175,7 @@
         </div>
     </div>
     <!-- Tin noi bat End -->
+
     <!-- Tin moi Start -->
     <section class="whats-news-area pt-50 pb-20 gray-bg">
         <div class="container">
@@ -261,12 +280,13 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </section>
     <!-- Tin moi nhat End -->
+
     <!-- Tin Pho Bien start -->
     <div class="weekly2-news-area pt-50 pb-30 gray-bg">
         <div class="container">
@@ -294,22 +314,22 @@
                                     <div class="weekly2-news-active d-flex">
                                         <!-- Single -->
                                         {{#each this.listCate1Post}}
-                                            <div class="weekly2-single">
-                                                <div class="weekly2-img">
-                                                    <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
-                                                </div>
-                                                <div class="weekly2-caption">
-                                                    <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                                                    <p>
-                                                        <span class="mb-2 mr-2">{{this.post.PubTime}}</span> 
-
-                                                        <span><a href="/post/category/{{ID}}"
-                                                        class="badge badge-danger">Category: {{Name}}</a></span>
-
-                                                    </p>
-                                                    
-                                                </div>
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
                                             </div>
+                                            <div class="weekly2-caption">
+                                                <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
+                                                <p>
+                                                    <span class="mb-2 mr-2">{{this.post.PubTime}}</span>
+
+                                                    <span><a href="/post/category/{{ID}}"
+                                                            class="badge badge-danger">Category: {{Name}}</a></span>
+
+                                                </p>
+
+                                            </div>
+                                        </div>
                                         {{/each}}
                                     </div>
                                 </div>
@@ -321,8 +341,42 @@
         </div>
     </div>
     <!-- Tin pho bien End -->
-    
-    {{!-- <!--  Recent Articles start -->
+
+    <!-- 10 chuyen muc noi bat nhat  Start -->
+    <div class="recent-articles pt-80 pb-80">
+        <div class="container">
+            <div class="recent-wrapper">
+                <!-- section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle mb-30">
+                            <h3>Top 10 chuyên mục nổi bật</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-flipster">
+                <ul class="top10danhmuc">
+                    <li data-flip-title="Danh muc" data-flip-category="Danh muc cha">
+                        <div class="one-top10danhmuc">
+                            <img src="public/image/template/img/trending/trending_top02.jpg" alt="" srcset="">
+                            <div class="info red">
+                                <p>Day la tieu de cuar bai viet thuoc the loai nay</p>
+                                <span class="ngay">June 19 2020</span>
+                                <span class="badge badge-danger float-right">Hieumap</span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- 10 chuyen muc noi bat nhat  End -->
+    {{!--
+    <!--  Recent Articles start -->
     <div class="recent-articles pt-80 pb-80">
         <div class="container">
             <div class="recent-wrapper">
