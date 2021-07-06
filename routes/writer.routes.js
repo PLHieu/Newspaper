@@ -37,15 +37,46 @@ function updateCoverPost(postID){
     });
 }
 
+async function addPostTag(tagslist,postID){
+    for (let i =0; i < tagslist.length; i++) {
+        let posttag = {
+            PostID: postID,
+            TagID: parseInt(tagslist[i]),
+        }
+        await posttag_db.add(posttag);
+    }
+}
 
-router.get('/', async function (req, res) {
-    list_posts = await post_db.findByWriterID(req.session.user.id);
+async function addCatAndWriterNameInListPosts(list_posts, nameTime){
     for (var i = 0; i <list_posts.length; i++){
         list_posts[i].CatName = await cat_db.findNameCateByID(list_posts[i].CatID);
-        list_posts[i].WriteTime = moment(list_posts[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
+        list_posts[i][nameTime] = moment(list_posts[i][nameTime] ).format("DD/MM/YYYY HH:mm:ss");
     }
+}
+
+
+router.get('/', async function (req, res) {
+    writerID = req.session.user.id;
+    pending_posts_list = await post_db.findPendingPosts(writerID);
+    addCatAndWriterNameInListPosts(pending_posts_list, 'WriteTime');
+    rejected_posts_list = await post_db.findRejectedPosts(writerID);
+    for (var i = 0; i <rejected_posts_list.length; i++){
+        rejected_posts_list[i].CatName = await cat_db.findNameCateByID(rejected_posts_list[i].CatID);
+        rejected_posts_list[i].draft_info.RateTime = moment(rejected_posts_list[i].draft_info.RateTime ).format("DD/MM/YYYY HH:mm:ss");
+    }
+    published_posts_list = await post_db.findPublishedPosts(writerID);
+    addCatAndWriterNameInListPosts(published_posts_list,'PubTime');
+    approved_not_publish_posts_list = await post_db.findApprovedNotPublishPosts(writerID);
+    addCatAndWriterNameInListPosts(approved_not_publish_posts_list,'PubTime');
+    // console.log(pending_posts_list);
+    // console.log(rejected_posts_list);
+    // console.log(published_posts_list);
+    // console.log(approved_not_publish_posts_list);
     res.status(200).render('user/writer/main',{
-        list_posts:list_posts
+        pending_posts_list,
+        rejected_posts_list,
+        published_posts_list,
+        approved_not_publish_posts_list
     });
 })
 
@@ -75,9 +106,9 @@ router.post('/write-post', async function(req, res) {
     upload.single('cover')(req, res, async function(err){
         if (err) console.log(err);
         else {
-            console.log(req.body);
+            //console.log(req.body);
             const {category, title, abstract, content, tag, postID} = req.body;
-            console.log(category, title, abstract, content, tag);
+            //console.log(category, title, abstract, content, tag);
             const new_post = {
                 Title: title,
                 WriterID: req.session.user.id,
@@ -89,14 +120,8 @@ router.post('/write-post', async function(req, res) {
             }
             await post_db.addPost(new_post);
             just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
-            for (let i =0; i < tag.length; i++) {
-                let posttag = {
-                    PostID: just_post.ID,
-                    TagID: parseInt(tag[i]),
-                }
-                await posttag_db.add(posttag);
-            }
-            
+            addPostTag(tag, just_post.ID);
+            //crete folder save cover post
             fs.mkdir(`./public/image/posts/${just_post.ID}`, function(err) {
                 if (err) {
                   console.log(err)
@@ -167,15 +192,8 @@ router.post('/post-detail/edit', async function(req, res){
                 Abstract: abstract,
             }
             await post_db.editPost(edit_post,req.query.postID);
-            await posttag_db.del(postID)
-            for (let i =0; i < tag.length; i++) {
-                let posttag = {
-                    PostID: postID,
-                    TagID: parseInt(tag[i]),
-                }
-                await posttag_db.add(posttag);
-            }
-
+            await posttag_db.del(postID);
+            addPostTag(tag,postID);
             updateCoverPost(postID);
             res.redirect('/writer');
             }

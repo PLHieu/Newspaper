@@ -6,6 +6,10 @@ module.exports = function (app) {
         if (typeof (req.session.user)==='undefined'){
             req.session.user = null;
         }
+        else{
+            //req.session.user = 1;
+            res.locals.session = req.session;
+        }
         next();
     })
 

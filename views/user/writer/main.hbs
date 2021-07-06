@@ -21,39 +21,104 @@
 {{/section}}
 
 <div class="card">
-    <h4 class="card-header">
-        Hello Writer
-    </h4>
+    <h2 class="card-header">
+        Manage My Posts
+    </h2>
     <div class="card-body">
+        <a href="/writer/write-post" role="button" class="btn btn-lg-success">Create new post</a>
+
         <table class="table table-hover">
-          <caption>Manage My Posts</caption>
+          <caption style="text-align:center" class="text-danger heading-4">Rejected Posts</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Category</th>
+              <th scope="col" colspan="2">Title</th>
+              <th scope="col">Rating Time</th>
+              <th scope="col">Edit By</th>
+              <th scope="col" colspan="2">Rejected Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.rejected_posts_list}}
+              <tr class='clickable-row' data-href='/writer/post-detail?postID={{ID}}'>
+                <th scope="row">{{math @index "+" 1}}</th>
+                <td>{{CatName}}</td>
+                <td colspan="2">{{Title}}</td>
+                <td>{{draft_info.RateTime}}</td>
+                <td>{{draft_info.EditorName}}</td>
+                <td colspan="2">{{draft_info.Note}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+        <table class="table table-hover">
+          <caption style="text-align:center" class="text-danger heading-4">Pending Posts</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Category</th>
+              <th scope="col" colspan="3">Title</th>
+              <th scope="col">Writing Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.pending_posts_list}}
+              <tr class='clickable-row' data-href='/writer/post-detail?postID={{ID}}'>
+                <th scope="row">{{math @index "+" 1}}</th>
+                <td>{{CatName}}</td>
+                <td colspan="2">{{Title}}</td>
+                <td>{{WriteTime}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+        <table class="table table-hover">
+          <caption style="text-align:center" class="text-danger heading-4">Published Posts</caption>
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col" colspan="2">Category</th>
               <th scope="col" colspan="4">Title</th>
-              <th scope="col">Writing Time</th>
-              <th scope="col">State</th>
+              <th scope="col">Published Time</th>
               <th scope="col">Views</th>
             </tr>
           </thead>
           <tbody>
-            {{#each this.list_posts}}
-              <tr class='clickable-row' data-href='/writer/post-detail?postID={{ID}}'>
+            {{#each this.published_posts_list}}
+              <tr>
                 <th scope="row">{{math @index "+" 1}}</th>
-                <td colspan="3">{{CatName}}</td>
+                <td colspan="2">{{CatName}}</td>
                 <td colspan="3">{{Title}}</td>
-                <td>{{WriteTime}}</td>
-                {{#switch StateID}}
-                  {{#case 1}}<td class="text-success">Published</td>{{/case}}
-                  {{#case 0}}<td class="text-warning">Pending</td>{{/case}}
-                  {{#case -1}}<td class="text-danger">Rejected</td>{{/case}}
-                {{/switch}}
+                <td colspan="2">{{PubTime}}</td>
                 <td>{{Views}}</td>
               </tr>
             {{/each}}
           </tbody>
         </table>
-        <a href="/writer/write-post" role="button" class="btn btn-lg-success">Create new post</a>
+
+        <table class="table table-hover">
+          <caption style="text-align:center" class="text-danger heading-4">Approved but haven't been Published Posts yet</caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" colspan="2">Category</th>
+              <th scope="col" colspan="4">Title</th>
+              <th scope="col">Time will Publish</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.approved_not_publish_posts_list}}
+              <tr>
+                <th scope="row">{{math @index "+" 1}}</th>
+                <td colspan="2">{{CatName}}</td>
+                <td colspan="3">{{Title}}</td>
+                <td colspan="2">{{PubTime}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
     </div>
 </div>

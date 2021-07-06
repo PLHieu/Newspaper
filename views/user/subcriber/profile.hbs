@@ -8,36 +8,6 @@
         buttons: true,
     });
 </script>
-<script>
-    // Set the date we're counting down to
-    var countDownDate = new Date("July 7, 2021 00:00:00").getTime();
-    let y={{$session.user.expTime}};
-    console.log(y);
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-
-        // Get today's date and time
-        var now = new Date().getTime();
-            
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
-            
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            
-        // Output the result in an element with id="demo"
-        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " ;
-            
-        // If the count down is over, write some text 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "Bạn đã hết phiên đăng nhập";
-        }
-    }, 1000);
-    </script>
 {{/section}}
 
 {{#section 'css'}}
@@ -92,10 +62,46 @@
     <!-- Header End -->
 </header>
 <main>
-    <p>Hello this is subcriber</p>
-    <p id ="ngaydk">
-        {{session.user.expTime}}
-    </p>
-    <p id="demo">Time Left: </p>
-</main>
+    <!-- Tin Noi bat Start -->
+    <div class="container">
 
+    
+    <div class="whats-news-area pt-50 pb-20 white-bg" >
+        
+        <ul class="navbar-nav">
+            {{#if user}}
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color: black;">
+                Hi, <b>{{session.user.name}}</b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/account/profile" style="color: black;">
+                <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/signout" style="color: black;">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Sign Out
+                </a>
+            </div>
+            </li>
+            {{else}}
+            <li class="nav-item">
+            <a class="nav-link" href="/register" style="color: black;">
+                <i class="fa fa-user-plus" aria-hidden="true" ></i>
+                Register
+            </a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/login" style="color: black;">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                Sign In
+            </a>
+            </li>
+            {{/if}}
+        </ul>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,15 @@
 var objectMapper = require('object-mapper');
 const { postsLimit } = require('../config/const.config');
 const db = require('../utils/db');
-const { rule1 } = require('../utils/mapper');
+const { rule1, ruleCate, ruleTag  } = require('../utils/mapper');
 const { findListChild, findChildCategories, findLevel } = require('./category.model');
 const posttag_db = require('./post_tag.model');
 const comment_db = require('./comment.model');
 const writer_db = require('./writer.model');
 const cate_db = require('./category.model');
+const draft_db = require('./draft.model');
+const editor_db = require('./editor.model');
+
 const moment = require('moment');
 
 module.exports = {
@@ -154,12 +157,10 @@ module.exports = {
         //console.log(childCate);
         let listCate = [];
         for (let i =0; i<childCate.length; i++){
-            let des = objectMapper(childCate[i], rule1)
+            let des = objectMapper(childCate[i], ruleCate)
             let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
-            des.Name = childCate[i].Name;
-            console.log(childCate[i].ParentID);
             let parent = await cate_db.findNameCateByID(childCate[i].ParentID);
-            console.log(parent);
+           // console.log(parent);
             des.ParentCateName= parent;
             des.post=post;
             listCate.push(des);
@@ -181,18 +182,7 @@ module.exports = {
             .limit(3);
         return rows;
     },
-    /*
-    Tim danh sach ID bai viet theo Tag
-    */
-    async findNameCateByID(IDCate) {
-        const rows = await db('Categories')
-            .where({
-                ID: IDCate,
-            })
-            .select('Name');
-        //console.log(rows);
-        return rows;
-    },
+    
 
     async findPostByID(id_post){
         const post = await findOnlyByID(id_post);
@@ -238,15 +228,40 @@ module.exports = {
         return rows[0];
     },
 
-    async indRelatedPostByCatID(postID,catID){
-        const offset = 5;
-        return await db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
+    //return a list
+    findPendingPosts(writerID){
+        return db('Posts').where('StateID',0).andWhere('WriterID',writerID);
+    },
+
+    //return a list
+    findApprovedNotPublishPosts(writerID){
+        const now = new Date();
+        return db('Posts').where('StateID',1).andWhere('PubTime','>',now).andWhere('WriterID',writerID);
+    },
+
+    //return a list
+    findPublishedPosts(writerID){
+        const now = new Date();
+        return db('Posts').where('StateID',1).andWhere('PubTime','<=',now).andWhere('WriterID',writerID);
+    },
+
+    //return a list
+    async findRejectedPosts(WriterID){
+        const rejectPosts = await db('Posts').where('StateID',-1).andWhere('WriterID',writerID);
+        for (let i = 0; i < rejectPosts.length;i++){
+            postID = rejectPosts[i].ID;
+            rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
+            editorID = rejectPosts[i].draft_info.EditorID;//cái này có bug, do draft infor trả về Id của draft
+            rejectPosts[i].draft_info.EditorName = await editor_db.getNameByID(editorID);
+            rejectPosts[i].draft_info.RateTime = moment(rejectPosts[i].draft_info.RateTime).format("DD/MM/YYYY HH:mm:ss");
+        }
+        return rejectPosts;
     },
 }
 
 function findRelatedPostByCatID(postID,catID){
     const offset = 5;
-    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhereNot('PubTime', null).limit(offset);
+    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=',new Date()).limit(offset);
 };
 
 function upView(postID, new_View){

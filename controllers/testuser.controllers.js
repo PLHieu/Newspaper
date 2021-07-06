@@ -1,5 +1,5 @@
 exports.guestPage = (req, res) => {
-    res.status(200).render("home");
+    res.status(200).render("home2");
 };
 
 exports.editorPage = (req, res) => {
