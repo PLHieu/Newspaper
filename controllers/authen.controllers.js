@@ -66,10 +66,13 @@ exports.reset_password = (req, res) => {
 
 
 exports.signout = (req, res) => {
-    req.session.user = null;
-    res.locals.session = null;
-    res.redirect('/login');
+    //req.session.user = null;
+    //res.redirect('/');
+    req.session.destroy(function(err) {
+        res.redirect('/');
+    });
 }
+
 
 function checkPassword(role, rows, req, res) {
   const ret = bcrypt.compareSync(req.body.password, rows.Password);
@@ -78,8 +81,10 @@ function checkPassword(role, rows, req, res) {
         err_message: 'Invalid password',
     })
   }
-  handle_login_successfully(role, rows, req, res);
+   handle_login_successfully(role, rows, req, res);
+  //return authInfor;
 }
+
 
 function handle_login_successfully(role, rows, req, res) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
@@ -91,10 +96,12 @@ function handle_login_successfully(role, rows, req, res) {
         birthday: rows.BirthDay,
         email: rows.Email,
         role: role,
-        //logged: true
+        expTime: moment(rows.ExpTime).format('MMMM Do YYYY, HH:mm:ss'),
+        logged: true
     };
     res.locals.session = req.session.user;
-    console.log(req.session.user);
+    console.log(req.locals.session);
+    //console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
     const url = req.session.retURL || "/" +role;
     return res.redirect(url )

@@ -22,6 +22,10 @@ module.exports = function (app) {
     app.get('/reset-password',authentication.reset_password);
 
     app.get('/signout', authentication.signout);
+    /*app.get('/logout', function (req, res) {
+        req.logout();
+        res.redirect('/');
+    });*/
 }
 
 

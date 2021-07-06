@@ -7,6 +7,7 @@ module.exports = {
     findListChild: findListChild,
     findLevel: findLevel,
     findRelative: findRelative,
+    findNameCateByID: findNameCateByID,
     getTag: tags_db.findByID,
     all() {
         return db('Categories');
@@ -16,15 +17,18 @@ module.exports = {
         return db('Categories').whereNot('ParentID', null);
     },
 
-    async findNameCateByID(catID){
-        cat = await db('Categories').where('ID',catID);
-        //console.log(cat);
-        if (cat.length===0)
-            return null;
-        return cat[0].Name;
-    }
+    
 
     
+}
+
+async function findNameCateByID(catID){
+    cat = await db('Categories').where('ID',catID);
+    //console.log(cat);
+    if (cat.length===0)
+        return null;
+    //console.log(cat[0].Name);
+    return cat[0].Name;
 }
 
 /*

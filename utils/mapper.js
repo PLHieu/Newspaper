@@ -36,5 +36,14 @@ module.exports = {
         "Title": "TieuDe",
         "Abstract": "TomTat",
         "PubTime" : "NgayDang",
+    },
+    ruleCate:{
+        "ID": "CateID",
+        "Name": "CateName",
+        "ParentID": "ParentID",
+    },
+    ruleTag:{
+        "ID": "TagID",
+        "Name": "TagName",
     }
 }

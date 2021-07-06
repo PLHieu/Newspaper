@@ -1,7 +1,7 @@
 var objectMapper = require('object-mapper');
 const { postsLimit } = require('../config/const.config');
 const db = require('../utils/db');
-const { rule1 } = require('../utils/mapper');
+const { rule1, ruleCate, ruleTag  } = require('../utils/mapper');
 const { findListChild, findChildCategories, findLevel } = require('./category.model');
 const posttag_db = require('./post_tag.model');
 const comment_db = require('./comment.model');
@@ -157,12 +157,10 @@ module.exports = {
         //console.log(childCate);
         let listCate = [];
         for (let i =0; i<childCate.length; i++){
-            let des = objectMapper(childCate[i], rule1)
+            let des = objectMapper(childCate[i], ruleCate)
             let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
-            des.Name = childCate[i].Name;
-            console.log(childCate[i].ParentID);
             let parent = await cate_db.findNameCateByID(childCate[i].ParentID);
-            console.log(parent);
+           // console.log(parent);
             des.ParentCateName= parent;
             des.post=post;
             listCate.push(des);
@@ -184,18 +182,7 @@ module.exports = {
             .limit(3);
         return rows;
     },
-    /*
-    Tim danh sach ID bai viet theo Tag
-    */
-    async findNameCateByID(IDCate) {
-        const rows = await db('Categories')
-            .where({
-                ID: IDCate,
-            })
-            .select('Name');
-        //console.log(rows);
-        return rows;
-    },
+    
 
     async findPostByID(id_post){
         const post = await findOnlyByID(id_post);
