@@ -15,7 +15,6 @@
 .top10danhmuc div.one-top10danhmuc .info{    
     position: absolute;
     background-color: white;
-    color: black;
     bottom: 0;
     left: 0;
     padding: 30px;
@@ -32,7 +31,19 @@
     height: 400px;
 }
 
-.top10danhmuc div.one-top10danhmuc .info p{
+.top10danhmuc div.one-top10danhmuc .info a.tieude{
     font-size: x-large;
     font-weight: bold;
+    color: black;
+    display: block;
+}
+
+.top10danhmuc div.one-top10danhmuc .info a.tieude:hover{
+    color: #EE4A41 !important;
+}
+
+.top10danhmuc div.one-top10danhmuc .info .ngay{
+    color: rgb(85, 81, 81);
+    font-weight: bold;
+    font-size: x-small;
 }
