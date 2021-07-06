@@ -170,12 +170,12 @@
                                             {{#each this.top10PostNew}}
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10 mb-5">
                                                 <div class="whats-right-single mb-0">
-                                                    <div class="row">
-                                                        <div class="whats-right-img col-xl-6">
+                                                    <div class="row tinmoi d-flex align-items-center p-2">
+                                                        <div class="whats-right-img col-xl-5 trai">
                                                             <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt=""
                                                                 class="img-fluid">
                                                         </div>
-                                                        <div class="whats-right-cap col-xl-6 mb-0">
+                                                        <div class="whats-right-cap col-xl-7 mb-0 phai">
                                                             <h4 class="mb-0">
                                                                 {{#if Premium}}
                                                                     <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
@@ -184,9 +184,10 @@
                                                                 <a href="/read/{{ID}}">{{Title}}</a>
                                                             </h4>
                                                             <span class="mb-2 mr-2">{{PubTime}}</span>
-                                                            <span><a href="/post/category/{{CateID}}"
-                                                                    class="badge badge-danger">{{CateName}}</a></span>
-                                                            <p class="mb-30 ml-0 mr-2">{{Abstract}}</p>
+                                                            <a href="/post/category/{{CateID}}">
+                                                                <span class="badge badge-danger">{{CateName}}</span>
+                                                            </a>
+                                                            <p class="mb-30 ml-0 mr-2 tomtat">{{Abstract}}</p>
                                                         </div>
                                                     </div>
                                                 </div>

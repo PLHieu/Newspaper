@@ -1,6 +1,29 @@
+/* css cho phan tin moi  */
+.tinmoi .phai h4{
+    font-size: larger !important;
+    font-weight: bolder !important;
+}
+
+.tinmoi .phai p.tomtat{
+    font-size: small !important;
+}
+
+.tinmoi .phai{
+    transform: translateX(-20px);
+}
+
+.tinmoi .trai img{
+    transition: 0.5s;
+}
+
+.tinmoi:hover .trai img{
+    transform: scale(1.02);
+    transition: 0.5s;
+    box-shadow: -2px -2px 2px 0px #888888;
+}
 
 
-
+/* css cho phan top chuye muc  */
 .top10danhmuc div.one-top10danhmuc{
     width: 400px;
     height: 400px;
