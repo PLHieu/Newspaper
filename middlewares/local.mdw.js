@@ -5,7 +5,10 @@ module.exports = function (app) {
     app.use(function (req, res, next) {
         if (typeof (req.session.user)==='undefined'){
             req.session.user = null;
-            res.locals.session = null;
+        }
+        else{
+            //req.session.user = 1;
+            res.locals.session = req.session;
         }
         next();
     })

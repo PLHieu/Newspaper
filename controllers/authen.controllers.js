@@ -99,8 +99,8 @@ function handle_login_successfully(role, rows, req, res) {
         expTime: moment(rows.ExpTime).format('MMMM Do YYYY, HH:mm:ss'),
         logged: true
     };
-    res.locals.session = req.session.user;
-    console.log(req.locals.session);
+    //res.locals.session = req.session.user;
+    //console.log(req.locals.session);
     //console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
     const url = req.session.retURL || "/" +role;
