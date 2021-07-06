@@ -60,12 +60,11 @@
 
             {{> nav}}
 
-
-
         </div>
     </div>
     <!-- Header End -->
 </header>
+
 <main>
     <!-- Tin Noi bat Start -->
     <div class="trending-area fix pt-25 gray-bg">
@@ -82,6 +81,7 @@
                                         <img src="../public/image/posts/{{this.top3HighLightPost.0.ID}}/smallavt.jpg"
                                             alt="" class="img-fluid">
                                         <div class="trend-top-cap">
+                                            
                                             <a href="/post/category/{{this.top3HighLightPost.0.ID}}">
                                                 <span class="bgr" data-animation="fadeInUp" data-delay=".2s"
                                                     data-duration="1000ms">{{this.top3HighLightPost.0.CateName}}</span></a>
@@ -176,8 +176,13 @@
                                                                 class="img-fluid">
                                                         </div>
                                                         <div class="whats-right-cap col-xl-6 mb-0">
-                                                            <h4 class="mb-0"><a href="/read/{{ID}}">{{Title}}
-                                                                </a></h4>
+                                                            <h4 class="mb-0">
+                                                                {{#if Premium}}
+                                                                    <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
+                                                                    class="badge badge-warning mb-1 mt-1">Premium</a></span>
+                                                                {{/if}}
+                                                                <a href="/read/{{ID}}">{{Title}}</a>
+                                                            </h4>
                                                             <span class="mb-2 mr-2">{{PubTime}}</span>
                                                             <span><a href="/post/category/{{CateID}}"
                                                                     class="badge badge-danger">{{CateName}}</a></span>
@@ -280,14 +285,20 @@
                                     <div class="weekly2-news-active d-flex">
                                         <!-- Single -->
                                         {{#each this.listCate1Post}}
-                                        <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
-                                            </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                                                <p>
-                                                    <span class="mb-2 mr-2">{{this.post.PubTime}}</span>
+                                            <div class="weekly2-single">
+                                                <div class="weekly2-img">
+                                                    <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                                                </div>
+                                                <div class="weekly2-caption">
+                                                  <h4>
+                                                        {{#if Premium}}
+                                                            <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
+                                                            class="badge badge-warning mb-1 mt-1">Premium</a></span>
+                                                        {{/if}}
+                                                        <a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a>
+                                                    </h4>
+                                                    <p>
+                                                        <span class="mb-2 mr-2">{{this.post.PubTime}}</span> 
 
                                                     <span><a href="/post/category/{{ID}}"
                                                             class="badge badge-danger">Category: {{Name}}</a></span>
@@ -306,9 +317,39 @@
             </div>
         </div>
     </div>
-    <!-- Tin pho bien End -->
+    <!--
+    <div class="weekly2-news-area pt-0 pb-60 gray-bg">
+        <div class="container">
+            
+            <div class="weekly2-news-active d-flex">
+                
+                {{#each this.listCate1Post}}
+                    <div class="weekly2-single">
+                        <div class="weekly2-img">
+                            <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                        </div>
+                        <div class="weekly2-caption">
+                            <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
+                            <p>
+                                <span class="mb-2 mr-2">{{this.post.PubTime}}</span> 
 
-    <!-- 10 chuyen muc noi bat nhat  Start -->
+                                <span><a href="/post/category/{{ID}}"
+                                class="badge badge-danger">Category: {{Name}}</a></span>
+                                
+                            </p>
+                            <span><a href="/post/category/{{ID}}"
+                                class="badge badge-danger">DadCategory: {{ParentCateName}}</a></span>
+
+                            
+                        </div>
+                    </div>
+                {{/each}}
+                
+            </div>
+        </div>
+                
+    </div>-->
+     <!-- 10 chuyen muc noi bat nhat  Start -->
     <div class="recent-articles pt-80 pb-80">
         <div class="container">
             <div class="recent-wrapper">
@@ -326,7 +367,7 @@
                 <ul class="top10danhmuc">
                     <li data-flip-title="Danh muc" data-flip-category="Danh muc cha">
                         <div class="one-top10danhmuc">
-                            <img src="public/template/img/trending/trending_top02.jpg" alt="" srcset="">
+                            <img src="public/image/template/img/trending/trending_top02.jpg" alt="" srcset="">
                             <div class="info red">
                                 <p>Day la tieu de cuar bai viet thuoc the loai nay</p>
                                 <span class="ngay">June 19 2020</span>
@@ -340,267 +381,6 @@
 
         </div>
     </div>
-    <!-- 10 chuyen muc noi bat nhat  End -->
-    {{!--
-    <!--  Recent Articles start -->
-    <div class="recent-articles pt-80 pb-80">
-        <div class="container">
-            <div class="recent-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Trending News</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="recent-active dot-style d-flex dot-style">
-                            <!-- Single -->
-                            <div class="single-recent">
-                                <div class="what-img">
-                                    <img src="public/template/img/gallery/tranding1.png" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <h4><a href="#">
-                                            <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                    ations</a></h4>
-                                        </a></h4>
-                                    <P>Jun 19, 2020</P>
-                                    <a class="popup-video btn-icon"
-                                        href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
-                                            class="flaticon-play-button"></span></a>
-
-                                </div>
-                            </div>
-                            <!-- Single -->
-                            <div class="single-recent">
-                                <div class="what-img">
-                                    <img src="public/template/img/gallery/tranding2.png" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a>
-                                    </h4>
-                                    <P>Jun 19, 2020</P>
-                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
-                                            class="flaticon-play-button"></span></a>
-                                </div>
-                            </div>
-                            <!-- Single -->
-                            <div class="single-recent">
-                                <div class="what-img">
-                                    <img src="public/template/img/gallery/tranding1.png" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <h4><a href="latest_news.html">
-                                            <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                    ations</a></h4>
-                                        </a></h4>
-                                    <P>Jun 19, 2020</P>
-                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
-                                            class="flaticon-play-button"></span></a>
-                                </div>
-                            </div>
-                            <!-- Single -->
-                            <div class="single-recent">
-                                <div class="what-img">
-                                    <img src="public/template/img/gallery/tranding2.png" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin ations</a>
-                                    </h4>
-                                    <P>Jun 19, 2020</P>
-                                    <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU"><span
-                                            class="flaticon-play-button"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Recent Articles End -->
-    <!-- Start Video Area -->
-    <div class="youtube-area video-padding d-none d-sm-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-items-active">
-                        <div class="video-items text-center">
-                            <video controls>
-                                <source src="assets/video/news2.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="video-items text-center">
-                            <video controls>
-                                <source src="assets/video/news1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="video-items text-center">
-                            <video controls>
-                                <source src="assets/video/news3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="video-items text-center">
-                            <video controls>
-                                <source src="assets/video/news1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                        <div class="video-items text-center">
-                            <video controls>
-                                <source src="assets/video/news3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="video-info">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="testmonial-nav text-center">
-                            <div class="single-video">
-                                <video controls>
-                                    <source src="assets/video/news2.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="video-intro">
-                                    <h4>Old Spondon News - 2020 </h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <video controls>
-                                    <source src="assets/video/news1.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="video-intro">
-                                    <h4>Banglades News Video </h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <video controls>
-                                    <source src="assets/video/news3.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="video-intro">
-                                    <h4>Latest Video - 2020 </h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <video controls>
-                                    <source src="assets/video/news1.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="video-intro">
-                                    <h4>Spondon News -2019 </h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <video controls>
-                                    <source src="assets/video/news3.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                <div class="video-intro">
-                                    <h4>Latest Video - 2020</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Start Video area-->
-    <!--   Weekly3-News start -->
-    <div class="weekly3-news-area pt-80 pb-130">
-        <div class="container">
-            <div class="weekly3-wrapper">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="slider-wrapper">
-                            <!-- Slider -->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="weekly3-news-active dot-style d-flex">
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="public/template/img/gallery/weekly2News1.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                        ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="public/template/img/gallery/weekly2News2.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                        ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="public/template/img/gallery/weekly2News3.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                        ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="public/template/img/gallery/weekly2News4.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                        ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                        <div class="weekly3-single">
-                                            <div class="weekly3-img">
-                                                <img src="public/template/img/gallery/weekly2News2.png" alt="">
-                                            </div>
-                                            <div class="weekly3-caption">
-                                                <h4><a href="latest_news.html">What to Expect From the 2020 Oscar Nomin
-                                                        ations</a></h4>
-                                                <p>19 Jan 2020</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Weekly-News -->
-    <!-- banner-last Start -->
-    <div class="banner-area gray-bg pt-90 pb-90">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 col-md-10">
-                    <div class="banner-one">
-                        <img src="public/template/img/gallery/body_card3.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- banner-last End --> --}}
 </main>
 <footer>
     <!-- Footer Start-->
