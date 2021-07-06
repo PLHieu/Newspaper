@@ -9,15 +9,15 @@ module.exports = {
     findRelative: findRelative,
     getTag: tags_db.findByID,
     all() {
-        return db('categories');
+        return db('Categories');
     },
 
     getAllChildren(){
-        return db('categories').whereNot('ParentID', null);
+        return db('Categories').whereNot('ParentID', null);
     },
 
     async findNameCateByID(catID){
-        cat = await db('categories').where('ID',catID);
+        cat = await db('Categories').where('ID',catID);
         //console.log(cat);
         if (cat.length===0)
             return null;

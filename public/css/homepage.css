@@ -1,3 +1,29 @@
+/* css cho phan tin moi  */
+.tinmoi .phai h4{
+    font-size: larger !important;
+    font-weight: bolder !important;
+}
+
+.tinmoi .phai p.tomtat{
+    font-size: small !important;
+}
+
+.tinmoi .phai{
+    transform: translateX(-20px);
+}
+
+.tinmoi .trai img{
+    transition: 0.5s;
+}
+
+.tinmoi:hover .trai img{
+    transform: scale(1.02);
+    transition: 0.5s;
+    box-shadow: -2px -2px 2px 0px #888888;
+}
+
+
+/* css cho phan top chuye muc  */
 .top10danhmuc div.one-top10danhmuc{
     width: 400px;
     height: 400px;
@@ -12,7 +38,6 @@
 .top10danhmuc div.one-top10danhmuc .info{    
     position: absolute;
     background-color: white;
-    color: black;
     bottom: 0;
     left: 0;
     padding: 30px;
@@ -29,7 +54,19 @@
     height: 400px;
 }
 
-.top10danhmuc div.one-top10danhmuc .info p{
+.top10danhmuc div.one-top10danhmuc .info a.tieude{
     font-size: x-large;
     font-weight: bold;
+    color: black;
+    display: block;
+}
+
+.top10danhmuc div.one-top10danhmuc .info a.tieude:hover{
+    color: #EE4A41 !important;
+}
+
+.top10danhmuc div.one-top10danhmuc .info .ngay{
+    color: rgb(85, 81, 81);
+    font-weight: bold;
+    font-size: x-small;
 }

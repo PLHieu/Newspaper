@@ -33,6 +33,7 @@ module.exports = function (app) {
                     "%": lvalue % rvalue
                 }[operator];
             },
+            getDate : getDateFromDatetime,
         }}));
     app.set('view engine', 'hbs');
 }
@@ -44,4 +45,12 @@ function parseAuthorDate(post) {
     + months[published_date.getMonth()]
     + ' ' + published_date.getDate() 
     + ' ' + published_date.getFullYear();
+}
+
+function getDateFromDatetime(dt_str){
+    let dt = new Date(dt_str);
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[dt.getMonth()]
+    + ' ' + dt.getDate() 
+    + ' ' + dt.getFullYear();
 }
