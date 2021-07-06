@@ -140,6 +140,7 @@ module.exports = {
             des.PubTime= moment(top10MostRead[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             des.Views = top10MostRead[i].Views;
             des.CateName = nameCate[0].Name;
+            des.Premium = top10MostRead[i].Premium;
             retop10MostRead.push(des);
         }
         for (let i = 0; i < top10New.length; i++) {
@@ -154,6 +155,7 @@ module.exports = {
             des.PubTime= moment(top10New[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             des.Views = top10New[i].Views;
             des.CateName = nameCate[0].Name;
+            des.Premium = top10New[i].Premium;
             retop10New.push(des);
         }
         for (let i = 0; i < listCate1Post.length; i++) {
@@ -172,6 +174,7 @@ module.exports = {
             des.PubTime= moment(list[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             des.Views = list[i].Views;
             des.CateName = nameCate[0].Name;
+            des.Premium = list[i].Premium;
             top3HighLightPost.push(des);
             
         }
