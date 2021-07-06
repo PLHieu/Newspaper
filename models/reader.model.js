@@ -11,4 +11,11 @@ module.exports = {
     async add(user){
       return db('Readers').insert(user);
     },
+
+    async findByID(readerID){
+      const rows = await db('Readers').where('ID', readerID);
+        if (rows.length === 0)
+          return null;
+        return rows[0];
+    }
 }

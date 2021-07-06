@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const posts_db = require('../models/detail_view.model');
+const posts_db = require('../models/post.model');
+const comments_db = require('../models/comment.model');
 const moment = require('moment');
 
 router.get('/:id', async function (req, res){
@@ -22,7 +23,7 @@ router.post('/:id', async function (req, res){
         PubTime: moment().format('YYYY/MM/DD'),
         Content: req.body.comment
     }
-    await posts_db.addComment(new_comment);
+    await comments_db.addComment(new_comment);
     
     id_post = req.params.id;
     post = await posts_db.findPostByID(id_post);
@@ -35,13 +36,13 @@ router.post('/:id', async function (req, res){
 });
 
 router.get('/:id/del-comment', async function(req, res){
-    await posts_db.delComment(req.query.id);
+    await comments_db.delComment(req.query.id);
     const url = `/read/${req.params.id}`;
     res.redirect(url);
 })
 
 router.post('/:id/edit-comment', async function(req, res){
-    await posts_db.updateComment(req.query.id, req.body.new_content);
+    await comments_db.updateComment(req.query.id, req.body.new_content);
     const url = `/read/${req.query.params.id}`;
     res.redirect(url);
 })
