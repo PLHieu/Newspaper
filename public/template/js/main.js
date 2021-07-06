@@ -401,9 +401,15 @@
 
     $('.search-close-btn').on('click', function () {
       $('.search-model-box').fadeOut(400, function () {
-          $('#search-input').val('');
       });
     });
+
+    $('.search-model-form').on('submit', (function(event){
+      event.preventDefault();
+      let a = $('#search-input').val();
+      // console.log(a);
+      return window.location.href = `/search?text_search=${a}`;
+    }));
 
 
 })(jQuery);
