@@ -157,6 +157,10 @@ module.exports = {
             let des = objectMapper(childCate[i], rule1)
             let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
             des.Name = childCate[i].Name;
+            console.log(childCate[i].ParentID);
+            let parent = await cate_db.findNameCateByID(childCate[i].ParentID);
+            console.log(parent);
+            des.ParentCateName= parent;
             des.post=post;
             listCate.push(des);
         }
