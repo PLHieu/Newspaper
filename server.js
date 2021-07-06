@@ -8,7 +8,7 @@ app.use(morgan('dev'));
 // body parser
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: true
+  extended: true,
 }));
 //static file
 app.use('/public', express.static('public'));

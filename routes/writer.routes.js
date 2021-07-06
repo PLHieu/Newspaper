@@ -6,6 +6,8 @@ const posttag_db = require("../models/post_tag.model")
 const express = require('express');
 const moment = require('moment');
 const { post } = require("./admin.routes");
+var multer  = require('multer');
+const fs = require('fs');
 const router = express.Router();
 
 
@@ -43,30 +45,66 @@ router.get('/write-post', async function(req, res) {
     });
 })
 
+
+
+
 router.post('/write-post', async function(req, res) {
-    console.log(req.body);
-    const {category, title, abstract, content, tag} = req.body;
-    //console.log(category, title, abstract, content);
-    const new_post = {
-        Title: title,
-        WriterID: req.session.user.id,
-        CatID: category,
-        StateID: 0,
-        Content: content,
-        Abstract: abstract,
-        WriteTime: new Date(),
-    }
-    await post_db.addPost(new_post);
-    just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
-    for (let i =0; i < tag.length; i++) {
-        let posttag = {
-            PostID: just_post.ID,
-            TagID: parseInt(tag[i]),
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, `./public/image/posts/`);
+        },
+        filename: function (req, file, cb) {
+          cb(null, 'bigavt.jpg');
         }
-        await posttag_db.add(posttag);
-    }
-    console.log(tag)
-    res.redirect('/writer');
+    })   
+    const upload = multer({ storage: storage })
+    upload.single('cover')(req, res, async function(err){
+        if (err) console.log(err);
+        else {
+            console.log(req.body);
+            const {category, title, abstract, content, tag} = req.body;
+            console.log(category, title, abstract, content, tag);
+            const new_post = {
+                Title: title,
+                WriterID: req.session.user.id,
+                CatID: category,
+                StateID: 0,
+                Content: content,
+                Abstract: abstract,
+                WriteTime: new Date(),
+            }
+            await post_db.addPost(new_post);
+            just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
+            for (let i =0; i < tag.length; i++) {
+                let posttag = {
+                    PostID: just_post.ID,
+                    TagID: parseInt(tag[i]),
+                }
+                await posttag_db.add(posttag);
+            }
+            
+            fs.mkdir(`./public/image/posts/${just_post.ID}`, function(err) {
+                if (err) {
+                  console.log(err)
+                } else {
+                  console.log("New directory successfully created.")
+                }
+              })
+            var oldPath = './public/image/posts/bigavt.jpg'
+            var newPath = `./public/image/posts/${just_post.ID}/bigavt.jpg`
+              
+            fs.rename(oldPath, newPath, function (err) {
+                if (err) throw err;
+                else console.log('Successfully renamed - AKA moved!')
+            })
+            fs.copyFile(`./public/image/posts/${just_post.ID}/bigavt.jpg`, `./public/image/posts/${just_post.ID}/smallavt.jpg`, (err) => {
+                if (err) throw err;
+                else console.log(`bigavt was copied to smallavt`);
+              });
+            
+            res.redirect('/writer');
+        }
+    })
 })
 
 router.get('/post-detail',checkWriterAccessPostID, function(req, res){
@@ -104,6 +142,7 @@ router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res
 })
 
 router.post('/post-detail/edit', async function(req, res){
+
     const {category, title, abstract, content, tag} = req.body;
     console.log(category, title, abstract, content);
     const edit_post = {
