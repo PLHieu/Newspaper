@@ -286,14 +286,9 @@
                                             </div>
                                             <div class="weekly2-caption">
                                                 <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                                                <p>
-                                                    <span class="mb-2 mr-2">{{this.post.PubTime}}</span>
-
-                                                    <span><a href="/post/category/{{ID}}"
-                                                            class="badge badge-danger">Category: {{Name}}</a></span>
-
-                                                </p>
-
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate this.post.PubTime}}</span></p>
+                                                <span><a href="/post/category/{{ID}}"
+                                                        class="badge badge-danger float-right">{{Name}}</a></span>
                                             </div>
                                         </div>
                                         {{/each}}
