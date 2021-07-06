@@ -7,6 +7,8 @@ const posttag_db = require('./post_tag.model');
 const comment_db = require('./comment.model');
 const writer_db = require('./writer.model');
 const cate_db = require('./category.model');
+const draft_db = require('./draft.model');
+
 const moment = require('moment');
 
 module.exports = {
@@ -238,9 +240,36 @@ module.exports = {
         return rows[0];
     },
 
-    async indRelatedPostByCatID(postID,catID){
+    //return a list
+    findPendingPosts(){
+        return db('Posts').where('StateID',0);
+    },
+
+    //return a list
+    findApprovedNotPublishPosts(){
+        const now = new Date();
+        return db('Posts').where('StateID',1).andWhere('PubTime','>',now);
+    },
+
+    //return a list
+    findPublishedPosts(){
+        const now = new Date();
+        return db('Posts').where('StateID',1).andWhere('PubTime','<=',now);
+    },
+
+    //return a list
+    async findRejectedPosts(WriterID){
+        const rejectPosts = await db('Posts').where('StateID',0);
+        for (let i = 0; i < rejectPosts.length;i++){
+            postID = rejectPosts[i];
+            rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
+        }
+        return rejectPosts;
+    },
+
+    indRelatedPostByCatID(postID,catID){
         const offset = 5;
-        return await db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
+        return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
     },
 }
 

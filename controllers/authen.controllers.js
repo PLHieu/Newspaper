@@ -67,6 +67,7 @@ exports.reset_password = (req, res) => {
 
 exports.signout = (req, res) => {
     req.session.user = null;
+    res.locals.session = null;
     res.redirect('/login');
 }
 
@@ -90,8 +91,9 @@ function handle_login_successfully(role, rows, req, res) {
         birthday: rows.BirthDay,
         email: rows.Email,
         role: role,
-        logged: true
+        //logged: true
     };
+    res.locals.session = req.session.user;
     console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
     const url = req.session.retURL || "/" +role;
