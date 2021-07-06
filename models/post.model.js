@@ -8,6 +8,7 @@ const comment_db = require('./comment.model');
 const writer_db = require('./writer.model');
 const cate_db = require('./category.model');
 const draft_db = require('./draft.model');
+const editor_db = require('./editor.model');
 
 const moment = require('moment');
 
@@ -241,41 +242,39 @@ module.exports = {
     },
 
     //return a list
-    findPendingPosts(){
-        return db('Posts').where('StateID',0);
+    findPendingPosts(writerID){
+        return db('Posts').where('StateID',0).andWhere('WriterID',writerID);
     },
 
     //return a list
-    findApprovedNotPublishPosts(){
+    findApprovedNotPublishPosts(writerID){
         const now = new Date();
-        return db('Posts').where('StateID',1).andWhere('PubTime','>',now);
+        return db('Posts').where('StateID',1).andWhere('PubTime','>',now).andWhere('WriterID',writerID);
     },
 
     //return a list
-    findPublishedPosts(){
+    findPublishedPosts(writerID){
         const now = new Date();
-        return db('Posts').where('StateID',1).andWhere('PubTime','<=',now);
+        return db('Posts').where('StateID',1).andWhere('PubTime','<=',now).andWhere('WriterID',writerID);
     },
 
     //return a list
     async findRejectedPosts(WriterID){
-        const rejectPosts = await db('Posts').where('StateID',0);
+        const rejectPosts = await db('Posts').where('StateID',-1).andWhere('WriterID',writerID);
         for (let i = 0; i < rejectPosts.length;i++){
-            postID = rejectPosts[i];
+            postID = rejectPosts[i].ID;
             rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
+            editorID = rejectPosts[i].draft_info.EditorID;
+            rejectPosts[i].draft_info.EditorName = await editor_db.getNameByID(editorID);
+            rejectPosts[i].draft_info.RateTime = moment(rejectPosts[i].draft_info.RateTime).format("DD/MM/YYYY HH:mm:ss");
         }
         return rejectPosts;
-    },
-
-    indRelatedPostByCatID(postID,catID){
-        const offset = 5;
-        return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).limit(offset);
     },
 }
 
 function findRelatedPostByCatID(postID,catID){
     const offset = 5;
-    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhereNot('PubTime', null).limit(offset);
+    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=',new Date()).limit(offset);
 };
 
 function upView(postID, new_View){
