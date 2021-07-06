@@ -52,7 +52,8 @@
       return;
     }
     title = $('#txtTitle').val();
-    $.getJSON(`/writer/is_duplicate_post?title=${title}`, function(data){
+    postID = $('#postID').val();
+    $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function(data){
       if (data === false){
         alert('You wrote a post having the same title. Please write another one!');
         $('#txtTitle').focus();
@@ -76,6 +77,7 @@
 
 <h4 class="">Write New Posts</h4>
 <form id="frmWritePost" method="post" enctype="multipart/form-data">
+            <input type="text" id="postID" value="{{this.postID}}" name="postID" class="invisible"/>
             <div class="form-group">
               <label for="txtTitle">Title</label>
               <input type="text" name="title" id="txtTitle" class="form-control" placeholder="Write post's Title here" size="1.5em" value="{{this.title}}">

@@ -16,4 +16,12 @@ module.exports = {
    add(postTag){
     return db('PostTag').insert(postTag);
    },
+
+   edit(postTag){
+       return db('PostTag').where('PostID',postTag.PostID).update('TagID',postTag.TagID);
+   },
+
+   del(postID){
+    return db('PostTag').where('PostID',PostID).del();
+   }
 }

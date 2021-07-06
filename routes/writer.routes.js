@@ -24,6 +24,19 @@ async function checkWriterAccessPostID(req, res, next){//
     next();
 }    
 
+function updateCoverPost(postID){
+    var oldPath = './public/image/posts/bigavt.jpg'
+    var newPath = `./public/image/posts/${postID}/bigavt.jpg`
+    fs.rename(oldPath, newPath, function (err) {
+        if (err) throw err;
+        else console.log('Successfully renamed - AKA moved!')
+    })
+    fs.copyFile(`./public/image/posts/${postID}/bigavt.jpg`, `./public/image/posts/${postID}/smallavt.jpg`, (err) => {
+        if (err) throw err;
+        else console.log(`bigavt was copied to smallavt`);
+    });
+}
+
 
 router.get('/', async function (req, res) {
     list_posts = await post_db.findByWriterID(req.session.user.id);
@@ -41,7 +54,8 @@ router.get('/write-post', async function(req, res) {
     list_tag = await tag_db.allTags();
     res.render('user/writer/write_post',{
         list_cat: list_cat,
-        list_tag: list_tag
+        list_tag: list_tag,
+        postID: -1
     });
 })
 
@@ -62,7 +76,7 @@ router.post('/write-post', async function(req, res) {
         if (err) console.log(err);
         else {
             console.log(req.body);
-            const {category, title, abstract, content, tag} = req.body;
+            const {category, title, abstract, content, tag, postID} = req.body;
             console.log(category, title, abstract, content, tag);
             const new_post = {
                 Title: title,
@@ -90,18 +104,7 @@ router.post('/write-post', async function(req, res) {
                   console.log("New directory successfully created.")
                 }
               })
-            var oldPath = './public/image/posts/bigavt.jpg'
-            var newPath = `./public/image/posts/${just_post.ID}/bigavt.jpg`
-              
-            fs.rename(oldPath, newPath, function (err) {
-                if (err) throw err;
-                else console.log('Successfully renamed - AKA moved!')
-            })
-            fs.copyFile(`./public/image/posts/${just_post.ID}/bigavt.jpg`, `./public/image/posts/${just_post.ID}/smallavt.jpg`, (err) => {
-                if (err) throw err;
-                else console.log(`bigavt was copied to smallavt`);
-              });
-            
+            updateCoverPost(just_post.ID);
             res.redirect('/writer');
         }
     })
@@ -132,6 +135,7 @@ router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res
     }
     console.log(list_tag);
     res.render('user/writer/write_post',{
+        postID: req.query.postID,
         category: aPost.CatID,
         title: aPost.Title,
         content: aPost.Content,
@@ -142,24 +146,49 @@ router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res
 })
 
 router.post('/post-detail/edit', async function(req, res){
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, `./public/image/posts/`);
+        },
+        filename: function (req, file, cb) {
+          cb(null, 'bigavt.jpg');
+        }
+    })   
+    const upload = multer({ storage: storage })
+    upload.single('cover')(req, res, async function(err){
+        if (err) console.log(err);
+        else {
+            const {category, title, abstract, content, tag, postID} = req.body;
+            console.log(category, title, abstract, content);
+            const edit_post = {
+                Title: title,
+                CatID: category,
+                Content: content,
+                Abstract: abstract,
+            }
+            await post_db.editPost(edit_post,req.query.postID);
+            await posttag_db.del(postID)
+            for (let i =0; i < tag.length; i++) {
+                let posttag = {
+                    PostID: postID,
+                    TagID: parseInt(tag[i]),
+                }
+                await posttag_db.add(posttag);
+            }
 
-    const {category, title, abstract, content, tag} = req.body;
-    console.log(category, title, abstract, content);
-    const edit_post = {
-        Title: title,
-        CatID: category,
-        Content: content,
-        Abstract: abstract,
-    }
-    await post_db.editPost(edit_post,req.query.postID);
-    res.redirect('/writer');
+            updateCoverPost(postID);
+            res.redirect('/writer');
+            }
+    });
 })
 
 router.get('/is_duplicate_post', async function(req, res) {
     const title = req.query.title;
     const writerID = req.session.user.id;
+    const postID = req.query.postID;
     const rows = await post_db.findPostByTitleWriter(title, writerID);
-    if (rows === null) 
+    console.log(rows.ID, postID);
+    if (rows === null || rows.ID==postID)
         return res.json(true);
     return res.json(false);
 })
