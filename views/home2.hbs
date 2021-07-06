@@ -67,6 +67,48 @@
 
 <main>
     <!-- Tin Noi bat Start -->
+    <div class="container">
+
+    
+    <div class="whats-news-area pt-50 pb-20 white-bg" >
+        
+        <ul class="navbar-nav">
+            {{#if user}}
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color: black;">
+                Hi, <b>{{session.user.name}}</b>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/account/profile" style="color: black;">
+                <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/signout" style="color: black;">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Sign Out
+                </a>
+            </div>
+            </li>
+            {{else}}
+            <li class="nav-item">
+            <a class="nav-link" href="/register" style="color: black;">
+                <i class="fa fa-user-plus" aria-hidden="true" ></i>
+                Register
+            </a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/login" style="color: black;">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                Sign In
+            </a>
+            </li>
+            {{/if}}
+        </ul>
+        </div>
+    </div>
+    </div>
     <div class="trending-area fix pt-25 gray-bg">
         <div class="container">
             <div class="trending-main">
@@ -87,9 +129,9 @@
                                                     data-duration="1000ms">{{this.top3HighLightPost.0.CateName}}</span></a>
                                             <h2><a href="/read/{{this.top3HighLightPost.0.ID}}"
                                                     data-animation="fadeInUp" data-delay=".4s"
-                                                    data-duration="1000ms">{{this.top3HighLightPost.0.Title}}</a></h2>
+                                                    data-duration="1000ms">{{this.top3HighLightPost.0.TieuDe}}</a></h2>
                                             <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">
-                                                {{this.top3HighLightPost.0.PubTime}}</p>
+                                                {{this.top3HighLightPost.0.NgayDang}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -110,9 +152,9 @@
                                                 <span class="bgb">{{this.top3HighLightPost.1.CateName}}</span>
                                             </a>
                                             <h2><a
-                                                    href="/read/{{this.top3HighLightPost.1.ID}}">{{this.top3HighLightPost.1.Title}}</a>
+                                                    href="/read/{{this.top3HighLightPost.1.ID}}">{{this.top3HighLightPost.1.TieuDe}}</a>
                                             </h2>
-                                            <p>{{this.top3HighLightPost.1.PubTime}}</p>
+                                            <p>{{this.top3HighLightPost.1.NgayDang}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -127,9 +169,9 @@
                                                 <span class="bgb">{{this.top3HighLightPost.2.CateName}}</span>
                                             </a>
                                             <h2><a
-                                                    href="/read/{{this.top3HighLightPost.2.ID}}">{{this.top3HighLightPost.2.Title}}</a>
+                                                    href="/read/{{this.top3HighLightPost.2.ID}}">{{this.top3HighLightPost.2.TieuDe}}</a>
                                             </h2>
-                                            <p>{{this.top3HighLightPost.2.PubTime}}</p>
+                                            <p>{{this.top3HighLightPost.2.NgayDang}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -181,13 +223,13 @@
                                                                     <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
                                                                     class="badge badge-warning mb-1 mt-1">Premium</a></span>
                                                                 {{/if}}
-                                                                <a href="/read/{{ID}}">{{Title}}</a>
+                                                                <a href="/read/{{ID}}">{{TieuDe}}</a>
                                                             </h4>
-                                                            <span class="mb-2 mr-2">{{PubTime}}</span>
+                                                            <span class="mb-2 mr-2">{{NgayDang}}</span>
                                                             <a href="/post/category/{{CateID}}">
                                                                 <span class="badge badge-danger">{{CateName}}</span>
                                                             </a>
-                                                            <p class="mb-30 ml-0 mr-2 tomtat">{{Abstract}}</p>
+                                                            <p class="mb-30 ml-0 mr-2 tomtat">{{TomTat}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -285,16 +327,16 @@
                                 <div class="col-lg-12">
                                     <div class="weekly2-news-active d-flex">
                                         <!-- Single -->
-                                        {{#each this.listCate1Post}}
+                                        {{#each this.top10PostMostRead}}
                                         <div class="weekly2-single">
                                             <div class="weekly2-img">
-                                                <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
+                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                             </div>
                                             <div class="weekly2-caption">
-                                                <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate this.post.PubTime}}</span></p>
-                                                <span><a href="/post/category/{{ID}}"
-                                                        class="badge badge-danger float-right">{{Name}}</a></span>
+                                                <h4><a href="/read/{{ID}}">{{TieuDe}} </a></h4>
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate this.NgayDang}}</span></p>
+                                                <span><a href="/post/category/{{CateID}}"
+                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
                                             </div>
                                         </div>
                                         {{/each}}
@@ -358,13 +400,13 @@
 
                     {{#each this.listCate1Post }}
 
-                    <li data-flip-title="{{Name}}" data-flip-category="{{ParentCateName}}">
+                    <li data-flip-title="{{CateName}}" data-flip-category="{{ParentCateName}}">
                         <div class="one-top10danhmuc">
                             <img src="{{post.0.Title}}" alt="" srcset="">
                             <div class="info red">
                                 <a class="tieude" href="read/{{post.0.ID}}">{{post.0.Title}}</a>
                                 <span class="ngay">{{getDate post.0.PubTime}}</span>
-                                <a  class="d-inline-block float-right" href="/post/category/{{ID}}"><span class="badge badge-danger ">{{Name}}</span></a>
+                                <a  class="d-inline-block float-right" href="/post/category/{{CateID}}"><span class="badge badge-danger ">{{CateName}}</span></a>
                             </div>
                         </div>
                     </li>
