@@ -205,7 +205,6 @@ router.get('/is_duplicate_post', async function(req, res) {
     const writerID = req.session.user.id;
     const postID = req.query.postID;
     const rows = await post_db.findPostByTitleWriter(title, writerID);
-    console.log(rows.ID, postID);
     if (rows === null || rows.ID==postID)
         return res.json(true);
     return res.json(false);

@@ -124,9 +124,10 @@
                                                 {{!-- <div class="reply-btn">
                                                     <a href="#" class="btn-reply text-uppercase">reply</a>
                                                 </div> --}}
-                                                <a href="/read/{{PostID}}/del-comment?id={{ID}}"
-                                                    class="text-danger d-inline-block float-right"><i
-                                                        class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <a {{#eq ReaderID session.user.id}}href="/read/{{PostID}}/del-comment?id={{ID}}"{{/eq}}
+                                                    class="text-danger d-inline-block float-right">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>{{session.user.id}}
+                                                    </a>
                                             </div>
                                         </div>
                                     </div>

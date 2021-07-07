@@ -251,7 +251,7 @@ module.exports = {
         for (let i = 0; i < rejectPosts.length;i++){
             postID = rejectPosts[i].ID;
             rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
-            editorID = rejectPosts[i].draft_info.EditorID;//cái này có bug, do draft infor trả về Id của draft
+            editorID = rejectPosts[i].draft_info.EditorID;
             rejectPosts[i].draft_info.EditorName = await editor_db.getNameByID(editorID);
             rejectPosts[i].draft_info.RateTime = moment(rejectPosts[i].draft_info.RateTime).format("DD/MM/YYYY HH:mm:ss");
         }
