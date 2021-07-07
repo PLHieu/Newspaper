@@ -36,12 +36,12 @@ exports.signin = async (req, res) => {
     if (rows_admin != null) {
         return checkPassword("admin", rows_admin, req, res);
     }
-
+    
     const rows_editor = await editor.findByUsername(req.body.username);
     if (rows_editor != null) {
         return checkPassword("editor", rows_editor, req, res);
     }
-
+    //console.log(req.body.username);
     const rows_reader = await reader.findByUsername(req.body.username);
     if (rows_reader != null) {
         if (rows_reader.ExpTime!=null)
@@ -73,7 +73,39 @@ exports.signout = (req, res) => {
     });
 }
 
+exports.getEditProfileView = (req, res) => {
+    //req.session.user = null;
+    //res.redirect('/');
 
+    res.render('user/subcriber/editprofile');
+}
+exports.changePassword = async (req, res) => {
+    //req.session.user = null;
+    //res.redirect('/');
+    const rows_reader = await reader.findByID(req.session.user.id);
+    const ret = bcrypt.compareSync(req.body.oldPassword, rows_reader.Password);
+    const hash = bcrypt.hashSync(req.body.newPassword, 10);
+    if(ret===true){
+        await reader.changePass(req.session.user.id, hash);
+        res.render('user/subcriber/profile');
+    }
+    else{
+        return res.render('user/subcriber/editprofile', {
+            err_message: 'Invalid password',
+        })
+    }
+}
+exports.updateProfile = async (req, res) => {
+    console.log(req.body.raw_dob);
+    await reader.updateGeneralInfor(req.session.user.id, req.body.fullName, req.body.email, req.body.raw_dob );
+    
+    req.session.user.name = req.body.fullName;
+    req.session.user.email = req.body.email;
+    req.session.user.birthday = req.body.raw_dob;
+    
+    res.redirect('/subcriber');
+    
+  };
 function checkPassword(role, rows, req, res) {
   const ret = bcrypt.compareSync(req.body.password, rows.Password);
   if (ret===false){
@@ -93,15 +125,16 @@ function handle_login_successfully(role, rows, req, res) {
         name: rows.Name,
         username: rows.UserName,
         address: rows.Address,
-        birthday: rows.BirthDay,
+        birthday: moment(rows.BirthDay).format('DD/MM/YYYY'),
         email: rows.Email,
         role: role,
-        expTime: moment(rows.ExpTime).format('MMMM Do YYYY, HH:mm:ss'),
+        expTime: moment(rows.ExpTime).format('MMMM D YYYY, HH:mm:ss'),
         logged: true
+
     };
     //res.locals.session = req.session.user;
     //console.log(req.locals.session);
-    //console.log(req.session.user);
+    console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
     const url = req.session.retURL || "/" +role;
     return res.redirect(url )

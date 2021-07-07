@@ -13,7 +13,7 @@
 
  Date: 06/07/2021 21:05:15
 */
-
+use newspaper;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -124,6 +124,8 @@ CREATE TABLE `Drafts` (
   CONSTRAINT `DraftEditor` FOREIGN KEY (`EditorID`) REFERENCES `Editors` (`ID`),
   CONSTRAINT `DraftPost` FOREIGN KEY (`PostID`) REFERENCES `Posts` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `Drafts` VALUES (1, 4, 1, 'Bài viết nhầm lẫn giữa abstract và content', '2021-06-29 22:16:47');
 
 -- ----------------------------
 -- Records of Drafts
