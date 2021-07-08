@@ -72,6 +72,20 @@ exports.signin = async (req, res) => {
     })
 }
 
+/*
+If you use a plain password, then you should allow access for less secure apps. 
+
+Go to the Less secure app access section of your Google Account. 
+Turn Allow less secure apps on.
+Additionally, you should enable Display Unlock Captcha. 
+If you are using 2-Step Verification, you should sign in with App Passwords. To create your password:
+
+Go to the Security section of your Gmail account. 
+Choose App Passwords in the Signing into Google block.
+Select the app and device from the list and press Generate. 
+Please note that you can use it for your personal account only.
+*/
+
 var email;
 let otp = Math.random();
 otp = otp * 1000000;
@@ -81,23 +95,36 @@ console.log("OTP: ",otp);
 exports.reset_password = async (req, res) => {
     email = req.body.email;
 
-    let testAccount = await nodemailer.createTestAccount();
-
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass, // generated ethereal password
-        },
+    let transporter = nodemailer.createTransport(//{
+        // host: "smtp.ethereal.email",
+        // port: 587,
+        // secure: false, // true for 465, false for other ports
+        // auth: {
+        //     user: testAccount.user, // generated ethereal user
+        //     pass: testAccount.pass, // generated ethereal password
+        // },
+        //'SMTP', 
+        {
+            service: 'gmail',
+            auth: {
+              user: 'thinhvuong9700@gmail.com',
+              pass: '*********'
+            },
+            // tls: {
+            //     rejectUnauthorized: false
+            //  }
     });
     
     var mailOptions={
+        from: "thinhvuong9700@gmail.com",
         to: email,
-       subject: "Otp for registration is: ",
-       html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-     };
+       subject: "OTP for Reset Password on Account Newspaper: ",
+       html: "<p>Dear you,</p>"+
+       "<h3>OTP for account verification, help you reset password is </h3>"  + 
+       "<h1 style='font-weight:bold;'>" + otp +"</h1>" +
+       "<p>This code will expire ... hours after this email was sent</p>"+
+       "<p>Thank you</p>",
+    };
      
      transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -128,22 +155,21 @@ exports.resendOTP = async (req, res) =>{
     otp = parseInt(otp);
     console.log(otp);
 
-    let testAccount = await nodemailer.createTestAccount();
-
     let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass, // generated ethereal password
-        },
+            service: 'gmail',
+            auth: {
+              user: 'thinhvuong9700@gmail.com',
+              pass: '********'
+            },
     });
+    
     var mailOptions={
+        from: "thinhvuong9700@gmail.com",
         to: email,
        subject: "Otp for registration is: ",
-       html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" // html body
-     };
+       html: "<h3>OTP for account verification is </h3>"  + 
+       "<h1 style='font-weight:bold;'>" + otp +"</h1>" ,
+    };
      
      transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
