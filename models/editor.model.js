@@ -8,6 +8,13 @@ module.exports = {
         return rows[0];
       },
 
+      async findByEmail(email){
+        const rows = await db('Editors').where('Email', email);
+        if (rows.length === 0)
+          return null;
+        return rows[0];
+      },
+
     //sure has row
     async getNameByID(id){
       const rows = await db('Editors').where('ID', id);
@@ -22,4 +29,8 @@ module.exports = {
         return null;
       return rows[0];
     },
+
+    changePassByID(hash,ID){
+      return db('Editors').where('ID', ID).update('Password',hash);
+    }
 }

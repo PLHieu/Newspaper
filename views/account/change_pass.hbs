@@ -1,0 +1,74 @@
+
+{{#section 'js'}}
+<script>
+ $('#resetpass_form').on('submit', function(e) {
+    e.preventDefault();
+    const password = $('#txtPassword').val();
+    const confirm = $('#txtConfirm').val();
+    if (isEmptyText('txtPassword',"Password"))
+      return;
+    if (isEmptyText('txtConfirm',"Confirm Password"))
+      return ;
+    if (password !== confirm){
+        alert('Confirm password is different from Password');
+        $('#txtConfirm').focus();
+        return;
+    }
+    $('#resetpass_form').off('submit').submit();
+  });
+
+  function isEmptyText(idtext, message){
+    const text = $(`#${idtext}`).val();
+    if (text.length === 0){
+      alert( `${message} is empty` );
+      $(`#${idtext}`).focus();
+      return true;
+      }
+    return false;
+  }
+</script>
+{{/section}}
+
+{{#section 'title'}}
+<title>Reset Password</title>
+{{/section}}
+
+{{#section 'css'}}
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="../../public/css/style.css">
+{{/section}}
+
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="../../public/image/signin-image.jpg" alt="sing up image"></figure>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Reset Password</h2>
+                        <form method="POST" class="resetpass-form" id="resetpass-form" action="">
+                            <div class="form-group">
+                                <label for="txtPassword"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="password" name="password" id="txtPassword" placeholder="New password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtConfirm"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="password" id="txtConfirm" placeholder="Confirm password"/>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Send OTP to the email"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>

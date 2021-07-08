@@ -11,6 +11,8 @@ module.exports = function (app) {
             res.locals.user = 1;
             res.locals.session = req.session;
         }
+        res.locals.emailResetPass = null;
+        res.locals.otp = null;
         next();
     })
 

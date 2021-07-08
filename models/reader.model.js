@@ -9,6 +9,13 @@ module.exports = {
         return rows[0];
     },
 
+    async findByEmail(email){
+      const rows = await db('Readers').where('Email', email);
+      if (rows.length === 0)
+        return null;
+      return rows[0];
+    },
+
     async add(user){
       return db('Readers').insert(user);
     },
@@ -42,6 +49,9 @@ module.exports = {
         BirthDay: dob,
         Email: readerEmail
       });
-        
+    },
+
+    changePassByID(hash,ID){
+      return db('Readers').where('ID', ID).update('Password',hash);
     }
 }

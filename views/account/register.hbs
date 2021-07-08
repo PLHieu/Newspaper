@@ -38,15 +38,7 @@
       return;
     if (isEmptyText('txtDOB',"Date of Birth"))
       return;
-    const username = $('#txtUsername').val();
-    $.getJSON(`/is-available?username=${username}`, function(data){
-      console.log(data);
-      if (data === false){
-        alert('Username is existed.');
-        $('#txtConfirm').focus();
-        return;
-      }
-      if ($('#txtPassword').val() != $('#txtConfirm').val()){
+    if ($('#txtPassword').val() != $('#txtConfirm').val()){
         alert('Confirm password is different from Password');
         $('#txtConfirm').focus();
         return;
@@ -54,6 +46,14 @@
       if (!isValidEmail($('#txtEmail').val())){
         alert('Email is not valid');
         $('#txtEmail').focus();
+        return;
+      }
+    const username = $('#txtUsername').val();
+    $.getJSON(`/is-available?username=${username}`, function(data){
+      console.log(data);
+      if (data === false){
+        alert('Username is existed.');
+        $('#txtConfirm').focus();
         return;
       }
       $('#formRegister').off('submit').submit();

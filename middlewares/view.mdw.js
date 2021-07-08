@@ -12,12 +12,12 @@ module.exports = function (app) {
                 return options.fn(this);
             },
             case: function(val, options) {
-                if (val === this.switch_value) {
+                if (val == this.switch_value) {
                     return options.fn(this);
                 }
             },
             eq: function(val1, val2, options) {
-                if (val1 === val2) {
+                if (val1 == val2) {
                     return options.fn(this);
                 }
                 return options.inverse(this);

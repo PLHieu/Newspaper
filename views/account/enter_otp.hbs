@@ -1,0 +1,76 @@
+
+{{#section 'js'}}
+<script>
+ {{!-- $('.sendOTP').on('submit', function(e) {
+    e.preventDefault();
+    const otp = $('#txtOTP');
+    if (otp.val().length === 0){
+      alert( `$OTP is empty` );
+      otp.focus();
+      return true;
+    }
+    $('.sendOTP').off('submit').submit();
+  }); --}}
+</script>
+{{/section}}
+
+{{#section 'title'}}
+<title>Reset Password</title>
+{{/section}}
+
+{{#section 'css'}}
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="../../public/css/style.css">
+{{/section}}
+
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="../../public/image/signin-image.jpg" alt="sing up image"></figure>
+                        <a href="/register" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Enter OTP</h2>
+                        {{#if err_message}}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              {{err_message}}
+                            </div>
+                        {{/if}}
+                        <div class="contact">
+                          <form method="POST" action="/reset-password/getOTP" class="sendOTP">
+                            {{this.msg}}
+                            <p>
+                              <label>Enter otp</label>
+                              <input type="text" name="otp" required="required">
+                            </p>
+                            
+                            <p class="full">
+                              <button type="submit">Submit</button>
+                            </p>
+                          </form>
+
+                          <br>
+                          
+                          <form method="POST" action="/resendOTP">
+                            <p class="full">
+                              <button type="submit">resend otp</button>
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
