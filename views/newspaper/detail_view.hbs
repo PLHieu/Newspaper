@@ -108,25 +108,30 @@
                                 <div class="single-comment justify-content-between d-flex">
                                     <div class="user justify-content-between d-flex w-100">
                                         <div class="thumb">
-                                            <img src="/public/image/users/readers/1.jpg" alt="">
+                                            <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
                                         </div>
                                         <div class="desc w-100">
                                             <p class="comment">{{Content}}
                                             </p>
+
                                             <div class="d-flex justify-content-between w-100">
                                                 <div class="d-flex align-items-center">
                                                     <span>
                                                         <a class="" style="text-decoration: none; color:black"
-                                                            href="#">{{ReaderName}}</a>
+                                                            href="#">{{ReaderName}}
+                                                {{ReaderID}}</a>
                                                     </span>
                                                     <p class="date">{{PubTime}}</p>
                                                 </div>
                                                 {{!-- <div class="reply-btn">
                                                     <a href="#" class="btn-reply text-uppercase">reply</a>
                                                 </div> --}}
-                                                <a href="/read/{{PostID}}/del-comment?id={{ID}}"
-                                                    class="text-danger d-inline-block float-right"><i
-                                                        class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <div  {{#if cantDelete}} class="invisible"{{/if}}>
+                                                    <a href="/read/{{PostID}}/del-comment?id={{ID}}"
+                                                    class="text-danger d-inline-block float-right">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

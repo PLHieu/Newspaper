@@ -15,5 +15,5 @@ exports.writerPage = (req, res) => {
 };
 
 exports.SubcriberPage = (req, res) => {
-    res.status(200).render("user/subcriber");
+    res.status(200).render("user/subcriber/profile");
 };

@@ -1,9 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-
 const app = express();
 app.use(morgan('dev'));
+
+const methodOverride = require('method-override');
 
 // body parser
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(express.urlencoded({
 }));
 //static file
 app.use('/public', express.static('public'));
+app.use(methodOverride('_method'));
 //session 
 require('./middlewares/sessionInit.mdw')(app);
 require('./middlewares/view.mdw')(app);

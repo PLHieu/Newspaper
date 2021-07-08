@@ -73,14 +73,14 @@
     <div class="whats-news-area pt-50 pb-20 white-bg" >
         
         <ul class="navbar-nav">
-            {{#if user}}
+            {{#if session.user.logged}}
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" style="color: black;">
                 Hi, <b>{{session.user.name}}</b>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/account/profile" style="color: black;">
+                <a class="dropdown-item" href="/subcriber" style="color: black;">
                 <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
                 Profile
                 </a>
