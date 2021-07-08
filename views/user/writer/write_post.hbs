@@ -1,60 +1,64 @@
-
 {{#section 'title'}}
-    <title>Write Post</title>
+<title>Write Post</title>
 {{/section}}
 
 {{#section 'css'}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
- 
-<script src="https://cdn.tiny.cloud/1/kfdqtmxvbc3j9y04vha77cyl4gs5br7u6q906lof2auidfz3/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+  crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
+  crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+
+<script src="https://cdn.tiny.cloud/1/kfdqtmxvbc3j9y04vha77cyl4gs5br7u6q906lof2auidfz3/tinymce/5/tinymce.min.js"
+  referrerpolicy="origin"></script>
 <script>
-      tinymce.init({
-        selector: '#txtContent',
-        plugins: 'paste image link autolink lists table media a11ychecker advcode casechange formatpainter linkchecker checklist mediaembed permanentpen advtable tinymcespellchecker',
-        menubar: false,
-        toolbar: 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media |casechange checklist code',
-        toolbar_mode: 'floating',
-      });
+  tinymce.init({
+    selector: '#txtContent',
+    plugins: 'paste image link autolink lists table media a11ychecker advcode casechange formatpainter linkchecker checklist mediaembed permanentpen advtable tinymcespellchecker',
+    menubar: false,
+    toolbar: 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media |casechange checklist code',
+    toolbar_mode: 'floating',
+  });
 </script>
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+  crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/fileinput.min.js"></script>
 
 <script>
   $('#fCover').fileinput({
-    allowedFileExtensions: ['jpg','gif','png'],
+    allowedFileExtensions: ['jpg', 'gif', 'png'],
     dropZoneEnabled: false,
     'showUpload': false
   });
   $
 
-  $('#frmWritePost').on('submit', function(e) {
+  $('#frmWritePost').on('submit', function (e) {
     e.preventDefault();
-    if (isEmptyText('txtTitle',"Title"))
+    if (isEmptyText('txtTitle', "Title"))
       return;
-    if (isEmptyText('txtAbstract',"Abstract"))
+    if (isEmptyText('txtAbstract', "Abstract"))
       return;
-    if (isEmptyText('txtContent',"Content"))
+    if (isEmptyText('txtContent', "Content"))
       return;
-    if( $('#fCover').get(0).files.length === 0 ){
-      alert( `A post need a cover`);
+    if ($('#fCover').get(0).files.length === 0) {
+      alert(`A post need a cover`);
       $('#fCover').focus();
       return;
     }
     var array = [];
     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-    if (checkboxes.length===0){
-      alert( `You must take at least one tag for your post!`);
+    if (checkboxes.length === 0) {
+      alert(`You must take at least one tag for your post!`);
       return;
     }
     title = $('#txtTitle').val();
     postID = $('#postID').val();
-    $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function(data){
-      if (data === false){
+    $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function (data) {
+      if (data === false) {
         alert('You wrote a post having the same title. Please write another one!');
         $('#txtTitle').focus();
         return;
@@ -63,62 +67,176 @@
     })
   });
 
-  function isEmptyText(idtext, message){
+  function isEmptyText(idtext, message) {
     const text = $(`#${idtext}`).val();
-    if (text.length === 0){
-      alert( `${message} is empty`);
+    if (text.length === 0) {
+      alert(`${message} is empty`);
       $(`#${idtext}`).focus();
       return true;
-      }
+    }
     return false;
   }
 </script>
 {{/section}}
+<style>
+  body {
+    color: #bd2861;
+    background: #f5f5f5;
+    font-size: 15px;
+  }
 
-<h4 class="">Write New Posts</h4>
-<form id="frmWritePost" method="post" enctype="multipart/form-data">
-            <input type="text" id="postID" value="{{this.postID}}" name="postID" class="invisible"/>
-            <div class="form-group">
-              <label for="txtTitle">Title</label>
-              <input type="text" name="title" id="txtTitle" class="form-control" placeholder="Write post's Title here" size="1.5em" value="{{this.title}}">
-            </div>
-            <div class="form-group">
-              <label for="txtAbstract">Abstract</label>
-              <textarea type="text" name="abstract" id="txtAbstract" class="form-control" placeholder="Write post's Abstract here">{{this.abstract}}</textarea>
-            </div>
-            <div class="form-group">
-              <label for="txtContent">Content</label>
-              <textarea rows="15" type="text" name="content" id="txtContent" class="form-control" placeholder="Write post's Content here">{{this.content}}</textarea>
-            </div>
-            <div class="form-group">
-              <label for="selectedCat">Select Category</label>
-              <select class="form-control" id="selectedCat" name="category">
-                {{#each this.list_cat}}
-                  <option value="{{ID}}" {{#if selected}}selected="selected"{{/if}}>{{Name}}</option>
-                {{/each}}
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="selectedTag">Select Tags</label>
-              <div class="container">
-                <div class="row">
-                  {{#each this.list_tag}}
-                    <div class="form-check col-3">
-                      <input class="form-check-input" type="checkbox" value="{{ID}}" id="cbTag{{ID}}" name="tag" {{#if selected}}checked="checked"{{/if}}>
-                      <label class="form-check-label" for="cbTag{{ID}}">
-                        {{Name}}
-                      </label>
-                    </div>
-                  {{/each}}
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="fCover">Cover</label>
-              <input type="file" name="cover" id="fCover" class="form-control d-block">
-            </div>
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-check" aria-hidden="true"></i>
-                Save
-            </button>
-        </form>
+  .wrap-column {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  form {}
+
+  .form-group label {
+    font-weight: bold;
+    font-size: x-large;
+  }
+
+  .inputtext-wrap-inside {
+    border: none;
+    background-color: #f5f5f5 !important;
+  }
+
+  .inputtext-wrap-inside:focus {
+    border: none;
+    box-shadow: none;
+  }
+
+  .nice-select.form-control.open:focus {
+    border: none;
+    box-shadow: none;
+  }
+
+  .nice-select.form-control {
+    border: none;
+    box-shadow: none;
+    background-color: #f5f5f5;
+  }
+
+  .showtag {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .showtag label {
+    font-size: medium;
+    font-weight: lighter;
+    color: black;
+  }
+
+  .btn-file,
+  .custom-btn {
+    background-color: #ce4156 !important;
+    border-radius: 3px;
+    border: none;
+    color: white;
+  }
+
+  .btn-file:hover,
+  .custom-btn:hover {
+    background-color: #cc5c6d !important;
+    color: white;
+  }
+
+  input.file-caption-name.form-control.kv-fileinput-caption.is-valid {
+    width: 100%;
+    font-size: smaller;
+  }
+
+  .fileinput-remove,
+  .fileinput-cancel,
+  .btn-file {
+    font-size: small;
+    margin-left: 10px;
+  }
+</style>
+<div class="container">
+  <div class=" row ">
+
+    <div class="col-md-8 d-flex p-3" style="justify-content: space-between;">
+      <span>
+        <h2 style="font-weight: bold; color:#bd2861">Write New Posts</h2>
+      </span>
+
+
+      <button type="submit" class="btn custom-btn">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+
+    </div>
+  </div>
+
+
+  <form class="row" id="frmWritePost" method="post" enctype="multipart/form-data">
+    <div class="col-md-8 wrap-column mr-4">
+      <input type="text" id="postID" value="{{this.postID}}" name="postID" class="invisible" />
+
+      <div class="form-group ">
+        <label for="txtTitle">Title</label>
+        <input type="text" name="title" id="txtTitle" class="form-control inputtext-wrap-inside"
+          placeholder="Write post's Title here" size="3em" value="{{this.title}}">
+      </div>
+
+      <div class="form-group mt-5">
+        <label for="txtAbstract">Abstract</label>
+        <textarea type="text" name="abstract" id="txtAbstract" class="form-control inputtext-wrap-inside"
+          placeholder="Write post's Abstract here">{{this.abstract}}</textarea>
+      </div>
+
+      <div class="form-group mt-5">
+        <label for="txtContent">Content</label>
+        <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
+          placeholder="Write post's Content here">{{this.content}}</textarea>
+      </div>
+    </div>
+
+
+    <div class="col-md-3 ">
+      <div class="form-group wrap-column " style="height: 180px;">
+        <label for="selectedCat">Select Category</label>
+        <select class="form-control" id="selectedCat" name="category">
+          {{#each this.list_cat}}
+          <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+
+      <div class="form-group wrap-column" style="margin-top: 2rem !important">
+        <label for="selectedTag">Select Tags</label>
+        <div class="div d-flex  showtag">
+          {{#each this.list_tag}}
+
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox" value="{{ID}}" id="cbTag{{ID}}" name="tag" {{#if
+              selected}}checked="checked" {{/if}} />
+            <label class="form-check-label" for="cbTag{{ID}}">
+              {{Name}}
+            </label>
+          </div>
+          {{/each }}
+        </div>
+      </div>
+
+      <div class="form-group wrap-column" style="margin-top: 2rem !important">
+        <label for="fCover">Cover</label>
+        <input type="file" name="cover" id="fCover" class="form-control d-block" />
+      </div>
+
+
+
+    </div>
+
+
+  </form>
+
+
+
+</div>

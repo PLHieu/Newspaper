@@ -1,124 +1,175 @@
-
 {{#section 'title'}}
-    <title>Hello Writer</title>
+<title>Hello Writer</title>
 {{/section}}
 
 {{#section 'css'}}
-<style>
-
-.clickable-row {
-    cursor: pointer;
-}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlybaiviet.css">
 {{/section}}
 
 {{#section 'js'}}
 <script>
-  $(".clickable-row").click(function() {
-          window.location = $(this).data("href");
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
 {{/section}}
 
-<div class="card">
-    <h2 class="card-header">
-        Manage My Posts
-    </h2>
-    <div class="card-body">
-        <a href="/writer/write-post" role="button" class="btn btn-lg-success">Create new post</a>
 
-        <table class="table table-hover">
-          <caption style="text-align:center" class="text-danger heading-4">Rejected Posts</caption>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Category</th>
-              <th scope="col" colspan="2">Title</th>
-              <th scope="col">Rating Time</th>
-              <th scope="col">Edit By</th>
-              <th scope="col" colspan="2">Rejected Reason</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this.rejected_posts_list}}
-              <tr class='clickable-row' data-href='/writer/post-detail?postID={{ID}}'>
-                <th scope="row">{{math @index "+" 1}}</th>
-                <td>{{CatName}}</td>
-                <td colspan="2">{{Title}}</td>
-                <td>{{draft_info.RateTime}}</td>
-                <td>{{draft_info.EditorName}}</td>
-                <td colspan="2">{{draft_info.Note}}</td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
 
-        <table class="table table-hover">
-          <caption style="text-align:center" class="text-danger heading-4">Pending Posts</caption>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Category</th>
-              <th scope="col" colspan="3">Title</th>
-              <th scope="col">Writing Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this.pending_posts_list}}
-              <tr class='clickable-row' data-href='/writer/post-detail?postID={{ID}}'>
-                <th scope="row">{{math @index "+" 1}}</th>
-                <td>{{CatName}}</td>
-                <td colspan="2">{{Title}}</td>
-                <td>{{WriteTime}}</td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
+<div class="container">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-5 d-flex align-items-center">
+            <h2 class="text-white">Quản lý <b class="text-white">Bài viết</b></h2>
+          </div>
+          <div class="col-sm-7">
+            <a href="/writer/write-post" class="btn btn-secondary d-flex align-items-center thembaiviet" style="height: 50px;"><i style="font-size: xx-large;"
+                class="material-icons">&#xE147;</i>
+              <span style="font-size: large;">Thêm bài viết mới</span></a>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
 
-        <table class="table table-hover">
-          <caption style="text-align:center" class="text-danger heading-4">Published Posts</caption>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col" colspan="2">Category</th>
-              <th scope="col" colspan="4">Title</th>
-              <th scope="col">Published Time</th>
-              <th scope="col">Views</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this.published_posts_list}}
-              <tr>
-                <th scope="row">{{math @index "+" 1}}</th>
-                <td colspan="2">{{CatName}}</td>
-                <td colspan="3">{{Title}}</td>
-                <td colspan="2">{{PubTime}}</td>
-                <td>{{Views}}</td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
+      <h1 class="text-center text-danger">Bị từ chối</h1>
+      <table class="table table-striped table-hover bituchoi">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Thumbails</th>
+            <th class="tieude">Tiêu đề</th>
+            <th>Rated Date</th>
+            <th class="text-center">Category</th>
+            <th class="editor">Edit by</th>
+            <th class="lido">Lý do</th>
+            <th class="text-center">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.rejected_posts_list}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td class="tieude">{{Title}}</td>
+            <td>{{draft_info.RateTime}}</td>
+            <td class="text-center">{{CatName}}</td>
+            <td class="editor ">{{draft_info.EditorName}}</td>
+            <td class="lido">{{draft_info.Note}}</td>
+            <td class="text-center">
+              <a href="/writer/post-detail?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
+                  class="material-icons text-warning">edit</i></a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <br>
+      <br>
 
-        <table class="table table-hover">
-          <caption style="text-align:center" class="text-danger heading-4">Approved but haven't been Published Posts yet</caption>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col" colspan="2">Category</th>
-              <th scope="col" colspan="4">Title</th>
-              <th scope="col">Time will Publish</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this.approved_not_publish_posts_list}}
-              <tr>
-                <th scope="row">{{math @index "+" 1}}</th>
-                <td colspan="2">{{CatName}}</td>
-                <td colspan="3">{{Title}}</td>
-                <td colspan="2">{{PubTime}}</td>
-              </tr>
+      <h1 class="text-center text-warning">Chưa được duyệt</h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Ngày viết</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Edit</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          {{#each this.pending_posts_list}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td>{{Title}}</td>
+            <td>{{WriteTime}}</td>
+            <td class="text-center">{{CatName}}</td>
+            <td class="text-center">
+              <a href="/writer/post-detail?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
+                  class="material-icons text-warning">edit</i></a>
+            </td>
+          </tr>
+          {{/each}}
+          <tr>
+        </tbody>
+      </table>
+      <br>
+      <br>
+
+      <h1 class="text-center text-primary">Chờ xuất bản</h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Ngày viết</th>
+            <th>Ngày XB</th>
+            <th class="text-center">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.approved_not_publish_posts_list}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td>{{Title}}</td>
+            <td>{{WriteTime}}</td>
+            <td>{{PubTime}}</td>
+            <td class="text-center">{{CatName}}</td>
+          </tr>
+          <tr>
             {{/each}}
-          </tbody>
-        </table>
+        </tbody>
+      </table>
+      <br>
+      <br>
+
+      <h1 class="text-center text-success">Đã xuất bản</h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Ngày viết</th>
+            <th>Ngày XB</th>
+            <th>Category</th>
+            <th class="text-center">Lượt xem</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.published_posts_list}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td>{{Title}}</td>
+            <td>{{WriteTime}}</td>
+            <td>{{PubTime}}</td>
+            <td class="">{{CatName}}</td>
+            <td class="text-center">
+              <a class="edit text-success d-flex align-items-center justify-content-center" title="Lượt xem"
+                data-toggle="tooltip"><i class="material-icons">remove_red_eye</i>
+                {{Views}}</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+
     </div>
+  </div>
 </div>
+
+
+
+
