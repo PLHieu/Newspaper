@@ -7,6 +7,15 @@ const moment = require('moment');
 router.get('/:id', async function (req, res){
     id_post = req.params.id;
     post = await posts_db.findPostByID(id_post);
+    for (let i = 0; i < post.comments.length; i++) {
+        if (post.comments[i].ReaderID == null || req.session.user == null || 
+            req.session.user.role!=post.comments[i].RoleReaderID || req.session.user.id!=post.comments[i].ReaderID) {
+                post.comments[i].cantDelete = true;
+        }
+        else{
+            post.comments[i].cantDelete = false;
+        }
+    }
     if (post === null){
         return res.status(404).send("Khong ton tai bai post");
     }
@@ -17,11 +26,17 @@ router.get('/:id', async function (req, res){
 });
 
 router.post('/:id', async function (req, res){
+    let readerID = null;
+    let roleReaderId = null;
+    if (res.locals.session.user !== null)
+        readerID = req.session.user.id;
+        roleReaderId = req.session.user.role;
     const new_comment = {
-        ReaderID: null,
+        ReaderID: readerID,
         PostID: req.params.id,
         PubTime: moment().format('YYYY/MM/DD'),
-        Content: req.body.comment
+        Content: req.body.comment,
+        RoleReaderID: roleReaderId,
     }
     await comments_db.addComment(new_comment);
     
