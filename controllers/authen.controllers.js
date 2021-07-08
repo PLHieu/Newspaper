@@ -87,32 +87,22 @@ Please note that you can use it for your personal account only.
 */
 
 var email;
-let otp = Math.random();
-otp = otp * 1000000;
-otp = parseInt(otp);
-console.log("OTP: ",otp);
+let otp;
 
 exports.reset_password = async (req, res) => {
     email = req.body.email;
+    otp = Math.random();
+    otp = otp * 1000000;
+    otp = parseInt(otp);
+    console.log("OTP: ",otp);
 
-    let transporter = nodemailer.createTransport(//{
-        // host: "smtp.ethereal.email",
-        // port: 587,
-        // secure: false, // true for 465, false for other ports
-        // auth: {
-        //     user: testAccount.user, // generated ethereal user
-        //     pass: testAccount.pass, // generated ethereal password
-        // },
-        //'SMTP', 
+    let transporter = nodemailer.createTransport(
         {
             service: 'gmail',
             auth: {
               user: 'thinhvuong9700@gmail.com',
-              pass: '*********'
+              pass: '****'
             },
-            // tls: {
-            //     rejectUnauthorized: false
-            //  }
     });
     
     var mailOptions={
@@ -159,7 +149,7 @@ exports.resendOTP = async (req, res) =>{
             service: 'gmail',
             auth: {
               user: 'thinhvuong9700@gmail.com',
-              pass: '********'
+              pass: '*****'
             },
     });
     

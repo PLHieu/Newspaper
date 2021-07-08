@@ -1,6 +1,6 @@
 
 {{#section 'title'}}
-    <title>{{this.title}}</title>
+    <title>Search</title>
 {{/section}}
 
 {{#section 'css'}}
@@ -50,18 +50,17 @@
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
+                                    <a href="http://localhost:3000/search?text_search={{this.search_text}}&page={{prev_page}}" class="page-link" aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
+                                {{#each this.list_page}}
+                                    <li class="page-item">
+                                        <a href="http://localhost:3000/search?text_search={{search_text}}&page={{page}}" class="page-link">{{page}}</a>
+                                    </li>
+                                {{/each}}
                                 <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
+                                    <a href="http://localhost:3000/search?text_search={{search_text}}&page={{next_page}}" class="page-link" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
                                 </li>
