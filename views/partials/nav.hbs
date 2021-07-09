@@ -1,8 +1,26 @@
-<!-- Nav Menu Start -->
+
+<style>
+    .info li{
+        display: inline-block;
+    }
+
+    .info {
+        display: inline-block;
+    }
+
+    .info li:hover{
+        font-weight: 500;
+    }
+
+    .dropdown-toggle::after {
+        margin-left: 0;
+    }
+
+</style>
 <div class="header-bottom header-sticky">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-xl-11 col-lg-11 col-md-12 header-flex">
+            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                 <!-- sticky -->
                 <div class="sticky-logo">
                     <a href="index.html"><img src="/public/template/img/logo/logo.png" alt=""></a>
@@ -26,13 +44,45 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-xl-1 col-lg-1 col-md-1">
+
+
+            <div class="col-xl-2 col-lg-2 col-md-2 d-flex align-items-center">
+                <ul class="info">
+                    {{#if session.user.logged}}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+                            Hi, <b class="text-white" id="tennguoidung">{{session.user.name}}</b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/subcriber" style="color: black;">
+                                <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/signout" style="color: black;">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Sign Out
+                            </a>
+                        </div>
+                    </li>
+                    {{else}}
+                    <li class="">
+                        <a href="/register" style="color: white; padding: 2px">
+                            Sign up
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="/login" style="color: white; padding: 2px">
+                            Sign in
+                        </a>
+                    </li>
+                    {{/if}}
+                </ul>
                 <div class="header-right f-right d-none d-lg-block">
-                    <!-- Heder social -->
-                    
                     <!-- Search Nav -->
                     <div class="nav-search search-switch">
-                        <i class="fa fa-search"></i>
+                        <i class="fa fa-search" style="padding: 10px;"></i>
                     </div>
                 </div>
             </div>

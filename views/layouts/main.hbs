@@ -5,25 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     {{{_sections.title}}}
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{!--
-    <link rel="manifest" href="site.webmanifest"> --}}
     <link rel="shortcut icon" type="image/x-icon" href="/public/template/img/favicon.ico">
-
-    <!-- CSS here-->
     <link rel="stylesheet" href="/public/template/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/public/template/css/ticker-style.css">
-    <link rel="stylesheet" href="/public/template/css/flaticon.css">
-    <link rel="stylesheet" href="/public/template/css/slicknav.css">
-    <link rel="stylesheet" href="/public/template/css/animate.min.css">
-    <link rel="stylesheet" href="/public/template/css/magnific-popup.css">
-    <link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/public/template/css/themify-icons.css">
-    <link rel="stylesheet" href="/public/template/css/slick.css">
-    <link rel="stylesheet" href="/public/template/css/nice-select.css">
-    <link rel="stylesheet" href="/public/template/css/style.css">
+
     {{{_sections.css}}}
 </head>
 
@@ -33,62 +18,8 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-    <script src="/public/template/js/vendor/modernizr-3.5.0.min.js"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="/public/template/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="/public/template/js/popper.min.js"></script>
     <script src="/public/template/js/bootstrap.min.js"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="/public/template/js/jquery.slicknav.min.js"></script>
-
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="/public/template/js/owl.carousel.min.js"></script>
-    <script src="/public/template/js/slick.min.js"></script>
-    <!-- Date Picker -->
-    <script src="/public/template/js/gijgo.min.js"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="/public/template/js/wow.min.js"></script>
-    <script src="/public/template/js/animated.headline.js"></script>
-    <script src="/public/template/js/jquery.magnific-popup.js"></script>
-
-    <!-- Scrollup, nice-select, sticky -->
-    <script src="/public/template/js/jquery.scrollUp.min.js"></script>
-    <script src="/public/template/js/jquery.nice-select.min.js"></script>
-    <script src="/public/template/js/jquery.sticky.js"></script>
-
-    <!-- contact js -->
-    <script src="/public/template/js/contact.js"></script>
-    <script src="/public/template/js/jquery.form.js"></script>
-    <script src="/public/template/js/jquery.validate.min.js"></script>
-    <script src="/public/template/js/mail-script.js"></script>
-    <script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
-
-    <!-- Jquery Plugins, main Jquery -->
-    <script src="/public/template/js/plugins.js"></script>
-    <script src="/public/template/js/main.js"></script>
-    {{!--
-    <script>
-        const form = $('#search_frm');
-        $('#search_frm').on('submit', function (e) {
-            e.preventDefault();
-            var url = form.attr('action');
-
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: form.serialize(), // serializes the form's elements.
-                success: function (data) {
-                    alert(data); // show response from the php script.
-                }
-            });
-        });
-    </script> --}}
-    <script type="text/javascript">
-        let date = new Date();
-        let data = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-        $("#dmy").html(data)
-
-    </script>
     {{{_sections.js}}}
 
 </body>

@@ -1,16 +1,47 @@
-<div class="row">
-    <div class="col-xl-8 col-lg-8 col-md-9">
-        <img src="../../public/image/logo/logo.png" alt="logo" style="padding-right: 15px;">
-        <i class="fa fa-calendar" aria-hidden="true"> <i id="dmy"></i> </i>
-    </div>
+<!-- Header Start -->
+<div class="header-area">
+    <div class="main-header ">
+        <div class="header-top black-bg d-none d-sm-block">
+            <div class="container">
+                <div class="col-xl-12">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="header-info-left">
+                            <ul>
+                                <li class="title"><span class="flaticon-energy"></span>Đồ án Web</li>
+                                <li>Phan Long Hiếu</li>
+                                <li>Minh Vượng</li>
+                                <li>Tuyết Trinh</li>
+                            </ul>
+                        </div>
+                        <div class="header-info-right">
+                            <ul class="header-date">
+                                <li><span class="flaticon-calendar"></span>18CNTN</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-mid gray-bg">
+            <div class="container">
+                <div class="row d-flex align-items-center">
+                    <!-- Logo -->
+                    <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                        <div class="logo">
+                            <a href=""><img src="public/template/img/logo/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9">
+                        <div class="header-banner f-right ">
+                            <img src="public/template/img/gallery/header_card.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="col-xl-4 col-lg-4 col-md-3 f-right mt-10">
-        <form id="search_frm" action="http://localhost:3000/search" class="form-inline" method="GET">
-            <input name="text_search" class="form-control mr-sm-2" type="search" placeholder="Search"
-                aria-label="Search" style="width: 80%; height:70%">
-            <button class="btn btn-success" type="submit" style="width: 30px; height:30px; padding:0 0 0 0;">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-        </form>
+        {{> nav}}
+
     </div>
 </div>
+<!-- Header End -->
