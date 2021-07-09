@@ -3,12 +3,47 @@
 {{/section}}
 
 {{#section 'css'}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlybaiviet.css">
 {{/section}}
 
 {{#section 'js'}}
+
+<!-- Jquery, Popper, Bootstrap -->
+
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
+
+
 <script>
   $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -16,7 +51,7 @@
 </script>
 {{/section}}
 
-
+{{> header-top}}
 
 <div class="container">
   <div class="table-responsive">
@@ -61,7 +96,7 @@
             <td class="editor ">{{draft_info.EditorName}}</td>
             <td class="lido">{{draft_info.Note}}</td>
             <td class="text-center">
-              <a href="/writer/post-detail?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
+              <a href="/writer/post-detail/edit?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
                   class="material-icons text-warning">edit</i></a>
             </td>
           </tr>
@@ -93,7 +128,7 @@
             <td>{{WriteTime}}</td>
             <td class="text-center">{{CatName}}</td>
             <td class="text-center">
-              <a href="/writer/post-detail?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
+              <a href="/writer/post-detail/edit?postID={{ID}}" class="edit" title="Edit" data-toggle="tooltip"><i
                   class="material-icons text-warning">edit</i></a>
             </td>
           </tr>
