@@ -216,6 +216,31 @@ table.table.table-category .thumname .name{
     margin-left: 20px;
 }
 
+/* 1.1.2 NOi dung danh sach cua table hien thi post writer */
+/* 
+tr td:nth-child(7){
+    width: 155px;
+}
+
+
+.bituchoi .tieude{
+    width: 350px;
+}
+
+
+.bituchoi .lido{
+    width: 250px;
+}
+
+.bituchoi .editor{
+    width: 150px;
+}
+
+a.btn.btn-secondary.d-flex.align-items-center.thembaiviet{
+    height: 50px !important;
+} */
+
+
 /* 1.2 modal box de hien thi chi tiet */
 
 .momoaoao {
