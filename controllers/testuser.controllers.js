@@ -7,7 +7,7 @@ exports.editorPage = (req, res) => {
 };
 
 exports.adminPage = (req, res) => {
-    res.status(200).render("user/admin");
+    res.status(200).render("user/admin/quanlyuser");
 };
 
 exports.writerPage = (req, res) => {
