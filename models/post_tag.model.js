@@ -22,6 +22,6 @@ module.exports = {
    },
 
    del(postID){
-    return db('PostTag').where('PostID',PostID).del();
+    return db('PostTag').where('PostID',postID).del();
    }
 }

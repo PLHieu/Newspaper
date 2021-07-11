@@ -61,7 +61,6 @@
     dropZoneEnabled: false,
     'showUpload': false
   });
-  $
 
   $('#frmWritePost').on('submit', function (e) {
     e.preventDefault();
@@ -69,8 +68,12 @@
       return;
     if (isEmptyText('txtAbstract', "Abstract"))
       return;
-    if (isEmptyText('txtContent', "Content"))
+    temp = tinymce.get('txtContent').getContent();
+    if (temp.length === 0){
+      alert(`Content is empty`);
+      $(`#txtContent`).focus();
       return;
+    }
     if ($('#fCover').get(0).files.length === 0) {
       alert(`A post need a cover`);
       $('#fCover').focus();
@@ -204,7 +207,9 @@
   <form class="row" id="frmWritePost" method="post" enctype="multipart/form-data">
     <div class="col-md-8 wrap-column mr-4">
       <input type="text" id="postID" value="{{this.postID}}" name="postID" class="invisible" />
-
+       {{#if this.title}}
+       <img src="/public/image/posts/{{this.postID}}/bigavt.jpg" alt="Cover">
+       {{/if}}
       <div class="form-group ">
         <label for="txtTitle">Title</label>
         <input type="text" name="title" id="txtTitle" class="form-control inputtext-wrap-inside"
@@ -222,7 +227,13 @@
         <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
           placeholder="Write post's Content here">{{this.content}}</textarea>
       </div>
+      <button type="submit" class="btn custom-btn">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
     </div>
+
+    
 
 
     <div class="col-md-3 ">
@@ -254,7 +265,7 @@
 
       <div class="form-group wrap-column" style="margin-top: 2rem !important">
         <label for="fCover">Cover</label>
-        <input type="file" name="cover" id="fCover" class="form-control d-block" />
+        <input type="file" name="cover" id="fCover" class="form-control d-block"/>
       </div>
 
 

@@ -121,6 +121,12 @@ router.post('/write-post', async function(req, res) {
             await post_db.addPost(new_post);
             just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
             addPostTag(tag, just_post.ID);
+
+            const dir = `./public/image/posts/${just_post.ID}`
+            if (fs.existsSync(dir)) {
+                console.log('Directory exists!');
+                fs.rmdirSync(dir, { recursive: false });
+            }
             //crete folder save cover post
             fs.mkdir(`./public/image/posts/${just_post.ID}`, function(err) {
                 if (err) {
@@ -184,14 +190,14 @@ router.post('/post-detail/edit', async function(req, res){
         if (err) console.log(err);
         else {
             const {category, title, abstract, content, tag, postID} = req.body;
-            console.log(category, title, abstract, content);
+            console.log(category, title, abstract, content, tag, postID);
             const edit_post = {
                 Title: title,
                 CatID: category,
                 Content: content,
                 Abstract: abstract,
             }
-            await post_db.editPost(edit_post,req.query.postID);
+            await post_db.editPost(edit_post,postID);
             await posttag_db.del(postID);
             addPostTag(tag,postID);
             updateCoverPost(postID);
