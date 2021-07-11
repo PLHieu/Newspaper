@@ -1,0 +1,269 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ffffff;
+    }
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        $('.exit-button , .momoaoao').click(function (e) {
+            e.preventDefault();
+            $('.momoaoao').removeClass('hienra');
+            $('.modal_box').removeClass('modal_show');
+        });
+
+        $('.xemchitiet').click(function (e) {
+            e.preventDefault();
+
+            //TODO: goi ajax
+
+            $('.momoaoao').addClass('hienra');
+            $('.modal_ef').addClass('modal_show');
+        });
+    });
+</script>
+{{/section}}
+<div class="container">
+    <div class="table-responsive">
+        <div class="table-wrapper pb-0">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h2>Quản lý <b>Bài viết</b></h2>
+                    </div>
+                    <div class="col-sm-7">
+                        <a href="#" class="btn btn-secondary d-flex align-items-center"><i
+                                class="material-icons">&#xE147;</i> <span>Thêm bài viết mới</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="table-wrapper">
+            <table class="table table-striped table-hover table-post">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Thumbails</th>
+                        <th>Tiêu đề</th>
+                        <th>Ngày viết</th>
+                        <th>Ngày XB</th>
+                        <th>Tác giả</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="thumbnail"><img
+                                src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
+                                alt="" srcset=""></td>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis </td>
+                        <td>04/08/2020</td>
+                        <td>04/08/2020</td>
+                        <td class="tacgia">
+                            <img src="https://www.tutorialrepublic.com/examples/images/avatar/1.jpg" alt="" srcset="">
+                            Genk
+                        </td>
+                        <td><span class="badge badge-pill badge-primary">Du lich</span></td>
+                        <td class="td-status"><span class="status text-success">&bull;</span> Active</td>
+                        <td class="dropleft">
+                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                more_horiz
+                            </i>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
+                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="#">Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td class="thumbnail"><img
+                                src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
+                                alt="" srcset=""></td>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis </td>
+                        <td>04/08/2020</td>
+                        <td>04/08/2020</td>
+                        <td class="tacgia">
+                            <img src="https://www.tutorialrepublic.com/examples/images/avatar/1.jpg" alt="" srcset="">
+                            Genk
+                        </td>
+                        <td><span class="badge badge-pill badge-primary">Du lich</span></td>
+                        <td class="td-status"><span class="status text-primary">&bull;</span> Active</td>
+                        <td class="dropleft">
+                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                more_horiz
+                            </i>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
+                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="#">Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal_box modal_ef modal_box-chitietpost">
+    <div class="modal_content modal_content-chitietpost">
+        <div class="row">
+            <div class="col-md-8 phai">
+                <div class="wrapper">
+                    <h1><b>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</b></h1>
+                    <br>
+                    <br>
+                    <h2>Tóm tắt</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur soluta, voluptates nobis
+                        ipsam
+                        itaque laudantium id beatae assumenda laboriosam sunt molestias inventore pariatur
+                        voluptatibus
+                        aspernatur eveniet earum veniam quibusdam fugiat!
+                    </p>
+                    <br>
+                    <br>
+                    <h2>Danh mục <span class="badge badge-primary">Du lich</span></h2>
+                    <br>
+                    <br>
+                    <h2>Nội Dung</h2>
+                    <div>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam saepe tempora quae provident
+                        vero est velit mollitia quos numquam, aperiam odio, ex corporis dolorem itaque unde sed
+                        necessitatibus nihil eaque.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam fugiat odit necessitatibus
+                        esse.
+                        Odit praesentium deserunt inventore enim temporibus dolor! Officia possimus, consequuntur
+                        vero
+                        dolore in quos aliquid accusantium veritatis.
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem dolores necessitatibus
+                        repellendus, debitis quia tenetur omnis! Tempore, sed perferendis adipisci quod qui,
+                        laboriosam
+                        facere eum perspiciatis, aut placeat pariatur quaerat!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum placeat nemo, dicta
+                        perferendis
+                        officiis, consectetur optio facilis velit provident illum aut asperiores sit dignissimos
+                        possimus nobis ducimus nihil necessitatibus nesciunt!
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatum maxime totam
+                        asperiores nostrum sequi doloribus officia aut reprehenderit voluptatibus labore, porro,
+                        impedit
+                        commodi. Odit aut minima illum iste inventore.
+                        Với tỷ lệ tán thành 89,53%, ông Nguyễn Thành Phong tiếp tục làm Chủ tịch UBND TP HCM nhiệm
+                        kỳ 2021-2026. Ông Nguyễn Thành Phong được bầu giữ chức Chủ tịch UBND TP HCM tại kỳ họp thứ
+                        nhất HĐND thành phố khoá X sáng 24/6, sau khi được Chủ tịch HĐND thành phố Nguyễn Thị Lệ
+                        giới thiệu. Ông Phong 59 tuổi, quê Bến Tre, tiến sĩ kinh tế; từng đảm nhiệm các chức vụ Chủ
+                        tịch Hội sinh viên Việt Nam TP HCM, Bí thư Thành Đoàn TP HCM; Bí thư Trung ương Đoàn. Đầu
+                        năm 2007, ông làm Bí thư quận 2 trước khi trở thành Bí thư Tỉnh ủy Bến Tre. Tháng 3/2015,
+                        ông được Trung ương điều động trở lại TP HCM giữ cương vị Phó bí thư Thành ủy nhiệm kỳ
+                        2010-2015.Tại Đại hội Đảng bộ TP HCM khóa X, nhiệm kỳ 2015-2020, tổ chức giữa tháng 10/2015,
+                        ông Phong tái cử Phó bí thư Thành ủy TP HCM, sau đó được bầu làm Chủ tịch UBND thành phố.
+                        Đến tháng 6/2016, kỳ họp thứ nhất HĐND TP HCM khoá X bầu ông giữ chức Chủ tịch UBND thành
+                        phố nhiệm kỳ 2016-2021. Tại Đại hội Đảng bộ TP HCM khoá XI, nhiệm kỳ 2020-2025, tổ chức giữa
+                        tháng 10 năm ngoái ông Phong tái đắc cử Phó bí thư Thành ủy TP HCM. Chủ tịch UBND thành phố
+                        là một trong 94 đại biểu HĐND thành phố khóa X, nhiệm kỳ 2021-2026. Trong chương trình hành
+                        động, ông cho biết sẽ tập trung giải quyết những vấn đề lớn của thành phố, gồm: xây dựng
+                        hiệu quả nền hành chính; phát triển kinh tế nhanh, bền vững trên ứng dụng khoa học công
+                        nghệ; nâng cao chất lượng quy hoạch đô thị; đẩy mạnh phòng chống Covid-19; xử lý tiếng ồn,
+                        ùn tắc, ngập nước; giữ vững an ninh chính trị, trật tự an toàn xã hội... Cũng tại kỳ họp,
+                        HĐND thành phố khoá X bầu 5 Phó chủ tịch UBND thành phố nhiệm kỳ 2021-2026 theo giới thiệu
+                        của Chủ tịch UBND thành phố, gồm các ông, bà: Ngô Minh Châu (57 tuổi), Võ Văn Hoan (56
+                        tuổi), Dương Anh Đức (53 tuổi), Lê Hoà Bình (51 tuổi), Phan Thị Thắng (45 tuổi). Đây cũng là
+                        5 Phó chủ tịch UBND thành phố nhiệm kỳ trước.
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 trai" style="height: 85vh">
+                <div class="wrapper" style="height: 25%">
+                    <div class=" tacgia">
+                        <div>
+                            <h2>Tác giả</h2>
+                            <p>Genk</p>
+                            <p>Ngày viết: <b>20/7/2020</b></p>
+                            <p>Tình trạng: <span class="badge badge-primary">Đã xuất bản</span></p>
+                        </div>
+
+                        <img src="https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTU3ODc5MDg1ODkyNzA4MDYz/ho-chi-minh-2.jpg"
+                            alt="" srcset="">
+                    </div>
+                </div>
+                <!-- <br> -->
+                <div class="wrapper tags" style="height: 25%">
+                    <h2>Tags</h2>
+                    <div>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">asasad</span>
+                        <span class="badge badge-primary">de xeee</span>
+                        <span class="badge badge-primary">vffv</span>
+                        <span class="badge badge-primary">frf fefe</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">asasad</span>
+                        <span class="badge badge-primary">de xeee</span>
+                        <span class="badge badge-primary">vffv</span>
+                        <span class="badge badge-primary">frf fefe</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                        <span class="badge badge-primary">hieu</span>
+                    </div>
+                </div>
+                <!-- <br> -->
+                <div class="wrapper thumbnail" style="height: 40%">
+                    <h2>Ảnh đại diện</h2>
+                    <img src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg" alt=""
+                        srcset="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="momoaoao"></div>

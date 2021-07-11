@@ -193,6 +193,14 @@ table.table .avatar {
  background-color: #e96866 !important;
 }
 
+.table.table-striped tbody tr td.dropleft i {
+    cursor: pointer;
+}
+
+.table.table-striped tbody tr td.dropleft i:hover {
+    color: #eb4d4b
+}
+
 /* 1.1.1 Noi dung cua table quan ly (Cate)  */
 table.table.table-category .thumname{
     width: 40%;
@@ -240,7 +248,28 @@ a.btn.btn-secondary.d-flex.align-items-center.thembaiviet{
     height: 50px !important;
 } */
 
+/* 1.1.3 Noi dung cho quan ly danh sach bai viet (trang admin) */
+table.table.table-post tbody .thumbnail img{
+    width: 80px;
+    height: 50px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px;
+}
 
+table.table.table-post tbody .tacgia {
+    min-width: 130px;
+}
+
+table.table.table-post tbody .tacgia img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    
+}
+
+table.table.table-post tbody .td-status{
+    min-width: 110px;
+}
 /* 1.2 modal box de hien thi chi tiet */
 
 .momoaoao {
@@ -349,4 +378,54 @@ a.btn.btn-secondary.d-flex.align-items-center.thembaiviet{
 }
 .modal_box .modal_content.modal-category .col-md-8 p{
     font-size: large;
+}
+
+/* 1.3.3 Noi dung ben trong modal_box cua xem chi tiet mot bai viet (quan ly post - admin) */
+
+.modal_box.modal_box-chitietpost {
+    width: 80%;
+}
+
+.modal_content.modal_content-chitietpost {
+    background: none;
+}
+
+.modal_content.modal_content-chitietpost .wrapper {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.modal_content.modal_content-chitietpost .trai {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal_content.modal_content-chitietpost .phai {
+    overflow-y: scroll;
+    height: 85vh;
+    border-radius: 10px;
+}
+
+.modal_content.modal_content-chitietpost .tags div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.modal_content.modal_content-chitietpost .tacgia {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.modal_content.modal_content-chitietpost .tacgia img {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.modal_content.modal_content-chitietpost .thumbnail img {
+    width: 100%;
+    height: 80%;
 }
