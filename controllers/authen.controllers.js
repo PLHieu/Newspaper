@@ -25,8 +25,11 @@ exports.register = async function(req, res) {
 
 exports.is_available = async (req, res)=>{
     const username = req.query.username;
-    const rows = await reader.findByUsername(username);
-    if (rows === null) 
+    const rowsReader = await reader.findByUsername(username);
+    const rowsWriter = await writer.findByUsername(username);
+    const rowsEditor = await editor.findByUsername(username);
+    const rowsAdmin = await admin.findByUsername(username);
+    if (rowsReader === null  && rowsWriter === null && rowsAdmin === null && rowsEditor === null)  
         return res.json(true);
     return res.json(false);
 }

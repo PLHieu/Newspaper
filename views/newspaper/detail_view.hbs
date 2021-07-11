@@ -164,9 +164,7 @@
                                             <div class="d-flex justify-content-between w-100">
                                                 <div class="d-flex align-items-center">
                                                     <span>
-                                                        <a class="" style="text-decoration: none; color:black"
-                                                            href="#">{{ReaderName}}
-                                                {{ReaderID}}</a>
+                                                        <a class="" style="text-decoration: none; color:black" href="#">{{ReaderName}}</a>
                                                     </span>
                                                     <p class="date">{{PubTime}}</p>
                                                 </div>
@@ -187,7 +185,7 @@
                             {{/each}}
                         </div>
                         <!-- COMMENT-END -->
-
+                        {{#if session}}
                         <div class="comment-form" style="border:none; !important">
                             <h4 class="mb-3">Bình Luận của Bạn</h4>
                             <form class="form-contact comment_form" action="#" id="comments" method="POST">
@@ -205,6 +203,7 @@
                                 </div>
                             </form>
                         </div>
+                        {{/if}}
                     </div>
                 </div>
 

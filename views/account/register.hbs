@@ -53,10 +53,19 @@
       console.log(data);
       if (data === false){
         alert('Username is existed.');
-        $('#txtConfirm').focus();
+        $('#txtUsername').focus();
         return;
       }
-      $('#formRegister').off('submit').submit();
+      const email = $('#txtEmail').val();
+      $.getJSON(`/is-available-email?email=${email}`, function(data){
+        console.log(data);
+        if (data === true){
+          alert('Email is existed.');
+          $('#txtEmail').focus();
+          return;
+        }
+        $('#formRegister').off('submit').submit();
+      });
     });
   });
 
