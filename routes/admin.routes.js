@@ -2,16 +2,22 @@ const { adminPage } = require("../controllers/testuser.controllers");
 const express = require('express');
 const router = express.Router();
 
-router.get('/manageuser', function(req, res){
+router.get('/user/manage', function(req, res) {
     return res.render('user/admin/quanlyuser')
 });
-router.get('/managecategory', function(req, res){
+router.get('/category/manage', function(req, res) {
     return res.render('user/admin/quanlycate')
 });
-router.get('/managepost', function(req, res){
+router.get('/post/manage', function(req, res) {
     return res.render('user/admin/quanlybaiviet')
 });
-router.get('/', function(req, res){
+router.get('/post/add', function(req, res) {
+    return res.render('user/lib/form-baiviet')
+});
+router.get('/post/edit', function(req, res) {
+    return res.render('user/lib/form-baiviet')
+});
+router.get('/', function(req, res) {
     return res.redirect('/admin/manageuser')
 });
 

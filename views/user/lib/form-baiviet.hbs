@@ -1,0 +1,185 @@
+{{#section 'title'}}
+<title>Thêm bài viết mới</title>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
+    crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all"
+    rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/form-baiviet.css">
+
+<script src="https://cdn.tiny.cloud/1/kfdqtmxvbc3j9y04vha77cyl4gs5br7u6q906lof2auidfz3/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#txtContent',
+        plugins: 'paste image link autolink lists table media a11ychecker advcode casechange formatpainter linkchecker checklist mediaembed permanentpen advtable tinymcespellchecker',
+        menubar: false,
+        toolbar: 'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media |casechange checklist code',
+        toolbar_mode: 'floating',
+        image_title: true,
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        file_picker_callback: function (cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function () {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    /* call the callback and populate the Title field with the file name */
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+
+            input.click();
+        },
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+</script>
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/fileinput.min.js"></script>
+
+<script>
+    $('#fCover').fileinput({
+        allowedFileExtensions: ['jpg', 'gif', 'png'],
+        dropZoneEnabled: false,
+        'showUpload': false
+    });
+    $
+
+    $('#frmWritePost').on('submit', function (e) {
+        e.preventDefault();
+        if (isEmptyText('txtTitle', "Title"))
+            return;
+        if (isEmptyText('txtAbstract', "Abstract"))
+            return;
+        if (isEmptyText('txtContent', "Content"))
+            return;
+        if ($('#fCover').get(0).files.length === 0) {
+            alert(`A post need a cover`);
+            $('#fCover').focus();
+            return;
+        }
+        var array = [];
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+        if (checkboxes.length === 0) {
+            alert(`You must take at least one tag for your post!`);
+            return;
+        }
+        title = $('#txtTitle').val();
+        postID = $('#postID').val();
+        $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function (data) {
+            if (data === false) {
+                alert('You wrote a post having the same title. Please write another one!');
+                $('#txtTitle').focus();
+                return;
+            }
+            $('#frmWritePost').off('submit').submit();
+        })
+    });
+
+    function isEmptyText(idtext, message) {
+        const text = $(`#${idtext}`).val();
+        if (text.length === 0) {
+            alert(`${message} is empty`);
+            $(`#${idtext}`).focus();
+            return true;
+        }
+        return false;
+    }
+</script>
+{{/section}}
+<div class="container">
+    <div class=" row ">
+        <div class="col-md-8 d-flex p-3" style="justify-content: space-between;">
+            <span>
+                <h2 >Thêm bài viết mới</h2>
+            </span>
+            <div>
+                <button type="submit" class="btn custom-btn d-flex justify-items-center">
+                    <span class="material-icons">save</span>
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <form id="frmWritePost" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="wrap-column">
+                    <input type="text" id="postID" value="{{this.postID}}" name="postID" class="invisible" />
+                    <div class="form-group ">
+                        <label for="txtTitle">Tiêu đề</label>
+                        <input type="text" name="title" id="txtTitle" class="form-control inputtext-wrap-inside"
+                            placeholder="Write post's Title here" size="3em" value="{{this.title}}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="txtAbstract">Tóm tắt</label>
+                        <textarea type="text" name="abstract" id="txtAbstract"
+                            class="form-control inputtext-wrap-inside"
+                            placeholder="Write post's Abstract here">{{this.abstract}}</textarea>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="txtContent">Nội dung</label>
+                        <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
+                            placeholder="Write post's Content here">{{this.content}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group wrap-column" >
+                    <label for="selectedCat">Chọn danh mục</label>
+                    <select class="form-control" id="selectedCat" name="category">
+                        {{#each this.list_cat}}
+                        <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="form-group wrap-column">
+                    <label for="selectedTag">Chọn Tags</label>
+                    <div class="div d-flex  showtag">
+                        {{#each this.list_tag}}
+
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" value="{{ID}}" id="cbTag{{ID}}" name="tag"
+                                {{#if selected}}checked="checked" {{/if}} />
+                            <label class="form-check-label" for="cbTag{{ID}}">
+                                {{Name}}
+                            </label>
+                        </div>
+                        {{/each }}
+                    </div>
+                </div>
+                <br>
+                <div class="form-group wrap-column" >
+                    <label for="fCover">Ảnh đại diện</label>
+                    <input type="file" name="cover" id="fCover" class="form-control d-block" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+</div>
