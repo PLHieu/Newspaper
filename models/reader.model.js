@@ -53,5 +53,9 @@ module.exports = {
 
     changePassByID(hash,ID){
       return db('Readers').where('ID', ID).update('Password',hash);
+    },
+
+    updateOTP(readerID){
+      return  db('Readers').where('ID', readerID).update('OTP',-1);
     }
 }

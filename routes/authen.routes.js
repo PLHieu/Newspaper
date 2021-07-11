@@ -26,10 +26,17 @@ module.exports = function (app) {
     });
     app.post('/reset-password',authentication.reset_password);
 
-    app.get('/reset-password/getOTP', function(req, res){
-        res.render('account/enter_otp');
+    app.get('/getOTP', function(req, res){
+        console.log(req.query.noactive);
+        const not_registered = req.query.register? false: true;
+        const activeAccount = req.query.noactive? true: false;
+        res.render('account/enter_otp',{
+            not_registered,
+            activeAccount,
+            email: req.query.email
+        });
     })
-    app.post('/reset-password/getOTP', authentication.handleReceiveOTP);
+    app.post('/getOTP', authentication.handleReceiveOTP);
 
     app.post('/reset-password/resendOTP', authentication.resendOTP);
 

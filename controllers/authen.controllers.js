@@ -10,6 +10,11 @@ const nodemailer = require('nodemailer');
 exports.register = async function(req, res) {
     const hash = bcrypt.hashSync(req.body.raw_password, 10);
     const dob = moment(req.body.raw_dob,'DD/MM/YYYY').format('YYYY-MM-DD');
+    let otp = Math.random();
+    otp = otp * 1000000;
+    otp = parseInt(otp);
+    console.log("OTP: ",otp);
+    const email = req.body.email;
     const user = {
         UserName: req.body.username,
         Password: hash,
@@ -17,10 +22,39 @@ exports.register = async function(req, res) {
         Name: req.body.name,
         Email: req.body.email,
         Address: req.body.address,
-        ExpTime: null
+        ExpTime: null,
+        OTP: otp
     }
     await reader.add(user);
-  res.redirect('/login?register=1');
+
+    let transporter = nodemailer.createTransport(
+        {
+            service: 'gmail',
+            auth: {
+              user: 'newspaper.vuonghieutrinh@gmail.com',
+              pass: 'vuonghieutrinh'
+            },
+    });
+    
+    var mailOptions={
+        from: "newspaper.vuonghieutrinh@gmail.com",
+        to: email,
+       subject: "OTP for Register New Newspaper Account: ",
+       html: "<p>Dear you,</p>"+
+       "<h3>OTP for account verification helping you register our application is </h3>"  + 
+       "<h1 style='font-weight:bold;'>" + otp +"</h1>" +
+       "<p>Thank you</p>",
+    };
+     
+     transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);   
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  
+        res.redirect(`/getOTP?register=1?email=${email}`);
+    });
 }
 
 exports.is_available = async (req, res)=>{
@@ -59,6 +93,9 @@ exports.signin = async (req, res) => {
     //console.log(req.body.username);
     const rows_reader = await reader.findByUsername(req.body.username);
     if (rows_reader != null) {
+        if (rows_reader.OTP != -1){
+            return res.redirect(`/getOTP?register=1&email=${rows_reader.Email}&noactive=1`);
+        }
         if (rows_reader.ExpTime!=null)
             return checkPassword("subcriber", rows_reader, req, res);
         else return checkPassword("guest", rows_reader, req, res);
@@ -103,13 +140,13 @@ exports.reset_password = async (req, res) => {
         {
             service: 'gmail',
             auth: {
-              user: 'thinhvuong9700@gmail.com',
-              pass: '****'
+              user: 'newspaper.vuonghieutrinh@gmail.com',
+              pass: 'vuonghieutrinh'
             },
     });
     
     var mailOptions={
-        from: "thinhvuong9700@gmail.com",
+        from: "newspaper.vuonghieutrinh@gmail.com",
         to: email,
        subject: "OTP for Reset Password on Account Newspaper: ",
        html: "<p>Dear you,</p>"+
@@ -126,12 +163,28 @@ exports.reset_password = async (req, res) => {
         console.log('Message sent: %s', info.messageId);   
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   
-        res.redirect('/reset-password/getOTP');
+        res.redirect('/getOTP');
     });
 }
 
-exports.handleReceiveOTP = (req, res) =>{
-    console.log(req.body.otp, otp);
+exports.handleReceiveOTP = async (req, res) =>{
+    console.log(req.body);
+    if (req.body.register){
+        const account = await reader.findByEmail(req.body.email);
+        console.log(account);
+        console.log("REGISTER: ",req.body.otp, account.OTP);
+        if (req.body.otp == account.OTP){
+                await reader.updateOTP(account.ID);
+            return res.redirect('/login?register=1');
+        }
+        else{
+            return res.render('account/enter_otp',{
+                msg : 'otp is incorrect',
+                activeAccount: true
+            });
+        }
+    }
+    console.log("NOT REGISTER: ",req.body.otp);
     if(req.body.otp==otp){
         res.redirect('/reset-password/changePassword');
     }
@@ -151,13 +204,13 @@ exports.resendOTP = async (req, res) =>{
     let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'thinhvuong9700@gmail.com',
-              pass: '*****'
+              user: 'newspaper.vuonghieutrinh@gmail.com',
+              pass: 'vuonghieutrinh'
             },
     });
     
     var mailOptions={
-        from: "thinhvuong9700@gmail.com",
+        from: "newspaper.vuonghieutrinh@gmail.com",
         to: email,
        subject: "Otp for registration is: ",
        html: "<h3>OTP for account verification is </h3>"  + 
@@ -170,7 +223,7 @@ exports.resendOTP = async (req, res) =>{
         }
         console.log('Message sent: %s', info.messageId);   
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-        res.redirect('/reset-password/getOTP');
+        res.redirect('/getOTP');
     });
 }
 

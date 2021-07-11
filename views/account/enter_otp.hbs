@@ -39,7 +39,9 @@
 
                     <div class="signin-form">
                         <h2 class="form-title">Enter OTP</h2>
-                        {{#if err_message}}
+                        <div class="contact">
+                          <form method="POST" action="/getOTP" class="sendOTP">
+                          {{#if err_message}}
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -47,26 +49,46 @@
                               {{err_message}}
                             </div>
                         {{/if}}
-                        <div class="contact">
-                          <form method="POST" action="/reset-password/getOTP" class="sendOTP">
+                        {{#if activeAccount}}
+                            <input type="text" name="register" value="1" class="invisible">
+                            <input type="text" name="email" value="{{email}}" class="invisible">
+                        {{/if}}
+                        {{#eq not_registered false}}
+                          {{#if activeAccount}}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <p>Tài khoản của bạn chưa kích hoạt.</p>
+                              <p>Vui lòng nhập mã OTP được gửi từ email thinhvuong9700@gmail.com đến email của bạn: {{email}} để lấy mã OTP.</p>
+                            </div>
+                        {{else}}
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <p>Bạn đã đăng kí thành công.</p>
+                               <p>Vui lòng nhập OTP được gửi từ email thinhvuong9700@gmail.com đến email của bạn: {{email}} để kích hoạt tài khoản.</p>
+                            </div>
+                        {{/if}}
+                        {{/eq}}
                             {{this.msg}}
                             <p>
                               <label>Enter otp</label>
                               <input type="text" name="otp" required="required">
                             </p>
-                            
                             <p class="full">
                               <button type="submit">Submit</button>
                             </p>
                           </form>
 
                           <br>
-                          
+                          {{#if this.not_registered}}
                           <form method="POST" action="/reset-password/resendOTP">
                             <p class="full">
                               <button type="submit">resend otp</button>
                             </p>
-                            
+                          {{/if}}
                         </div>
                     </div>
                 </div>
