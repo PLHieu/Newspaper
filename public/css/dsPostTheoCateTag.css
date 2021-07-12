@@ -1,61 +1,78 @@
-.anhdanhmuc{
-    width:  100%;
+/* css cho phia ben trai */
+
+.danhsachCate a {
+    color: black !important;
+}
+
+.danhsachCate a:hover {
+    color: #dc3545 !important;
+    border-bottom: 1px solid #dc3545 !important;
+}
+
+.danhsachCate a.selected {
+    color: #dc3545 !important;
+    border-bottom: 1px solid #dc3545 !important;
+}
+
+.anhdanhmuc {
+    width: 100%;
     height: 100%;
     padding-right: 15px;
     padding-left: 15px;
     margin-top: 5px;
     overflow: hidden;
-
 }
 
-.anhdanhmuc img{
-    width:  100%;
+.anhdanhmuc img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
     transition: 0.5s;
     box-shadow: 4px 2px 5px grey;
-
 }
 
-.hangdanhmuc{
+.hangdanhmuc {
     border-bottom: 1px dashed rgb(189, 189, 189);
 }
 
-.anhdanhmuc:hover img{
+.anhdanhmuc:hover img {
     transform: scale(0.95);
     transition: 0.5s;
 }
 
-.news-right-sidebar{
+
+/* css cho phia ben phai */
+
+.news-right-sidebar {
     color: black;
     height: 100px;
     transition: 0.4s;
     background-color: white;
-}   
+}
 
-.news-right-sidebar:hover{
+.news-right-sidebar:hover {
     color: #dc3545;
     transition: 0.4s;
     transform: translateX(10px);
     cursor: pointer;
 }
 
-.tieude-right-sidebar{
+.tieude-right-sidebar {
     background-color: white;
     text-align: center;
     padding: 10px;
-    color: #dc3545;
     font-weight: bold;
     /* font-style: italic; */
     font-size: x-large;
 }
-p{
-    font-size: smaller; 
-    font-style:italic; 
-    text-align:justify;
-}
-h4{
-    text-align:justify;
 
+p {
+    font-size: smaller;
+    font-style: italic;
+    text-align: justify;
+}
+
+h4 {
+    text-align: justify;
 }

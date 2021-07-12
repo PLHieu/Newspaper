@@ -13,19 +13,19 @@ module.exports = {
         return db('Categories');
     },
 
-    getAllChildren(){
+    getAllChildren() {
         return db('Categories').whereNot('ParentID', null);
     },
 
-    
 
-    
+
+
 }
 
-async function findNameCateByID(catID){
-    cat = await db('Categories').where('ID',catID);
+async function findNameCateByID(catID) {
+    cat = await db('Categories').where('ID', catID);
     //console.log(cat);
-    if (cat.length===0)
+    if (cat.length === 0)
         return null;
     //console.log(cat[0].Name);
     return cat[0].Name;
@@ -34,7 +34,7 @@ async function findNameCateByID(catID){
 /*
     Tim danh sach Category la Dad
 */
-    async function findDadCategories() {
+async function findDadCategories() {
     const result = await db('Categories')
         .where({
             ParentID: null
@@ -69,7 +69,7 @@ async function findLevel(idcate) {
         .where({
             ID: idcate
         })
-    // console.log(result)
+        // console.log(result)
     if (result.length === 0) {
         return false;
     }
@@ -101,6 +101,16 @@ async function findRelative(idcate) {
     }
 
     // console.log(isDad, Dad, Children );
+
+    for (let i = 0; i < Children.length; i++) {
+        if (Children[i].ID == idcate) {
+            Children[i].selected = true;
+        } else {
+            Children[i].selected = false;
+        }
+    }
+
+    // console.log(Children);
     return {
         isDad: isDad,
         Dad: Dad,

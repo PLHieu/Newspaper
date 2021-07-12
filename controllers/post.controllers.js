@@ -1,7 +1,7 @@
 var objectMapper = require('object-mapper');
 const moment = require('moment');
 const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, countPostByTag, findHightlightByCategory, findHightlightPostsByTag, findTop10MostRead, findTop10New, findTop1PostPerCate, top3Post } = require("../models/post.model");
-const {findDadCategories, findRelative, getTag, findChildCategories, findNameCateByID} = require('../models/category.model');
+const { findDadCategories, findRelative, getTag, findChildCategories, findNameCateByID } = require('../models/category.model');
 const { rule1, ruleCate, ruleTag } = require('../utils/mapper');
 const { postsLimit } = require('../config/const.config');
 
@@ -15,8 +15,10 @@ module.exports = {
         const page = req.query.page || 1;
         if (page < 1) page = 1;
 
-        const total = await  countPostByCategory(IDcategory);
-        // console.log(total);
+        const currentNameCategory = await findNameCateByID(IDcategory);
+        const currentCate = { ID: IDcategory, Name: currentNameCategory };
+
+        const total = await countPostByCategory(IDcategory);
         let nPages = Math.floor(total / limit);
         if (total % limit > 0) nPages++;
 
@@ -45,11 +47,12 @@ module.exports = {
 
         // console.log(relative);
         // console.log(page_numbers); ,
-        return res.render( 'newspaper/categoried_posts',  {
+        return res.render('newspaper/categoried_posts', {
             posts: result,
             isDad: relative.isDad,
             Dad: relative.Dad,
             Children: relative.Children,
+            currentCate,
             page_numbers,
             hightlightPosts
         });
@@ -62,7 +65,7 @@ module.exports = {
         const page = req.query.page || 1;
         if (page < 1) page = 1;
 
-        const total = await  countPostByTag(IDtag);
+        const total = await countPostByTag(IDtag);
         // console.log(total);
         let nPages = Math.floor(total / limit);
         if (total % limit > 0) nPages++;
@@ -99,15 +102,15 @@ module.exports = {
         });
     },
 
-    
+
     async renderChild(req, res) {
-        
-        let result1 =[];
+
+        let result1 = [];
         const dad = await findDadCategories();
         //console.log(dad);
-        for(let i =0; i<dad.length;i++){
+        for (let i = 0; i < dad.length; i++) {
             let des = objectMapper(dad[i], rule1)
-            //console.log(des);
+                //console.log(des);
             const child = await findChildCategories(dad[i].ID)
             des.Name = dad[i].Name;
             des.child = child;
@@ -116,7 +119,8 @@ module.exports = {
         //console.log(result1[0]);
         //console.log(result1)
         return {
-            cates: result1}
+            cates: result1
+        }
     },
     async RenderPost(req, res) {
 
@@ -129,11 +133,11 @@ module.exports = {
         let retop10New = [];
 
         for (let i = 0; i < top10MostRead.length; i++) {
-            top10MostRead[i].PubTime= moment(top10MostRead[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            top10MostRead[i].PubTime = moment(top10MostRead[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             let des = objectMapper(top10MostRead[i], rule1)
-            //console.log(des);
+                //console.log(des);
             const nameCate = await findNameCateByID(top10MostRead[i].CatID)
-            //console.log(nameCate);
+                //console.log(nameCate);
             des.WriterID = top10MostRead[i].WriterID;
             des.CateID = top10MostRead[i].CatID;
             des.Views = top10MostRead[i].Views;
@@ -142,11 +146,11 @@ module.exports = {
             retop10MostRead.push(des);
         }
         for (let i = 0; i < top10New.length; i++) {
-            top10New[i].PubTime= moment(top10New[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            top10New[i].PubTime = moment(top10New[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             let des = objectMapper(top10New[i], rule1)
-            //console.log(des);
+                //console.log(des);
             const nameCate = await findNameCateByID(top10New[i].CatID)
-            //console.log(nameCate);
+                //console.log(nameCate);
             des.WriterID = top10New[i].WriterID;
             des.CateID = top10New[i].CatID;
             des.Views = top10New[i].Views;
@@ -158,23 +162,23 @@ module.exports = {
             listCate1Post[i].post.PubTime = moment(listCate1Post[i].post.PubTime).format("DD/MM/YYYY HH:mm:ss");
         }
         //console.log(listCate1Post[0].post.PubTime)
-        
+
         for (let i = 0; i < list.length; i++) {
-            list[i].PubTime= moment(list[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
+            list[i].PubTime = moment(list[i].PubTime).format("DD/MM/YYYY HH:mm:ss");
             let des = objectMapper(list[i], rule1)
-            //console.log(des);
+                //console.log(des);
             const nameCate = await findNameCateByID(list[i].CatID)
-            //console.log(nameCate);
+                //console.log(nameCate);
             des.WriterID = list[i].WriterID;
             des.CateID = list[i].CatID;
             des.Views = list[i].Views;
             des.CateName = nameCate;
             des.Premium = list[i].Premium;
             top3HighLightPost.push(des);
-            
+
         }
         //console.log(top3HighLightPost.length)
-        return res.render( 'home2',  {
+        return res.render('home2', {
             top10PostMostRead: retop10MostRead,
             top10PostNew: retop10New,
             listCate1Post: listCate1Post,

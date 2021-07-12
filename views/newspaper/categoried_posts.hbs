@@ -1,122 +1,103 @@
 {{#section 'css'}}
 <!-- CSS here -->
 {{!--
-<link rel="stylesheet" href="../../public/css/template/bootstrap.min.css"> --}}
-<link rel="stylesheet" href="../../public/css/template/owl.carousel.min.css">
-<link rel="stylesheet" href="../../public/css/template/ticker-style.css">
-<link rel="stylesheet" href="../../public/css/template/flaticon.css">
-<link rel="stylesheet" href="../../public/css/template/slicknav.css">
-<link rel="stylesheet" href="../../public/css/template/animate.min.css">
-<link rel="stylesheet" href="../../public/css/template/magnific-popup.css">
-{{!--
-<link rel="stylesheet" href="../../public/css/template/fontawesome-all.min.css"> --}}
-<link rel="stylesheet" href="../../public/css/template/themify-icons.css">
-<link rel="stylesheet" href="../../public/css/template/slick.css">
-<link rel="stylesheet" href="../../public/css/template/nice-select.css">
-<link rel="stylesheet" href="../../public/css/template/style.css">
-<link rel="stylesheet" href="../../public/css/csscuahieu.css">
+<link rel="stylesheet" href="/public/template/css/bootstrap.min.css"> --}}
+{{!-- <link rel="stylesheet" href="/public/template/css/owl.carousel.min.css"> --}}
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
 {{/section}}
 
 {{#section 'js'}}
 <!-- JS here -->
-<script src="../../public/js/template/vendor/modernizr-3.5.0.min.js"></script>
+<script src="/public/template/js/vendor/modernizr-3.5.0.min.js"></script>
 
 <!-- Jquery Mobile Menu -->
-<script src="../../public/js/template/jquery.slicknav.min.js"></script>
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="../../public/js/template/owl.carousel.min.js"></script>
-<script src="../../public/js/template/slick.min.js"></script>
-<!-- Date Picker -->
-<script src="../../public/js/template/gijgo.min.js"></script>
+<script src="/public/template/js/owl.carousel.min.js"></script>
+<script src="/public/template/js/slick.min.js"></script>
+
 <!-- One Page, Animated-HeadLin -->
-<script src="../../public/js/template/wow.min.js"></script>
-<script src="../../public/js/template/animated.headline.js"></script>
-<script src="../../public/js/template/jquery.magnific-popup.js"></script>
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/animated.headline.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
 
 <!-- Scrollup, nice-select, sticky -->
-<script src="../../public/js/template/jquery.scrollUp.min.js"></script>
-<script src="../../public/js/template/jquery.nice-select.min.js"></script>
-<script src="../../public/js/template/jquery.sticky.js"></script>
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.nice-select.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
 
 <!-- contact js -->
-<script src="../../public/js/template/contact.js"></script>
-<script src="../../public/js/template/jquery.form.js"></script>
-<script src="../../public/js/template/jquery.validate.min.js"></script>
-<script src="../../public/js/template/mail-script.js"></script>
-<script src="../../public/js/template/jquery.ajaxchimp.min.js"></script>
+<script src="/public/template/js/contact.js"></script>
+<script src="/public/template/js/jquery.form.js"></script>
+<script src="/public/template/js/jquery.validate.min.js"></script>
+<script src="/public/template/js/mail-script.js"></script>
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
 
 <!-- Jquery Plugins, main Jquery -->
-<script src="../../public/js/template/plugins.js"></script>
-<script src="../../public/js/template/main.js"></script>
-
-<script>
-
-</script>
-
+<script src="/public/template/js/plugins.js"></script>
+<script src="/public/template/js/main.js"></script>
 {{/section}}
 
+{{> header-top}}
 
-<!-- Preloader Start -->
-{{#section 'preload'}}
-<div id="preloader-active">
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                {{!-- <img src="assets/img/logo/logo.png" alt=""> --}}
-            </div>
-        </div>
-    </div>
-</div>
-{{/section}}
 <main>
-    <!-- About US Start -->
     <div class="about-area2 gray-bg pt-60 pb-60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="whats-news-wrapper">
-                        <!-- Heading & Nav Button -->
-                        <div class="row justify-content-between align-items-end mb-15">
+                        {{!-- phan tieu de category --}}
+                        <div class="row justify-content-between align-items-end mb-15 danhsachCate">
+                            {{!-- Ten category cha --}}
                             <div class="col-xl-4">
                                 <div class="section-tittle mb-30 ml-15">
-                                    <h3><a href="/post/category/{{this.Dad.ID}}">{{this.Dad.Name}}</a></h3>
+                                    <h3><a {{#if this.isDad}} class="selected" {{else}} {{/if}}
+                                            href="/post/category/{{this.Dad.ID}}">{{this.Dad.Name}}</a></h3>
                                 </div>
                             </div>
+                            {{!-- Ten cac category con --}}
                             <div class="col-xl-8 col-md-9">
                                 <div class="properties__button">
-                                    <!--Nav Button  -->
                                     <nav>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                             {{#each this.Children}}
-                                            <a class="nav-item nav-link active" href="/post/category/{{ID}}" role="tab"
+                                            <a class="nav-item nav-link {{#if this.selected}}selected{{else}} {{/if}}"
+                                                href="/post/category/{{ID}}" role="tab"
                                                 aria-selected="true">{{Name}}</a>
                                             {{/each}}
                                         </div>
                                     </nav>
-                                    <!--End Nav Button  -->
                                 </div>
                             </div>
                         </div>
-                        <!-- Tab content -->
                         <div class="row">
                             <div class="col-12">
-                                <!-- Nav Card -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!-- card one -->
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
-
-
                                         {{#each this.posts}}
-
                                         <div class="row hangdanhmuc pb-20 mb-20">
+                                            <!-- Phan thong tin ben trai-->
                                             <div class="col-xl-8 col-lg-8 col-md-12">
                                                 <div class="whats-news-single">
                                                     <div class="whates-caption whates-caption2">
-                                                        <h4><a href="/read/{{ID}}">{{TieuDe}}</a></h4>
-                                                        <span class="mb-2">{{info this}}</span>
+                                                        <h4><a class="" href="/read/{{ID}}">{{TieuDe}}</a></h4>
+                                                        <span class="d-inline-block mb-2">{{info this}}</span>
+                                                        {{#if Premium}}
+                                                        <span class="d-inline-block badge badge-warning">Premium</span>
+                                                        {{/if}}
                                                         <p>{{TomTat}}</p>
                                                     </div>
                                                     <div>
@@ -124,29 +105,25 @@
                                                         <span><a href="/post/tag/{{TagID}}"
                                                                 class="badge badge-danger">{{Name}}</a></span>
                                                         {{/each}}
-
                                                     </div>
                                                 </div>
 
                                             </div>
+                                            <!-- Phan Anh ben phai-->
                                             <div class="col-xl-4 col-lg-4 col-md-12">
                                                 <div class="anhdanhmuc">
-                                                    <img src="" alt="">
+                                                    <img src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                                 </div>
                                             </div>
                                         </div>
 
                                         {{/each}}
 
-
                                     </div>
-                                    <!-- Card two -->
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
-
                                     </div>
                                 </div>
-                                <!-- End Nav Card -->
                             </div>
                         </div>
                     </div>
@@ -183,25 +160,22 @@
 
                 </div>
 
-
+                {{!-- cac bai viet noi bat --}}
                 <div class="col-lg-4">
-
-                     <div class="w-100 tieude-right-sidebar">
-                        Nổi bật trong Du Lịch
+                    <div class="w-100 tieude-right-sidebar">
+                        <h2>Nổi bật trong <span class="badge badge-danger">{{currentCate.Name}}</span></h2>
                     </div>
 
                     {{#each this.hightlightPosts}}
-                    <a href = "/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
+                    <a href="/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
                         <div class="w-75 d-inline-block p-3" style="font-size: medium;">{{Title}}</div>
-                        <img src="{{imgurl}}" class="d-inline-block w-25 p-1"
+                        
+                        <img src="/public/image/posts/{{ID}}/smallavt.jpg" class="d-inline-block w-25 p-1"
                             style="border-radius: 10px;" alt="">
                     </a>
                     {{/each}}
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- About US End -->
-
 </main>

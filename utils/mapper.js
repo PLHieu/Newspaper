@@ -35,14 +35,15 @@ module.exports = {
         "ID": "ID",
         "Title": "TieuDe",
         "Abstract": "TomTat",
-        "PubTime" : "NgayDang",
+        "PubTime": "NgayDang",
+        "Premium": "Premium"
     },
-    ruleCate:{
+    ruleCate: {
         "ID": "CateID",
         "Name": "CateName",
         "ParentID": "ParentID",
     },
-    ruleTag:{
+    ruleTag: {
         "ID": "TagID",
         "Name": "TagName",
     }

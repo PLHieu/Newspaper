@@ -1,7 +1,7 @@
 var objectMapper = require('object-mapper');
 const { postsLimit } = require('../config/const.config');
 const db = require('../utils/db');
-const { rule1, ruleCate, ruleTag  } = require('../utils/mapper');
+const { rule1, ruleCate, ruleTag } = require('../utils/mapper');
 const { findListChild, findChildCategories, findLevel } = require('./category.model');
 const posttag_db = require('./post_tag.model');
 const comment_db = require('./comment.model');
@@ -14,7 +14,7 @@ const moment = require('moment');
 
 module.exports = {
 
-    findByWriterID(writerID){
+    findByWriterID(writerID) {
         return db('Posts').where('WriterID', writerID);
     },
 
@@ -61,7 +61,7 @@ module.exports = {
                 PostID: postID
             })
             .select('PostTag.TagID', 'Tags.Name')
-        // console.log(rows);
+            // console.log(rows);
         return rows;
     },
 
@@ -143,29 +143,29 @@ module.exports = {
         //console.log(rows);
         return rows;
     },
-    
+
     async findTop1PostPerCate() {
-        let childCate =[];
+        let childCate = [];
         let child = await findListChild();
-        for (let i =0; i<child.length; i++){
+        for (let i = 0; i < child.length; i++) {
             let count = await countByLevel2Category(child[i].ID)
 
-            if (count > 0){
+            if (count > 0) {
                 childCate.push(child[i]);
             }
         }
         //console.log(childCate);
         let listCate = [];
-        for (let i =0; i<childCate.length; i++){
+        for (let i = 0; i < childCate.length; i++) {
             let des = objectMapper(childCate[i], ruleCate)
             let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
             let parent = await cate_db.findNameCateByID(childCate[i].ParentID);
-           // console.log(parent);
-            des.ParentCateName= parent;
-            des.post=post;
+            // console.log(parent);
+            des.ParentCateName = parent;
+            des.post = post;
             listCate.push(des);
         }
-        while(listCate.length > 10) {
+        while (listCate.length > 10) {
             listCate.pop()
         };
         //console.log(listCate);
@@ -173,29 +173,29 @@ module.exports = {
     },
     async top3Post() {
         var d = new Date();
-        d.setDate(d.getDate()-7);
+        d.setDate(d.getDate() - 7);
         // console.log(rows);
         //return rows;
         const rows = await db('Posts')
-            .where('WriteTime','>',d)
+            .where('WriteTime', '>', d)
             .orderBy('Views', 'desc')
             .limit(3);
         return rows;
     },
-    
 
-    async findPostByID(id_post){
+
+    async findPostByID(id_post) {
         const post = await findOnlyByID(id_post);
         post.Writer = await writer_db.findByID(post.WriterID);
         post.CatName = await cate_db.findNameCateByID(post.CatID);
-        await upView(id_post,post.Views + 1);
+        await upView(id_post, post.Views + 1);
         post.Views += 1;
         post.PubTime = moment(post.PubTime).format("DD/MM/YYYY HH:mm:ss");
         post.tags = await posttag_db.findTagsByPostID(id_post);
         post.comments = await comment_db.findCommentByID(id_post);
         post.num_comments = post.comments.length;
-        five_post_like_cat = await findRelatedPostByCatID(post.ID,post.CatID);
-        for (let i = 0; i <five_post_like_cat.length; i++){
+        five_post_like_cat = await findRelatedPostByCatID(post.ID, post.CatID);
+        for (let i = 0; i < five_post_like_cat.length; i++) {
             p = five_post_like_cat[i];
             tags = await posttag_db.findTagsByPostID(p.ID);
             five_post_like_cat[i].tags = tags;
@@ -207,21 +207,21 @@ module.exports = {
         //console.log(five_post_like_cat);
         post.five_post_like_cat = five_post_like_cat;
         return post;
-   },
-
-   addPost(new_post){
-    return db('Posts').insert(new_post);
     },
 
-    editPost(edit_post, postID){
-    return db('Posts').update(edit_post).where('ID',postID);
+    addPost(new_post) {
+        return db('Posts').insert(new_post);
     },
 
-    delPost(postID){
-        return db('Posts').where('ID',postID).del();
+    editPost(edit_post, postID) {
+        return db('Posts').update(edit_post).where('ID', postID);
     },
 
-    async findPostByTitleWriter(title, writerID){
+    delPost(postID) {
+        return db('Posts').where('ID', postID).del();
+    },
+
+    async findPostByTitleWriter(title, writerID) {
         const rows = await db('Posts').where('Title', title).andWhere('WriterID', writerID);
         if (rows.length === 0)
             return null;
@@ -229,26 +229,26 @@ module.exports = {
     },
 
     //return a list
-    findPendingPosts(writerID){
-        return db('Posts').where('StateID',0).andWhere('WriterID',writerID);
+    findPendingPosts(writerID) {
+        return db('Posts').where('StateID', 0).andWhere('WriterID', writerID);
     },
 
     //return a list
-    findApprovedNotPublishPosts(writerID){
+    findApprovedNotPublishPosts(writerID) {
         const now = new Date();
-        return db('Posts').where('StateID',1).andWhere('PubTime','>',now).andWhere('WriterID',writerID);
+        return db('Posts').where('StateID', 1).andWhere('PubTime', '>', now).andWhere('WriterID', writerID);
     },
 
     //return a list
-    findPublishedPosts(writerID){
+    findPublishedPosts(writerID) {
         const now = new Date();
-        return db('Posts').where('StateID',1).andWhere('PubTime','<=',now).andWhere('WriterID',writerID);
+        return db('Posts').where('StateID', 1).andWhere('PubTime', '<=', now).andWhere('WriterID', writerID);
     },
 
     //return a list
-    async findRejectedPosts(WriterID){
-        const rejectPosts = await db('Posts').where('StateID',-1).andWhere('WriterID',writerID);
-        for (let i = 0; i < rejectPosts.length;i++){
+    async findRejectedPosts(WriterID) {
+        const rejectPosts = await db('Posts').where('StateID', -1).andWhere('WriterID', writerID);
+        for (let i = 0; i < rejectPosts.length; i++) {
             postID = rejectPosts[i].ID;
             rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
             editorID = rejectPosts[i].draft_info.EditorID;
@@ -259,16 +259,16 @@ module.exports = {
     },
 }
 
-function findRelatedPostByCatID(postID,catID){
+function findRelatedPostByCatID(postID, catID) {
     const offset = 5;
-    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=',new Date()).limit(offset);
+    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=', new Date()).limit(offset);
 };
 
-function upView(postID, new_View){
-    return db('Posts').where('ID', postID).update('Views',new_View);//post.Views
+function upView(postID, new_View) {
+    return db('Posts').where('ID', postID).update('Views', new_View); //post.Views
 }
 
-async function findOnlyByID(postID){
+async function findOnlyByID(postID) {
     const rows = await db('Posts').where('ID', postID);
     if (rows.length === 0)
         return null;
@@ -295,7 +295,7 @@ async function findByLevel1Category(IDcategory, offset) {
     // console.log(childrenCateID);
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
-        .orderBy('PubTime', 'desc')
+        .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
         .offset(offset)
     return rows;
@@ -309,7 +309,7 @@ async function findByLevel2Category(IDcategory, offset) {
         .where({
             CatID: IDcategory,
         })
-        .orderBy('PubTime', 'desc')
+        .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
         .offset(offset)
     return rows;
@@ -364,4 +364,3 @@ async function findHightlightByLevel2Category(IDcategory, limit, offset) {
         .offset(offset)
     return rows;
 }
-
