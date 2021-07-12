@@ -1,61 +1,86 @@
 {{#section 'css'}}
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
 
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
 {{/section}}
 
 {{#section 'js'}}
+<!-- JS here -->
+<script src="/public/template/js/vendor/modernizr-3.5.0.min.js"></script>
 
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/owl.carousel.min.js"></script>
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/animated.headline.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.nice-select.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/contact.js"></script>
+<script src="/public/template/js/jquery.form.js"></script>
+<script src="/public/template/js/jquery.validate.min.js"></script>
+<script src="/public/template/js/mail-script.js"></script>
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/plugins.js"></script>
+<script src="/public/template/js/main.js"></script>
 {{/section}}
 
 
-<!-- Preloader Start -->
-{{#section 'preload'}}
-<div id="preloader-active">
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                {{!-- <img src="assets/img/logo/logo.png" alt=""> --}}
-            </div>
-        </div>
-    </div>
-</div>
-{{/section}}
+{{> header-top}}
 
 <main>
-    <!-- About US Start -->
     <div class="about-area2 gray-bg pt-60 pb-60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="whats-news-wrapper">
-                        <!-- Heading & Nav Button -->
-                        <div class="row justify-content-between align-items-end mb-15">
+                        {{!-- phan tieu de tag --}}
+                        <div class="row justify-content-between align-items-end mb-15 danhsachCate">
                             <div class="col-xl-4">
                                 <div class="section-tittle mb-30 ml-15">
-                                    <h3>{{this.tagname}}</h3>
+                                    <h3><a class="selected">#{{this.tagname}}</a></h3>
                                 </div>
                             </div>
                             <div class="col-xl-8 col-md-9">
                             </div>
                         </div>
-                        <!-- Tab content -->
                         <div class="row">
                             <div class="col-12">
-                                <!-- Nav Card -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!-- card one -->
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
-
-
                                         {{#each this.posts}}
-
                                         <div class="row hangdanhmuc pb-20 mb-20">
+                                            <!-- Phan thong tin ben trai-->
                                             <div class="col-xl-8 col-lg-8 col-md-12">
                                                 <div class="whats-news-single">
                                                     <div class="whates-caption whates-caption2">
                                                         <h4><a href="/read/{{ID}}">{{TieuDe}}</a></h4>
-                                                        <span class="mb-2">{{info this}}</span>
+                                                        <span class="d-inline-block mb-2">{{info this}}</span>
+                                                         {{#if Premium}}
+                                                        <span class="d-inline-block badge badge-warning">Premium</span>
+                                                        {{/if}}
                                                         <p>{{TomTat}}</p>
                                                     </div>
                                                     <div>
@@ -63,29 +88,22 @@
                                                         <span><a href="/post/tag/{{TagID}}"
                                                                 class="badge badge-danger">{{Name}}</a></span>
                                                         {{/each}}
-
                                                     </div>
                                                 </div>
-
                                             </div>
+                                            <!-- Phan Anh ben phai-->
                                             <div class="col-xl-4 col-lg-4 col-md-12">
                                                 <div class="anhdanhmuc">
-                                                    <img src="" alt="">
+                                                    <img src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                                 </div>
                                             </div>
                                         </div>
-
                                         {{/each}}
-
-
                                     </div>
-                                    <!-- Card two -->
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
-
                                     </div>
                                 </div>
-                                <!-- End Nav Card -->
                             </div>
                         </div>
                     </div>
@@ -119,16 +137,15 @@
                     <!-- End pagination  -->
                 </div>
 
-
+                {{!-- cac bai viet noi bat --}}
                 <div class="col-lg-4">
-                     <div class="w-100 tieude-right-sidebar">
-                        Nổi bật trong <span class="badge badge-danger">{{tagname}}</span>
+                    <div class="w-100 tieude-right-sidebar">
+                        Nổi bật trong <span class="badge badge-danger">#{{tagname}}</span>
                     </div>
-
                     {{#each this.hightlightPosts}}
-                    <a href = "/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
+                    <a href="/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
                         <div class="w-75 d-inline-block p-3" style="font-size: medium;">{{Title}}</div>
-                        <img src="{{imgurl}}" class="d-inline-block w-25 p-1"
+                        <img src="/public/image/posts/{{ID}}/smallavt.jpg" class="d-inline-block w-25 p-1"
                             style="border-radius: 10px;" alt="">
                     </a>
                     {{/each}}

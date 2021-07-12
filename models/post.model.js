@@ -74,7 +74,7 @@ module.exports = {
         // console.log(postIDs);
         const listPosts = await db('Posts')
             .whereIn('ID', postIDs)
-            .orderBy('PubTime', 'desc')
+            .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
             .limit(postsLimit)
             .offset(offset);
         return listPosts;
