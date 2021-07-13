@@ -1,0 +1,121 @@
+{{#section 'js'}}
+<script src="public/js/jquery.flipster.min.js"></script>
+<script>
+    $('.my-flipster').flipster({
+        style: 'carousel',
+        spacing: 0,
+        nav: true,
+        buttons: true,
+    });
+
+</script>
+<script>
+    // Set the date we're counting down to
+    $(document).ready(function() {
+        var myText = $("#ngaydk").text();
+        $("#demo1").text(myText); 
+       
+        var countDownDate = new Date(myText).getTime();
+       
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+            //var myText = $("#ngaydk").text();
+
+        // Get today's date and time
+        var now = new Date().getTime();
+        
+        // Find the distance between now and the count down date
+        var distance = now - countDownDate;
+            
+        // Time calculations for days, hours, minutes and seconds
+        //var days = Math.floor(distance / (1000 * 60 * 60 * 24)); % (1000 * 60 * 60))
+        //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor(distance  / (1000 * 60));
+        var minutesleft = 7*24*60  - minutes;
+            
+        // Output the result in an element with id="demo" days + "d " + hours + "h "+
+        
+        document.getElementById("demo").innerHTML =  minutesleft + "m " ;
+            
+        // If the count down is over, write some text 
+        if (minutesleft < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "Bạn đã hết phiên đăng nhập";
+            //document.getElementById("btnDK").innerHTML = "Đăng ký Premium";
+        }
+    }, 1000);
+     });
+    </script>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" type="text/css" href="../../public/css/jquery.flipster.css">
+<link rel="stylesheet" type="text/css" href="../public/css/homepage.css">
+{{/section}}
+<header>
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top black-bg d-none d-sm-block">
+                <div class="container">
+                    <div class="col-xl-12">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li class="title"><span class="flaticon-energy"></span> trending-title</li>
+                                    <li>Class property employ ancho red multi level mansion</li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right">
+                                <ul class="header-date">
+                                    <li><span class="flaticon-calendar"></span> +880166 253 232</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-mid gray-bg">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                            <div class="logo">
+                                <a href=""><img src="public/template/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9">
+                            <div class="header-banner f-right ">
+                                <img src="public/template/img/gallery/header_card.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{> nav}}
+
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+    <p>Thông tin cá nhân</p>
+    <a href="/signout" style="color: black;">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        Sign Out
+    </a>
+    <p id ="ngaydk">
+        {{session.user.expTime}}
+    </p>
+    <p>
+        Họ và tên: {{session.user.name}} <br>
+        Email: {{session.user.email}} <br>
+        Ngày sinh: {{session.user.birthday}} <br>
+        Bút danh: {{session.user.nickname}}
+    </p>
+    
+    <p id="demo1"></p>
+    <a href="/writer/editprofile" style="color: blue;">Chỉnh sửa thông tin</a>
+</main>
+

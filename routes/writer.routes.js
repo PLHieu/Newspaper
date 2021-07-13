@@ -3,9 +3,11 @@ const cat_db = require("../models/category.model")
 const post_db = require("../models/post.model")
 const tag_db = require("../models/tag.model")
 const posttag_db = require("../models/post_tag.model")
+const writer_db= require("../models/writer.model")
 const express = require('express');
 const moment = require('moment');
 const { post } = require("./admin.routes");
+const bcrypt = require('bcryptjs');
 var multer  = require('multer');
 const fs = require('fs');
 const router = express.Router();
@@ -54,8 +56,14 @@ async function addCatAndWriterNameInListPosts(list_posts, nameTime){
     }
 }
 
+router.get('/', async function(req, res) {
+    //const row = await writer_db(req.session.user.id);
+    //butdanh = row[0].NickName;
+    res.render('user/writer/profile',{
+    });
+})
 
-router.get('/', async function (req, res) {
+router.get('/managepost', async function (req, res) {
     writerID = req.session.user.id;
     pending_posts_list = await post_db.findPendingPosts(writerID);
     addCatAndWriterNameInListPosts(pending_posts_list, 'WriteTime');
@@ -89,9 +97,38 @@ router.get('/write-post', async function(req, res) {
         postID: -1
     });
 })
-
-
-
+router.get('/editprofile', async function(req, res) {
+    res.render('user/writer/editprofile',{
+    });
+})
+router.put('/profile', async function(req, res) {
+    console.log(req.body.raw_dob);
+    await writer_db.updateGeneralInfor(req.session.user.id, req.body.fullName, req.body.email, req.body.raw_dob, req.body.nickname );
+    
+    req.session.user.name = req.body.fullName;
+    req.session.user.email = req.body.email;
+    req.session.user.birthday = req.body.raw_dob;
+    req.session.user.nickname = req.body.nickname;
+    
+    res.redirect('/writer');
+    
+})
+router.put('/password', async function(req, res) {
+    //req.session.user = null;
+    //res.redirect('/');
+    const rows_writer = await writer_db.findByID(req.session.user.id);
+    const ret = bcrypt.compareSync(req.body.oldPassword, rows_writer.Password);
+    const hash = bcrypt.hashSync(req.body.newPassword, 10);
+    if(ret===true){
+        await writer_db.changePassByID( hash, req.session.user.id);
+        res.render('user/writer/profile');
+    }
+    else{
+        return res.render('user/writer/editprofile', {
+            err_message: 'Invalid password',
+        })
+    }
+})
 
 router.post('/write-post', async function(req, res) {
     const storage = multer.diskStorage({
@@ -172,7 +209,7 @@ router.get('/post-detail/edit',checkWriterAccessPostID,  async function(req, res
         content: aPost.Content,
         abstract: aPost.Abstract,
         list_cat: list_cat,
-        list_tag: list_tag
+        list_tag: list_tag,
     })
 })
 
