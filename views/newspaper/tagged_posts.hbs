@@ -54,59 +54,51 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="whats-news-wrapper">
+                    <div class="whats-news-wrapper mb-4">
                         {{!-- phan tieu de tag --}}
-                        <div class="row justify-content-between align-items-end mb-15 danhsachCate">
+                        <div class="row justify-content-between align-items-end danhsachCate">
                             <div class="col-xl-4">
-                                <div class="section-tittle mb-30 ml-15">
+                                <div class="section-tittle ">
                                     <h3><a class="selected">#{{this.tagname}}</a></h3>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-md-9">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                        aria-labelledby="nav-home-tab">
-                                        {{#each this.posts}}
-                                        <div class="row hangdanhmuc pb-20 mb-20">
-                                            <!-- Phan thong tin ben trai-->
-                                            <div class="col-xl-8 col-lg-8 col-md-12">
-                                                <div class="whats-news-single">
-                                                    <div class="whates-caption whates-caption2">
-                                                        <h4><a href="/read/{{ID}}">{{TieuDe}}</a></h4>
-                                                        <span class="d-inline-block mb-2">{{info this}}</span>
-                                                         {{#if Premium}}
-                                                        <span class="d-inline-block badge badge-warning">Premium</span>
-                                                        {{/if}}
-                                                        <p>{{TomTat}}</p>
-                                                    </div>
-                                                    <div>
-                                                        {{#each this.tags}}
-                                                        <span><a href="/post/tag/{{TagID}}"
-                                                                class="badge badge-danger">{{Name}}</a></span>
-                                                        {{/each}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Phan Anh ben phai-->
-                                            <div class="col-xl-4 col-lg-4 col-md-12">
-                                                <div class="anhdanhmuc">
-                                                    <img src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{/each}}
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                        aria-labelledby="nav-profile-tab">
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {{#each this.posts}}
+                    <div class="whats-news-wrapper mb-3">
+                        <div class="row hangdanhmuc ">
+                            <!-- Phan thong tin ben trai-->
+                            <div class="col-xl-8 col-lg-8 col-md-12">
+                                <div class="whats-news-single">
+                                    <div class="whates-caption whates-caption2">
+                                        <h4><a href="/read/{{ID}}">{{TieuDe}}</a></h4>
+                                        <span class="d-inline-block mb-2">{{info this}}</span>
+                                        {{#if Premium}}
+                                        <span class="d-inline-block badge badge-warning">Premium</span>
+                                        {{/if}}
+                                        <p>{{TomTat}}</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-tags"></i>
+                                        {{#each this.tags}}
+                                        <span><a href="/post/tag/{{TagID}}"
+                                                class="badge badge-danger">{{Name}}</a></span>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Phan Anh ben phai-->
+                            <div class="col-xl-4 col-lg-4 col-md-12">
+                                <div class="anhdanhmuc">
+                                    <img src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    {{/each}}
 
                     <!--Start pagination -->
                     <div class="pagination-area mt-4 gray-bg pb-45">
