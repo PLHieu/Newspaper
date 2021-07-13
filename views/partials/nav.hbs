@@ -49,23 +49,66 @@
             <div class="col-xl-2 col-lg-2 col-md-2 d-flex align-items-center">
                 <ul class="info">
                     {{#if session.user.logged}}
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
-                            Hi, <b class="text-white" id="tennguoidung">{{session.user.name}}</b>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/subcriber" style="color: black;">
-                                <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
-                                Profile
+                        
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+                                Hi, <b class="text-white" id="tennguoidung">{{session.user.name}}</b>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/signout" style="color: black;">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                Sign Out
-                            </a>
-                        </div>
-                    </li>
+                            {{#if session.user.subcriber}}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/subcriber" style="color: black;">
+                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/signout" style="color: black;">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            {{/if}}
+                            {{#if session.user.admin}}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/admin" style="color: black;">
+                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/signout" style="color: black;">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            {{/if}}
+                            {{#if session.user.editor}}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/editor" style="color: black;">
+                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/signout" style="color: black;">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            {{/if}}
+                            {{#if session.user.writer}}
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/writer" style="color: black;">
+                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/signout" style="color: black;">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        Sign Out
+                                    </a>
+                                </div>
+                            {{/if}}
+                            
+                        </li>
                     {{else}}
                     <li class="">
                         <a href="/register" style="color: white; padding: 2px">

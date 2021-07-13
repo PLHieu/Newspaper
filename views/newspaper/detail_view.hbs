@@ -105,158 +105,320 @@
 </header>
 
 <main>
-    <section class="blog_area single-post-area section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 posts-list">
-                    <div class="single-post">
-                        <div class="feature-img">
-                            <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
-                                alt="">
-                        </div>
-                        <div class="blog_details">
-                            <h1>{{this.post.Title}}</h1>
-                            <ul class="blog-info-link mt-3 mb-4">
-                                <li><a href="/post/category/{{this.post.CatID}}"><i
-                                            class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
-                                <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Bình
-                                        Luận</a></li>
-                                <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
-                                        xem</a></li>
-                            </ul>
-                            <p>{{{this.post.Content}}}</p>
-                        </div>
-                    </div>
-                    <span class="font-italic mr-1">Tags:
-                    </span>
-                    {{#each this.post.tags}}
-                    <a href="/post/tag/{{ID}}"><span class="badge badge-danger">#{{Name}}</span></a>
-                    {{/each}}
+    {{#if this.post.Premium}}
+        {{#if session.user.premium}}
+            <section class="blog_area single-post-area section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 posts-list">
+                            <div class="single-post">
+                                <div class="feature-img">
+                                    <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
+                                        alt="">
+                                </div>
+                                <div class="blog_details">
+                                    <h1>{{this.post.Title}}</h1>
+                                    <ul class="blog-info-link mt-3 mb-4">
+                                        <li><a href="/post/category/{{this.post.CatID}}"><i
+                                                    class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
+                                        <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Bình
+                                                Luận</a></li>
+                                        <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
+                                                xem</a></li>
+                                    </ul>
+                                    <p>{{{this.post.Content}}}</p>
+                                </div>
+                            </div>
+                            <span class="font-italic mr-1">Tags:
+                            </span>
+                            {{#each this.post.tags}}
+                            <a href="/post/tag/{{ID}}"><span class="badge badge-danger">#{{Name}}</span></a>
+                            {{/each}}
 
 
-                    <div class="navigation-top mt-3">
-                        <div class="d-sm-flex align-items-center w-100 justify-content-between">
-                            {{!-- <img src="/public/image/users/writers/{{this.post.WriterID}}/ava.jpg"
-                                style="border: 1px solid black;"
-                                class="rounded-circle col-1" id="writer_ava"> --}}
-                            <p class="like-info"><span class="align-middle"></span>Theo: {{this.post.Writer.Name}}</p>
-                            <p class="like-info float-right"> {{this.post.PubTime}}</p>
-                        </div>
-                    </div>
+                            <div class="navigation-top mt-3">
+                                <div class="d-sm-flex align-items-center w-100 justify-content-between">
+                                    {{!-- <img src="/public/image/users/writers/{{this.post.WriterID}}/ava.jpg"
+                                        style="border: 1px solid black;"
+                                        class="rounded-circle col-1" id="writer_ava"> --}}
+                                    <p class="like-info"><span class="align-middle"></span>Theo: {{this.post.Writer.Name}}</p>
+                                    <p class="like-info float-right"> {{this.post.PubTime}}</p>
+                                </div>
+                            </div>
 
 
-                    <div class="content-item section" id="comments">
+                            <div class="content-item section" id="comments">
 
-                        <!-- COMMENT-START -->
-                        <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
-                        <div class="comments-area">
-                            {{#each this.post.comments}}
-                            <div class="comment-list">
-                                <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex w-100">
-                                        <div class="thumb">
-                                            <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
-                                        </div>
-                                        <div class="desc w-100">
-                                            <p class="comment">{{Content}}
-                                            </p>
-
-                                            <div class="d-flex justify-content-between w-100">
-                                                <div class="d-flex align-items-center">
-                                                    <span>
-                                                        <a class="" style="text-decoration: none; color:black" href="#">{{ReaderName}}</a>
-                                                    </span>
-                                                    <p class="date">{{PubTime}}</p>
+                                <!-- COMMENT-START -->
+                                <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
+                                <div class="comments-area">
+                                    {{#each this.post.comments}}
+                                    <div class="comment-list">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex w-100">
+                                                <div class="thumb">
+                                                    <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
                                                 </div>
-                                                {{!-- <div class="reply-btn">
-                                                    <a href="#" class="btn-reply text-uppercase">reply</a>
-                                                </div> --}}
-                                                <div  {{#if cantDelete}} class="invisible"{{/if}}>
-                                                    <a href="/read/{{PostID}}/del-comment?id={{ID}}"
-                                                    class="text-danger d-inline-block float-right">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                <div class="desc w-100">
+                                                    <p class="comment">{{Content}}
+                                                    </p>
+
+                                                    <div class="d-flex justify-content-between w-100">
+                                                        <div class="d-flex align-items-center">
+                                                            <span>
+                                                                <a class="" style="text-decoration: none; color:black" href="#">{{ReaderName}}</a>
+                                                            </span>
+                                                            <p class="date">{{PubTime}}</p>
+                                                        </div>
+                                                        {{!-- <div class="reply-btn">
+                                                            <a href="#" class="btn-reply text-uppercase">reply</a>
+                                                        </div> --}}
+                                                        <div  {{#if cantDelete}} class="invisible"{{/if}}>
+                                                            <a href="/read/{{PostID}}/del-comment?id={{ID}}"
+                                                            class="text-danger d-inline-block float-right">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <!-- COMMENT-END -->
+                                {{#if session}}
+                                <div class="comment-form" style="border:none; !important">
+                                    <h4 class="mb-3">Bình Luận của Bạn</h4>
+                                    <form class="form-contact comment_form" action="#" id="comments" method="POST">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30"
+                                                        rows="9" placeholder="Write Comment"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit"
+                                                class="button button-contactForm btn_1 boxed-btn">Đăng</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <div class="blog_right_sidebar">
+                                <aside class="single_sidebar_widget popular_post_widget">
+                                    <h3 class="widget_title">Relative Post</h3>
+                                    {{#if this.post.five_post_like_cat}}
+                                    {{#each this.post.five_post_like_cat}}
+                                    <article class="blog_item">
+                                        <div class="blog_item_img">
+                                            <img class="card-img rounded" src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                        </div>
+                                        <div class="blog_details">
+                                            <a class="d-inline-block" href="/read/{{ID}}">
+                                                <h2>{{Title}}</h2>
+                                            </a>
+                                            <small class="font-italic">by {{Writer.Name}} - {{PubTime}}</small>
+                                            <p>{{Abstract}}</p>
+                                            <ul class="blog-info-link">
+                                                <li class="font-italic">
+                                                    <i class="fa fa-tags">
+                                                    </i>
+
+                                                    Tags:
+                                                    {{#each tags}}
+                                                    <a href="/post/tag/{{ID}}" class="text-dark h6 font-italic">#{{Name}} </a>
+                                                    {{/each}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </article>
+                                    {{/each}}
+                                    {{else}}
+                                    <p>None post is in like category</p>
+                                    {{/if}}
+                                </aside>
+                                <aside class="single_sidebar_widget tag_cloud_widget">
+                                    <h4 class="widget_title">Tag Bài Viết</h4>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="#">project</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">love</a>
+                                        </li>
+                                    </ul>
+                                </aside>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {{else}}
+            <p> Bạn hãy đăng ký tài khoản Premium để đọc bài viết này </p>
+        {{/if}}
+        
+    {{else}}
+        <section class="blog_area single-post-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 posts-list">
+                        <div class="single-post">
+                            <div class="feature-img">
+                                <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
+                                    alt="">
+                            </div>
+                            <div class="blog_details">
+                                <h1>{{this.post.Title}}</h1>
+                                <ul class="blog-info-link mt-3 mb-4">
+                                    <li><a href="/post/category/{{this.post.CatID}}"><i
+                                                class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
+                                    <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Bình
+                                            Luận</a></li>
+                                    <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
+                                            xem</a></li>
+                                </ul>
+                                <p>{{{this.post.Content}}}</p>
+                            </div>
+                        </div>
+                        <span class="font-italic mr-1">Tags:
+                        </span>
+                        {{#each this.post.tags}}
+                        <a href="/post/tag/{{ID}}"><span class="badge badge-danger">#{{Name}}</span></a>
+                        {{/each}}
+
+
+                        <div class="navigation-top mt-3">
+                            <div class="d-sm-flex align-items-center w-100 justify-content-between">
+                                {{!-- <img src="/public/image/users/writers/{{this.post.WriterID}}/ava.jpg"
+                                    style="border: 1px solid black;"
+                                    class="rounded-circle col-1" id="writer_ava"> --}}
+                                <p class="like-info"><span class="align-middle"></span>Theo: {{this.post.Writer.Name}}</p>
+                                <p class="like-info float-right"> {{this.post.PubTime}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="content-item section" id="comments">
+
+                            <!-- COMMENT-START -->
+                            <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
+                            <div class="comments-area">
+                                {{#each this.post.comments}}
+                                <div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex w-100">
+                                            <div class="thumb">
+                                                <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
+                                            </div>
+                                            <div class="desc w-100">
+                                                <p class="comment">{{Content}}
+                                                </p>
+
+                                                <div class="d-flex justify-content-between w-100">
+                                                    <div class="d-flex align-items-center">
+                                                        <span>
+                                                            <a class="" style="text-decoration: none; color:black" href="#">{{ReaderName}}</a>
+                                                        </span>
+                                                        <p class="date">{{PubTime}}</p>
+                                                    </div>
+                                                    {{!-- <div class="reply-btn">
+                                                        <a href="#" class="btn-reply text-uppercase">reply</a>
+                                                    </div> --}}
+                                                    <div  {{#if cantDelete}} class="invisible"{{/if}}>
+                                                        <a href="/read/{{PostID}}/del-comment?id={{ID}}"
+                                                        class="text-danger d-inline-block float-right">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{/each}}
                             </div>
-                            {{/each}}
-                        </div>
-                        <!-- COMMENT-END -->
-                        {{#if session}}
-                        <div class="comment-form" style="border:none; !important">
-                            <h4 class="mb-3">Bình Luận của Bạn</h4>
-                            <form class="form-contact comment_form" action="#" id="comments" method="POST">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control w-100" name="comment" id="comment" cols="30"
-                                                rows="9" placeholder="Write Comment"></textarea>
+                            <!-- COMMENT-END -->
+                            {{#if session}}
+                            <div class="comment-form" style="border:none; !important">
+                                <h4 class="mb-3">Bình Luận của Bạn</h4>
+                                <form class="form-contact comment_form" action="#" id="comments" method="POST">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control w-100" name="comment" id="comment" cols="30"
+                                                    rows="9" placeholder="Write Comment"></textarea>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit"
-                                        class="button button-contactForm btn_1 boxed-btn">Đăng</button>
-                                </div>
-                            </form>
-                        </div>
-                        {{/if}}
-                    </div>
-                </div>
-
-
-                <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Relative Post</h3>
-                            {{#if this.post.five_post_like_cat}}
-                            {{#each this.post.five_post_like_cat}}
-                            <article class="blog_item">
-                                <div class="blog_item_img">
-                                    <img class="card-img rounded" src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
-                                </div>
-                                <div class="blog_details">
-                                    <a class="d-inline-block" href="/read/{{ID}}">
-                                        <h2>{{Title}}</h2>
-                                    </a>
-                                    <small class="font-italic">by {{Writer.Name}} - {{PubTime}}</small>
-                                    <p>{{Abstract}}</p>
-                                    <ul class="blog-info-link">
-                                        <li class="font-italic">
-                                            <i class="fa fa-tags">
-                                            </i>
-
-                                            Tags:
-                                            {{#each tags}}
-                                            <a href="/post/tag/{{ID}}" class="text-dark h6 font-italic">#{{Name}} </a>
-                                            {{/each}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </article>
-                            {{/each}}
-                            {{else}}
-                            <p>None post is in like category</p>
+                                    <div class="form-group">
+                                        <button type="submit"
+                                            class="button button-contactForm btn_1 boxed-btn">Đăng</button>
+                                    </div>
+                                </form>
+                            </div>
                             {{/if}}
-                        </aside>
-                        <aside class="single_sidebar_widget tag_cloud_widget">
-                            <h4 class="widget_title">Tag Bài Viết</h4>
-                            <ul class="list">
-                                <li>
-                                    <a href="#">project</a>
-                                </li>
-                                <li>
-                                    <a href="#">love</a>
-                                </li>
-                            </ul>
-                        </aside>
+                        </div>
+                    </div>
 
+
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h3 class="widget_title">Relative Post</h3>
+                                {{#if this.post.five_post_like_cat}}
+                                {{#each this.post.five_post_like_cat}}
+                                <article class="blog_item">
+                                    <div class="blog_item_img">
+                                        <img class="card-img rounded" src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                    </div>
+                                    <div class="blog_details">
+                                        <a class="d-inline-block" href="/read/{{ID}}">
+                                            <h2>{{Title}}</h2>
+                                        </a>
+                                        <small class="font-italic">by {{Writer.Name}} - {{PubTime}}</small>
+                                        <p>{{Abstract}}</p>
+                                        <ul class="blog-info-link">
+                                            <li class="font-italic">
+                                                <i class="fa fa-tags">
+                                                </i>
+
+                                                Tags:
+                                                {{#each tags}}
+                                                <a href="/post/tag/{{ID}}" class="text-dark h6 font-italic">#{{Name}} </a>
+                                                {{/each}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                                {{/each}}
+                                {{else}}
+                                <p>None post is in like category</p>
+                                {{/if}}
+                            </aside>
+                            <aside class="single_sidebar_widget tag_cloud_widget">
+                                <h4 class="widget_title">Tag Bài Viết</h4>
+                                <ul class="list">
+                                    <li>
+                                        <a href="#">project</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">love</a>
+                                    </li>
+                                </ul>
+                            </aside>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {{/if}}
 </main>

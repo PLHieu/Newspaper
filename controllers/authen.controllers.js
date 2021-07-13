@@ -96,9 +96,10 @@ exports.signin = async (req, res) => {
         if (rows_reader.OTP != -1){
             return res.redirect(`/getOTP?register=1&email=${rows_reader.Email}&noactive=1`);
         }
-        if (rows_reader.ExpTime!=null)
+        return checkPassword("subcriber", rows_reader, req, res);
+        /*if (rows_reader.ExpTime!=null)
             return checkPassword("subcriber", rows_reader, req, res);
-        else return checkPassword("guest", rows_reader, req, res);
+        else return checkPassword("guest", rows_reader, req, res);*/
     }
 
     const row_writer = await writer.findByUsername(req.body.username);
@@ -299,13 +300,33 @@ function checkPassword(role, rows, req, res) {
         err_message: 'Invalid password',
     })
   }
+  else{
    handle_login_successfully(role, rows, req, res);
+  }
   //return authInfor;
 }
 
 
 function handle_login_successfully(role, rows, req, res) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
+    let adm = null, sub = null, wrt = null, edt = null, Premium = 1, nickname = null;
+    if (role == 'admin'){
+        adm = 1;
+    } 
+    if (role == 'subcriber'){
+        sub = 1;
+        if (rows.ExpTime == null){
+            Premium = null;
+        }
+    }
+    if (role == 'writer'){
+        wrt = 1;
+        nickname = rows.NickName;
+    }
+    if (role == 'editor'){
+        edt = 1;
+    }
+    
     req.session.user = {
         id: rows.ID,
         name: rows.Name,
@@ -314,9 +335,14 @@ function handle_login_successfully(role, rows, req, res) {
         birthday: moment(rows.BirthDay).format('DD/MM/YYYY'),
         email: rows.Email,
         role: role,
+        nickname: nickname,
         expTime: moment(rows.ExpTime).format('MMMM D YYYY, HH:mm:ss'),
-        logged: true
-
+        logged: true,
+        admin: adm,
+        subcriber: sub,
+        writer: wrt,
+        editor: edt,
+        premium: Premium,
     };
     //res.locals.session = req.session.user;
     //console.log(req.locals.session);
