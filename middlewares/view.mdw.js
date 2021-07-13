@@ -1,6 +1,6 @@
 const exphbs = require('express-handlebars');
 hbs_sections = require('express-handlebars-sections');
-module.exports = function (app) {
+module.exports = function(app) {
     app.engine('hbs', exphbs({
         defaultLayout: 'main.hbs',
         extname: 'hbs',
@@ -33,24 +33,28 @@ module.exports = function (app) {
                     "%": lvalue % rvalue
                 }[operator];
             },
-            getDate : getDateFromDatetime,
-        }}));
+            getDate: getDateFromDatetime,
+            countPosts: function(list_posts) {
+                return list_posts.length;
+            }
+        }
+    }));
     app.set('view engine', 'hbs');
 }
 
 function parseAuthorDate(post) {
     let published_date = new Date(post.NgayDang)
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return post.TacGia + " - " 
-    + months[published_date.getMonth()]
-    + ' ' + published_date.getDate() 
-    + ' ' + published_date.getFullYear();
+    return post.TacGia + " - " +
+        months[published_date.getMonth()] +
+        ' ' + published_date.getDate() +
+        ' ' + published_date.getFullYear();
 }
 
-function getDateFromDatetime(dt_str){
+function getDateFromDatetime(dt_str) {
     let dt = new Date(dt_str);
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months[dt.getMonth()]
-    + ' ' + dt.getDate() 
-    + ' ' + dt.getFullYear();
+    return months[dt.getMonth()] +
+        ' ' + dt.getDate() +
+        ' ' + dt.getFullYear();
 }

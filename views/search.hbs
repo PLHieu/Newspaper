@@ -1,257 +1,127 @@
-
 {{#section 'title'}}
-    <title>Search</title>
+<title>Search</title>
 {{/section}}
 
 {{#section 'css'}}
-      
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
 {{/section}}
 
 {{#section 'js'}}
 
+<!-- Jquery, Popper, Bootstrap -->
+
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 {{/section}}
 
+{{> header-top}}
 
-    <!--================Blog Area =================-->
-    <section class="blog_area section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mb-5 mb-lg-0">
-                    <div class="blog_left_sidebar">
-                        {{#each this.list_posts}}
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded" src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
-                                <a href="http://localhost:3000/post/category/{{CatID}}" class="blog_item_date">
-                                    <h3 class="font-italic">{{CatName}}</h3>
-                                </a>
-                            </div>
-
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="http://localhost:3000/read/{{ID}}">
-                                    <h2>{{Title}}</h2>
-                                </a>
-                                <p>{{Abstract}}</p>
-                                <ul class="blog-info-link">
-                                    <li>
-                                        <i class="fa fa-tags">
-                                            {{#each tags}}
-                                        <a href="http://localhost:3000/post/tag/{{ID}}" class="text-dark h6 font-italic">#{{Name}} </a>
-                                        {{/each}}
-                                        </i>
-                                        
-                                    </li>
-                                    <li><i class="fa fa-comments"></i> {{num_comments}} Comments</li>
-                                </ul>
-                            </div>
-                        </article>
-                        {{/each}}
-                    
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="http://localhost:3000/search?text_search={{this.search_text}}&page={{prev_page}}" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                {{#each this.list_page}}
-                                    <li class="page-item">
-                                        <a href="http://localhost:3000/search?text_search={{search_text}}&page={{page}}" class="page-link">{{page}}</a>
-                                    </li>
-                                {{/each}}
-                                <li class="page-item">
-                                    <a href="http://localhost:3000/search?text_search={{search_text}}&page={{next_page}}" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+<div class="about-area2 gray-bg pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="whats-news-wrapper mb-3">
+                    <h3>Trang {{cur_page}} - Kết quả phù hợp cho <span
+                            class="badge badge-danger">#{{search_text}}</span></h3>
                 </div>
-                <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget search_widget">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='Search Keyword'
-                                            onfocus="this.placeholder = ''"
-                                            onblur="this.placeholder = 'Search Keyword'">
-                                        <div class="input-group-append">
-                                            <button class="btns" type="button"><i class="ti-search"></i></button>
+                {{#each this.list_posts}}
+                <div class="whats-news-wrapper mb-3">
+                    <div class="row hangdanhmuc">
+                        <!-- Phan thong tin ben trai-->
+                        <div class="col-xl-8 col-lg-8 col-md-12">
+                            <div class="whats-news-single">
+                                <div class="whates-caption whates-caption2">
+                                    <h4><a href="/read/{{ID}}">{{Title}}</a></h4>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-inline-block">
+                                            <span class="d-inline-block mb-2">{{PubTime}}</span>
+                                            {{#if Premium}}
+                                            <span class="d-inline-block badge badge-warning">Premium</span>
+                                            {{/if}}
+                                        </div>
+                                        <div class="d-inline-block">
+                                            <span class="d-inline-block ">{{Writer.NickName}}</span>
+                                            <span class="d-inline-block  badge badge-pill badge-danger text-white"><i
+                                                    class="fas fa-eye"></i> {{Views}}</span>
                                         </div>
                                     </div>
+                                    <p>{{Abstract}}</p>
                                 </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Search</button>
-                            </form>
-                        </aside>
-
-                        <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title">Category</h4>
-                            <ul class="list cat-list">
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Resaurant food</p>
-                                        <p>(37)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Travel news</p>
-                                        <p>(10)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Modern technology</p>
-                                        <p>(03)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Product</p>
-                                        <p>(11)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Inspiration</p>
-                                        <p>21</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Health Care (21)</p>
-                                        <p>09</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>
-
-                        <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Recent Post</h3>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_1.png" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>From life was you fish...</h3>
-                                    </a>
-                                    <p>January 12, 2019</p>
+                                <div>
+                                    <i class="fas fa-tags"></i>
+                                    {{#each this.tags}}
+                                    <span><a href="/post/tag/{{ID}}" class="badge badge-danger">{{Name}}</a></span>
+                                    {{/each}}
                                 </div>
                             </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_2.png" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>The Amazing Hubble</h3>
-                                    </a>
-                                    <p>02 Hours ago</p>
-                                </div>
+                        </div>
+                        <!-- Phan Anh ben phai-->
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="anhdanhmuc">
+                                <img src="/public/image/posts/{{ID}}/smallavt.jpg" alt="">
                             </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_3.png" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>Astronomy Or Astrology</h3>
-                                    </a>
-                                    <p>03 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_4.png" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>Asteroids telescope</h3>
-                                    </a>
-                                    <p>01 Hours ago</p>
-                                </div>
-                            </div>
-                        </aside>
-                        <aside class="single_sidebar_widget tag_cloud_widget">
-                            <h4 class="widget_title">Tag Clouds</h4>
-                            <ul class="list">
-                                <li>
-                                    <a href="#">project</a>
-                                </li>
-                                <li>
-                                    <a href="#">love</a>
-                                </li>
-                                <li>
-                                    <a href="#">technology</a>
-                                </li>
-                                <li>
-                                    <a href="#">travel</a>
-                                </li>
-                                <li>
-                                    <a href="#">restaurant</a>
-                                </li>
-                                <li>
-                                    <a href="#">life style</a>
-                                </li>
-                                <li>
-                                    <a href="#">design</a>
-                                </li>
-                                <li>
-                                    <a href="#">illustration</a>
-                                </li>
-                            </ul>
-                        </aside>
-
-
-                        <aside class="single_sidebar_widget instagram_feeds">
-                            <h4 class="widget_title">Instagram Feeds</h4>
-                            <ul class="instagram_row flex-wrap">
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_5.png" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_6.png" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_7.png" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_8.png" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_9.png" alt="">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="img-fluid" src="assets/img/post/post_10.png" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>
-
-
-                        <aside class="single_sidebar_widget newsletter_widget">
-                            <h4 class="widget_title">Newsletter</h4>
-
-                            <form action="#">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
-                                </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Subscribe</button>
-                            </form>
-                        </aside>
+                        </div>
                     </div>
                 </div>
+                {{/each}}
+
+                <!--Start pagination -->
+                <div class="whats-news-wrapper mb-3">
+                    <nav class="justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="http://localhost:3000/search?text_search={{this.search_text}}&page={{prev_page}}"
+                                    class="page-link" aria-label="Previous">
+                                    <i class="ti-angle-left"></i>
+                                </a>
+                            </li>
+                            {{#each this.list_page}}
+                            <li class="page-item">
+                                <a href="http://localhost:3000/search?text_search={{search_text}}&page={{page}}"
+                                    class="page-link">{{page}}</a>
+                            </li>
+                            {{/each}}
+                            <li class="page-item">
+                                <a href="http://localhost:3000/search?text_search={{search_text}}&page={{next_page}}"
+                                    class="page-link" aria-label="Next">
+                                    <i class="ti-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- End pagination  -->
             </div>
         </div>
-    </section>
-</body>
-</html>
+    </div>
+    </body>
+
+    </html>
