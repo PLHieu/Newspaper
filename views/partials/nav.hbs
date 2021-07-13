@@ -1,6 +1,5 @@
-
 <style>
-    .info li{
+    .info li {
         display: inline-block;
     }
 
@@ -8,14 +7,13 @@
         display: inline-block;
     }
 
-    .info li:hover{
-        font-weight: 500;
+    .info li a.dropdown-item:hover  {
+        background-color: rgb(202, 200, 204);
     }
 
     .dropdown-toggle::after {
         margin-left: 0;
     }
-
 </style>
 <div class="header-bottom header-sticky">
     <div class="container">
@@ -49,66 +47,78 @@
             <div class="col-xl-2 col-lg-2 col-md-2 d-flex align-items-center">
                 <ul class="info">
                     {{#if session.user.logged}}
-                        
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
-                                Hi, <b class="text-white" id="tennguoidung">{{session.user.name}}</b>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" style="color: white;">
+                            Hi, <b class="text-white" id="tennguoidung">{{session.user.name}}</b>
+                        </a>
+                        {{#if session.user.subcriber}}
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/subcriber">
+                                Quản lý tài khoản
                             </a>
-                            {{#if session.user.subcriber}}
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/subcriber" style="color: black;">
-                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
-                                        Profile
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/signout" style="color: black;">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Sign Out
-                                    </a>
-                                </div>
-                            {{/if}}
-                            {{#if session.user.admin}}
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/admin" style="color: black;">
-                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
-                                        Profile
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/signout" style="color: black;">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Sign Out
-                                    </a>
-                                </div>
-                            {{/if}}
-                            {{#if session.user.editor}}
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/editor" style="color: black;">
-                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
-                                        Profile
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/signout" style="color: black;">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Sign Out
-                                    </a>
-                                </div>
-                            {{/if}}
-                            {{#if session.user.writer}}
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/writer" style="color: black;">
-                                        <i class="fa fa-user" aria-hidden="true" style="color: black;"></i>
-                                        Profile
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/signout" style="color: black;">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Sign Out
-                                    </a>
-                                </div>
-                            {{/if}}
-                            
-                        </li>
+                            <a class="dropdown-item" href="/signout">
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                        {{/if}}
+                        {{#if session.user.admin}}
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/admin">
+                                Quản lý tài khoản
+                            </a>
+                            <a class="dropdown-item" href="/admin/user/manage">
+                                Quản lý người dùng
+                            </a>
+                            <a class="dropdown-item" href="/admin/category/manage">
+                                Quản lý chuyên mục
+                            </a>
+                            <a class="dropdown-item" href="/admin/post/manage">
+                                Quản lý bài viết
+                            </a>
+                            <a class="dropdown-item" href="/admin/tag/manage">
+                                Quản lý nhãn tag
+                            </a>
+                            <a class="dropdown-item" href="/signout">
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                        {{/if}}
+                        {{#if session.user.editor}}
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/editor">
+                                Quản lý tài khoản
+                            </a>
+                            <a class="dropdown-item" href="/editor">
+                                Quản lý bài viết
+                            </a>
+                            <a class="dropdown-item" href="/signout">
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                        {{/if}}
+                        {{#if session.user.writer}}
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/writer">
+                                Quản lý tài khoản
+                            </a>
+                            <a class="dropdown-item" href="/writer/write-post">
+                                Viết bài mới
+                            </a>
+                            <a class="dropdown-item" href="/writer/managepost">
+                                Quản lý bài viết
+                            </a>
+                            <a class="dropdown-item" href="/signout">
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                        {{/if}}
+
+                    </li>
                     {{else}}
                     <li class="">
                         <a href="/register" style="color: white; padding: 2px">
