@@ -1,0 +1,45 @@
+
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'title'}}
+<title>Editor</title>
+{{/section}}
+
+{{#section 'js'}}
+<script>
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+{{/section}}
+
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">PostID</th>
+      <th scope="col" colspan="3">Title</th>
+      <th scope="col" colspan="6">Abstract</th>
+      <th scope="col" colspan="2">WriteTime</th>
+      <th scope="col">State</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each posts}}
+    <tr class='clickable-row' data-href='/editor/consider-a-post?postID={{ID}}'>
+      <th scope="row">{{ID}}</th>
+      <td colspan="3">{{Title}}</td>
+      <td colspan="6">{{Abstract}}</td>
+      <td colspan="2">{{WriteTime}}</td>
+      <td>
+        {{#eq StateID 0}} Pending
+        {{else}} Rejected
+        {{/eq}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

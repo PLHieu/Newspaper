@@ -1,4 +1,5 @@
-const db = require('../utils/db')
+const db = require('../utils/db');
+const { add } = require('./reader.model');
 
 module.exports = {
     async findByID(draftID){
@@ -19,6 +20,13 @@ module.exports = {
     //return list
     findByEditorID(editorID){
         return db('Drafts').where('EditorID', editorID);
-    }
+    },
     
+    add(draft){
+      return db('Drafts').insert(draft);
+    },
+
+    delete(postID){
+      return db('Drafts').where('PostID', postID).del();
+    }
 }

@@ -4,6 +4,7 @@ const post_db = require("../models/post.model")
 const tag_db = require("../models/tag.model")
 const posttag_db = require("../models/post_tag.model")
 const writer_db= require("../models/writer.model")
+const draft_db = require("../models/draft.model")
 const express = require('express');
 const moment = require('moment');
 const { post } = require("./admin.routes");
@@ -67,7 +68,7 @@ router.get('/managepost', async function (req, res) {
     writerID = req.session.user.id;
     pending_posts_list = await post_db.findPendingPosts(writerID);
     addCatAndWriterNameInListPosts(pending_posts_list, 'WriteTime');
-    rejected_posts_list = await post_db.findRejectedPosts(writerID);
+    rejected_posts_list = await post_db.findRejectedPosts(writerID, -1);
     for (var i = 0; i <rejected_posts_list.length; i++){
         rejected_posts_list[i].CatName = await cat_db.findNameCateByID(rejected_posts_list[i].CatID);
         rejected_posts_list[i].draft_info.RateTime = moment(rejected_posts_list[i].draft_info.RateTime ).format("DD/MM/YYYY HH:mm:ss");
@@ -178,10 +179,15 @@ router.post('/write-post', async function(req, res) {
     })
 })
 
-router.get('/post-detail',checkWriterAccessPostID, function(req, res){
+router.get('/post-detail',checkWriterAccessPostID, async function(req, res){
     id_post = req.query.postID;
+    const post = await post_db.findByID(id_post);
+    if (post.StateID==-2) {
+        const draft = await draft_db.findByPostID(id_post);
+        post.Note = draft.Note;
+    }
     res.render('user/writer/detail_post',{
-        postID: id_post,
+        post,
     })
 })
 
@@ -233,6 +239,7 @@ router.post('/post-detail/edit', async function(req, res){
                 CatID: category,
                 Content: content,
                 Abstract: abstract,
+                StateID: -2
             }
             await post_db.editPost(edit_post,postID);
             await posttag_db.del(postID);

@@ -1,5 +1,11 @@
 {{#section 'title'}}
-<title>Write Post</title>
+<title>
+  {{#if postID}}
+  Edit Post
+  {{else}}
+  Write Post
+  {{/if}}
+  </title>
 {{/section}}
 
 {{#section 'css'}}

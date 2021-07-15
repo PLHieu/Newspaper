@@ -1,0 +1,76 @@
+
+{{#section 'css'}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+{{/section}}
+ 
+{{#section 'title'}}
+<title>APPROVE</title>
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<!-- JS -->
+    {{!-- <script src="../../public/js/template/vendor/jquery.min.js"></script>
+    <script src="../../public/js/template/main.js"></script> --}}
+<script>
+    $('#postID').attr('style', 'display:none;');
+    $('#txtDFP').datetimepicker({
+      format:'d/m/Y',
+      timepicker: false,
+      mask: true,
+      minDate: new Date()
+    }); 
+
+    $('#frmApproveDraft').on('submit', function (e) {
+      e.preventDefault();
+      const txtDFP = $(`#txtDFP`);
+      if (txtDFP.val().length === 0 || txtDFP.val() ===`__/__/____`) {
+        alert(`Date for Publish must not be empty`);
+        txtDFP.focus();
+        return;
+      }
+      var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+      if (checkboxes.length === 0) {
+        alert(`You must take at least one tag for your post!`);
+        return;
+      }
+      $('#frmApproveDraft').off('submit').submit();
+    });
+</script>
+{{/section}}
+
+<form action="" method="post" id='frmApproveDraft'>
+    <input type="text" id="postID" name="postID" value="{{postID}}">
+    <div class="form-group">
+        <label for="txtDFP"><i class="fa fa-birthday-cake"></i></label>
+        <input type="text" name="raw_dfb" id="txtDFP" placeholder="Choose Date for Publish"/>
+    </div>
+
+    <div class="form-group wrap-column " style="height: 180px;">
+        <label for="selectedCat">Select Category</label>
+        <select class="form-control" id="selectedCat" name="category">
+          {{#each this.list_cat}}
+          <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
+          {{/each}}
+        </select>
+    </div>
+
+
+    <div class="form-group wrap-column" style="margin-top: 2rem !important">
+        <label for="selectedTag">Select Tags</label>
+        <div class="div d-flex  showtag">
+          {{#each this.list_tag}}
+
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox" value="{{ID}}" id="cbTag{{ID}}" name="tag" {{#if
+              selected}}checked="checked" {{/if}} />
+            <label class="form-check-label" for="cbTag{{ID}}">
+              {{Name}}
+            </label>
+          </div>
+          {{/each }}
+        </div>
+      </div>
+
+      <button type="submit">SUBMIT</button>
+</form>

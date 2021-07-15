@@ -183,6 +183,24 @@ module.exports = {
         return rows;
     },
 
+    changeStateID(postID,newStateID){
+        return db('Posts').where('ID',postID).update('StateID', newStateID);
+    },
+
+    updateApprovePost(postID,catID,pubTime){
+        return db('Posts').where('ID',postID)
+        .update({PubTime:pubTime,
+                    CatID: catID
+                });
+    },
+
+    async findByID(postID){
+        const post = await findOnlyByID(postID);
+        post.PubTime = moment(post.PubTime).format("DD/MM/YYYY HH:mm:ss");
+        post.tags = await posttag_db.findTagsByPostID(postID);
+        return post;
+    },
+
 
     async findPostByID(id_post) {
         const post = await findOnlyByID(id_post);
@@ -221,6 +239,14 @@ module.exports = {
         return db('Posts').where('ID', postID).del();
     },
 
+    async findDraftPostsByCatID(catID){
+        const rows = await db('Posts').whereNotIn('StateID', [1,-1]).andWhere('CatID', catID).orderBy('WriteTime');
+        for (let i = 0; i < rows.length; i++){
+            rows[i].tags = await posttag_db.findTagsByPostID(rows[i].ID);
+        }
+        return rows;
+    },
+
     async findPostByTitleWriter(title, writerID) {
         const rows = await db('Posts').where('Title', title).andWhere('WriterID', writerID);
         if (rows.length === 0)
@@ -246,8 +272,8 @@ module.exports = {
     },
 
     //return a list
-    async findRejectedPosts(WriterID) {
-        const rejectPosts = await db('Posts').where('StateID', -1).andWhere('WriterID', writerID);
+    async findRejectedPosts(writerID, stateID) {
+        const rejectPosts = await db('Posts').where('StateID', stateID).andWhere('WriterID', writerID);
         for (let i = 0; i < rejectPosts.length; i++) {
             postID = rejectPosts[i].ID;
             rejectPosts[i].draft_info = await draft_db.findByPostID(postID);

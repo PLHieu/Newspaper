@@ -15,8 +15,27 @@
     <h4 class="card-header">
         Edit Posts
     </h4>
+    <div class="">
+        <div class="single-post">
+             <div class="feature-img">
+                <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg">
+             </div>
+             <div>
+               <p>Reason why Post is rejected</p>
+               <p>{{post.Note}}</p>
+             </div>
+             <div class="blog_details">
+                <h1>{{this.post.Title}}</h1>
+                <p>{{{this.post.Content}}}</p>
+             </div>
+        </div>
+        <span class="font-italic mr-1">Tags:</span>
+        {{#each this.post.tags}}
+        <a href="/post/tag/{{ID}}"><span class="badge badge-danger">#{{Name}}</span></a>
+        {{/each}}
+    </div>
     <div class="card-body">
-        <a href='/writer/post-detail/edit?postID={{this.postID}}' class="btn btn-info" role="button">
+        <a href='/writer/post-detail/edit?postID={{post.ID}}' class="btn btn-info" role="button">
           <i class="fa fa-pencil" aria-hidden="true"></i>Edit
         </a>
         {{!-- <a href="/writer/post-detail/del" class="btn btn-info" role="button">
