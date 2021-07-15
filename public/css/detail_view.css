@@ -1,52 +1,98 @@
+body {
+    background-color: #f4f4f4;
+}
+
+.white-wrapper {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
 .content-item {
-    padding:30px 0;
-	background-color:#FFFFFF;
+    /* padding: 30px 0;
+    background-color: #FFFFFF; */
 }
 
 .content-item.grey {
-	background-color:#F0F0F0;
-	padding:50px 0;
-	height:100%;
+    background-color: #F0F0F0;
+    padding: 50px 0;
+    height: 100%;
 }
 
 .content-item h2 {
-	font-weight:700;
-	font-size:35px;
-	line-height:45px;
-	text-transform:uppercase;
-	margin:20px 0;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 45px;
+    text-transform: uppercase;
+    margin: 20px 0;
 }
 
 .content-item h3 {
-	font-weight:400;
-	font-size:20px;
-	color:#555555;
-	margin:10px 0 15px;
-	padding:0;
+    font-weight: 400;
+    font-size: 20px;
+    color: #555555;
+    margin: 10px 0 15px;
+    padding: 0;
 }
 
 .content-headline {
-	height:1px;
-	text-align:center;
-	margin:20px 0 70px;
+    height: 1px;
+    text-align: center;
+    margin: 20px 0 70px;
 }
 
 .content-headline h2 {
-	background-color:#FFFFFF;
-	display:inline-block;
-	margin:-20px auto 0;
-	padding:0 20px;
+    background-color: #FFFFFF;
+    display: inline-block;
+    margin: -20px auto 0;
+    padding: 0 20px;
 }
 
 .grey .content-headline h2 {
-	background-color:#F0F0F0;
+    background-color: #F0F0F0;
 }
 
 .content-headline h3 {
-	font-size:14px;
-	color:#AAAAAA;
-	display:block;
+    font-size: 14px;
+    color: #AAAAAA;
+    display: block;
 }
+
+.mot-comment {
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    transition: 0.4s;
+    box-shadow: 0 2px 2px;
+}
+
+.mot-comment:hover {
+    background-color: rgb(231, 231, 231);
+    transition: 0.4s;
+    color: white !important;
+}
+
+.comment-thumb {
+    margin-right: 10px !important;
+}
+
+.desc .comment {
+    color: black;
+    font-size: medium;
+    font-style: normal;
+}
+
+.desc .tacgia-ngaythang {
+    color: rgb(59, 59, 59) !important;
+    font-size: small !important;
+    font-style: italic;
+}
+
+.blog_area .posts-list .single-post span.tag-detailed-view:hover {
+    background-color: #e45b54 !important;
+    cursor: pointer !important;
+}
+
 
 /* 
 #comments {
@@ -124,8 +170,8 @@
 	margin-right:10px;
 } */
 
-.comments-area{
-	border: none;
-	padding-top: 10px;
-	margin-top: 10px;
+.comments-area {
+    border: none;
+    padding-top: 10px;
+    margin-top: 10px;
 }

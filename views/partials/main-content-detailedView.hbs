@@ -1,0 +1,187 @@
+<section class="blog_area single-post-area mt-3">
+    <div class="container">
+        <div class="row">
+            {{!-- start main content --}}
+            <div class="col-lg-8 posts-list ">
+                <div class="single-post white-wrapper">
+                    <div class="feature-img">
+                        <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
+                            alt="">
+                    </div>
+                    <div class="blog_details">
+                        <h1>{{this.post.Title}}</h1>
+                        <ul class="blog-info-link mt-3 mb-4">
+                            <li><a href="/post/category/{{this.post.CatID}}"><i
+                                        class="fa fa-flag"></i>{{this.post.CatName}}</a></li>
+                            <li><a href="#comments"><i class="fa fa-comments"></i>{{this.post.num_comments}} Bình
+                                    Luận</a></li>
+                            <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
+                                    xem</a></li>
+                        </ul>
+                        <p>{{{this.post.Content}}}</p>
+                    </div>
+                    <div class="d-flex align-items-center w-100 justify-content-end">
+                        <span class="font-italic font-weight-bold">{{this.post.Writer.Name}} -
+                            {{this.post.PubTime}}</span>
+                    </div>
+                    <i class="fas fa-tags"></i>
+                    {{#each this.post.tags}}
+                    <span class="badge badge-danger tag-detailed-view" id="{{ID}}"
+                        href="/post/tag/{{ID}}">#{{Name}}</span>
+                    {{/each}}
+                </div>
+
+                <div class="content-item white-wrapper mt-3 mb-3" id="comments">
+                    <!-- COMMENT other people START  -->
+                    <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
+                    <div class="comments-area " style="padding: 10px; !important">
+                        {{#each this.post.comments}}
+                        <div class="user justify-content-between d-flex w-100 mot-comment">
+                            <div class="thumb comment-thumb">
+                                <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
+                            </div>
+                            <div class="desc w-100">
+                                <p class="comment">{{Content}}</p>
+                                <div class="d-flex justify-content-between w-100">
+                                    <div class="d-flex align-items-center ">
+                                        <span class="tacgia-ngaythang">{{ReaderName}}</span>
+                                        <span class="date tacgia-ngaythang">{{PubTime}}</span>
+                                    </div>
+                                    <div {{#if cantDelete}} class="invisible" {{/if}}>
+                                        <a href="/read/{{PostID}}/del-comment?id={{ID}}"
+                                            class="text-danger d-inline-block float-right">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <!-- COMMENT other people End-->
+
+                    <!-- COMMENT current user start-->
+                    {{#if session.user}}
+                    <div class="comment-form" style="border:none; !important">
+                        <h4 class="mb-3">Bình Luận của Bạn</h4>
+                        <form class="form-contact comment_form" action="#" id="comments" method="POST">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30"
+                                            rows="9" placeholder="Write Comment"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">Đăng</button>
+                            </div>
+                        </form>
+                    </div>
+                    {{/if}}
+                    <!-- COMMENT current user end-->
+                </div>
+            </div>
+            {{!-- end main content --}}
+
+            {{!-- start side-bar --}}
+            {{!-- end side-bar --}}
+        </div>
+
+        {{!-- 5 bai viet ngau nhien cung chuyen muc Start --}}
+        <div class="weekly2-news-area pt-50 pb-30 gray-bg">
+            <div class="weekly2-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider-wrapper">
+                            <!-- section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="small-tittle mb-30">
+                                        <h2>Bài viết cùng chuyên mục</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly2-news-active d-flex">
+                                        <!-- Single -->
+                                        {{#each this.post.five_post_like_cat}}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <a href="/read/{{ID}}"
+                                                    style="display: block; text-decoration: none; color: black">{{Title}}
+                                                </a>
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{Writer.Name}} -
+                                                        {{PubTime}}</span></p>
+                                                <span><a href="/post/category/{{CateID}}"
+                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+
+                                        {{#each this.post.five_post_like_cat}}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <a href="/read/{{ID}}"
+                                                    style="display: block; text-decoration: none; color: black">{{Title}}
+                                                </a>
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{Writer.Name}} -
+                                                        {{PubTime}}</span></p>
+                                                <span><a href="/post/category/{{CateID}}"
+                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+
+                                        {{#each this.post.five_post_like_cat}}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <a href="/read/{{ID}}"
+                                                    style="display: block; text-decoration: none; color: black">{{Title}}
+                                                </a>
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{Writer.Name}} -
+                                                        {{PubTime}}</span></p>
+                                                <span><a href="/post/category/{{CateID}}"
+                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+
+                                        {{#each this.post.five_post_like_cat}}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <a href="/read/{{ID}}"
+                                                    style="display: block; text-decoration: none; color: black">{{Title}}
+                                                </a>
+                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{Writer.Name}} -
+                                                        {{PubTime}}</span></p>
+                                                <span><a href="/post/category/{{CateID}}"
+                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- 5 bai viet ngau nhien cung chuyen muc End --}}
+    </div>
+</section>
