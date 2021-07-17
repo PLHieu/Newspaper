@@ -58,10 +58,7 @@ async function addCatAndWriterNameInListPosts(list_posts, nameTime){
 }
 
 router.get('/', async function(req, res) {
-    //const row = await writer_db(req.session.user.id);
-    //butdanh = row[0].NickName;
-    res.render('user/writer/profile',{
-    });
+    res.redirect('/writer/managepost');
 })
 
 router.get('/managepost', async function (req, res) {
