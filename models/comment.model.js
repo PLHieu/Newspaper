@@ -14,6 +14,10 @@ module.exports = {
        return db('Comments').where('ID', id_comment).del();
    },
 
+   delAllCommentsByPostID(postID){
+    return db('Comments').where('PostID', postID).del();
+   },
+
    updateComment(id_comment, new_content){
        return db('Comments').where('ID', id_comment).update('Content',new_content);
    },

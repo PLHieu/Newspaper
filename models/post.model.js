@@ -14,6 +14,10 @@ const moment = require('moment');
 
 module.exports = {
 
+    all(){
+        return db('Posts');
+    },
+
     findByWriterID(writerID) {
         return db('Posts').where('WriterID', writerID);
     },
@@ -208,22 +212,12 @@ module.exports = {
         post.CatName = await cate_db.findNameCateByID(post.CatID);
         await upView(id_post, post.Views + 1);
         post.Views += 1;
+        post.WriteTime = moment(post.WriteTime).format("DD/MM/YYYY HH:mm:ss");
         post.PubTime = moment(post.PubTime).format("DD/MM/YYYY HH:mm:ss");
         post.tags = await posttag_db.findTagsByPostID(id_post);
         post.comments = await comment_db.findCommentByID(id_post);
         post.num_comments = post.comments.length;
-        five_post_like_cat = await findRelatedPostByCatID(post.ID, post.CatID);
-        for (let i = 0; i < five_post_like_cat.length; i++) {
-            p = five_post_like_cat[i];
-            tags = await posttag_db.findTagsByPostID(p.ID);
-            five_post_like_cat[i].tags = tags;
-            five_post_like_cat[i].PubTime = moment(five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
-            console.log(five_post_like_cat[i].WriterID);
-            five_post_like_cat[i].Writer = await writer_db.findByID(five_post_like_cat[i].WriterID);
-            five_post_like_cat[i].CatName = await cate_db.findNameCateByID(five_post_like_cat[i].CatID);
-        }
-        //console.log(five_post_like_cat);
-        post.five_post_like_cat = five_post_like_cat;
+        post.five_post_like_cat = await findRelatedPostByCatID(post.ID, post.CatID);
         return post;
     },
 
@@ -235,7 +229,10 @@ module.exports = {
         return db('Posts').update(edit_post).where('ID', postID);
     },
 
-    delPost(postID) {
+    async delPost(postID) {
+        await comment_db.delAllCommentsByPostID(postID);
+        await draft_db.delete(postID);
+        await posttag_db.del(postID);
         return db('Posts').where('ID', postID).del();
     },
 
@@ -285,9 +282,19 @@ module.exports = {
     },
 }
 
-function findRelatedPostByCatID(postID, catID) {
+async function findRelatedPostByCatID(postID, catID) {
     const offset = 5;
-    return db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=', new Date()).limit(offset);
+    const five_post_like_cat = db('Posts').whereNot('ID', postID).andWhere('CatID', catID).andWhere('PubTime', '<=', new Date()).limit(offset);
+    for (let i = 0; i < five_post_like_cat.length; i++) {
+        p = five_post_like_cat[i];
+        tags = await posttag_db.findTagsByPostID(p.ID);
+        five_post_like_cat[i].tags = tags;
+        five_post_like_cat[i].PubTime = moment(five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
+        console.log(five_post_like_cat[i].WriterID);
+        five_post_like_cat[i].Writer = await writer_db.findByID(five_post_like_cat[i].WriterID);
+        five_post_like_cat[i].CatName = await cate_db.findNameCateByID(five_post_like_cat[i].CatID);
+    }
+    return five_post_like_cat;
 };
 
 function upView(postID, new_View) {
