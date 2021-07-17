@@ -86,15 +86,6 @@ router.get('/managepost', async function (req, res) {
     });
 })
 
-router.get('/write-post', async function(req, res) {
-    list_cat = await cat_db.getAllChildren();
-    list_tag = await tag_db.allTags();
-    res.render('user/writer/write_post',{
-        list_cat: list_cat,
-        list_tag: list_tag,
-        postID: -1
-    });
-})
 router.get('/editprofile', async function(req, res) {
     res.render('user/writer/editprofile',{
     });
@@ -128,6 +119,15 @@ router.put('/password', async function(req, res) {
     }
 })
 
+router.get('/write-post', async function(req, res) {
+    list_cat = await cat_db.getAllChildren();
+    list_tag = await tag_db.allTags();
+    res.render('user/writer/write_post',{
+        list_cat: list_cat,
+        list_tag: list_tag,
+        postID: -1
+    });
+})
 router.post('/write-post', async function(req, res) {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -155,22 +155,24 @@ router.post('/write-post', async function(req, res) {
             }
             await post_db.addPost(new_post);
             just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
-            addPostTag(tag, just_post.ID);
+            await addPostTag(tag, just_post.ID);
 
             const dir = `./public/image/posts/${just_post.ID}`
-            if (fs.existsSync(dir)) {
-                console.log('Directory exists!');
-                fs.rmdirSync(dir, { recursive: false });
-            }
-            //crete folder save cover post
-            fs.mkdir(`./public/image/posts/${just_post.ID}`, function(err) {
-                if (err) {
-                  console.log(err)
-                } else {
-                  console.log("New directory successfully created.")
+            await fs.access(dir, fs.constants.F_OK, async (err) => {
+                console.log(`${dir} ${err ? 'does not exist' : 'exists'}`);
+                if (!err) {
+                    await fs.rmdirSync(dir, { recursive: true });
                 }
-              })
-            updateCoverPost(just_post.ID);
+                //crete folder save cover post
+                await fs.mkdir(`./public/image/posts/${just_post.ID}`, async function(err) {
+                    if (err) {
+                      console.log(err)
+                    } else {
+                        console.log("New directory successfully created.")
+                      await updateCoverPost(just_post.ID);
+                    }
+                })
+            });
             res.redirect('/writer');
         }
     })

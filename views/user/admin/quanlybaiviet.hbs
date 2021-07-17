@@ -60,7 +60,7 @@
                         <h2>Quản lý <b>Bài viết</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="#" class="btn btn-secondary d-flex align-items-center"><i
+                        <a href="/admin/post/add" class="btn btn-secondary d-flex align-items-center"><i
                                 class="material-icons">&#xE147;</i> <span>Thêm bài viết mới</span></a>
                     </div>
                 </div>
@@ -88,14 +88,14 @@
                     <tr>
                         <td>{{math @index '+' 1}}</td>
                         <td class="thumbnail"><img
-                                src="http://localhost:3000/public/images/posts/{{ID}}/smallavt.jpg"
+                                src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg"
                                 alt="" srcset=""></td>
                         <td>{{Title}}</td>
                         <td>{{WriteTime}}</td>
                         <td>{{PubTime}}</td>
                         <td class="tacgia">
-                            <img src="http://localhost:3000/public/images/users/writers/{{Writer.WriterID}}/avt.jpg" alt="" srcset="">
-                            {{Writer.WriterName}}
+                            <img src="http://localhost:3000/public/image/users/writers/{{Writer.ID}}/avt.jpg" alt="" srcset="">
+                            {{Writer.Name}}
                         </td>
                         <td><span class="badge badge-pill badge-primary">{{CatName}}</span></td>
                         <td class="td-status"><span class="status 
@@ -142,7 +142,7 @@
                     <div class=" tacgia">
                         <div>
                             <h2>Tác giả</h2>
-                            <p>{{Writer.WriterName}}</p>
+                            <p>{{Writer.Name}}</p>
                             <p>Ngày viết: <b>{{WriteTime}}</b></p>
                             <p>Tình trạng: <span class="badge badge-primary">
                                 
@@ -154,7 +154,7 @@
                             </span></p>
                         </div>
 
-                        <img src="http://localhost:3000/public/images/users/writers/{{Writer.WriterID}}/avt.jpg"
+                        <img src="http://localhost:3000/public/image/users/writers/{{Writer.ID}}/avt.jpg"
                             alt="" srcset="">
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                 <!-- <br> -->
                 <div class="wrapper thumbnail" style="height: 40%">
                     <h2>Ảnh đại diện</h2>
-                    <img src="http://localhost:3000/public/images/posts/{{ID}}/smallavt.jpg" alt=""
+                    <img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
                         srcset="">
                 </div>
             </div>

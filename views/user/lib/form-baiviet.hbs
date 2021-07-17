@@ -71,14 +71,17 @@
             return;
         if (isEmptyText('txtAbstract', "Abstract"))
             return;
-        if (isEmptyText('txtContent', "Content"))
-            return;
+        temp = tinymce.get('txtContent').getContent();
+        if (temp.length === 0) {
+        alert(`Content is empty`);
+        $(`#txtContent`).focus();
+        return;
+        }
         if ($('#fCover').get(0).files.length === 0) {
             alert(`A post need a cover`);
             $('#fCover').focus();
             return;
         }
-        var array = [];
         var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
         if (checkboxes.length === 0) {
             alert(`You must take at least one tag for your post!`);
@@ -86,7 +89,8 @@
         }
         title = $('#txtTitle').val();
         postID = $('#postID').val();
-        $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function (data) {
+        writerID = $('#selectedWriter').val();
+        $.getJSON(`/admin/post/is_duplicate_post?title=${title}&postID=${postID}&writerID=${writerID}`, function (data) {
             if (data === false) {
                 alert('You wrote a post having the same title. Please write another one!');
                 $('#txtTitle').focus();
@@ -146,9 +150,25 @@
                             placeholder="Write post's Content here">{{this.content}}</textarea>
                     </div>
                 </div>
+
+                <div>
+                    <button type="submit" class="btn custom-btn d-flex justify-items-center">
+                        <span class="material-icons">save</span>
+                        Lưu
+                    </button>
+                </div>
             </div>
 
             <div class="col-md-4">
+                <div class="form-group wrap-column" >
+                    <label for="selectedWriter">Chọn người viết</label>
+                    <select class="form-control" id="selectedWriter" name="writerID">
+                        {{#each this.list_writer}}
+                        <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
                 <div class="form-group wrap-column" >
                     <label for="selectedCat">Chọn danh mục</label>
                     <select class="form-control" id="selectedCat" name="category">
