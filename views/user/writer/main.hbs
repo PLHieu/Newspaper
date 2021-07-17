@@ -73,7 +73,7 @@
 
     <div class="table-wrapper">
       <h1 class="text-center text-danger">Bị từ chối</h1>
-      <table class="table table-striped table-hover bituchoi">
+      <table class="table table-striped table-hover bituchoi table-post ">
         <thead>
           <tr>
             <th>#</th>
@@ -90,7 +90,7 @@
           {{#each this.rejected_posts_list}}
           <tr>
             <td>{{math @index "+" 1}}</td>
-            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg" ></td>
             <td class="tieude">{{Title}}</td>
             <td>{{draft_info.RateTime}}</td>
             <td class="text-center">{{CatName}}</td>
@@ -111,7 +111,7 @@
 
     <div class="table-wrapper">
       <h1 class="text-center text-warning">Chưa được duyệt</h1>
-      <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover table-post ">
         <thead>
           <tr>
             <th>ID</th>
@@ -127,7 +127,7 @@
           {{#each this.pending_posts_list}}
           <tr>
             <td>{{math @index "+" 1}}</td>
-            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td class="thumbnail" ><img src="/public/image/posts/{{ID}}/smallavt.jpg"  ></td>
             <td>{{Title}}</td>
             <td>{{WriteTime}}</td>
             <td >{{CatName}}</td>
@@ -147,7 +147,7 @@
 
     <div class="table-wrapper">
       <h1 class="text-center text-primary">Chờ xuất bản</h1>
-      <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover table-post ">
         <thead>
           <tr>
             <th>#</th>
@@ -162,7 +162,7 @@
           {{#each this.approved_not_publish_posts_list}}
           <tr>
             <td>{{math @index "+" 1}}</td>
-            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg"  ></td>
             <td>{{Title}}</td>
             <td>{{WriteTime}}</td>
             <td>{{PubTime}}</td>
@@ -179,7 +179,7 @@
 
     <div class="table-wrapper">
       <h1 class="text-center text-success">Đã xuất bản</h1>
-      <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover table-post ">
         <thead>
           <tr>
             <th>#</th>
@@ -195,7 +195,7 @@
           {{#each this.published_posts_list}}
           <tr>
             <td>{{math @index "+" 1}}</td>
-            <td><img src="/examples/images/avatar/1.jpg" class="avatar"></td>
+            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg" ></td>
             <td>{{Title}}</td>
             <td>{{WriteTime}}</td>
             <td>{{PubTime}}</td>
