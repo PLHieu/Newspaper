@@ -35,14 +35,18 @@
             
         // Output the result in an element with id="demo" days + "d " + hours + "h "+
         
-        document.getElementById("demo").innerHTML =  minutesleft + "m " ;
-            
-        // If the count down is over, write some text 
-        if (minutesleft < 0) {
-            clearInterval(x);
-            document.getElementById("demo").innerHTML = "Bạn đã hết phiên đăng nhập";
-            //document.getElementById("btnDK").innerHTML = "Đăng ký Premium";
+        if(minutesleft>0){
+            document.getElementById("timeleft").innerHTML = "Time Left: " + minutesleft + "m " ;
         }
+        else{
+            var notice = $("#noticePre").text();
+            if(notice ==''){
+                clearInterval(x);
+                document.getElementById("dangky").innerHTML = '<p>Bạn đã hết hạn tài khoản Premium</p> <a href = "/subcriber/subPremium"> Đăng ký Premium </a>';
+            }
+            //document.getElementById("btnDK").innerHTML = "Đăng ký Premium";
+        }   
+        
     }, 1000);
      });
     </script>
@@ -105,21 +109,24 @@
         <i class="fa fa-sign-out" aria-hidden="true"></i>
         Sign Out
     </a>
-    <p id ="ngaydk">
+    {{#if session.user.expTime}}
+        <p id ="ngaydk">
         {{session.user.expTime}}
-    </p>
+        </p>
+    {{/if}}
+    
     <p>
         Họ và tên: {{session.user.name}} <br>
         Email: {{session.user.email}} <br>
         Ngày sinh: {{session.user.birthday}}
     </p>
-    <div class="inline">
-        <b>
-            Time Left:
-        </b>
-        <i id="demo"></i>
-        <button class = "btn" id = "btnDK"></button>
+    <div class="inline" id="timeleft">
     </div>
+    <div class="inline" id="dangky">
+    </div>
+    {{#if session.user.subPremium}}
+        <p id="noticePre">Bạn đã đăng ký Premium, hãy chờ admin duyệt nhé!</p>
+    {{/if}}
     <p id="demo1"></p>
     <a href="/subcriber/editprofile" style="color: blue;">Chỉnh sửa thông tin</a>
 </main>

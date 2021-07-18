@@ -7,5 +7,6 @@ router.get('/', SubcriberPage)
 router.get('/editprofile', authentication.getEditProfileView);
 router.put('/password', authentication.changePassword);
 router.put('/profile',  authentication.updateProfile);
+router.get('/subPremium',  authentication.subcribePremium);
 
 module.exports = router;

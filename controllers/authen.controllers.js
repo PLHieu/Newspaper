@@ -305,11 +305,20 @@ function checkPassword(role, rows, req, res) {
   }
   //return authInfor;
 }
-
+exports.subcribePremium = async (req, res) => {
+    await reader.subPremium(1, req.session.user.id);
+    req.session.user.subPremium = 1;
+    //window.alert('đăng ký thành công, đợi admin duyệt');
+    res.redirect('/subcriber');
+    
+};
 
 function handle_login_successfully(role, rows, req, res) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
     let adm = null, sub = null, wrt = null, edt = null, Premium = 1, nickname = null;
+    let exp = moment(rows.ExpTime).format('MMMM D YYYY, HH:mm:ss');
+    let subPre = null;
+    console.log(rows);
     if (role == 'admin'){
         adm = 1;
     } 
@@ -317,6 +326,28 @@ function handle_login_successfully(role, rows, req, res) {
         sub = 1;
         if (rows.ExpTime == null){
             Premium = null;
+            exp = null;
+            if (rows.SubPremium === 1){
+                subPre = 1;
+            } 
+        }
+        else{
+            var countDownDate = new Date(exp).getTime();
+            var now = new Date().getTime();
+        
+            // Find the distance between now and the count down date
+            var distance = now - countDownDate;
+                
+            // Time calculations for days, hours, minutes and seconds
+            //var days = Math.floor(distance / (1000 * 60 * 60 * 24)); % (1000 * 60 * 60))
+            //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor(distance  / (1000 * 60));
+            var minutesleft = 7*24*60  - minutes;
+            
+            if(minutesleft<=0){
+                exp = null;
+                reader.updateNullExp(rows.ID);
+            }
         }
     }
     if (role == 'writer'){
@@ -336,7 +367,8 @@ function handle_login_successfully(role, rows, req, res) {
         email: rows.Email,
         role: role,
         nickname: nickname,
-        expTime: moment(rows.ExpTime).format('MMMM D YYYY, HH:mm:ss'),
+        expTime: exp,
+        subPremium: subPre,
         logged: true,
         admin: adm,
         subcriber: sub,
