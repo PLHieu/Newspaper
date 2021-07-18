@@ -1,59 +1,83 @@
 {{#section 'css'}}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
-  <!-- Font Icon -->
-    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="../../public/css/style.css">
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
 {{/section}}
- 
+
 {{#section 'title'}}
-<title>Edit Profile</title>
+<title>Chỉnh sửa thông tin cá nhân</title>
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<!-- JS -->
-    {{!-- <script src="../../public/js/template/vendor/jquery.min.js"></script>
-    <script src="../../public/js/template/main.js"></script> --}}
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <script>
   $('#txtDOB').datetimepicker({
-    format:'d/m/Y',
+    format: 'd/m/Y',
     timepicker: false,
     mask: true,
     maxDate: new Date()
-  }); 
-  $('#formChangePass').on('submit', function(e) {
+  });
+  $('#formChangePass').on('submit', function (e) {
     e.preventDefault();
-    
+
     const username = '';
-    $.getJSON(`/is-available?username=${username}`, function(data){
+    $.getJSON(`/is-available?username=${username}`, function (data) {
       console.log(data);
-      
-      if ($('#txtPassword').val() != $('#txtConfirm').val()){
+
+      if ($('#txtPassword').val() != $('#txtConfirm').val()) {
         alert('Confirm password is different from Password');
         $('#txtConfirm').focus();
         return;
       }
-      
+
       $('#formChangePass').off('submit').submit();
     });
   });
-  $('#formGeneralInfor').on('submit', function(e) {
+  $('#formGeneralInfor').on('submit', function (e) {
     e.preventDefault();
-    if (isEmptyText('txtName',"Name"))
+    if (isEmptyText('txtName', "Name"))
       return;
-    if (isEmptyText('txtEmail',"Email"))
+    if (isEmptyText('txtEmail', "Email"))
       return;
-    if (isEmptyText('txtDOB',"Date of Birth"))
+    if (isEmptyText('txtDOB', "Date of Birth"))
       return;
-    if (isEmptyText('txtNickname',"NickName"))
+    if (isEmptyText('txtNickname', "NickName"))
       return;
     const username = '';
-    $.getJSON(`/is-available?username=${username}`, function(data){
+    $.getJSON(`/is-available?username=${username}`, function (data) {
       console.log(data);
-      
-      if (!isValidEmail($('#txtEmail').val())){
+
+      if (!isValidEmail($('#txtEmail').val())) {
         alert('Email is not valid');
         $('#txtEmail').focus();
         return;
@@ -65,81 +89,127 @@
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
   }
-        
-  function isEmptyText(idtext, message){
+
+  function isEmptyText(idtext, message) {
     const text = $(`#${idtext}`).val();
-    if (text.length === 0 || text ===`__/__/____`){
-      alert( `Invalid ${message}`);
+    if (text.length === 0 || text === `__/__/____`) {
+      alert(`Invalid ${message}`);
       $(`#${idtext}`).focus();
       return true;
-      }
+    }
     return false;
   }
 </script>
 {{/section}}
+<style>
+  body {
+    background-color: rgb(231, 231, 231);
+  }
 
-<p>edit profile. {{session.user.birthday}}</p>
+  .chinhsuathongtin .wrap-column {
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+  }
 
-<div class="col-md-9 col-12">
-      <div class="card">
-        <div class="card-header bg-primary py-2 text-white">
-          <h5 class="mb-0">Chỉnh sửa thông tin cá nhấn</h5>
-        </div>
-        <div class="card-body">
-          <h6>Chỉnh thông tin cơ bản</h6>
-          <form action="/writer/profile?_method=PUT" method="POST" id="formGeneralInfor">
-            <input
-              class="form-control mb-2"
-              type="text"
-              name="fullName"
-              id="txtName"
-              placeholder="Họ tên"
-              value="{{session.user.name}}"
-            />
-            <input
-              class="form-control mb-2"
-              type="text"
-              name="email"
-              id="txtEmail"
-              placeholder="Email"
-              value="{{session.user.email}}"
-            />
-            <input
-              class="form-control mb-2"
-              type="text"
-              name="nickname"
-              id="txtNickname"
-              placeholder="NickName"
-              value="{{session.user.nickname}}"
-            />
-            <div class="form-group">
-                <label for="txtDOB"><i class="fa fa-birthday-cake"></i></label>
-                <input type="text" name="raw_dob" id="txtDOB" value="{{session.user.birthday}}" />
+  .chinhsuathongtin h2 {
+    font-weight: bold;
+    color: #ee4a41;
+  }
+
+  .chinhsuathongtin label {
+    font-weight: bold;
+  }
+
+  .chinhsuathongtin button.form-submit {
+    background-color: #ee4a41;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: white;
+  }
+
+  .chinhsuathongtin button.form-submit:hover {
+    background-color: #c0433c;
+  }
+</style>
+{{> header-top}}
+<div class="container">
+  <br>
+  <div class="row chinhsuathongtin">
+    <div class="col-md-8">
+      <div class="wrap-column">
+        <h2>Chỉnh sửa thông tin cơ bản</h2>
+        <form action="/writer/profile?_method=PUT" method="POST" id="formGeneralInfor">
+
+          <div class="form-group">
+            <label for="txtName">Họ và tên</label>
+            <input class="form-control mb-2" type="text" name="fullName" id="txtName" placeholder="Họ tên"
+              value="{{session.user.name}}" />
+          </div>
+
+          <div class="form-group">
+            <label for="txtEmail">Email</label>
+            <input class="form-control mb-2" type="text" name="email" id="txtEmail" placeholder="Email"
+              value="{{session.user.email}}" />
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="txtNickname">NickName</label>
+                <input class="form-control mb-2" type="text" name="nickname" id="txtNickname" placeholder="NickName"
+                  value="{{session.user.nickname}}" />
+              </div>
             </div>
-            <div class="form-group form-button ">
-                <input type="submit" name="signup" id="signup" class="form-submit" value="Luu thay doi"/>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="txtDOB"><i class="fa fa-birthday-cake">Sinh Nhật</i></label>
+                <input class="form-control mb-2" type="text" name="raw_dob" id="txtDOB"
+                  value="{{session.user.birthday}}" />
+              </div>
             </div>
-          </form>
-          <h6>Thay đổi mật khẩu</h6>
-          <form action="/writer/password?_method=PUT" method="POST" id="formChangePass">
-            {{#if err_message}}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  {{err_message}}
-                </div>
-            {{/if}}
-            <input class="form-control mb-2" type="password" name="oldPassword"  placeholder="Nhập mật khẩu hiện tại" />
-            <input class="form-control mb-2" type="password" name="newPassword" id="txtPassword" placeholder="Nhập mật khẩu mới" />
-            <input class="form-control mb-2" type="password" name ="repNewPassword" id="txtConfirm" placeholder="Nhập lại mật khẩu mới" />
-            <div class="form-group form-button">
-                <input type="submit" name="signup" id="signup" class="form-submit" value="Luu thay doi"/>
-            </div>
-            <!--<div class="w-100 d-flex">
+          </div>
+
+          <div class="form-group form-button ">
+            <button type="submit" name="signup" id="signup" class="btn form-submit">Lưu thay đổi</button>
+          </div>
+        </form>
+      </div>
+      <br>
+      <div class="wrap-column">
+        <h2>Thay đổi mật khẩu</h2>
+        <form action="/writer/password?_method=PUT" method="POST" id="formChangePass">
+          {{#if err_message}}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{err_message}}
+          </div>
+          {{/if}}
+          <input class="form-control mb-2" type="password" name="oldPassword" placeholder="Nhập mật khẩu hiện tại" />
+          <input class="form-control mb-2" type="password" name="newPassword" id="txtPassword"
+            placeholder="Nhập mật khẩu mới" />
+          <input class="form-control mb-2" type="password" name="repNewPassword" id="txtConfirm"
+            placeholder="Nhập lại mật khẩu mới" />
+          <div class="form-group form-button">
+            <button type="submit" name="signup" id="signup" class="btn form-submit">Lưu thay đổi</button>
+          </div>
+          <!--<div class="w-100 d-flex">
               <button class="ml-auto btn btn-primary">Lưu thay đổi</button>
             </div>-->
-          </form>
-        </div>
+        </form>
       </div>
+
     </div>
+
+    <div class="col-md-4">
+      <div class="wrap-column">
+        <h2>Thông tin khác</h2>
+      </div>
+
+    </div>
+  </div>
+  <br>
+</div>
