@@ -1,6 +1,10 @@
 const db = require('../utils/db')
 
 module.exports = {
+    findAll(){
+      return db('Writers');
+    },
+
     async findByUsername(username){
         const rows = await db('Writers').where('username', username);
         if (rows.length === 0)
