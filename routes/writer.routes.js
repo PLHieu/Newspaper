@@ -107,19 +107,19 @@ router.put('/profile', async function(req, res) {
     
     res.redirect('/writer/profile');
 })
-router.put('/password', async function(req, res) {
-    //req.session.user = null;
-    //res.redirect('/');
+router.post('/password', async function(req, res) {
     const rows_writer = await writer_db.findByID(req.session.user.id);
     const ret = bcrypt.compareSync(req.body.oldPassword, rows_writer.Password);
     const hash = bcrypt.hashSync(req.body.newPassword, 10);
     if(ret===true){
         await writer_db.changePassByID( hash, req.session.user.id);
-        res.render('user/writer/profile');
+        return res.status(200).send({
+            success: true
+        });
     }
     else{
-        return res.render('user/writer/profile', {
-            err_message: 'Invalid password',
+        return res.status(403).send({
+            success: false
         })
     }
 })

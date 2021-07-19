@@ -1,6 +1,7 @@
 const express = require('express');
 const sub_db = require('../models/reader.model');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 router.get('/', (req,res) => {
     res.redirect('/subcriber/profile')
@@ -10,20 +11,16 @@ router.get('/profile', (req,res) => {
     res.render('user/lib/profile')
 });
 
-router.put('/password', async function(req, res) {
+router.post('/password', async function(req, res) {
     const rows_sub = await sub_db.findByID(req.session.user.id);
     const ret = bcrypt.compareSync(req.body.oldPassword, rows_sub.Password);
     const hash = bcrypt.hashSync(req.body.newPassword, 10);
     if(ret===true){
         await sub_db.changePass(req.session.user.id, hash);
-        return res.status(200).send({login: true });
-        res.render('user/subcriber/profile');
+        return res.status(200).send({success: true});
     }
     else{
-        return res.status(403).send({login: false});
-        return res.render('user/subcriber/editprofile', {
-            err_message: 'Invalid password',
-        })
+        return res.status(403).send({ success: false});
     }
 });
 

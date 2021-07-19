@@ -9,6 +9,7 @@ const draft_db = require('../models/draft.model');
 const moment = require('moment');
 const edt_db = require('../models/editor.model');
 const { getCategoryNameByEditorID } = require("../models/editor.model");
+const bcrypt = require('bcryptjs');
 
 router.get('/', editorPage)
 
@@ -110,19 +111,16 @@ router.put('/profile', async function(req, res){
     return res.redirect('/editor/profile');
 })
 
-router.put('/password', async function(req, res) {
+router.post('/password', async function(req, res) {
     const rows_editor = await edt_db.findByID(req.session.user.id);
     const ret = bcrypt.compareSync(req.body.oldPassword, rows_editor.Password);
     const hash = bcrypt.hashSync(req.body.newPassword, 10);
     if(ret===true){
         await edt_db.changePassByID( hash, req.session.user.id);
-        return res.status(200).send({login: true });
+        return res.status(200).send({ success: true });
     }
     else{
-        return res.status(403).send({login: false});
-        return res.render('user/writer/editprofile', {
-            err_message: 'Invalid password',
-        })
+        return res.status(403).send({success: false});
     }
 })
 

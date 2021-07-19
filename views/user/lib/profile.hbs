@@ -41,6 +41,7 @@
 <script src="/public/template/js/main.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $('#txtDOB').datetimepicker({
         format: 'd/m/Y',
@@ -51,19 +52,41 @@
 
     $('#formChangePass').on('submit', function (e) {
         e.preventDefault();
+        let oldPassword = $("#txtOldPass").val();
+        let newPassword = $("#txtNewPass").val();
+        let repnewPassword = $("#txtRepNewPass").val();
 
-        const username = '';
-        $.getJSON(`/is-available?username=${username}`, function (data) {
-            console.log(data);
+        if (newPassword != repnewPassword) {
+            swal({
+                title: "Thất bại !",
+                text: "Mật khẩu mới nhập 2 lần phải giống nhau",
+                icon: "error",
+                button: "Đóng!",
+            });
+            return;
+        }
 
-            if ($('#txtPassword').val() != $('#txtConfirm').val()) {
-                alert('Confirm password is different from Password');
-                $('#txtConfirm').focus();
-                return;
-            }
-
-            $('#formChangePass').off('submit').submit();
-        });
+        $.post('password', {
+            oldPassword,
+            newPassword
+        }, (data) => {
+            swal({
+                title: "Thành công!",
+                text: "Thay đổi mật khẩu thành công!",
+                icon: "success",
+                button: "Đóng!",
+            });
+            clearPassForm();
+        })
+            .fail((data, status) => {
+                swal({
+                    title: "Thất bại !",
+                    text: "Thay đổi mật khẩu thất bại !",
+                    icon: "error",
+                    button: "Đóng!",
+                });
+                clearPassForm();
+            });
     });
 
     $('#formGeneralInfor').on('submit', function (e) {
@@ -102,6 +125,12 @@
             return true;
         }
         return false;
+    }
+
+    function clearPassForm() {
+        $("#txtOldPass").val("");
+        $("#txtNewPass").val("");
+        $("#txtRepNewPass").val("");
     }
 </script>
 {{/section}}
@@ -158,8 +187,8 @@
                     {{#if session.user.writer}}
                     <div class="form-group">
                         <label for="txtNickname">Bút danh</label>
-                        <input class="form-control mb-2" type="text" name="nickname" id="txtNickname" placeholder="Bút danh"
-                  value="{{session.user.nickname}}"/>
+                        <input class="form-control mb-2" type="text" name="nickname" id="txtNickname"
+                            placeholder="Bút danh" value="{{session.user.nickname}}" />
                     </div>
                     {{/if}}
 
@@ -194,10 +223,7 @@
             <br>
             <div class="wrap-column">
                 <h2>Thay đổi mật khẩu</h2>
-                <form {{#if session.user.admin}} action="/admin/password?_method=PUT" {{/if}} {{#if
-                    session.user.writer}} action="/writer/password?_method=PUT" {{/if}} {{#if session.user.subcriber}}
-                    action="/subcriber/password?_method=PUT" {{/if}} {{#if session.user.editor}}
-                    action="/editor/password?_method=PUT" {{/if}} method="POST" id="formChangePass">
+                <form id="formChangePass">
                     {{#if err_message}}
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -206,11 +232,10 @@
                         {{err_message}}
                     </div>
                     {{/if}}
-                    <input class="form-control mb-2" type="password" name="oldPassword"
+                    <input class="form-control mb-2" type="password" id="txtOldPass"
                         placeholder="Nhập mật khẩu hiện tại" />
-                    <input class="form-control mb-2" type="password" name="newPassword" id="txtPassword"
-                        placeholder="Nhập mật khẩu mới" />
-                    <input class="form-control mb-2" type="password" name="repNewPassword" id="txtConfirm"
+                    <input class="form-control mb-2" type="password" id="txtNewPass" placeholder="Nhập mật khẩu mới" />
+                    <input class="form-control mb-2" type="password" id="txtRepNewPass"
                         placeholder="Nhập lại mật khẩu mới" />
                     <div class="form-group form-button">
                         <button type="submit" name="signup" id="signup" class="btn form-submit">Lưu thay đổi</button>
@@ -265,8 +290,8 @@
                 <div class="d-inline-block" style="width: 50%;">
                     <div class="d-flex" style="align-items: center; flex-direction: column;">
                         <h4>Expired date</h4>
-                        <p>24june</p> 
-                        {{!-- //TODO set ngay het han  --}}
+                        <p>24june</p>
+                        {{!-- //TODO set ngay het han --}}
                     </div>
                 </div>
             </div>
