@@ -1,25 +1,51 @@
 /* css cho phan tin moi  */
+.tin-wrapper{
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.tin-wrapper:hover{
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px red;
+    transition: 0.5s;
+}
+
 .tinmoi .phai h4{
     font-size: larger !important;
     font-weight: bolder !important;
 }
 
 .tinmoi .phai p.tomtat{
-    font-size: small !important;
+    font-size: medium    !important;
 }
 
 .tinmoi .phai{
     transform: translateX(-20px);
 }
+.tinmoi{
+    height: 200px;
+}
+
+.tinmoi .trai {
+    height: 100%;
+}
 
 .tinmoi .trai img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
     transition: 0.5s;
 }
 
 .tinmoi:hover .trai img{
     transform: scale(1.02);
     transition: 0.5s;
-    box-shadow: -2px -2px 2px 0px #888888;
+    box-shadow: -2px -2px 2px 0px red;
+}
+
+.tinmoi .tieude{
+    font-size: x-large !important;
+    color: black !important;
 }
 
 
@@ -69,4 +95,21 @@
     color: rgb(85, 81, 81);
     font-weight: bold;
     font-size: x-small;
+}
+
+/* css  cho phan tin tuc phobien */
+.row.baivietphobien{
+    height: 400px !important;
+}
+
+.row.baivietphobien .anh{
+    height: 160px;
+    object-fit: cover;
+}
+
+.row.baivietphobien .thongtin{
+    height: 100px;
+    display: flex;
+    justify-content:space-between ;
+    flex-direction: column;
 }

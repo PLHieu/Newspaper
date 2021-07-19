@@ -1,4 +1,6 @@
-{{!-- {{> preload}} --}}
+{{#section 'title'}}
+<title>Trang chủ</title>
+{{/section}}
 {{#section 'js'}}
 <script src="/public/template/js/vendor/modernizr-3.5.0.min.js"></script>
 <!-- Jquery, Popper, Bootstrap -->
@@ -145,7 +147,7 @@
     <!-- Tin noi bat End -->
 
     <!-- Tin moi Start -->
-    <section class="whats-news-area pt-50 pb-20 gray-bg">
+    <section class="whats-news-area pt-50 pb-20 gray-bg">   
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -170,21 +172,21 @@
                                         <div class="row">
                                             <!-- Left Details Caption -->
                                             {{#each this.top10PostNew}}
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10 mb-5">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10 mb-5 tin-wrapper">
                                                 <div class="whats-right-single mb-0">
                                                     <div class="row tinmoi d-flex align-items-center p-2">
                                                         <div class="whats-right-img col-xl-5 trai">
                                                             <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt=""
-                                                                class="img-fluid">
+                                                                >
                                                         </div>
                                                         <div class="whats-right-cap col-xl-7 mb-0 phai">
-                                                            <h4 class="mb-0">
+                                                            <p class="mb-0 ">
                                                                 {{#if Premium}}
                                                                 <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
                                                                         class="badge badge-warning mb-1 mt-1">Premium</a></span>
                                                                 {{/if}}
-                                                                <a href="/read/{{ID}}">{{TieuDe}}</a>
-                                                            </h4>
+                                                                <a class='tieude' href="/read/{{ID}}">{{TieuDe}}</a>
+                                                            </p>
                                                             <span class="mb-2 mr-2">{{NgayDang}}</span>
                                                             <a href="/post/category/{{CateID}}">
                                                                 <span class="badge badge-danger">{{CateName}}</span>
@@ -265,39 +267,45 @@
     <div class="weekly2-news-area pt-50 pb-30 gray-bg">
         <div class="container">
             <div class="weekly2-wrapper">
-                <div class="row">
+                <div class="row baivietphobien">
                     <!-- Banner -->
-                    <div class="col-lg-3">
-                        <div class="home-banner2 d-none d-lg-block">
-                            <img src="public/template/img/gallery/body_card2.png" alt="">
+                    <div class="col-lg-3 h-100">
+                        <div class="h-100">
+                            <img class="h-100" style="width: 90%;" src="public/template/img/gallery/body_card2.png"
+                                alt="">
                         </div>
                     </div>
-                    <div class="col-lg-9">
-                        <div class="slider-wrapper">
+                    <div class="col-lg-9 h-100">
+                        <div class="slider-wrapper h-100">
                             <!-- section Tittle -->
-                            <div class="row">
+                            <div class="row mb-2">
                                 <div class="col-lg-12">
-                                    <div class="small-tittle mb-30">
-                                        <h4>Phổ biến nhất</h4>
+                                    <div class="">
+                                        <h2><b style="color: rgb(233, 67, 94);">Bài viết phổ biến nhất</b></h2>
                                     </div>
                                 </div>
                             </div>
                             <!-- Slider -->
-                            <div class="row">
+                            <div class="row" style="height: 90%;">
                                 <div class="col-lg-12">
-                                    <div class="weekly2-news-active d-flex">
+                                    <div class="weekly2-news-active d-flex h-100">
                                         <!-- Single -->
                                         {{#each this.top10PostMostRead}}
-                                        <div class="weekly2-single">
-                                            <div class="weekly2-img">
-                                                <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
+                                        <div class="weekly2-single h-100">
+                                            <div class="weekly2-img ">
+                                                <img class="anh" src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                             </div>
-                                            <div class="weekly2-caption">
-                                                <h4><a href="/read/{{ID}}">{{TieuDe}} </a></h4>
-                                                <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate
-                                                        this.NgayDang}}</span></p>
-                                                <span><a href="/post/category/{{CateID}}"
-                                                        class="badge badge-danger float-right">{{CateName}}</a></span>
+                                            <div class="weekly2-caption thongtin">
+                                                <h4><a href="/read/{{ID}}">{{#if Premium}}
+                                                    <span class="d-inline-block badge badge-warning">Premium</span>
+                                                    {{/if}}{{TieuDe}} </a>
+                                                </h4>
+                                                <div>
+                                                    <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate
+                                                            this.NgayDang}}</span></p>
+                                                    <span><a href="/post/category/{{CateID}}"
+                                                            class="badge badge-danger float-right">{{CateName}}</a></span>
+                                                </div>
                                             </div>
                                         </div>
                                         {{/each}}
@@ -310,47 +318,16 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="weekly2-news-area pt-0 pb-60 gray-bg">
-        <div class="container">
-            
-            <div class="weekly2-news-active d-flex">
-                
-                {{#each this.listCate1Post}}
-                    <div class="weekly2-single">
-                        <div class="weekly2-img">
-                            <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="">
-                        </div>
-                        <div class="weekly2-caption">
-                            <h4><a href="/read/{{this.post.0.ID}}">{{this.post.0.Title}} </a></h4>
-                            <p>
-                                <span class="mb-2 mr-2">{{this.post.PubTime}}</span> 
 
-                                <span><a href="/post/category/{{ID}}"
-                                class="badge badge-danger">Category: {{Name}}</a></span>
-                                
-                            </p>
-                            <span><a href="/post/category/{{ID}}"
-                                class="badge badge-danger">DadCategory: {{ParentCateName}}</a></span>
-
-                            
-                        </div>
-                    </div>
-                {{/each}}
-                
-            </div>
-        </div>
-                
-    </div>-->
     <!-- 10 chuyen muc noi bat nhat  Start -->
-    <div class="recent-articles pt-80 pb-80">
+    <div class="recent-articles pt-40 pb-40">
         <div class="container">
             <div class="recent-wrapper">
                 <!-- section Tittle -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Top 10 chuyên mục nổi bật</h3>
+                        <div class="section-tittle ">
+                            <h3 style="color: rgb(233, 67, 94);">Top 10 chuyên mục nổi bật</h3>
                         </div>
                     </div>
                 </div>
@@ -363,7 +340,7 @@
 
                     <li data-flip-title="{{CateName}}" data-flip-category="{{ParentCateName}}">
                         <div class="one-top10danhmuc">
-                            <img src="{{post.0.Title}}" alt="" srcset="">
+                            <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="" srcset="">
                             <div class="info red">
                                 <a class="tieude" href="read/{{post.0.ID}}">{{post.0.Title}}</a>
                                 <span class="ngay">{{getDate post.0.PubTime}}</span>
@@ -379,100 +356,6 @@
 
         </div>
     </div>
+    <!-- 10 chuyen muc noi bat nhat  End -->
 </main>
-<footer>
-    <!-- Footer Start-->
-    <div class="footer-main footer-bg">
-        <div class="footer-area footer-padding">
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-8">
-                        <div class="single-footer-caption mb-50">
-                            <div class="single-footer-caption mb-30">
-                                <!-- logo -->
-                                <div class="footer-logo">
-                                    <a href="index.html"><img src="public/template/img/logo/logo2_footer.png"
-                                            alt=""></a>
-                                </div>
-                                <div class="footer-tittle">
-                                    <div class="footer-pera">
-                                        <p class="info1">Lorem ipsum dolor sit amet, nsectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore.</p>
-                                        <p class="info2">198 West 21th Street, Suite 721 New York,NY 10010</p>
-                                        <p class="info2">Phone: +95 (0) 123 456 789 Cell: +95 (0) 123 456 789</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Popular post</h4>
-                            </div>
-                            <!-- Popular post -->
-                            <div class="whats-right-single mb-20">
-                                <div class="whats-right-img">
-                                    <img src="public/template/img/gallery/footer_post1.png" alt="">
-                                </div>
-                                <div class="whats-right-cap">
-                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                                    <p>Jhon | 2 hours ago</p>
-                                </div>
-                            </div>
-                            <!-- Popular post -->
-                            <div class="whats-right-single mb-20">
-                                <div class="whats-right-img">
-                                    <img src="public/template/img/gallery/footer_post2.png" alt="">
-                                </div>
-                                <div class="whats-right-cap">
-                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                                    <p>Jhon | 2 hours ago</p>
-                                </div>
-                            </div>
-                            <!-- Popular post -->
-                            <div class="whats-right-single mb-20">
-                                <div class="whats-right-img">
-                                    <img src="public/template/img/gallery/footer_post3.png" alt="">
-                                </div>
-                                <div class="whats-right-cap">
-                                    <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a></h4>
-                                    <p>Jhon | 2 hours ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
-                        <div class="single-footer-caption mb-50">
-                            <div class="banner">
-                                <img src="public/template/img/gallery/body_card4.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- footer-bottom aera -->
-        <div class="footer-bottom-area footer-bg">
-            <div class="container">
-                <div class="footer-border">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-xl-12 ">
-                            <div class="footer-copy-right text-center">
-                                <p>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                    This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
-                                        href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End-->
-</footer>
+{{> footer}}
