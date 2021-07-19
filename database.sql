@@ -16,7 +16,7 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+use newspaper;
 -- ----------------------------
 -- Table structure for Admins
 -- ----------------------------
@@ -273,6 +273,7 @@ CREATE TABLE `Readers` (
   `Email` varchar(255) NOT NULL,
   `ExpTime` datetime DEFAULT NULL,
   `OTP` int(11) NOT NULL,
+  `SubPremium` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ReadersUniqueUsername` (`UserName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -281,11 +282,11 @@ CREATE TABLE `Readers` (
 -- Records of Readers
 -- ----------------------------
 BEGIN;
-INSERT INTO `Readers` VALUES (1, 'Minh Vuong', 'rd1', '$2a$10$PVQowrDoFnb61ixyiNRVl.Ntlu4l9aeqbFCRjTjzi353/Fy83fN7S', '10 Truong Chinh', NULL, 'hieuflong@gmail.com', NULL, -1);
-INSERT INTO `Readers` VALUES (2, 'Trinh', 'rd2', '$2a$10$PVQowrDoFnb61ixyiNRVl.Ntlu4l9aeqbFCRjTjzi353/Fy83fN7S', '10 Truong Chinh', NULL, 'hieuflong@gmail.com', '2021-06-21 00:00:00', -1);
-INSERT INTO `Readers` VALUES (3, 'Vuong Nguyen Thi Minh', 'adm1', '$2a$10$yXSzv2J2YSJsgoOaOZ8Px.zHQK058tr8s0yBz7WvBheE6HB.v2l4i', '227 Nguyen Van Cu, District 5,', '2000-06-16', 'thienthanvodanh2000@gmail.com', NULL, -1);
-INSERT INTO `Readers` VALUES (4, 'Vuong Nguyen Thi Minh', 'wrt3', '$2a$10$h8sIJeTXpj.BNiEecsJ/ZOq44cnUHwyyyCGmtXIHLHngdU2PATNni', '227 Nguyen Van Cu, District 5,', '2021-07-07', 'hello@gmail.com', NULL, -1);
-INSERT INTO `Readers` VALUES (5, 'Vuong Nguyen Thi Minh', 'helo', '$2a$10$G9EpG11uXeFsUg.YGMu3pugvnZy5qhDMO3rWusU52mQ8iMTBO/v3S', '227 Nguyen Van Cu, District 5,', '2021-07-06', 'vuong160620@gmail.com', NULL, -1);
+INSERT INTO `Readers` VALUES (1, 'Minh Vuong', 'rd1', '$2a$10$PVQowrDoFnb61ixyiNRVl.Ntlu4l9aeqbFCRjTjzi353/Fy83fN7S', '10 Truong Chinh', NULL, 'hieuflong@gmail.com', NULL, -1, 0);
+INSERT INTO `Readers` VALUES (2, 'Trinh', 'rd2', '$2a$10$PVQowrDoFnb61ixyiNRVl.Ntlu4l9aeqbFCRjTjzi353/Fy83fN7S', '10 Truong Chinh', NULL, 'hieuflong@gmail.com', '2021-06-21 00:00:00', -1, 0);
+INSERT INTO `Readers` VALUES (3, 'Vuong Nguyen Thi Minh', 'adm1', '$2a$10$yXSzv2J2YSJsgoOaOZ8Px.zHQK058tr8s0yBz7WvBheE6HB.v2l4i', '227 Nguyen Van Cu, District 5,', '2000-06-16', 'thienthanvodanh2000@gmail.com', NULL, -1, 0);
+INSERT INTO `Readers` VALUES (4, 'Vuong Nguyen Thi Minh', 'wrt3', '$2a$10$h8sIJeTXpj.BNiEecsJ/ZOq44cnUHwyyyCGmtXIHLHngdU2PATNni', '227 Nguyen Van Cu, District 5,', '2021-07-07', 'hello@gmail.com', NULL, -1, 0);
+INSERT INTO `Readers` VALUES (5, 'Vuong Nguyen Thi Minh', 'helo', '$2a$10$G9EpG11uXeFsUg.YGMu3pugvnZy5qhDMO3rWusU52mQ8iMTBO/v3S', '227 Nguyen Van Cu, District 5,', '2021-07-06', 'vuong160620@gmail.com', NULL, -1, 0);
 COMMIT;
 
 -- ----------------------------

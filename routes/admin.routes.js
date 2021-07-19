@@ -5,6 +5,7 @@ const tag_db = require('../models/tag.model');
 const writer_db = require('../models/writer.model');
 const posttag_db = require('../models/post_tag.model');
 const adm_db = require('../models/admin.model')
+const reader_db = require('../models/reader.model');
 const fs = require('fs');
 var multer  = require('multer');
 const express = require('express');
@@ -32,7 +33,7 @@ async function addPostTag(tagslist,postID){
         }
         await posttag_db.add(posttag);
     }
-}
+};
 
 router.get('/profile', (req,res) => {
     res.render('user/lib/profile')
@@ -66,8 +67,12 @@ router.put('/profile',  async function(req,res){
     res.redirect('/admin/profile');
 });
 
-router.get('/user/manage', function(req, res) {
-    return res.render('user/admin/quanlyuser')
+router.get('/user/manage', async function(req, res) {
+    const list_reader_subPre = await reader_db.findListSubPremium();
+    console.log(list_reader_subPre);
+    return res.render('user/admin/quanlyuser', {
+        subPremium: list_reader_subPre,
+    })
 });
 router.get('/category/manage', function(req, res) {
     return res.render('user/admin/quanlycate')
@@ -80,6 +85,12 @@ router.get('/post/manage', async function(req, res) {
     return res.render('user/admin/quanlybaiviet',{
         list_posts
     })
+});
+router.get('/user/acceptsub', async function(req, res) {
+    //await post_db.delPost(req.query.postID);
+    console.log(req.query.userid);
+    await reader_db.AcceptPremium(req.query.userid);
+    return res.redirect('back');
 });
 router.get('/post/add', async function(req, res) {
     list_cat = await cat_db.getAllChildren();
