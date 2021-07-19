@@ -259,40 +259,6 @@ exports.signout = (req, res) => {
     });
 }
 
-exports.getEditProfileView = (req, res) => {
-    //req.session.user = null;
-    //res.redirect('/');
-
-    res.render('user/subcriber/editprofile');
-}
-
-exports.changePassword = async (req, res) => {
-    //req.session.user = null;
-    //res.redirect('/');
-    const rows_reader = await reader.findByID(req.session.user.id);
-    const ret = bcrypt.compareSync(req.body.oldPassword, rows_reader.Password);
-    const hash = bcrypt.hashSync(req.body.newPassword, 10);
-    if(ret===true){
-        await reader.changePass(req.session.user.id, hash);
-        res.render('user/subcriber/profile');
-    }
-    else{
-        return res.render('user/subcriber/editprofile', {
-            err_message: 'Invalid password',
-        })
-    }
-}
-exports.updateProfile = async (req, res) => {
-    console.log(req.body.raw_dob);
-    await reader.updateGeneralInfor(req.session.user.id, req.body.fullName, req.body.email, req.body.raw_dob );
-    
-    req.session.user.name = req.body.fullName;
-    req.session.user.email = req.body.email;
-    req.session.user.birthday = req.body.raw_dob;
-    
-    res.redirect('/subcriber');
-    
-  };
 function checkPassword(role, rows, req, res) {
   const ret = bcrypt.compareSync(req.body.password, rows.Password);
   if (ret===false){

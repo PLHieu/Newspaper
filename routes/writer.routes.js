@@ -86,21 +86,21 @@ router.get('/managepost', async function (req, res) {
     });
 })
 
-router.get('/editprofile', async function(req, res) {
-    res.render('user/writer/editprofile',{
-    });
+router.get('/profile', async function(req, res) {
+    console.log(res.locals)
+    res.render('user/lib/profile');
 })
+
 router.put('/profile', async function(req, res) {
-    console.log(req.body.raw_dob);
-    await writer_db.updateGeneralInfor(req.session.user.id, req.body.fullName, req.body.email, req.body.raw_dob, req.body.nickname );
+    // console.log(req.body.birthday);
+    await writer_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address );
     
-    req.session.user.name = req.body.fullName;
+    req.session.user.name = req.body.name;
     req.session.user.email = req.body.email;
-    req.session.user.birthday = req.body.raw_dob;
-    req.session.user.nickname = req.body.nickname;
+    req.session.user.birthday = req.body.birthday;
+    req.session.user.address = req.body.address;
     
-    res.redirect('/writer');
-    
+    res.redirect('/writer/profile');
 })
 router.put('/password', async function(req, res) {
     //req.session.user = null;

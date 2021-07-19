@@ -4,6 +4,7 @@ const cat_db = require('../models/category.model');
 const tag_db = require('../models/tag.model');
 const writer_db = require('../models/writer.model');
 const posttag_db = require('../models/post_tag.model');
+const adm_db = require('../models/admin.model')
 const fs = require('fs');
 var multer  = require('multer');
 const express = require('express');
@@ -33,6 +34,37 @@ async function addPostTag(tagslist,postID){
     }
 }
 
+router.get('/profile', (req,res) => {
+    res.render('user/lib/profile')
+});
+
+router.put('/password', async function(req, res) {
+    const rows_admin = await adm_db.findByID(req.session.user.id);
+    const ret = bcrypt.compareSync(req.body.oldPassword, rows_admin.Password);
+    const hash = bcrypt.hashSync(req.body.newPassword, 10);
+    if(ret===true){
+        await adm_db.changePassByID(req.session.user.id, hash);
+        return res.status(200).send({login: true });
+        res.render('user/subcriber/profile');
+    }
+    else{
+        return res.status(403).send({login: false});
+        return res.render('user/subcriber/editprofile', {
+            err_message: 'Invalid password',
+        })
+    }
+});
+
+router.put('/profile',  async function(req,res){
+    await adm_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address );
+    
+    req.session.user.name = req.body.name;
+    req.session.user.email = req.body.email;
+    req.session.user.birthday = req.body.birthday;
+    req.session.user.address = req.body.address;
+    
+    res.redirect('/admin/profile');
+});
 
 router.get('/user/manage', function(req, res) {
     return res.render('user/admin/quanlyuser')

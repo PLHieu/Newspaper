@@ -54,8 +54,8 @@
                         </a>
                         {{#if session.user.subcriber}}
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/subcriber">
-                                Quản lý tài khoản
+                            <a class="dropdown-item" href="/subcriber/profile">
+                                Thông tin cá nhân
                             </a>
                             <a class="dropdown-item" href="/signout">
                                 <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
@@ -65,8 +65,8 @@
                         {{/if}}
                         {{#if session.user.admin}}
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/admin">
-                                Quản lý tài khoản
+                            <a class="dropdown-item" href="/admin/profile">
+                                Thông tin cá nhân
                             </a>
                             <a class="dropdown-item" href="/admin/user/manage">
                                 Quản lý người dùng
@@ -88,8 +88,8 @@
                         {{/if}}
                         {{#if session.user.editor}}
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/editor">
-                                Quản lý tài khoản
+                            <a class="dropdown-item" href="/editor/profile">
+                                Thông tin cá nhân
                             </a>
                             <a class="dropdown-item" href="/editor">
                                 Quản lý bài viết
@@ -102,8 +102,8 @@
                         {{/if}}
                         {{#if session.user.writer}}
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/writer/editprofile">
-                                Quản lý tài khoản
+                            <a class="dropdown-item" href="/writer/profile">
+                                Thông tin cá nhân
                             </a>
                             <a class="dropdown-item" href="/writer/write-post">
                                 Viết bài mới

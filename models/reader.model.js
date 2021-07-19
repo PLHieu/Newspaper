@@ -32,22 +32,20 @@ module.exports = {
           return null;
         return rows[0];
     },
-    async updateGeneralInfor(readerID, readerName, readerEmail, readerBirthday){
-      //dob = moment(readerBirthday).format("YYYY-MM-DD");
-      let dob = readerBirthday.slice(3,6)+ readerBirthday.slice(0,3) + readerBirthday.slice(6,10);
-      
-      //console.log(dob);
+    async updateGeneralInfor(ID, name, email, birthday, address){
+      let dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
       var date = new Date(dob);
       date.setDate(date.getDate()+1);
-      
       dob = date.toISOString();
       dob = dob.slice(0,10);
+
       await db('Readers')
-      .where('ID', readerID)
+      .where('ID', ID)
       .update({
-        Name: readerName,
+        Name: name,
         BirthDay: dob,
-        Email: readerEmail
+        Email: email,
+        Address: address
       });
     },
 

@@ -30,7 +30,24 @@ module.exports = {
       return rows[0];
     },
 
-    changePassByID(hash,ID){
+    async changePassByID(hash,ID){
       return db('Editors').where('ID', ID).update('Password',hash);
-    }
+    },
+
+    async updateGeneralInfor(ID, name, email, birthday, address){
+      let dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
+      var date = new Date(dob);
+      date.setDate(date.getDate()+1);
+      dob = date.toISOString();
+      dob = dob.slice(0,10);
+      
+      await db('Editors')
+      .where('ID', ID)
+      .update({
+        Name: name,
+        BirthDay: dob,
+        Email: email,
+        Address: address,
+      });
+    },
 }

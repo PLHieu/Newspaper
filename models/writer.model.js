@@ -29,23 +29,20 @@ module.exports = {
     changePassByID(hash,ID){
       return db('Writers').where('ID', ID).update('Password',hash);
     },
-    async updateGeneralInfor(wrtID, wrtName, wrtEmail, wrtBirthday, wrtNickname){
-      //dob = moment(readerBirthday).format("YYYY-MM-DD");
-      let dob = wrtBirthday.slice(3,6)+ wrtBirthday.slice(0,3) + wrtBirthday.slice(6,10);
-      
-      //console.log(dob);
+    async updateGeneralInfor(ID, name, email, birthday, address){
+      let dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
       var date = new Date(dob);
       date.setDate(date.getDate()+1);
-      
       dob = date.toISOString();
       dob = dob.slice(0,10);
+      
       await db('Writers')
-      .where('ID', wrtID)
+      .where('ID', ID)
       .update({
-        Name: wrtName,
+        Name: name,
         BirthDay: dob,
-        Email: wrtEmail,
-        NickName: wrtNickname,
+        Email: email,
+        Address: address,
       });
     },
 }

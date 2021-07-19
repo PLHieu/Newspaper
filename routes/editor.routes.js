@@ -7,6 +7,7 @@ const cat_db = require('../models/category.model');
 const tag_db = require('../models/tag.model');
 const draft_db = require('../models/draft.model');
 const moment = require('moment');
+const edt_db = require('../models/editor.model')
 
 router.get('/', editorPage)
 
@@ -88,6 +89,37 @@ router.post('/approve', async function(req, res){
         await posttag_db.add(postTag);
     }
     res.redirect('/editor');
+})
+
+router.get('/profile', (req,res) => {
+    res.render('user/lib/profile')
+});
+
+router.put('/profile', async function(req, res){
+    await edt_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address)
+    // cap nhat lai session
+    req.session.user.name = req.body.name;
+    req.session.user.email = req.body.email;
+    req.session.user.birthday = req.body.birthday;
+    req.session.user.address = req.body.address;
+
+    return res.redirect('/editor/profile');
+})
+
+router.put('/password', async function(req, res) {
+    const rows_editor = await edt_db.findByID(req.session.user.id);
+    const ret = bcrypt.compareSync(req.body.oldPassword, rows_editor.Password);
+    const hash = bcrypt.hashSync(req.body.newPassword, 10);
+    if(ret===true){
+        await edt_db.changePassByID( hash, req.session.user.id);
+        return res.status(200).send({login: true });
+    }
+    else{
+        return res.status(403).send({login: false});
+        return res.render('user/writer/editprofile', {
+            err_message: 'Invalid password',
+        })
+    }
 })
 
 module.exports = router;
