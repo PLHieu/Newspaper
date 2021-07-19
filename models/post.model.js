@@ -280,6 +280,16 @@ module.exports = {
         }
         return rejectPosts;
     },
+
+    // dem so bai viet theo writer da viet 
+    async countPostByWriterID(writerID){
+        let r = await db('Posts')
+        .count('ID', {as: 'num_posts'})
+        .where({
+            WriterID: writerID
+        })
+        return r[0].num_posts;
+    }
 }
 
 async function findRelatedPostByCatID(postID, catID) {

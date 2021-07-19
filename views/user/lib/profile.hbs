@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {{/section}}
 
 {{#section 'title'}}
@@ -143,25 +144,10 @@
         <div class="col-md-8">
             <div class="wrap-column">
                 <h2>Chỉnh sửa thông tin cơ bản</h2>
-                <form 
-                
-                {{#if session.user.admin}}
-                action="/admin/profile?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.writer}}
-                action="/writer/profile?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.subcriber}}
-                action="/subcriber/profile?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.editor}}
-                action="/editor/profile?_method=PUT" 
-                {{/if}}
-
-                method="POST" id="formGeneralInfor">
+                <form {{#if session.user.admin}} action="/admin/profile?_method=PUT" {{/if}} {{#if session.user.writer}}
+                    action="/writer/profile?_method=PUT" {{/if}} {{#if session.user.subcriber}}
+                    action="/subcriber/profile?_method=PUT" {{/if}} {{#if session.user.editor}}
+                    action="/editor/profile?_method=PUT" {{/if}} method="POST" id="formGeneralInfor">
 
                     <div class="form-group">
                         <label for="txtName">Họ và tên</label>
@@ -169,25 +155,21 @@
                             value="{{session.user.name}}" />
                     </div>
 
+                    {{#if session.user.writer}}
                     <div class="form-group">
-                        <label for="txtEmail">Email</label>
-                        <input class="form-control mb-2" type="text" name="email" id="txtEmail" placeholder="Email"
-                            value="{{session.user.email}}" />
+                        <label for="txtNickname">Bút danh</label>
+                        <input class="form-control mb-2" type="text" name="nickname" id="txtNickname" placeholder="Bút danh"
+                  value="{{session.user.nickname}}"/>
                     </div>
-
-                    <div class="form-group">
-                        <label for="txtAddress">Địa chỉ</label>
-                        <input class="form-control mb-2" type="text" name="address" id="txtAddress" placeholder="Address"
-                            value="{{session.user.address}}" />
-                    </div>
+                    {{/if}}
 
                     <div class="row">
                         <div class="col-md-6">
-                            {{!-- <div class="form-group">
-                                <label for="txtNickname">NickName</label>
-                                <input class="form-control mb-2" type="text" name="nickname" id="txtNickname"
-                                    placeholder="NickName" value="{{session.user.nickname}}" />
-                            </div> --}}
+                            <div class="form-group">
+                                <label for="txtEmail">Email</label>
+                                <input class="form-control mb-2" type="text" name="email" id="txtEmail"
+                                    placeholder="Email" value="{{session.user.email}}" />
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -198,6 +180,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="txtAddress">Địa chỉ</label>
+                        <input class="form-control mb-2" type="text" name="address" id="txtAddress"
+                            placeholder="Address" value="{{session.user.address}}" />
+                    </div>
+
                     <div class="form-group form-button ">
                         <button type="submit" name="signup" id="signup" class="btn form-submit">Lưu thay đổi</button>
                     </div>
@@ -206,25 +194,10 @@
             <br>
             <div class="wrap-column">
                 <h2>Thay đổi mật khẩu</h2>
-                <form 
-
-                {{#if session.user.admin}}
-                action="/admin/password?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.writer}}
-                action="/writer/password?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.subcriber}}
-                action="/subcriber/password?_method=PUT" 
-                {{/if}}
-
-                {{#if session.user.editor}}
-                action="/editor/password?_method=PUT" 
-                {{/if}}
-                
-                method="POST" id="formChangePass">
+                <form {{#if session.user.admin}} action="/admin/password?_method=PUT" {{/if}} {{#if
+                    session.user.writer}} action="/writer/password?_method=PUT" {{/if}} {{#if session.user.subcriber}}
+                    action="/subcriber/password?_method=PUT" {{/if}} {{#if session.user.editor}}
+                    action="/editor/password?_method=PUT" {{/if}} method="POST" id="formChangePass">
                     {{#if err_message}}
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -248,9 +221,63 @@
         </div>
 
         <div class="col-md-4">
-            <div class="wrap-column">
-                <h2>Thông tin khác</h2>
+            {{#if session.user.admin}}
+            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
+                <img src="/public/image/banner/adm.jpg" class="d-block w-100 " style="border-radius: 10px;" alt="">
+                <img src="/public/template/img/gallery/body_card4.png" class="d-block w-100" alt="">
             </div>
+            {{/if}}
+
+            {{#if session.user.writer}}
+            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
+                <div class="wrap-column text-center">
+                    <img src="/public/image/banner/writing.png" class="d-block" style="margin: auto; width: 40%;"
+                        alt="">
+                    <h4>Số lượng bài viết: {{this.num_posts}}</h4>
+                </div>
+                <img src="https://i2.wp.com/www.forbiddenplanetnyc.com/wp-content/uploads/2020/02/redborder.jpeg?resize=397%2C613&ssl=1"
+                    style="width: 85%; margin-left:auto; margin-right:auto; border-radius: 10px;" alt="" srcset="">
+            </div>
+            {{/if}}
+
+            {{#if session.user.editor}}
+            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
+                <div class="wrap-column d-flex align-items-center" style="padding: 10px; ">
+                    <img src="/public/image/banner/editor.png" style="display: inline-block; width: 30%" alt="">
+                    <div class="d-inline-block" style="width: 50%; ">
+                        <div class="d-flex" style="align-items: center; flex-direction: column;">
+                            <h4>Category Quản lý</h4>
+                            <h5><span class="badge badge-danger">{{cateName}}</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <img src="/public/template/img/news/news_card.jpg" class="d-block"
+                    style=" width:60%; margin-left: auto; margin-right: auto" alt="">
+            </div>
+
+            {{/if}}
+
+            {{#if session.user.subcriber}}
+            {{#if session.user.premium}}
+            <div class="wrap-column d-flex align-items-center" style="padding: 10px;">
+                <img src="/public/image/banner/premium.png" style="display: inline-block; width: 40%" alt="">
+                <div class="d-inline-block" style="width: 50%;">
+                    <div class="d-flex" style="align-items: center; flex-direction: column;">
+                        <h4>Expired date</h4>
+                        <p>24june</p> 
+                        {{!-- //TODO set ngay het han  --}}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <img src="/public/template/img/gallery/body_card4.png" class="d-block"
+                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+            {{else}}
+            <img src="/public/template/img/news/news_card.jpg" class="d-block"
+                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+            {{/if}}
+            {{/if}}
 
         </div>
     </div>

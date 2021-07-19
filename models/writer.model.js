@@ -29,7 +29,7 @@ module.exports = {
     changePassByID(hash,ID){
       return db('Writers').where('ID', ID).update('Password',hash);
     },
-    async updateGeneralInfor(ID, name, email, birthday, address){
+    async updateGeneralInfor(ID, name, email, birthday, address, nickname){
       let dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
       var date = new Date(dob);
       date.setDate(date.getDate()+1);
@@ -43,6 +43,7 @@ module.exports = {
         BirthDay: dob,
         Email: email,
         Address: address,
+        NickName: nickname
       });
     },
 }

@@ -7,7 +7,8 @@ const cat_db = require('../models/category.model');
 const tag_db = require('../models/tag.model');
 const draft_db = require('../models/draft.model');
 const moment = require('moment');
-const edt_db = require('../models/editor.model')
+const edt_db = require('../models/editor.model');
+const { getCategoryNameByEditorID } = require("../models/editor.model");
 
 router.get('/', editorPage)
 
@@ -91,8 +92,11 @@ router.post('/approve', async function(req, res){
     res.redirect('/editor');
 })
 
-router.get('/profile', (req,res) => {
-    res.render('user/lib/profile')
+router.get('/profile', async (req,res) => {
+    let cateName = await getCategoryNameByEditorID(req.session.user.id);
+    res.render('user/lib/profile',{
+        cateName
+    })
 });
 
 router.put('/profile', async function(req, res){

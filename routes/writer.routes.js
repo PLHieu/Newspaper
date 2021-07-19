@@ -11,6 +11,7 @@ const { post } = require("./admin.routes");
 const bcrypt = require('bcryptjs');
 var multer  = require('multer');
 const fs = require('fs');
+const { countPostByWriterID } = require("../models/post.model");
 const router = express.Router();
 
 
@@ -87,18 +88,22 @@ router.get('/managepost', async function (req, res) {
 })
 
 router.get('/profile', async function(req, res) {
-    console.log(res.locals)
-    res.render('user/lib/profile');
+    // console.log(res.locals)
+    let num_posts = await countPostByWriterID(req.session.user.id);
+    res.render('user/lib/profile', {
+        num_posts
+    });
 })
 
 router.put('/profile', async function(req, res) {
     // console.log(req.body.birthday);
-    await writer_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address );
+    await writer_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address , req.body.nickname);
     
     req.session.user.name = req.body.name;
     req.session.user.email = req.body.email;
     req.session.user.birthday = req.body.birthday;
     req.session.user.address = req.body.address;
+    req.session.user.nickname = req.body.nickname;
     
     res.redirect('/writer/profile');
 })
@@ -113,7 +118,7 @@ router.put('/password', async function(req, res) {
         res.render('user/writer/profile');
     }
     else{
-        return res.render('user/writer/editprofile', {
+        return res.render('user/writer/profile', {
             err_message: 'Invalid password',
         })
     }

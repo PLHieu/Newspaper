@@ -1,4 +1,5 @@
-const db = require('../utils/db')
+const db = require('../utils/db');
+const { findNameCateByID } = require('./category.model');
 
 module.exports = {
     async findByUsername(username){
@@ -50,4 +51,14 @@ module.exports = {
         Address: address,
       });
     },
+
+    async getCategoryNameByEditorID(edtid){
+      let rows = await db('Editors')
+      .where({
+        ID:edtid
+      })
+      .select('CatID');
+       let cate_name = await findNameCateByID(rows[0].CatID);
+       return cate_name;
+    }
 }
