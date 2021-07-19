@@ -148,18 +148,23 @@
     .chinhsuathongtin h2 {
         font-weight: bold;
         color: #ee4a41;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .chinhsuathongtin label {
-        font-weight: bold;
+        font-weight: normal;
+        font-size: x-large;
     }
 
     .chinhsuathongtin button.form-submit {
         background-color: #ee4a41;
         border: none;
         border-radius: 3px;
-        padding: 10px;
+        padding: 20px;
         color: white;
+        font-size: larger;
+        font-weight: bold;
     }
 
     .chinhsuathongtin button.form-submit:hover {
@@ -178,11 +183,24 @@
                     action="/subcriber/profile?_method=PUT" {{/if}} {{#if session.user.editor}}
                     action="/editor/profile?_method=PUT" {{/if}} method="POST" id="formGeneralInfor">
 
-                    <div class="form-group">
-                        <label for="txtName">Họ và tên</label>
-                        <input class="form-control mb-2" type="text" name="name" id="txtName" placeholder="Họ tên"
-                            value="{{session.user.name}}" />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtDOB">Username</label>
+                                <input class="form-control mb-2" 
+                                    value="{{session.user.username}}"  disabled/>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="txtName">Họ và tên</label>
+                                <input class="form-control mb-2" type="text" name="name" id="txtName"
+                                    placeholder="Họ tên" value="{{session.user.name}}" />
+                            </div>
+                        </div>
                     </div>
+
+
 
                     {{#if session.user.writer}}
                     <div class="form-group">
@@ -202,7 +220,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="txtDOB"><i class="fa fa-birthday-cake">Sinh Nhật</i></label>
+                                <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Sinh Nhật</label>
                                 <input class="form-control mb-2" type="text" name="birthday" id="txtDOB"
                                     value="{{session.user.birthday}}" />
                             </div>
@@ -224,14 +242,6 @@
             <div class="wrap-column">
                 <h2>Thay đổi mật khẩu</h2>
                 <form id="formChangePass">
-                    {{#if err_message}}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{err_message}}
-                    </div>
-                    {{/if}}
                     <input class="form-control mb-2" type="password" id="txtOldPass"
                         placeholder="Nhập mật khẩu hiện tại" />
                     <input class="form-control mb-2" type="password" id="txtNewPass" placeholder="Nhập mật khẩu mới" />
@@ -278,7 +288,7 @@
                 </div>
                 <br>
                 <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                    style=" width:60%; margin-left: auto; margin-right: auto" alt="">
+                    style=" width: 68%; margin-left: auto; margin-right: auto" alt="">
             </div>
 
             {{/if}}
