@@ -36,6 +36,15 @@ module.exports = function(app) {
             getDate: getDateFromDatetime,
             countPosts: function(list_posts) {
                 return list_posts.length;
+            },
+            firstChar: (word) => {
+                return word.charAt(0);
+            },
+            ranBgColor: () => {
+                colors = ["#34495e", "#2980b9", "#34495e", "#d35400", "#3c6382", "#b71540", "#e58e26"]
+                let index = Math.floor(Math.random() * 7);
+                return colors[index];
+
             }
         }
     }));

@@ -17,7 +17,7 @@
                                     Luận</a></li>
                             <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
                                     xem</a></li>
-                            <li><a class="text-muted" style="text-decoration: none; ">Download</a></li>      
+                            <li><a class="text-muted" style="text-decoration: none; ">Download</a></li>
                         </ul>
                         <p>{{{this.post.Content}}}</p>
                     </div>
@@ -37,9 +37,10 @@
                     <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
                     <div class="comments-area " style="padding: 10px; !important">
                         {{#each this.post.comments}}
-                        <div class="user justify-content-between d-flex w-100 mot-comment">
-                            <div class="thumb comment-thumb">
-                                <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt="">
+                        <div class="user justify-content-between align-items-center d-flex w-100 mot-comment">
+                            <div class=" comment-thumb" style="background-color: {{ranBgColor}};">
+                                {{!-- <img src="/public/image/users/{{RoleReaderID}}s/1.jpg" alt=""> --}}
+                                <span>{{firstChar ReaderName}}</span>
                             </div>
                             <div class="desc w-100">
                                 <p class="comment">{{Content}}</p>
@@ -86,6 +87,15 @@
             {{!-- end main content --}}
 
             {{!-- start side-bar --}}
+            <div class="col-lg-4">
+                <img src="/public/template/img/gallery/body_card4.png" class="d-block"
+                    style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+                <br>
+                <br>
+                <br>
+                <img src="/public/template/img/news/news_card.jpg" class="d-block"
+                    style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+            </div>
             {{!-- end side-bar --}}
         </div>
 
