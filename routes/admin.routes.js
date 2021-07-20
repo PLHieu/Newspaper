@@ -207,6 +207,10 @@ router.post('/post/edit', (req, res) => {
                 StateID: 1,
                 PubTime: new Date()
             }
+            const isDraft = await draft_db.findByPostID(postID);
+            if (isDraft != null) {
+                await draft_db.delete(postID);
+            }
             await post_db.editPost(edit_post,postID);
             await posttag_db.del(postID);
             addPostTag(tag,postID);

@@ -102,6 +102,7 @@
                         {{#switch StateID}}
                             {{#case 1}}text-success">&bull;</span> Đã duyệt{{/case}}
                             {{#case 0}}text-warning">&bull;</span> Chờ duyệt{{/case}}
+                            {{#case -2}}text-warning">&bull;</span> Chờ duyệt{{/case}}
                             {{#case -1}}text-danger">&bull;</span> Bị từ chối{{/case}}
                         {{/switch}}
                         </td>
@@ -149,6 +150,7 @@
                                 {{#switch StateID}}
                                     {{#case 1}}Đã duyệt{{/case}}
                                     {{#case 0}}Chờ duyệt{{/case}}
+                                    {{#case -2}}Chờ duyệt{{/case}}
                                     {{#case -1}}Bị từ chối{{/case}}
                                 {{/switch}}
                             </span></p>
