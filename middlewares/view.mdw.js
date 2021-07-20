@@ -45,6 +45,12 @@ module.exports = function(app) {
                 let index = Math.floor(Math.random() * 7);
                 return colors[index];
 
+            },
+            ranBgColor2: () => {
+                colors = ["#22a6b3", "#4834d4", "#eb4d4b", "#0984e3", "#636e72", "#B53471", "#3c6382"]
+                let index = Math.floor(Math.random() * 7);
+                return colors[index];
+
             }
         }
     }));

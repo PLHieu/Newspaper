@@ -50,25 +50,29 @@
                 <thead>
                     <tr>
                         <th class="thumname">
-                            <span class="thumbnail">Thumbnail</span>
-                            <span class="name">Name</span>
+                            <span style="width: 70%; text-align: center; display: inline-block;">Name</span>
                         </th>
                         <th>Description</th>
+                        <th class="sobaiviet">Số bài viết</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="thumname">
-                            <span class="thumbnail">
-                                <img src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
-                                    alt="" srcset="">
-                            </span>
-                            <span class="name">Du lịch</span>
+                            <div class="name-wrapper">
+                                <div class="name" style="background-color: {{ranBgColor2}};">
+                                    <span>
+                                        Du lịch
+                                    </span>
+                                </div>
+                            </div>
+
                         </td>
                         <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
                             facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
                             alias doloremque repudiandae ullam porro!</td>
+                        <td class="sobaiviet">26</td>
                         <td class="dropleft">
                             <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -85,64 +89,19 @@
                     <tr>
                         <td class="thumname">
                             <span><i class="material-icons">subdirectory_arrow_right</i></span>
-                            <span class="thumbnail">
-                                <img src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
-                                    alt="" srcset="">
-                            </span>
-                            <span class="name">Du lịch Trong nước</span>
-                        </td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
-                            facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
-                            alias doloremque repudiandae ullam porro!</td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
-                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#">Xóa</a>
+                            <div class="name-wrapper">
+                                <div class="name" style="background-color: {{ranBgColor2}};">
+                                    <span>
+                                        Du lịch
+                                    </span>
+                                </div>
                             </div>
-                        </td>
-                    </tr>
 
-                    <tr>
-                        <td class="thumname">
-                            <span><i class="material-icons">subdirectory_arrow_right</i></span>
-                            <span class="thumbnail">
-                                <img src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
-                                    alt="" srcset="">
-                            </span>
-                            <span class="name">Du lịch Thế Giới</span>
                         </td>
                         <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
                             facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
                             alias doloremque repudiandae ullam porro!</td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
-                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="thumname">
-                            <span class="thumbnail">
-                                <img src="https://pbs.twimg.com/profile_images/630212519395618816/HGzUWTQR_400x400.jpg"
-                                    alt="" srcset="">
-                            </span>
-                            <span class="name">Du lịch</span>
-                        </td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
-                            facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
-                            alias doloremque repudiandae ullam porro!</td>
+                        <td class="sobaiviet">26</td>
                         <td class="dropleft">
                             <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -173,11 +132,7 @@
     <div class="modal_content modal-category">
         <i class="exit-button material-icons">close</i>
         <div class="row">
-            <div class="col-md-4 d-flex align-items-center">
-                <img src="https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTU3ODc5MDg1ODkyNzA4MDYz/ho-chi-minh-2.jpg"
-                    alt="">
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <h1 class="name"><b>Du lich</b></h1>
                 <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus magnam facilis,
                     autem iusto accusamus laborum placeat omnis h
