@@ -88,6 +88,7 @@ router.get('/user/acceptsub', async function(req, res) {
     await reader_db.AcceptPremium(req.query.userid);
     return res.redirect('back');
 });
+
 router.get('/post/add', async function(req, res) {
     list_cat = await cat_db.getAllChildren();
     list_tag = await tag_db.allTags();
@@ -155,6 +156,7 @@ router.get('/post/edit', async function(req, res) {
     //console.log(aPost);
     list_cat = await cat_db.getAllChildren();
     list_tag = await tag_db.allTags();
+    list_writer = await writer_db.findAll();
     for (let i = 0; i < list_cat.length; i++) {
         if (aPost.CatID == list_cat[i].ID)
             list_cat[i].selected = true;
@@ -165,8 +167,13 @@ router.get('/post/edit', async function(req, res) {
             list_tag[i].selected = false;
         else list_tag[i].selected = true;
     }
+    for (let i=0; i<list_writer.length; i++){
+        if (aPost.WriterID == list_writer[i].ID)
+            list_writer[i].selected = true;
+        else list_writer[i].selected = false;
+    }
     //console.log(list_tag);
-    return res.render('user/writer/write_post',{
+    return res.render('user/lib/form-baiviet',{
         postID: req.query.postID,
         category: aPost.CatID,
         title: aPost.Title,
@@ -174,9 +181,10 @@ router.get('/post/edit', async function(req, res) {
         abstract: aPost.Abstract,
         list_cat: list_cat,
         list_tag: list_tag,
+        list_writer
     })
 });
-router.put('/post/edit', (req, res) => {
+router.post('/post/edit', (req, res) => {
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
           cb(null, `./public/image/posts/`);
