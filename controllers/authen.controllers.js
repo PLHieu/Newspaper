@@ -313,6 +313,7 @@ function handle_login_successfully(role, rows, req, res) {
             if(minutesleft<=0){
                 exp = null;
                 reader.updateNullExp(rows.ID);
+                Premium = null;
             }
         }
     }
