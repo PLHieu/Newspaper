@@ -11,6 +11,13 @@ router.get('/profile', (req,res) => {
     res.render('user/lib/profile')
 });
 
+router.post('/subPremium',  async function(req, res) {
+    await sub_db.subPremium(1, req.session.user.id);
+    req.session.user.subPremium = 1;
+    //window.alert('đăng ký thành công, đợi admin duyệt');
+    res.redirect('back');
+});
+
 router.post('/password', async function(req, res) {
     const rows_sub = await sub_db.findByID(req.session.user.id);
     const ret = bcrypt.compareSync(req.body.oldPassword, rows_sub.Password);
