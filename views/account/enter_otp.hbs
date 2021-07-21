@@ -15,7 +15,7 @@
 {{/section}}
 
 {{#section 'title'}}
-<title>Reset Password</title>
+<title>Enter OTP</title>
 {{/section}}
 
 {{#section 'css'}}
@@ -49,18 +49,16 @@
                               {{err_message}}
                             </div>
                         {{/if}}
-                        {{#if activeAccount}}
+                        {{#eq not_registered false}}
                             <input type="text" name="register" value="1" class="invisible">
                             <input type="text" name="email" value="{{email}}" class="invisible">
-                        {{/if}}
-                        {{#eq not_registered false}}
                           {{#if activeAccount}}
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                               <p>Tài khoản của bạn chưa kích hoạt.</p>
-                              <p>Vui lòng nhập mã OTP được gửi từ email thinhvuong9700@gmail.com đến email của bạn: {{email}} để lấy mã OTP.</p>
+                              <p>Vui lòng nhập mã OTP được gửi từ email newspaper.vuonghieutrinh@gmail.com đến email của bạn: {{email}} để lấy mã OTP.</p>
                             </div>
                         {{else}}
                           <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -68,13 +66,13 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                               <p>Bạn đã đăng kí thành công.</p>
-                               <p>Vui lòng nhập OTP được gửi từ email thinhvuong9700@gmail.com đến email của bạn: {{email}} để kích hoạt tài khoản.</p>
+                               <p>Vui lòng nhập OTP được gửi từ email newspaper.vuonghieutrinh@gmail.com đến email của bạn: {{email}} để kích hoạt tài khoản.</p>
                             </div>
                         {{/if}}
                         {{/eq}}
                             {{this.msg}}
                             <p>
-                              <label>Enter otp</label>
+                              {{!-- <label>Enter otp</label> --}}
                               <input type="text" name="otp" required="required">
                             </p>
                             <p class="full">

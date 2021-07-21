@@ -7,6 +7,8 @@ const moment = require('moment');
 const nodemailer = require('nodemailer');
 
 
+
+
 exports.register = async function(req, res) {
     const hash = bcrypt.hashSync(req.body.raw_password, 10);
     const dob = moment(req.body.raw_dob,'DD/MM/YYYY').format('YYYY-MM-DD');
@@ -40,7 +42,7 @@ exports.register = async function(req, res) {
         from: "newspaper.vuonghieutrinh@gmail.com",
         to: email,
        subject: "OTP for Register New Newspaper Account: ",
-       html: "<p>Dear you,</p>"+
+       html: `<p>Dear you,${email}</p>`+
        "<h3>OTP for account verification helping you register our application is </h3>"  + 
        "<h1 style='font-weight:bold;'>" + otp +"</h1>" +
        "<p>Thank you</p>",
@@ -53,7 +55,7 @@ exports.register = async function(req, res) {
         console.log('Message sent: %s', info.messageId);   
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   
-        res.redirect(`/getOTP?register=1?email=${email}`);
+        res.redirect(`/getOTP?register=1&email=${email}`);
     });
 }
 
@@ -93,8 +95,42 @@ exports.signin = async (req, res) => {
     //console.log(req.body.username);
     const rows_reader = await reader.findByUsername(req.body.username);
     if (rows_reader != null) {
+        console.log("OTP ",rows_reader.OTP);
         if (rows_reader.OTP != -1){
-            return res.redirect(`/getOTP?register=1&email=${rows_reader.Email}&noactive=1`);
+            console.log("OTP ",rows_reader.OTP);
+            return new Promise((resolve,reject)=>{
+                let transporter = nodemailer.createTransport(
+                    {
+                        service: 'gmail',
+                        auth: {
+                        user: 'newspaper.vuonghieutrinh@gmail.com',
+                        pass: 'vuonghieutrinh'
+                        },
+                });
+                
+                var mailOptions={
+                    from: "newspaper.vuonghieutrinh@gmail.com",
+                    to: rows_reader.Email,
+                subject: "OTP for Register New Newspaper Account: ",
+                html: `<p>Dear you,${rows_reader.Email}</p>`+
+                "<h3>OTP for account verification helping you register our application is </h3>"  + 
+                "<h1 style='font-weight:bold;'>" + rows_reader.OTP +"</h1>" +
+                "<p>Thank you</p>",
+                };
+                
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        resolve(false);
+                    }
+                    else{
+                        console.log('Message sent: %s', info.messageId);   
+                        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                        resolve(true);
+                    }
+                    res.redirect(`/getOTP?register=1&email=${rows_reader.Email}&noactive=1`);
+                });
+            });
         }
         return checkPassword("subcriber", rows_reader, req, res);
         /*if (rows_reader.ExpTime!=null)

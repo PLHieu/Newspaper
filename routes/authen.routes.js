@@ -27,7 +27,7 @@ module.exports = function (app) {
     app.post('/reset-password',authentication.reset_password);
 
     app.get('/getOTP', function(req, res){
-        console.log(req.query.noactive);
+        console.log(req.query.noactive, req.query.register, req.query.email);
         const not_registered = req.query.register? false: true;
         const activeAccount = req.query.noactive? true: false;
         res.render('account/enter_otp',{
