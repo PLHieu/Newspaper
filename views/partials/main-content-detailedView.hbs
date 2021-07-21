@@ -17,7 +17,12 @@
                                     Luận</a></li>
                             <li><a class="text-muted" style="text-decoration: none; ">{{this.post.Views}} Lượt
                                     xem</a></li>
-                            <li><a class="text-muted" style="text-decoration: none; ">Download</a></li>
+                            <li>
+                                <form id="myform" method="post" action="/read/download/{{this.post.ID}}"></form>
+                                <a style="cursor: pointer;" class="text-muted" onclick="document.getElementById('myform').submit();">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Download
+                                </a>
+                            </li>
                         </ul>
                         <p>{{{this.post.Content}}}</p>
                     </div>

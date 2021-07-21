@@ -1,0 +1,93 @@
+{{#section 'title'}}
+<title>{{this.post.Title}}</title>
+{{/section}}
+
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/detail_view.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
+{{/section}}
+
+{{#section 'js'}}
+<!-- Jquery, Popper, Bootstrap -->
+
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#inbai').click(function(){
+            $('#inbai').html('');
+            window.print();
+            void(0);
+            $('#inbai').html('<span class="font-italic font-weight-bold">In bài viết này</span>');
+        })
+    });
+</script>
+{{/section}}
+<section class="blog_area single-post-area mt-3">
+    <div class="container">
+        <div class="row">
+            {{!-- start main content --}}
+            <div class="col-lg-2 posts-list ">
+            </div>
+            <div class="col-lg-8 posts-list ">
+                <div class="single-post white-wrapper">
+                    <div class="mb-5" id="inbai" style="cursor: pointer; text-decoration:underline; text-align: end; color:rgb(50, 50, 245)">
+                        <span class="font-italic font-weight-bold">In bài viết này</span>
+                    </div>
+                    <div class="feature-img">
+                        <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
+                            alt="">
+                    </div>
+                    <div class="blog_details">
+                        <h1>{{this.post.Title}}</h1>
+                        
+                        <p>{{{this.post.Content}}}</p>
+                    </div>
+                    <div class="d-flex align-items-center w-100 justify-content-end">
+                        <span class="font-italic font-weight-bold">{{this.post.Writer.Name}} -
+                            {{this.post.PubTime}}</span>
+                    </div>
+                    <i class="fas fa-tags"></i>
+                    {{#each this.post.tags}}
+                    <span class="badge badge-danger tag-detailed-view" id="{{ID}}"
+                        href="/post/tag/{{ID}}">#{{Name}}</span>
+                    {{/each}}
+                    <p>Link nội dung: <a href="/read/{{this.post.ID}}" style="color: rgb(22, 67, 214); text-decoration: underline;">localhost:3000/read/{{this.post.ID}}</a></p>
+                </div>
+
+            </div>
+            {{!-- end main content --}}
+            <div class="col-lg-2 posts-list "></div>
+        </div>
+
+    </div>
+</section>

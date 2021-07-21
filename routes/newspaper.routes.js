@@ -61,6 +61,13 @@ router.post('/:id/edit-comment', async function(req, res){
     const url = `/read/${req.query.params.id}`;
     res.redirect(url);
 })
-
+router.post('/download/:idpost', async function(req, res){
+    let id_post = req.params.idpost;
+    console.log(id_post);
+    post = await posts_db.findPostByID(id_post)
+    res.render('newspaper/printPost',{
+        post: post,
+    });
+})
 
 module.exports = router;
