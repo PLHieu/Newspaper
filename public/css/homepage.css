@@ -21,9 +21,13 @@
 
 .tinmoi .phai{
     transform: translateX(-20px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
 }
 .tinmoi{
-    height: 200px;
+    height: 180px;
 }
 
 .tinmoi .trai {
@@ -40,14 +44,15 @@
 .tinmoi:hover .trai img{
     transform: scale(1.02);
     transition: 0.5s;
-    box-shadow: -2px -2px 2px 0px red;
 }
 
 .tinmoi .tieude{
-    font-size: x-large !important;
+    font-size: 20px !important;
     color: black !important;
 }
-
+.tinmoi .ngaydang, .tinmoi .category {
+    font-size: small !important;
+}
 
 /* css cho phan top chuye muc  */
 .top10danhmuc div.one-top10danhmuc{

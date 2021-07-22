@@ -147,7 +147,7 @@
     <!-- Tin noi bat End -->
 
     <!-- Tin moi Start -->
-    <section class="whats-news-area pt-50 pb-20 gray-bg">   
+    <section class="whats-news-area pt-50 pb-20 gray-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -176,21 +176,22 @@
                                                 <div class="whats-right-single mb-0">
                                                     <div class="row tinmoi d-flex align-items-center p-2">
                                                         <div class="whats-right-img col-xl-5 trai">
-                                                            <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt=""
-                                                                >
+                                                            <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                                         </div>
                                                         <div class="whats-right-cap col-xl-7 mb-0 phai">
-                                                            <p class="mb-0 ">
-                                                                {{#if Premium}}
-                                                                <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
-                                                                        class="badge badge-warning mb-1 mt-1">Premium</a></span>
-                                                                {{/if}}
-                                                                <a class='tieude' href="/read/{{ID}}">{{TieuDe}}</a>
-                                                            </p>
-                                                            <span class="mb-2 mr-2">{{NgayDang}}</span>
-                                                            <a href="/post/category/{{CateID}}">
-                                                                <span class="badge badge-danger">{{CateName}}</span>
-                                                            </a>
+                                                            <div>
+                                                                <p class="mb-0 ">
+                                                                    {{#if Premium}}
+                                                                    <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
+                                                                            class="badge badge-warning mb-1 mt-1">Premium</a></span>
+                                                                    {{/if}}
+                                                                    <a class='tieude' href="/read/{{ID}}">{{TieuDe}}</a>
+                                                                </p>
+                                                                <span class="mb-2 mr-2 ngaydang">{{NgayDang}}</span>
+                                                                <a href="/post/category/{{CateID}}" class="">
+                                                                    <span class="badge badge-danger category">{{CateName}}</span>
+                                                                </a>
+                                                            </div>
                                                             <p class="mb-30 ml-0 mr-2 tomtat">{{TomTat}}</p>
                                                         </div>
                                                     </div>
@@ -297,8 +298,8 @@
                                             </div>
                                             <div class="weekly2-caption thongtin">
                                                 <h4><a href="/read/{{ID}}">{{#if Premium}}
-                                                    <span class="d-inline-block badge badge-warning">Premium</span>
-                                                    {{/if}}{{TieuDe}} </a>
+                                                        <span class="d-inline-block badge badge-warning">Premium</span>
+                                                        {{/if}}{{TieuDe}} </a>
                                                 </h4>
                                                 <div>
                                                     <p class="d-inline-block"><span class="mb-2 mr-2">{{getDate
