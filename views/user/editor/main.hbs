@@ -183,10 +183,12 @@
             <td>{{Abstract}}</td>
             <td>{{WriteTime}}</td>
             <td class="tacgia">
-              <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
-                <span>{{firstChar WriterName}}</span>
+              <div class="d-flex align-items-center">
+                <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
+                  <span>{{firstChar WriterName}}</span>
+                </div>
+                <span>{{WriterName}}</span>
               </div>
-              <span>{{WriterName}}</span>
             </td>
             <td class="td-status"><span class="status                
               {{#eq StateID 0}} text-warning">&bull;</span> Chờ duyệt
