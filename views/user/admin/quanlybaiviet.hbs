@@ -41,11 +41,15 @@
 
         $('.xemchitiet').click(function (e) {
             e.preventDefault();
-
+            const postID = $(this).get(0).id;
+            console.log(postID);
+            $.getJSON(`/admin/get-detail-post?postID=${postID}`, function (data) {
+                console.log(data);
+                $('.momoaoao').addClass('hienra');
+                $('.modal_ef').addClass('modal_show');
+            })
             //TODO: goi ajax
 
-            $('.momoaoao').addClass('hienra');
-            $('.modal_ef').addClass('modal_show');
         });
     });
 </script>
@@ -112,74 +116,12 @@
                                 more_horiz
                             </i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
+                                <a class="dropdown-item xemchitiet" href="#" id="{{ID}}">Xem chi tiết</a>
                                 <a class="dropdown-item" href="/admin/post/edit?postID={{ID}}">Chỉnh sửa</a>
                                 <a class="dropdown-item" href="/admin/post/del?postID={{ID}}">Xóa</a>
                             </div>
                         </td>
                     </tr>
-                    <div class="modal_box modal_ef modal_box-chitietpost">
-    <div class="modal_content modal_content-chitietpost">
-        <div class="row">
-            <div class="col-md-8 phai">
-                <div class="wrapper">
-                    <h1><b>{{Title}}</b></h1>
-                    <br>
-                    <br>
-                    <h2>Tóm tắt</h2>
-                    <p>{{Abstract}}</p>
-                    <br>
-                    <br>
-                    <h2>Danh mục <span class="badge badge-primary">{{CatName}}</span></h2>
-                    <br>
-                    <br>
-                    <h2>Nội Dung</h2>
-                    <div>{{{Content}}}</div>
-                </div>
-
-            </div>
-            <div class="col-md-4 trai" style="height: 85vh">
-                <div class="wrapper" style="height: 25%">
-                    <div class=" tacgia">
-                        <div>
-                            <h2>Tác giả</h2>
-                            <p>{{Writer.Name}}</p>
-                            <p>Ngày viết: <b>{{WriteTime}}</b></p>
-                            <p>Tình trạng: <span class="badge badge-primary">
-                                
-                                {{#switch StateID}}
-                                    {{#case 1}}Đã duyệt{{/case}}
-                                    {{#case 0}}Chờ duyệt{{/case}}
-                                    {{#case -2}}Chờ duyệt{{/case}}
-                                    {{#case -1}}Bị từ chối{{/case}}
-                                {{/switch}}
-                            </span></p>
-                        </div>
-
-                        <img src="http://localhost:3000/public/image/users/writers/{{Writer.ID}}/avt.jpg"
-                            alt="" srcset="">
-                    </div>
-                </div>
-                <!-- <br> -->
-                <div class="wrapper tags" style="height: 25%">
-                    <h2>Tags</h2>
-                    <div>
-                        {{#each tags}}
-                            <span class="badge badge-primary">{{Name}}</span>
-                        {{/each}}
-                    </div>
-                </div>
-                <!-- <br> -->
-                <div class="wrapper thumbnail" style="height: 40%">
-                    <h2>Ảnh đại diện</h2>
-                    <img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
-                        srcset="">
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
                     {{/each}}
                 </tbody>
             </table>
@@ -189,6 +131,68 @@
     </div>
 </div>
 
+<div class="modal_box modal_ef modal_box-chitietpost">
+    <div class="modal_content modal_content-chitietpost">
+        <div class="row">
+            <div class="col-md-8 phai">
+                <div class="wrapper">
+                    <h1><b>{{detail_post.Title}}</b></h1>
+                    <br>
+                    <br>
+                    <h2>Tóm tắt</h2>
+                    <p>{{detail_post.Abstract}}</p>
+                    <br>
+                    <br>
+                    <h2>Danh mục <span class="badge badge-primary">{{detail_post.CatName}}</span></h2>
+                    <br>
+                    <br>
+                    <h2>Nội Dung</h2>
+                    <div>{{{detail_post.Content}}}</div>
+                </div>
+
+            </div>
+            <div class="col-md-4 trai" style="height: 85vh">
+                <div class="wrapper" style="height: 25%">
+                    <div class=" tacgia">
+                        <div>
+                            <h2>Tác giả</h2>
+                            <p>{{detail_post.Writer.Name}}</p>
+                            <p>Ngày viết: <b>{{detail_post.WriteTime}}</b></p>
+                            <p>Tình trạng: <span class="badge badge-primary">
+                                
+                                {{#switch detail_post.StateID}}
+                                    {{#case 1}}Đã duyệt{{/case}}
+                                    {{#case 0}}Chờ duyệt{{/case}}
+                                    {{#case -2}}Chờ duyệt{{/case}}
+                                    {{#case -1}}Bị từ chối do {{detail_post.draft.Note}}{{/case}}
+                                {{/switch}}
+                            </span></p>
+                        </div>
+
+                        <img src="http://localhost:3000/public/image/users/writers/{{detail_post.Writer.ID}}/avt.jpg"
+                            alt="" srcset="">
+                    </div>
+                </div>
+                <!-- <br> -->
+                <div class="wrapper tags" style="height: 25%">
+                    <h2>Tags</h2>
+                    <div>
+                        {{#each detail_post.tags}}
+                            <span class="badge badge-primary">{{Name}}</span>
+                        {{/each}}
+                    </div>
+                </div>
+                <!-- <br> -->
+                <div class="wrapper thumbnail" style="height: 40%">
+                    <h2>Ảnh đại diện</h2>
+                    <img src="http://localhost:3000/public/image/posts/{{detail_post.ID}}/smallavt.jpg" alt=""
+                        srcset="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 <div class="momoaoao"></div>

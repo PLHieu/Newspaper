@@ -4,7 +4,8 @@ const cat_db = require('../models/category.model');
 const tag_db = require('../models/tag.model');
 const writer_db = require('../models/writer.model');
 const posttag_db = require('../models/post_tag.model');
-const adm_db = require('../models/admin.model')
+const adm_db = require('../models/admin.model');
+const draft_db = require('../models/draft.model');
 const reader_db = require('../models/reader.model');
 const fs = require('fs');
 var multer  = require('multer');
@@ -34,6 +35,14 @@ async function addPostTag(tagslist,postID){
         await posttag_db.add(posttag);
     }
 };
+
+router.get('/get-detail-post', async (req, res)=>{
+    const detail_post = await post_db.findPostByID(req.query.postID);
+    if (detail_post.StateID==-1){
+        detail_post.draft = await draft_db.findByPostID(req.query.postID);
+    }
+    return res.json(detail_post);
+})
 
 router.get('/profile', (req,res) => {
     res.render('user/lib/profile')
