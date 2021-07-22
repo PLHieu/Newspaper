@@ -28,13 +28,14 @@ router.post('/reject', async (req, res) => {
         Note: note,
         RateTime: new Date(),
     }
-    console.log(draft);
+    // console.log(draft);
     const post = await post_db.findByID(req.body.postID);
     if (post.StateID == -2) {
         await draft_db.delete(req.body.postID);
     }
     await post_db.changeStateID(post.ID,-1);
     await draft_db.add(draft);
+    return res.status(200).send("Thanh Cong")
     return res.redirect('/editor');
 })
 

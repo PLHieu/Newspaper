@@ -270,8 +270,6 @@ table.table.table-post tbody .thumbnail img{
 
 table.table.table-post tbody .tacgia {
     min-width: 130px;
-    display: flex;
-    align-items: center;
 }
 
 table.table.table-post tbody .tacgia img {
@@ -293,7 +291,7 @@ table.table.table-post tbody .tacgia .tacgia-thumbnail{
 }
 
 table.table.table-post tbody .td-status{
-    min-width: 110px;
+    min-width: 140px;
 }
 /* 1.2 modal box de hien thi chi tiet */
 
