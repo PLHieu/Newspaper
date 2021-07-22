@@ -44,6 +44,7 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
 
@@ -65,6 +66,7 @@
 <script src="/public/template/js/main.js"></script>
 <script>
   jQuery(document).ready(function ($) {
+    var selectedPost = 0;
 
     $('.exit-button , .momoaoao').click(function (e) {
       e.preventDefault();
@@ -75,6 +77,7 @@
     $('.clickable-row').click(function (e) {
       e.preventDefault();
       $.get(`/post/rest/${this.id}`, (data) => {
+        selectedPost = data.ID;
         console.log(data);
         $('#modalbox-Title').html(data.Title);
         $('#modalbox-Category').html(data.CatName);
@@ -90,12 +93,51 @@
         }
         $('#modalbox-Thumbnail').attr("src", `public/image/posts/${data.ID}/smallavt.jpg`);
         $('#modalbox-ButtonDuyet').attr("href", `/editor/approve?postID=${data.ID}`);
-        $('#modalbox-ButtonTuChoi').attr("href", `/editor/reject?postID=${data.ID}`);
+        // $('#modalbox-ButtonTuChoi').attr("href", `/editor/reject?postID=${data.ID}`);
       })
 
       $('.momoaoao').addClass('hienra');
       $('.modal_ef').addClass('modal_show');
     });
+
+    $('#modalbox-ButtonTuChoi').click((e) => {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Vui lòng nhập lý do từ chối !!',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Xác nhận',
+        showLoaderOnConfirm: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        preConfirm: (reason) => {
+          $.post('/editor/reject', { note_reject: reason, postID: selectedPost })
+            .fail((data, status) => {
+              Swal.showValidationMessage(
+                `Từ Chối Bài Viết Thất Bại`
+              )
+            });
+        }, allowOutsideClick: () => !Swal.isLoading()
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Từ chối bài viết thành công',
+              showConfirmButton: true,
+              confirmButtonColor: '#3085d6',
+            })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  window.location.reload()
+                }
+              })
+          }
+        })
+    })
 
   });
 
@@ -180,8 +222,10 @@
       </div>
       <div class="col-md-4 trai" style="height: 85vh">
         <div class="" style="height: 5%">
-          <a href="" id="modalbox-ButtonDuyet" type="button"  class="btn btn-success h-100 w-25 mr-3" style="border-radius: 5px; font-weight: bold; padding: 30px ;">Duyệt</a>
-          <a href="" id="modalbox-ButtonTuChoi" type="button" class="btn btn-danger h-100 w-25"style="border-radius: 5px; font-weight: bold;  padding: 30px " >Từ chối</a>
+          <a href="" id="modalbox-ButtonDuyet" type="button" class="btn btn-success h-100 w-25 mr-3"
+            style="border-radius: 5px; font-weight: bold; padding: 30px ;">Duyệt</a>
+          <a href="" id="modalbox-ButtonTuChoi" type="button" class="btn btn-danger h-100 w-25"
+            style="border-radius: 5px; font-weight: bold;  padding: 30px ">Từ chối</a>
         </div>
 
         <div class="wrapper" style="height: 20%">
