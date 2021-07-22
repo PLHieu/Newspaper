@@ -1,63 +1,251 @@
-
 {{#section 'css'}}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<style>
+  body {
+    color: #ff6b6b;
+    background: #f5f5f5;
+  }
+
+  .wrap-column {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    font-size: x-large;
+  }
+
+  .showtag {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .showtag label {
+    font-size: medium;
+    font-weight: lighter;
+    color: black;
+  }
+
+  .input-group {
+    height: 40px;
+  }
+
+  input.file-caption-name.form-control.kv-fileinput-caption {
+    height: 100%;
+  }
+
+  .file-caption.icon-visible span.file-caption-icon {
+    font-size: x-large;
+    font-weight: bold;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 4px;
+  }
+
+  .file-footer-caption {
+    margin-bottom: 0px !important;
+  }
+
+  .file-upload-indicator {
+    visibility: hidden;
+  }
+
+  .btn.btn-primary.btn-file {
+    background: #ee4a41;
+    border: none;
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .btn.btn-primary.btn-file:hover {
+    background-color: #be5853;
+  }
+
+  .btn.btn-primary.btn-file:active {
+    background-color: #be5853;
+  }
+
+  .file-preview-thumbnails {
+    display: flex;
+  }
+
+  .krajee-default.file-preview-frame {
+    margin: auto;
+    display: block;
+  }
+
+  button.kv-file-zoom.btn.btn-sm.btn-kv.btn-default.btn-outline-secondary {
+    padding: 6px;
+    border-radius: 6px;
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .input-group-btn.input-group-append {
+    height: 100%;
+  }
+
+  button.btn.btn-default.btn-secondary.fileinput-remove.fileinput-remove-button {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 3px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  button.luubaiviet {
+    padding: 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: medium;
+    height: 30px;
+  }
+
+  .kv-zoom-actions button {
+    padding: 6px;
+    border-radius: 6px;
+    font-size: large;
+    font-weight: bold;
+  }
+</style>
 {{/section}}
- 
+
 {{#section 'title'}}
 <title>APPROVE</title>
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<!-- JS -->
-    {{!-- <script src="../../public/js/template/vendor/jquery.min.js"></script>
-    <script src="../../public/js/template/main.js"></script> --}}
-<script>
-    $('#postID').attr('style', 'display:none;');
-    $('#txtDFP').datetimepicker({
-      format:'d/m/Y',
-      timepicker: false,
-      mask: true,
-      minDate: new Date()
-    }); 
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
 
-    $('#frmApproveDraft').on('submit', function (e) {
-      e.preventDefault();
-      const txtDFP = $(`#txtDFP`);
-      if (txtDFP.val().length === 0 || txtDFP.val() ===`__/__/____`) {
-        alert(`Date for Publish must not be empty`);
-        txtDFP.focus();
-        return;
-      }
-      var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-      if (checkboxes.length === 0) {
-        alert(`You must take at least one tag for your post!`);
-        return;
-      }
-      $('#frmApproveDraft').off('submit').submit();
-    });
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+  $('#postID').attr('style', 'display:none;');
+  $('#txtDFP').datetimepicker({
+    format: 'd/m/Y',
+    timepicker: false,
+    mask: true,
+    minDate: new Date()
+  });
+
+  $('#frmApproveDraft').on('submit', function (e) {
+    e.preventDefault();
+    const txtDFP = $(`#txtDFP`);
+    if (txtDFP.val().length === 0 || txtDFP.val() === `__/__/____`) {
+      swal({
+        title: "Thất bại !",
+        text: "Vui lòng chọn ngày xuất bản",
+        icon: "error",
+        button: "Đóng!",
+      });
+      return;
+    }
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    if (checkboxes.length === 0) {
+      swal({
+        title: "Thất bại !",
+        text: "Vui lòng chọn ít nhất một tag",
+        icon: "error",
+        button: "Đóng!",
+      });
+      return;
+    }
+    $('#frmApproveDraft').off('submit').submit();
+  });
 </script>
 {{/section}}
 
-<form action="" method="post" id='frmApproveDraft'>
+{{> header-top}}
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <h2 style="font-weight: bold; color:#ff6b6b">
+        Duyệt bài viết
+      </h2>
+    </div>
+  </div>
+  <br>
+  <form class="row" method="post" id='frmApproveDraft'>
     <input type="text" id="postID" name="postID" value="{{postID}}">
-    <div class="form-group">
-        <label for="txtDFP"><i class="fa fa-birthday-cake"></i></label>
-        <input type="text" name="raw_dfb" id="txtDFP" placeholder="Choose Date for Publish"/>
+    <div class="col-md-8 wrap-column mr-4">
+      <div class="form-group ">
+        <label>Tiêu đề</label>
+        <input type="text" class="form-control inputtext-wrap-inside" size="3em" value="{{aPost.Title}}" disabled>
+      </div>
+
+      <div class="form-group mt-5">
+        <label>Tóm tắt</label>
+        <textarea type="text" class="form-control inputtext-wrap-inside" disabled>{{aPost.Abstract}}</textarea>
+      </div>
+
+      <div class="form-group mt-5">
+        <label>Nội dung</label>
+        <textarea rows="20" class="form-control" disabled>{{aPost.Content}}</textarea>
+      </div>
+
+      {{!-- <div class="form-group" style="margin-top: 2rem !important">
+        <label>Cover</label>
+        <input type="file" name="cover" id="fCover" class="form-control d-block" />
+      </div> --}}
     </div>
 
-    <div class="form-group wrap-column " style="height: 180px;">
-        <label for="selectedCat">Select Category</label>
+    <div class="col-md-3 ">
+      <div class="form-group wrap-column ">
+        <label for="selectedCat">Danh mục</label>
         <select class="form-control" id="selectedCat" name="category">
           {{#each this.list_cat}}
           <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
           {{/each}}
         </select>
-    </div>
 
+        <div class="form-group" style="margin-top: 2rem !important">
+          <label for="txtDFP"><i class="fa fa-birthday-cake"></i> Ngày Xuất Bản</label>
+          <input type="text" class="form-control inputtext-wrap-inside" name="raw_dfb" id="txtDFP"
+            placeholder="Choose Date for Publish" />
+        </div>
+      </div>
 
-    <div class="form-group wrap-column" style="margin-top: 2rem !important">
-        <label for="selectedTag">Select Tags</label>
+      <div class="form-group wrap-column" style="margin-top: 2rem !important">
+        <label for="selectedTag">Tags</label>
         <div class="div d-flex  showtag">
           {{#each this.list_tag}}
 
@@ -72,5 +260,12 @@
         </div>
       </div>
 
-      <button type="submit">SUBMIT</button>
-</form>
+      <div class="form-group" style="margin-top: 2rem !important">
+        <button type="submit" class="btn custom-btn w-100 luubaiviet">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+  <br>
+</div>

@@ -13,14 +13,6 @@ const bcrypt = require('bcryptjs');
 
 router.get('/', editorPage)
 
-router.get('/consider-a-post', async function (req, res){
-    const PostID = req.query.postID;
-    const post = await post_db.findByID(PostID);
-    res.render('user/editor/view_post',{
-        post
-    })
-})
-
 router.get('/reject',(req, res) => {
     const PostID = req.query.postID;
     return res.render('user/editor/reject',{
@@ -63,6 +55,7 @@ router.get('/approve', async function (req, res) {
     }
     return res.render('user/editor/approve',{
         postID: PostID,
+        aPost,
         list_tag,
         list_cat
     })
