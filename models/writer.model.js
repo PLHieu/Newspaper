@@ -46,4 +46,13 @@ module.exports = {
         NickName: nickname
       });
     },
+
+    async findNameByID(id){
+      const rows = await db('Writers')
+      .where('ID', id)
+      .select('NickName');
+      if (rows.length === 0)
+        return null;
+      return rows[0].NickName;
+    },
 }

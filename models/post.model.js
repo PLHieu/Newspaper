@@ -239,6 +239,7 @@ module.exports = {
     async findDraftPostsByCatID(catID){
         const rows = await db('Posts').whereNotIn('StateID', [1,-1]).andWhere('CatID', catID).orderBy('WriteTime');
         for (let i = 0; i < rows.length; i++){
+            rows[i].WriterName = await writer_db.findNameByID(rows[i].WriterID);
             rows[i].tags = await posttag_db.findTagsByPostID(rows[i].ID);
         }
         return rows;

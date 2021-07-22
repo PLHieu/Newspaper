@@ -1,45 +1,211 @@
-
 {{#section 'css'}}
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+<style>
+  .clickable-row:hover {
+    cursor: pointer;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(102, 102, 102);
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #757575;
+  }
+</style>
 {{/section}}
 
 {{#section 'title'}}
-<title>Editor</title>
+<title>Quản lý bài viết - Editor</title>
 {{/section}}
 
 {{#section 'js'}}
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 <script>
-    jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
+  jQuery(document).ready(function ($) {
+
+    $('.exit-button , .momoaoao').click(function (e) {
+      e.preventDefault();
+      $('.momoaoao').removeClass('hienra');
+      $('.modal_box').removeClass('modal_show');
     });
-});
+
+    $('.clickable-row').click(function (e) {
+      e.preventDefault();
+      $.get(`/post/rest/${this.id}`, (data) => {
+        console.log(data);
+        $('#modalbox-Title').html(data.Title);
+        $('#modalbox-Category').html(data.CatName);
+        $('#modalbox-Content').html(data.Content);
+        $('#modalbox-Abstract').html(data.Abstract);
+        $('#modalbox-WriterName').html(data.Writer.NickName);
+        $('#modalbox-WriteTime').html(data.WriteTime);
+        $('#modalbox-Tags').empty();
+        if (data.tags) {
+          for (let i = 0; i < data.tags.length; i++) {
+            $('#modalbox-Tags').append(`<span class="badge badge-primary">${data.tags[i].Name}</span>`);
+          }
+        }
+        $('#modalbox-Thumbnail').attr("src", `public/image/posts/${data.ID}/smallavt.jpg`);
+        $('#modalbox-ButtonDuyet').attr("href", `/editor/approve?postID=${data.ID}`);
+        $('#modalbox-ButtonTuChoi').attr("href", `/editor/reject?postID=${data.ID}`);
+      })
+
+      $('.momoaoao').addClass('hienra');
+      $('.modal_ef').addClass('modal_show');
+    });
+
+  });
+
+  function firstChar(word) {
+    return word.charAt(0);
+  }
 </script>
 {{/section}}
 
+{{>header-top}}
+<div class="container">
+  <div class="table-responsive">
+    <div class="table-wrapper pb-0">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-5">
+            <h2>Quản lý <b>Bài viết</b></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="table-wrapper">
+      <table class="table table-striped table-hover table-post">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Tóm tắt</th>
+            <th>Ngày viết</th>
+            <th>Tác giả</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each posts}}
+          <tr class="clickable-row" id="{{ID}}">
+            <td>{{ID}}</td>
+            <td class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
+                srcset=""></td>
+            <td>{{Title}}</td>
+            <td>{{Abstract}}</td>
+            <td>{{WriteTime}}</td>
+            <td class="tacgia">
+              <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
+                <span>{{firstChar WriterName}}</span>
+              </div>
+              <span>{{WriterName}}</span>
+            </td>
+            <td class="td-status"><span class="status                
+              {{#eq StateID 0}} text-warning">&bull;</span> Chờ duyệt
+              {{else}} text-danger">&bull;</span> Bị từ chối
+              {{/eq}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">PostID</th>
-      <th scope="col" colspan="3">Title</th>
-      <th scope="col" colspan="6">Abstract</th>
-      <th scope="col" colspan="2">WriteTime</th>
-      <th scope="col">State</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each posts}}
-    <tr class='clickable-row' data-href='/editor/consider-a-post?postID={{ID}}'>
-      <th scope="row">{{ID}}</th>
-      <td colspan="3">{{Title}}</td>
-      <td colspan="6">{{Abstract}}</td>
-      <td colspan="2">{{WriteTime}}</td>
-      <td>
-        {{#eq StateID 0}} Pending
-        {{else}} Rejected
-        {{/eq}}
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+<div class="momoaoao"></div>
+
+<div class="modal_box modal_ef modal_box-chitietpost">
+  <div class="modal_content modal_content-chitietpost">
+    <div class="row">
+      <div class="col-md-8 phai">
+        <div class="wrapper">
+          <h1><b id="modalbox-Title"></b></h1>
+          <br>
+          <h2>Danh mục <span class="badge badge-primary" id="modalbox-Category"></span></h2>
+          <br>
+          <h2>Tóm tắt</h2>
+          <p id="modalbox-Abstract"></p>
+          <br>
+          <h2>Nội dung</h2>
+          <div id="modalbox-Content"></div>
+        </div>
+
+      </div>
+      <div class="col-md-4 trai" style="height: 85vh">
+        <div class="" style="height: 5%">
+          <a href="" id="modalbox-ButtonDuyet" type="button"  class="btn btn-success h-100 w-25 mr-3" style="border-radius: 5px; font-weight: bold; padding: 30px ;">Duyệt</a>
+          <a href="" id="modalbox-ButtonTuChoi" type="button" class="btn btn-danger h-100 w-25"style="border-radius: 5px; font-weight: bold;  padding: 30px " >Từ chối</a>
+        </div>
+
+        <div class="wrapper" style="height: 20%">
+          <div class=" tacgia">
+            <div>
+              <h2>Tác giả</h2>
+              <p id="modalbox-WriterName"></p>
+              <p>Ngày viết: <b id="modalbox-WriteTime"></b></p>
+            </div>
+          </div>
+        </div>
+        <!-- <br> -->
+        <div class="wrapper tags" style="height: 25%">
+          <h2>Tags</h2>
+          <div id="modalbox-Tags">
+          </div>
+        </div>
+        <!-- <br> -->
+        <div class="wrapper thumbnail" style="height: 40%">
+          <h2>Ảnh đại diện</h2>
+          <img id="modalbox-Thumbnail" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
