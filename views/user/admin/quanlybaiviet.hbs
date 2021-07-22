@@ -2,7 +2,24 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
 <style>
+    .active_page{
+        background-color: rgb(216, 2, 134);
+        color: red;
+    }
     /* width */
     ::-webkit-scrollbar {
         width: 10px;
@@ -126,6 +143,32 @@
                 </tbody>
             </table>
             <br>
+            <!--Start pagination -->
+            <div class="whats-news-wrapper mb-3">
+                <nav class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a href="http://localhost:3000/admin/post/manage?page={{prev_page}}"
+                                class="page-link" aria-label="Previous">
+                                <i class="ti-angle-left"></i>
+                            </a>
+                        </li>
+                        {{#each this.list_page}}
+                        <li class="page-item">
+                            <a href="http://localhost:3000/admin/post/manage?page={{page}}"
+                                class="page-link {{#eq page cur_page}}active_page{{/eq}}">{{page}}</a>
+                        </li>
+                        {{/each}}
+                        <li class="page-item">
+                            <a href="http://localhost:3000/admin/post/manage?page={{next_page}}"
+                                    class="page-link" aria-label="Next">
+                                <i class="ti-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- End pagination  -->
             <br>
         </div>
     </div>

@@ -83,12 +83,28 @@ router.get('/category/manage', function(req, res) {
     return res.render('user/admin/quanlycate')
 });
 router.get('/post/manage', async function(req, res) {
-    const list_posts = await post_db.all();
-    for (let i = 0; i < list_posts.length; i++) {
-        list_posts[i] = await post_db.findPostByID(list_posts[i].ID);
+    const all_posts = await post_db.all();
+    const offset = 10;
+    const page = parseInt(req.query.page) || 1;
+    const start_post = (page - 1) * offset;
+    const end_post = start_post + offset;
+    let list_posts = []
+    for (var i = start_post; i < end_post && i < all_posts.length; i++) {
+        post = all_posts[i];
+        post = await post_db.findPostByID(post.ID);
+        list_posts.push(post);
+    }
+    const num_page = parseInt(all_posts.length / offset) + 1;
+    let list_page = [];
+    for (let i = 1; i <= num_page; i++) {
+        list_page.push({ 'page': i , 'cur_page':page})
     }
     return res.render('user/admin/quanlybaiviet',{
-        list_posts
+        list_posts,
+        list_page,
+        cur_page: page,
+        prev_page: page == 1 ? 1 : page - 1,
+        next_page: page == num_page ? num_page : page + 1,
     })
 });
 router.get('/user/acceptsub', async function(req, res) {
