@@ -13,6 +13,11 @@ module.exports = {
         return null;
    },
 
+   async countPostInTags(tagID){
+        const list_posts = await db('PostTag').where('TagID',tagID);
+        return list_posts.length;
+   },
+
    add(postTag){
     return db('PostTag').insert(postTag);
    },
