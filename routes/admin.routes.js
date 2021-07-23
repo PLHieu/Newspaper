@@ -36,6 +36,16 @@ async function addPostTag(tagslist,postID){
     }
 };
 
+function sorted_obj(obj) {
+    let items = Object.keys(obj).map(function(key) {
+        return [key, obj[key]];
+    });
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    return items;
+} 
+
 router.get('/get-detail-post', async (req, res)=>{
     const detail_post = await post_db.findPostByID(req.query.postID);
     if (detail_post.StateID==-1){
@@ -81,6 +91,20 @@ router.get('/user/manage', async function(req, res) {
 });
 router.get('/category/manage', function(req, res) {
     return res.render('user/admin/quanlycate')
+});
+router.get('/tag/manage', async function(req, res) {
+    const list_tags = await tag_db.allTags();
+    let dic_num_post_in_tag = {};
+    for (let i = 0; i < list_tags.length; i++) {
+        list_tags[i].num_posts = await posttag_db.countPostInTags(list_tags[i].ID);
+        dic_num_post_in_tag[list_tags[i].ID] = list_tags[i].num_posts;
+    }
+    dic_num_post_in_tag = sorted_obj(dic_num_post_in_tag);
+    console.log(dic_num_post_in_tag);
+    return res.render('user/admin/quanlytag',{
+        list_tags,
+        dic_num_post_in_tag
+    });
 });
 router.get('/post/manage', async function(req, res) {
     const all_posts = await post_db.all();
