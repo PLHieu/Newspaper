@@ -106,6 +106,19 @@ router.get('/tag/manage', async function(req, res) {
         dic_num_post_in_tag
     });
 });
+router.post('/tag/add', async function(req, res){
+    await tag_db.add(req.body.tag_name);
+    res.json(`Bạn đã thêm tag <b>${req.body.tag_name}</b> thành công.`);
+})
+router.get('/tag/existed-tag', async function (req, res){
+    const tag = await tag_db.findByTagName(req.query.tagName);
+    if (tag === null)
+        return res.json(false);
+    return res.json(true);
+})
+router.get('/tag/edit', (req, res)=>{
+
+});
 router.get('/tag/del', async function(req, res){
     await tag_db.del(req.query.tagID);
     return res.redirect('/admin/tag/manage');
