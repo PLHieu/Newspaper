@@ -130,7 +130,7 @@ table.table .avatar {
     font-size: 13px;
     min-width: 30px;
     min-height: 30px;
-    color: #999;
+    color: rgb(0, 0, 0);
     margin: 0 2px;
     line-height: 30px;
     border-radius: 2px !important;
@@ -138,7 +138,8 @@ table.table .avatar {
     padding: 0 6px;
 }
 .pagination li a:hover {
-    color: #666;
+    color: white;
+    background-color:#d63031 ;
 }	
 .pagination li.active a, .pagination li.active a.page-link {
     background: #EE4A41;
@@ -288,6 +289,7 @@ table.table.table-post tbody .tacgia .tacgia-thumbnail{
     justify-content: center;
     color: white;
     font-weight: bold;
+    padding: 10px;
 }
 
 table.table.table-post tbody .td-status{
@@ -434,10 +436,9 @@ table.table.table-post tbody .td-status{
     height: 85vh;
 }
 
-.modal_content.modal_content-chitietpost .tags div {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.modal_content.modal_content-chitietpost .tags div span{
+    font-size: medium;
+    margin-right: 5px;
 }
 
 .modal_content.modal_content-chitietpost .tacgia {

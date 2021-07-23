@@ -1,9 +1,5 @@
 {{#section 'css'}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
-
-<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/public/template/css/ticker-style.css">
 <link rel="stylesheet" href="/public/template/css/flaticon.css">
 <link rel="stylesheet" href="/public/template/css/slicknav.css">
@@ -14,12 +10,14 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
-<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
 <style>
-    .active_page{
-        background-color: rgb(216, 2, 134);
-        color: red;
+    .active_page {
+        background-color: #d63031;
+        color: white !important;
     }
+
     /* width */
     ::-webkit-scrollbar {
         width: 10px;
@@ -33,18 +31,38 @@
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-        background: rgb(255, 255, 255);
+        background: rgb(102, 102, 102);
         border-radius: 10px;
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #ffffff;
+        background: #757575;
     }
 </style>
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -59,19 +77,40 @@
         $('.xemchitiet').click(function (e) {
             e.preventDefault();
             const postID = $(this).get(0).id;
-            console.log(postID);
+            // console.log(postID);
             $.getJSON(`/admin/get-detail-post?postID=${postID}`, function (data) {
                 console.log(data);
+                $('#modalbox-Title').html(data.Title);
+                $('#modalbox-Category').html(data.CatName);
+                $('#modalbox-Content').html(data.Content);
+                $('#modalbox-Abstract').html(data.Abstract);
+                $('#modalbox-WriterName').html(data.Writer.NickName);
+                $('#modalbox-WriteTime').html(data.WriteTime);
+                $('#modalbox-Tags').empty();
+                if (data.tags) {
+                    for (let i = 0; i < data.tags.length; i++) {
+                        $('#modalbox-Tags').append(`<span class="badge badge-primary">${data.tags[i].Name}</span>`);
+                    }
+                }
+                if (data.StateID == 0) {
+                    $('#modalbox-State').html(`<span class="text-warning">&bull; Chờ duyệt</span>`)
+                } else if (data.StateID == -2) {
+                    $('#modalbox-State').html(`<span class="text-warning">&bull; Chờ duyệt</span>`)
+                } else if (data.StateID == 1) {
+                    $('#modalbox-State').html(`<span class="text-success">&bull; Đã duyệt</span>`)
+                } else if (data.StateID == -1) {
+                    $('#modalbox-State').html(`<span class="text-danger">&bull; Bị từ chối</span>`)
+                }
+
+                $('#modalbox-Thumbnail').attr("src", `/public/image/posts/${data.ID}/smallavt.jpg`);
                 $('.momoaoao').addClass('hienra');
                 $('.modal_ef').addClass('modal_show');
             })
-            //TODO: goi ajax
-
         });
     });
 </script>
 {{/section}}
-
+{{> header-top}}
 <div class="container">
     <div class="table-responsive">
         <div class="table-wrapper pb-0">
@@ -93,7 +132,7 @@
             <table class="table table-striped table-hover table-post">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Thumbails</th>
                         <th>Tiêu đề</th>
                         <th>Ngày viết</th>
@@ -108,24 +147,27 @@
                     {{#each list_posts}}
                     <tr>
                         <td>{{math @index '+' 1}}</td>
-                        <td class="thumbnail"><img
-                                src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg"
+                        <td class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg"
                                 alt="" srcset=""></td>
                         <td>{{Title}}</td>
                         <td>{{WriteTime}}</td>
                         <td>{{PubTime}}</td>
                         <td class="tacgia">
-                            <img src="http://localhost:3000/public/image/users/writers/{{Writer.ID}}/avt.jpg" alt="" srcset="">
-                            {{Writer.Name}}
+                            <div class="d-flex align-items-center">
+                                <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
+                                    <span>{{firstChar Writer.NickName}}</span>
+                                </div>
+                                <span>{{Writer.NickName}}</span>
+                            </div>
                         </td>
-                        <td><span class="badge badge-pill badge-primary">{{CatName}}</span></td>
+                        <td><span class="badge badge-pill badge-danger">{{CatName}}</span></td>
                         <td class="td-status"><span class="status 
                         {{#switch StateID}}
                             {{#case 1}}text-success">&bull;</span> Đã duyệt{{/case}}
                             {{#case 0}}text-warning">&bull;</span> Chờ duyệt{{/case}}
                             {{#case -2}}text-warning">&bull;</span> Chờ duyệt{{/case}}
                             {{#case -1}}text-danger">&bull;</span> Bị từ chối{{/case}}
-                        {{/switch}}
+                            {{/switch}}
                         </td>
                         <td class="dropleft">
                             <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -144,12 +186,11 @@
             </table>
             <br>
             <!--Start pagination -->
-            <div class="whats-news-wrapper mb-3">
-                <nav class="justify-content-center d-flex">
+           <nav class="justify-content-center d-flex">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a href="http://localhost:3000/admin/post/manage?page={{prev_page}}"
-                                class="page-link" aria-label="Previous">
+                            <a href="http://localhost:3000/admin/post/manage?page={{prev_page}}" class="page-link"
+                                aria-label="Previous">
                                 <i class="ti-angle-left"></i>
                             </a>
                         </li>
@@ -160,14 +201,13 @@
                         </li>
                         {{/each}}
                         <li class="page-item">
-                            <a href="http://localhost:3000/admin/post/manage?page={{next_page}}"
-                                    class="page-link" aria-label="Next">
+                            <a href="http://localhost:3000/admin/post/manage?page={{next_page}}" class="page-link"
+                                aria-label="Next">
                                 <i class="ti-angle-right"></i>
                             </a>
                         </li>
                     </ul>
                 </nav>
-            </div>
             <!-- End pagination  -->
             <br>
         </div>
@@ -179,57 +219,40 @@
         <div class="row">
             <div class="col-md-8 phai">
                 <div class="wrapper">
-                    <h1><b>{{detail_post.Title}}</b></h1>
-                    <br>
+                    <h1><b id="modalbox-Title"></b></h1>
                     <br>
                     <h2>Tóm tắt</h2>
-                    <p>{{detail_post.Abstract}}</p>
+                    <p id="modalbox-Abstract"></p>
                     <br>
-                    <br>
-                    <h2>Danh mục <span class="badge badge-primary">{{detail_post.CatName}}</span></h2>
-                    <br>
+                    <h2>Danh mục <span class="badge badge-primary" id="modalbox-Category"></span></h2>
                     <br>
                     <h2>Nội Dung</h2>
-                    <div>{{{detail_post.Content}}}</div>
+                    <div id="modalbox-Content"></div>
                 </div>
 
             </div>
             <div class="col-md-4 trai" style="height: 85vh">
                 <div class="wrapper" style="height: 25%">
-                    <div class=" tacgia">
+                    <div class="tacgia">
                         <div>
                             <h2>Tác giả</h2>
-                            <p>{{detail_post.Writer.Name}}</p>
-                            <p>Ngày viết: <b>{{detail_post.WriteTime}}</b></p>
-                            <p>Tình trạng: <span class="badge badge-primary">
-                                
-                                {{#switch detail_post.StateID}}
-                                    {{#case 1}}Đã duyệt{{/case}}
-                                    {{#case 0}}Chờ duyệt{{/case}}
-                                    {{#case -2}}Chờ duyệt{{/case}}
-                                    {{#case -1}}Bị từ chối do {{detail_post.draft.Note}}{{/case}}
-                                {{/switch}}
-                            </span></p>
+                            <p id="modalbox-WriterName" class="mb-0"></p>
+                            <p class="mb-0">Ngày viết: <b id="modalbox-WriteTime"></b></p>
+                            <span class="mb-0">Tình trạng: </span>
+                            <div id="modalbox-State" class="d-inline-block"></div>
                         </div>
-
-                        <img src="http://localhost:3000/public/image/users/writers/{{detail_post.Writer.ID}}/avt.jpg"
-                            alt="" srcset="">
                     </div>
                 </div>
                 <!-- <br> -->
                 <div class="wrapper tags" style="height: 25%">
                     <h2>Tags</h2>
-                    <div>
-                        {{#each detail_post.tags}}
-                            <span class="badge badge-primary">{{Name}}</span>
-                        {{/each}}
+                    <div id="modalbox-Tags">
                     </div>
                 </div>
                 <!-- <br> -->
                 <div class="wrapper thumbnail" style="height: 40%">
                     <h2>Ảnh đại diện</h2>
-                    <img src="http://localhost:3000/public/image/posts/{{detail_post.ID}}/smallavt.jpg" alt=""
-                        srcset="">
+                    <img id="modalbox-Thumbnail" />
                 </div>
             </div>
         </div>
