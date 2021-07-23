@@ -22,12 +22,12 @@
     }
 
     .card{
-    border-radius: 4px;
-    background: #fff;
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-    /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
-    cursor: pointer;
-}
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        cursor: pointer;
+    }
 
     .card:hover{
         /*transform: scale(1.05); */
@@ -59,11 +59,6 @@
 {{/section}}
 
 {{#section 'js'}}
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
 {{/section}}
 
 <div class="container">
@@ -90,21 +85,19 @@
         <div class="table-wrapper">
             <div class="row">
                 {{#each list_tags}}
-                <div class=" card col_sm-6 col-md-4 col-lg-3 mb-4 rounded hover-shadow">
-                    
+                <div class=" card col_sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card-image">
                             <h4 class="text-danger d-inline text-center pl-2 pt-2">#{{Name}}</h4>
                         </div>
                         <span class="card-title d-flex justify-content-between pl-5 pt-3">{{num_posts}} bài viết
                             <i class=" material-icons right" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">more_vert</i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/admin/post/manage?tagID={{ID}}" id="{{ID}}">Danh sách bài viết</a>
+                            <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item"{{#eq num_posts 0}} data-toggle="modal" data-target="#myModal"{{else}} href="/admin/post/manage?tagID={{ID}}&tagName={{Name}}"{{/eq}}>Danh sách bài viết</a>
                                 <a class="dropdown-item" href="/admin/tag/edit?tagID={{ID}}">Chỉnh sửa</a>
                                 <a class="dropdown-item" href="/admin/tag/del?tagID={{ID}}">Xóa</a>
                             </div>
                         </span>
-                    
                 </div>
                 {{/each}}
             </div>
@@ -112,4 +105,23 @@
             <br>
         </div>
     </div>
+</div>
+
+<div id="myModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Thông báo</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class='lead'>Không có bài viết gắn tag này.</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

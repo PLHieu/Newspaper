@@ -11,4 +11,8 @@ module.exports = {
           return null;
         return rows[0];
     },
+
+    del(tagID){
+        return db('Tags').where('ID', tagID).del();
+    }
 }

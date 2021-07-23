@@ -106,8 +106,21 @@ router.get('/tag/manage', async function(req, res) {
         dic_num_post_in_tag
     });
 });
+router.get('/tag/del', async function(req, res){
+    await tag_db.del(req.query.tagID);
+    return res.redirect('/admin/tag/manage');
+})
+
 router.get('/post/manage', async function(req, res) {
-    const all_posts = await post_db.all();
+    let all_posts = null;
+    const tag_name = req.query.tagName || null;
+    if (req.query.tagID){
+        all_posts = await posttag_db.findPostByTagID(req.query.tagID);
+        for (let i = 0; i < all_posts.length; i++) {
+            all_posts[i] = await post_db.findPostByID(all_posts[i].PostID);
+        }
+    }
+    else all_posts = await post_db.all();
     const offset = 10;
     const page = parseInt(req.query.page) || 1;
     const start_post = (page - 1) * offset;
@@ -124,6 +137,7 @@ router.get('/post/manage', async function(req, res) {
         list_page.push({ 'page': i , 'cur_page':page})
     }
     return res.render('user/admin/quanlybaiviet',{
+        tag_name,
         list_posts,
         list_page,
         cur_page: page,
@@ -279,7 +293,7 @@ router.post('/post/del', async function(req, res) {
 });
 
 router.get('/', function(req, res) {
-    return res.redirect('/admin/manageuser')
+    return res.redirect('/admin/user/manage')
 });
 
 router.get('/post/is_duplicate_post', async function(req, res) {

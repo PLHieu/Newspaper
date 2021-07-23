@@ -153,7 +153,9 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-5">
-                        <h2>Quản lý <b>Bài viết</b></h2>
+                        <h2>Quản lý <b>Bài viết</b>
+                        {{#if tag_name}}cho tag <b class="text-danger">{{tag_name}}</b>{{/if}}
+                        </h2>
                     </div>
                     <div class="col-sm-7">
                         <a href="/admin/post/add" class="btn btn-secondary d-flex align-items-center"><i
@@ -221,6 +223,8 @@
                 </tbody>
             </table>
             <br>
+            {{#if tag_name}}
+            {{else}}
             <!--Start pagination -->
             <nav class="justify-content-center d-flex">
                 <ul class="pagination">
@@ -245,6 +249,7 @@
                 </ul>
             </nav>
             <!-- End pagination  -->
+            {{/if}}
             <br>
         </div>
     </div>
