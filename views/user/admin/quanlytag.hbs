@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
 <link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
     .active_page{
         background-color: rgb(216, 2, 134);
@@ -60,8 +61,64 @@
 
 {{#section 'js'}}
 <script>
+    var myChart = new Chart($('#tagChart'),{
+        type: 'bar',
+        data: {
+            labels: `{{label_chart}}`.split(","),
+            datasets: [{
+                label: 'Số bài viết',
+                backgroundColor: '#3085d6',
+                data: [{{data_chart}}],
+                hoverBackgroundColor: 'rgb(255, 99, 132)',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: '15 tags nhiều bài viết nhất',
+                    color: '#911',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                        lineHeight: 2,
+                    },
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Tags',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Số bài viết',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    },
+                    beginAtZero: true,
+                    ticks: {stepSize: 1}
+                }
+            }
+        }
+    });
     $("#addTagFrm").on("submit", function(e) {
-
         var postData = $(this).serializeArray();
         console.log(postData);
         var formURL = $(this).attr("action");
@@ -129,25 +186,29 @@
             </div>
         </div>
         <br>
-        <div class="table-wrapper mb-4">
-            Hiển thị 20 tags có nhiều bài viết nhất
+        <div class="table-wrapper mb-4 w-75" style="margin:0 auto;text-align:center">
+            <div><canvas id="tagChart" height="100px"></canvas></div>
         </div>
         <div class="table-wrapper">
+            <h1 style="margin:0 auto;text-align:center" class='mb-4'>Danh sách tags</h1>
+            <br>
             <div class="row">
                 {{#each list_tags}}
-                <div class=" card col_sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="col_sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card">
                         <div class="card-image">
-                            <h4 class="text-danger d-inline text-center pl-2 pt-2">#{{Name}}</h4>
+                            <h4 class="text-danger ml-2 mt-2">#{{Name}}</h4>
                         </div>
-                        <span class="card-title d-flex justify-content-between pl-5 pt-3">{{num_posts}} bài viết
+                        <span class="card-title d-flex justify-content-between pl-5 pt-2">{{num_posts}} bài viết
                             <i class=" material-icons right" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">more_vert</i>
-                            <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item"{{#eq num_posts 0}} data-toggle="modal" data-target="#no_post"{{else}} href="/admin/post/manage?tagID={{ID}}&tagName={{Name}}"{{/eq}}>Danh sách bài viết</a>
-                                <a class="dropdown-item" href="/admin/tag/edit?tagID={{ID}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/tag/del?tagID={{ID}}">Xóa</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #ccc9c8;">
+                                <a class="dropdown-item text-dark"{{#eq num_posts 0}} data-toggle="modal" data-target="#no_post"{{else}} href="/admin/post/manage?tagID={{ID}}&tagName={{Name}}"{{/eq}}>Danh sách bài viết</a>
+                                <a class="dropdown-item" href="/admin/tag/edit?tagID={{ID}}" style="display:none;">Chỉnh sửa</a>
+                                <a class="dropdown-item text-danger" href="/admin/tag/del?tagID={{ID}}">Xóa</a>
                             </div>
                         </span>
+                    </div>
                 </div>
                 {{/each}}
             </div>

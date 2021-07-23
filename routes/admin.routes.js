@@ -37,13 +37,14 @@ async function addPostTag(tagslist,postID){
 };
 
 function sorted_obj(obj) {
+    const n_commonTag = 15;
     let items = Object.keys(obj).map(function(key) {
         return [key, obj[key]];
     });
     items.sort(function(first, second) {
         return second[1] - first[1];
     });
-    return items;
+    return items.slice(0, n_commonTag);
 } 
 
 router.get('/get-detail-post', async (req, res)=>{
@@ -97,13 +98,21 @@ router.get('/tag/manage', async function(req, res) {
     let dic_num_post_in_tag = {};
     for (let i = 0; i < list_tags.length; i++) {
         list_tags[i].num_posts = await posttag_db.countPostInTags(list_tags[i].ID);
-        dic_num_post_in_tag[list_tags[i].ID] = list_tags[i].num_posts;
+        dic_num_post_in_tag[list_tags[i].Name] = list_tags[i].num_posts;
     }
     dic_num_post_in_tag = sorted_obj(dic_num_post_in_tag);
-    console.log(dic_num_post_in_tag);
+    //console.log(dic_num_post_in_tag);
+    let label_chart = [];
+    let data_chart = [];
+    for (let i = 0; i < dic_num_post_in_tag.length; i++){
+        label_chart.push(dic_num_post_in_tag[i][0])
+        data_chart.push(dic_num_post_in_tag[i][1])
+    }
+    //console.log(data_chart)
     return res.render('user/admin/quanlytag',{
         list_tags,
-        dic_num_post_in_tag
+        label_chart,
+        data_chart,
     });
 });
 router.post('/tag/add', async function(req, res){
@@ -116,9 +125,9 @@ router.get('/tag/existed-tag', async function (req, res){
         return res.json(false);
     return res.json(true);
 })
-router.get('/tag/edit', (req, res)=>{
-
-});
+// router.get('/tag/edit', (req, res)=>{
+    
+// });
 router.get('/tag/del', async function(req, res){
     await tag_db.del(req.query.tagID);
     return res.redirect('/admin/tag/manage');
