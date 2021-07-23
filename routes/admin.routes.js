@@ -268,9 +268,14 @@ router.post('/post/edit', (req, res) => {
         }
     });
 });
-router.get('/post/del', async function(req, res) {
-    await post_db.delPost(req.query.postID);
-    return res.redirect('/admin/post/manage');
+router.post('/post/del', async function(req, res) {
+    try{
+        await post_db.delPost(req.body.postID);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
 
 router.get('/', function(req, res) {
