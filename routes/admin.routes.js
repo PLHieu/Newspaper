@@ -7,11 +7,15 @@ const posttag_db = require('../models/post_tag.model');
 const adm_db = require('../models/admin.model');
 const draft_db = require('../models/draft.model');
 const reader_db = require('../models/reader.model');
+const editor_db = require('../models/editor.model');
 const fs = require('fs');
 var multer  = require('multer');
+const moment = require('moment');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const { writer } = require("repl");
+const { now } = require("moment");
 
 function updateCoverPost(postID){
     var oldPath = './public/image/posts/bigavt.jpg'
@@ -74,9 +78,16 @@ router.put('/profile',  async function(req,res){
 
 router.get('/user/manage', async function(req, res) {
     const list_reader_subPre = await reader_db.findListSubPremium();
-    console.log(list_reader_subPre);
+    //console.log(list_reader_subPre);
+    const list_reader = await reader_db.findAll();
+    const list_editor = await editor_db.allEditor();
+    const list_writer = await writer_db.findAll();
+    //console.log(list_reader);
     return res.render('user/admin/quanlyuser', {
         subPremium: list_reader_subPre,
+        editor: list_editor,
+        writer: list_writer,
+        subcriber: list_reader,
     })
 });
 router.get('/category/manage', function(req, res) {
@@ -109,11 +120,212 @@ router.get('/post/manage', async function(req, res) {
 });
 router.get('/user/acceptsub', async function(req, res) {
     //await post_db.delPost(req.query.postID);
-    console.log(req.query.userid);
+   // console.log(req.query.userid);
     await reader_db.AcceptPremium(req.query.userid);
     return res.redirect('back');
 });
+router.get('/getinforsubcriber', async function(req, res) {
+    //console.log(req.query.userid);
+    let reader = await reader_db.findByID(req.query.userid);
+    reader.BirthDay = moment(reader.BirthDay).format('DD/MM/YYYY');
+    //console.log(reader);
+    return res.json(reader);
+});
+router.get('/getinforeditor', async function(req, res) {
+    console.log(req.query.userid);
+    let editor = await editor_db.findByID(req.query.userid);
+    let catename = await cat_db.getCategory(editor.CatID);
+    editor.CateName = catename.Name;
+    editor.BirthDay = moment(editor.BirthDay).format('DD/MM/YYYY');
+    //console.log(editor);
+    return res.json(editor);
+});
+router.get('/getinforwriter', async function(req, res) {
+    console.log(req.query.userid);
+    let writer = await writer_db.findByID(req.query.userid);
+    writer.BirthDay = moment(writer.BirthDay).format('DD/MM/YYYY');
+    console.log(writer);
+    return res.json(writer);
+});
+router.get('/user/edit/writer', async function(req, res){
+    id_user = req.query.userid;
+    user = await writer_db.findByID(id_user);
+    user.BirthDay = moment(user.BirthDay).format('DD/MM/YYYY');
+    user.writer = 1;
+    user.editor = null;
+    user.sub = null;
+    //console.log(aPost);
+    return res.render('user/lib/edit-profile-admin',{
+        user: user,
+    })
+})
+router.get('/user/edit/editor', async function(req, res){
+    id_user = req.query.userid;
+    user = await editor_db.findByID(id_user);
+    let catename = await cat_db.getCategory(user.CatID);
+    user.BirthDay = moment(user.BirthDay).format('DD/MM/YYYY');
+    user.CateName = catename.Name;
+    //console.log(editor);
+    user.writer = null;
+    user.editor = 1;
+    user.sub = null;
+    list_cat = await cat_db.all();
+    //list_tag = await tag_db.allTags();
+    //list_writer = await writer_db.findAll();
+    for (let i = 0; i < list_cat.length; i++) {
+        if (user.CatID == list_cat[i].ID)
+            list_cat[i].selected = true;
+        else list_cat[i].selected = false;
+    }
+    //console.log(aPost);
+    return res.render('user/lib/edit-profile-admin',{
+        user: user,
+        list_cat,
+    })
+})
+router.get('/user/edit/subcriber', async function(req, res){
+    id_user = req.query.userid;
+    user = await reader_db.findByID(id_user);
+    if(user.ExpTime){
+        
+    user.ExpTime = moment(user.ExpTime).format('DD/MM/YYYY, HH:MM:SS');
+    }
+    user.BirthDay = moment(user.BirthDay).format('DD/MM/YYYY');
+    user.writer = null;
+    user.editor = null;
+    user.sub = 1;
+    console.log(user);
+    return res.render('user/lib/edit-profile-admin',{
+        user: user,
+    })
+})
+router.post('/user/edit/subcriber', async function(req, res){
+    await reader_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address );
+    
+    res.redirect('/admin/user/manage');
+})
+router.post('/user/edit/editor', async function(req, res){
+    await editor_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address, req.body.category );
+    
+    res.redirect('/admin/user/manage');
+})
+router.post('/user/edit/writer', async function(req, res){
+    await writer_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address,req.body.nickname );
+    
+    res.redirect('/admin/user/manage');
+})
+router.post('/user/reset/subcriber', async function(req, res){
+    content = 'subcriber';
+    const hash = bcrypt.hashSync(content, 10);
+    await reader_db.changePassByID(hash,req.query.userid);
+    return res.redirect('back');
+})
+router.post('/user/reset/editor', async function(req, res){
+    content = 'editor';
+    const hash = bcrypt.hashSync(content, 10);
+    await editor_db.changePassByID(hash,req.query.userid);
+    return res.redirect('back');
+})
+router.post('/user/reset/writer', async function(req, res){
+    content = 'writer';
+    const hash = bcrypt.hashSync(content, 10);
+    await writer_db.changePassByID(hash,req.query.userid);
+    return res.redirect('back');
+})
 
+router.get('/user/addeditor', async function(req, res) {
+    list_cat = await cat_db.getAllChildren();
+    editor = 1;
+    role = 'Editor';
+    res.render('user/lib/form-regist-admin',{
+        list_cat,
+        editor,
+        role,
+    });
+});
+router.get('/user/addsubcriber', async function(req, res) {
+    subcriber = 1;
+    role = 'Subcriber';
+    res.render('user/lib/form-regist-admin',{
+        subcriber,
+        role,
+    });
+});
+router.get('/user/addwriter', async function(req, res) {
+    wrt = 1;
+    role = 'Writer';
+    res.render('user/lib/form-regist-admin',{
+        writer: wrt,
+        role,
+    });
+});
+router.post('/user/add/editor', async function (req, res) {
+    let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
+    console.log(req.body);
+    const hash = bcrypt.hashSync('editor', 10);
+    const user = {
+        UserName: req.body.username,
+        Password: hash,
+        BirthDay: dob,
+        Name: req.body.name,
+        Email: req.body.email,
+        Address: req.body.address,
+        CatID: req.body.category,
+    }
+    await editor_db.add(user);
+    return res.redirect('back');
+})
+router.post('/user/add/writer', async function (req, res) {
+    console.log(req.body);
+    let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
+    const hash = bcrypt.hashSync('writer', 10);
+    const user = {
+        UserName: req.body.username,
+        Password: hash,
+        NickName: req.body.nickname,
+        BirthDay: dob,
+        Name: req.body.name,
+        Email: req.body.email,
+        Address: req.body.address,
+    }
+    await writer_db.add(user);
+    return res.redirect('back');
+})
+router.post('/user/add/subcriber', async function (req, res) {
+    console.log(req.body);
+    let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
+    const hash = bcrypt.hashSync('subcriber', 10);
+    let date = new Date();
+    let datetime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    //console.log(datetime);
+    if (req.body.premium == '0'){
+        datetime = null;
+    }
+    const user = {
+        UserName: req.body.username,
+        Password: hash,
+        BirthDay: dob,
+        Name: req.body.name,
+        Email: req.body.email,
+        Address: req.body.address,
+        ExpTime: datetime,
+        OTP: -1
+    }
+    await reader_db.add(user);
+    return res.redirect('back');
+})
+router.get('/user/delete/subcriber', async function(req, res) {
+    await reader_db.delUser(req.query.userid);
+    return res.redirect('/admin/user/manage');
+});
+router.get('/post/del', async function(req, res) {
+    await post_db.delPost(req.query.postID);
+    return res.redirect('/admin/post/manage');
+});
+router.get('/post/del', async function(req, res) {
+    await post_db.delPost(req.query.postID);
+    return res.redirect('/admin/post/manage');
+});
 router.get('/post/add', async function(req, res) {
     list_cat = await cat_db.getAllChildren();
     list_tag = await tag_db.allTags();

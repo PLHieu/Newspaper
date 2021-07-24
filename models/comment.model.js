@@ -17,7 +17,14 @@ module.exports = {
    delAllCommentsByPostID(postID){
     return db('Comments').where('PostID', postID).del();
    },
-
+   delAllCommentsByUserID(userid, role){
+    return db('Comments')
+            .where({
+                ReaderID: userid,
+                RoleReaderID: role,
+            })
+            .del();
+   },
    updateComment(id_comment, new_content){
        return db('Comments').where('ID', id_comment).update('Content',new_content);
    },

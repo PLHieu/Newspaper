@@ -8,7 +8,7 @@ const tag_db = require('../models/tag.model');
 const draft_db = require('../models/draft.model');
 const moment = require('moment');
 const edt_db = require('../models/editor.model');
-const { getCategoryNameByEditorID } = require("../models/editor.model");
+const { getCategoryNameByEditorID, getNameByID, getCateID } = require("../models/editor.model");
 const bcrypt = require('bcryptjs');
 
 router.get('/', editorPage)
@@ -95,7 +95,8 @@ router.get('/profile', async (req,res) => {
 });
 
 router.put('/profile', async function(req, res){
-    await edt_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address)
+    let cateid = await getCateID(req.session.user.id)
+    await edt_db.updateGeneralInfor(req.session.user.id, req.body.name, req.body.email, req.body.birthday, req.body.address, cateid);
     // cap nhat lai session
     req.session.user.name = req.body.name;
     req.session.user.email = req.body.email;
