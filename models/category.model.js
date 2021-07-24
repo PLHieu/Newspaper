@@ -9,6 +9,7 @@ module.exports = {
     findRelative: findRelative,
     findNameCateByID: findNameCateByID,
     getTag: tags_db.findByID,
+    getCategory: getCategory,
     all() {
         return db('Categories');
     },

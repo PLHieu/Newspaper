@@ -1,5 +1,6 @@
 //const { updateProfile } = require('../controllers/authen.controllers');
-const db = require('../utils/db')
+const db = require('../utils/db');
+const comment_db = require('./comment.model');
 const moment = require('moment');
 const { now } = require('moment');
 module.exports = {
@@ -49,13 +50,27 @@ module.exports = {
     findListSubPremium(){
       return db('Readers').where('SubPremium', 1);
     },
+    async findAll(){
+      const rows = await db('Readers');
+        if (rows.length === 0)
+          return null;
+        return rows;
+    },
     async updateGeneralInfor(ID, name, email, birthday, address){
-      let dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
-      var date = new Date(dob);
-      date.setDate(date.getDate()+1);
-      dob = date.toISOString();
-      dob = dob.slice(0,10);
-
+      
+      let dob = '';
+      if(birthday.length >10){
+        dob = birthday.slice(3,6)+ birthday.slice(0,3) + birthday.slice(6,10);
+        var date = new Date(dob);
+        date.setDate(date.getDate()+1);
+        dob = date.toISOString();
+        dob = dob.slice(0,10);
+      }
+      else{
+        dob = birthday.slice(6) + '-' + birthday.slice(3,5) + '-' + birthday.slice(0,2);
+        
+      }
+      console.log(dob);
       await db('Readers')
       .where('ID', ID)
       .update({
@@ -79,6 +94,16 @@ module.exports = {
         SubPremium: val,
       });
     },
+    async delUser(userid) {
+      const role = 'subcriber';
+      await db('Comments')
+      .where({
+          ReaderID: userid,
+          RoleReaderID: role,
+      })
+      .del();
+      return db('Readers').where('ID', userid).del();
+    },
     
     changePassByID(hash,ID){
       return db('Readers').where('ID', ID).update('Password',hash);
@@ -87,4 +112,5 @@ module.exports = {
     updateOTP(readerID){
       return  db('Readers').where('ID', readerID).update('OTP',-1);
     }
+
 }
