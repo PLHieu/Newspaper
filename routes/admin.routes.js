@@ -40,6 +40,17 @@ async function addPostTag(tagslist,postID){
     }
 };
 
+function sorted_obj(obj) {
+    const n_commonTag = 15;
+    let items = Object.keys(obj).map(function(key) {
+        return [key, obj[key]];
+    });
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    return items.slice(0, n_commonTag);
+} 
+
 router.get('/get-detail-post', async (req, res)=>{
     const detail_post = await post_db.findPostByID(req.query.postID);
     if (detail_post.StateID==-1){
@@ -93,8 +104,58 @@ router.get('/user/manage', async function(req, res) {
 router.get('/category/manage', function(req, res) {
     return res.render('user/admin/quanlycate')
 });
+router.get('/tag/manage', async function(req, res) {
+    const list_tags = await tag_db.allTags();
+    const num_tags = list_tags.length;
+    let dic_num_post_in_tag = {};
+    for (let i = 0; i < list_tags.length; i++) {
+        list_tags[i].num_posts = await posttag_db.countPostInTags(list_tags[i].ID);
+        dic_num_post_in_tag[list_tags[i].Name] = list_tags[i].num_posts;
+    }
+    dic_num_post_in_tag = sorted_obj(dic_num_post_in_tag);
+    //console.log(dic_num_post_in_tag);
+    let label_chart = [];
+    let data_chart = [];
+    for (let i = 0; i < dic_num_post_in_tag.length; i++){
+        label_chart.push(dic_num_post_in_tag[i][0])
+        data_chart.push(dic_num_post_in_tag[i][1])
+    }
+    //console.log(data_chart)
+    return res.render('user/admin/quanlytag',{
+        list_tags,
+        label_chart,
+        data_chart,
+        num_tags
+    });
+});
+router.post('/tag/add', async function(req, res){
+    await tag_db.add(req.body.tag_name);
+    res.json(`Bạn đã thêm tag <b>${req.body.tag_name}</b> thành công.`);
+})
+router.get('/tag/existed-tag', async function (req, res){
+    const tag = await tag_db.findByTagName(req.query.tagName);
+    if (tag === null)
+        return res.json(false);
+    return res.json(true);
+})
+// router.get('/tag/edit', (req, res)=>{
+    
+// });
+router.get('/tag/del', async function(req, res){
+    await tag_db.del(req.query.tagID);
+    return res.redirect('/admin/tag/manage');
+})
+
 router.get('/post/manage', async function(req, res) {
-    const all_posts = await post_db.all();
+    let all_posts = null;
+    const tag_name = req.query.tagName || null;
+    if (req.query.tagID){
+        all_posts = await posttag_db.findPostByTagID(req.query.tagID);
+        for (let i = 0; i < all_posts.length; i++) {
+            all_posts[i] = await post_db.findPostByID(all_posts[i].PostID);
+        }
+    }
+    else all_posts = await post_db.all();
     const offset = 10;
     const page = parseInt(req.query.page) || 1;
     const start_post = (page - 1) * offset;
@@ -111,6 +172,7 @@ router.get('/post/manage', async function(req, res) {
         list_page.push({ 'page': i , 'cur_page':page})
     }
     return res.render('user/admin/quanlybaiviet',{
+        tag_name,
         list_posts,
         list_page,
         cur_page: page,
@@ -456,13 +518,18 @@ router.post('/post/edit', (req, res) => {
         }
     });
 });
-router.get('/post/del', async function(req, res) {
-    await post_db.delPost(req.query.postID);
-    return res.redirect('/admin/post/manage');
+router.post('/post/del', async function(req, res) {
+    try{
+        await post_db.delPost(req.body.postID);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
 
 router.get('/', function(req, res) {
-    return res.redirect('/admin/manageuser')
+    return res.redirect('/admin/user/manage')
 });
 
 router.get('/post/is_duplicate_post', async function(req, res) {

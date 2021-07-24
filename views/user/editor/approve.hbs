@@ -11,122 +11,7 @@
 <link rel="stylesheet" href="/public/template/css/style.css">
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
-<style>
-  body {
-    color: #ff6b6b;
-    background: #f5f5f5;
-  }
-
-  .wrap-column {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-  }
-
-  .form-group label {
-    font-weight: bold;
-    font-size: x-large;
-  }
-
-  .showtag {
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  .showtag label {
-    font-size: medium;
-    font-weight: lighter;
-    color: black;
-  }
-
-  .input-group {
-    height: 40px;
-  }
-
-  input.file-caption-name.form-control.kv-fileinput-caption {
-    height: 100%;
-  }
-
-  .file-caption.icon-visible span.file-caption-icon {
-    font-size: x-large;
-    font-weight: bold;
-    height: 100%;
-    top: 0;
-    left: 0;
-    padding: 4px;
-  }
-
-  .file-footer-caption {
-    margin-bottom: 0px !important;
-  }
-
-  .file-upload-indicator {
-    visibility: hidden;
-  }
-
-  .btn.btn-primary.btn-file {
-    background: #ee4a41;
-    border: none;
-    padding: 10px;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-
-  .btn.btn-primary.btn-file:hover {
-    background-color: #be5853;
-  }
-
-  .btn.btn-primary.btn-file:active {
-    background-color: #be5853;
-  }
-
-  .file-preview-thumbnails {
-    display: flex;
-  }
-
-  .krajee-default.file-preview-frame {
-    margin: auto;
-    display: block;
-  }
-
-  button.kv-file-zoom.btn.btn-sm.btn-kv.btn-default.btn-outline-secondary {
-    padding: 6px;
-    border-radius: 6px;
-    font-size: large;
-    font-weight: bold;
-  }
-
-  .input-group-btn.input-group-append {
-    height: 100%;
-  }
-
-  button.btn.btn-default.btn-secondary.fileinput-remove.fileinput-remove-button {
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 3px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-
-  button.luubaiviet {
-    padding: 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: medium;
-    height: 30px;
-  }
-
-  .kv-zoom-actions button {
-    padding: 6px;
-    border-radius: 6px;
-    font-size: large;
-    font-weight: bold;
-  }
-</style>
+<link rel="stylesheet" href="/public/css/form-baiviet.css">
 {{/section}}
 
 {{#section 'title'}}
@@ -198,7 +83,7 @@
   <br>
   <div class="row">
     <div class="col-md-12">
-      <h2 style="font-weight: bold; color:#ff6b6b">
+      <h2 style="font-weight: bold">
         Duyệt bài viết
       </h2>
     </div>
@@ -206,26 +91,27 @@
   <br>
   <form class="row" method="post" id='frmApproveDraft'>
     <input type="text" id="postID" name="postID" value="{{postID}}">
-    <div class="col-md-8 wrap-column mr-4">
-      <div class="form-group ">
-        <label>Tiêu đề</label>
-        <input type="text" class="form-control inputtext-wrap-inside" size="3em" value="{{aPost.Title}}" disabled>
+    <div class="col-md-9">
+      <div class="wrap-column">
+        <div class="form-group ">
+          <label>Tiêu đề</label>
+          <input type="text" class="form-control inputtext-wrap-inside" size="3em" value="{{aPost.Title}}" disabled>
+        </div>
+        <br>
+        <div class="form-group ">
+          <label>Tóm tắt</label>
+          <textarea type="text" class="form-control inputtext-wrap-inside" disabled>{{aPost.Abstract}}</textarea>
+        </div>
+        <br>
+        <div class="form-group ">
+          <label>Nội dung</label>
+          <textarea rows="20" class="form-control" disabled>{{aPost.Content}}</textarea>
+        </div>
+        {{!-- <div class="form-group" style="margin-top: 2rem !important">
+          <label>Cover</label>
+          <input type="file" name="cover" id="fCover" class="form-control d-block" />
+        </div> --}}
       </div>
-
-      <div class="form-group mt-5">
-        <label>Tóm tắt</label>
-        <textarea type="text" class="form-control inputtext-wrap-inside" disabled>{{aPost.Abstract}}</textarea>
-      </div>
-
-      <div class="form-group mt-5">
-        <label>Nội dung</label>
-        <textarea rows="20" class="form-control" disabled>{{aPost.Content}}</textarea>
-      </div>
-
-      {{!-- <div class="form-group" style="margin-top: 2rem !important">
-        <label>Cover</label>
-        <input type="file" name="cover" id="fCover" class="form-control d-block" />
-      </div> --}}
     </div>
 
     <div class="col-md-3 ">
@@ -236,15 +122,15 @@
           <option value="{{ID}}" {{#if selected}}selected="selected" {{/if}}>{{Name}}</option>
           {{/each}}
         </select>
-
-        <div class="form-group" style="margin-top: 2rem !important">
-          <label for="txtDFP"><i class="fa fa-birthday-cake"></i> Ngày Xuất Bản</label>
+        <br>
+        <div class="form-group" >
+          <label for="txtDFP"><i class="fa fa-birthday-cake"></i> Ngày xuất bản</label>
           <input type="text" class="form-control inputtext-wrap-inside" name="raw_dfb" id="txtDFP"
             placeholder="Choose Date for Publish" />
         </div>
       </div>
-
-      <div class="form-group wrap-column" style="margin-top: 2rem !important">
+      <br>
+      <div class="form-group wrap-column" >
         <label for="selectedTag">Tags</label>
         <div class="div d-flex  showtag">
           {{#each this.list_tag}}
@@ -259,8 +145,8 @@
           {{/each }}
         </div>
       </div>
-
-      <div class="form-group" style="margin-top: 2rem !important">
+      <br>
+      <div class="form-group">
         <button type="submit" class="btn custom-btn w-100 luubaiviet">
           Save
         </button>

@@ -26,6 +26,7 @@
   crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all"
   rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/public/css/form-baiviet.css">
 <script src="https://cdn.tiny.cloud/1/kfdqtmxvbc3j9y04vha77cyl4gs5br7u6q906lof2auidfz3/tinymce/5/tinymce.min.js"
   referrerpolicy="origin"></script>
 <script>
@@ -144,122 +145,6 @@
   }
 </script>
 {{/section}}
-<style>
-  body {
-    color: #ff6b6b;
-    background: #f5f5f5;
-  }
-
-  .wrap-column {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-  }
-
-  .form-group label {
-    font-weight: bold;
-    font-size: x-large;
-  }
-
-  .showtag {
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  .showtag label {
-    font-size: medium;
-    font-weight: lighter;
-    color: black;
-  }
-
-  .input-group {
-    height: 40px;
-  }
-
-  input.file-caption-name.form-control.kv-fileinput-caption {
-    height: 100%;
-  }
-
-  .file-caption.icon-visible span.file-caption-icon {
-    font-size: x-large;
-    font-weight: bold;
-    height: 100%;
-    top: 0;
-    left: 0;
-    padding: 4px;
-  }
-
-  .file-footer-caption {
-    margin-bottom: 0px !important;
-  }
-
-  .file-upload-indicator {
-    visibility: hidden;
-  }
-
-  .btn.btn-primary.btn-file {
-    background: #ee4a41;
-    border: none;
-    padding: 10px;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-
-  .btn.btn-primary.btn-file:hover {
-    background-color: #be5853;
-  }
-
-  .btn.btn-primary.btn-file:active {
-    background-color: #be5853;
-  }
-
-  .file-preview-thumbnails {
-    display: flex;
-  }
-
-  .krajee-default.file-preview-frame {
-    margin: auto;
-    display: block;
-  }
-
-  button.kv-file-zoom.btn.btn-sm.btn-kv.btn-default.btn-outline-secondary {
-    padding: 6px;
-    border-radius: 6px;
-    font-size: large;
-    font-weight: bold;
-  }
-
-  .input-group-btn.input-group-append {
-    height: 100%;
-  }
-
-  button.btn.btn-default.btn-secondary.fileinput-remove.fileinput-remove-button {
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 3px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-  }
-
-  button.luubaiviet {
-    padding: 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: medium;
-    height: 30px;
-  }
-
-  .kv-zoom-actions button {
-    padding: 6px;
-    border-radius: 6px;
-    font-size: large;
-    font-weight: bold;
-  }
-</style>
 
 {{> header-top}}
 
@@ -267,43 +152,45 @@
   <br>
   <div class="row">
     <div class="col-md-12">
-      <h2 style="font-weight: bold; color:#ff6b6b">
+      <h2 style="font-weight: bold">
         {{#eq postID -1}}
-          Viết bài mới
+        Viết bài mới
         {{else}}Chỉnh sửa bài viết
         {{/eq}}
-        </h2>
+      </h2>
     </div>
   </div>
   <br>
   <form class="row" id="frmWritePost" method="post" enctype="multipart/form-data">
-    <div class="col-md-8 wrap-column mr-4">
-      <div class="form-group ">
-        <label for="txtTitle">Tiêu đề</label>
-        <input type="text" name="title" id="txtTitle" class="form-control inputtext-wrap-inside"
-          placeholder="Write post's Title here" size="3em" value="{{this.title}}">
-      </div>
-
-      <div class="form-group mt-5">
-        <label for="txtAbstract">Tóm tắt</label>
-        <textarea type="text" name="abstract" id="txtAbstract" class="form-control inputtext-wrap-inside"
-          placeholder="Write post's Abstract here">{{this.abstract}}</textarea>
-      </div>
-
-      <div class="form-group mt-5">
-        <label for="txtContent">Nội dung</label>
-        <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
-          placeholder="Write post's Content here">{{this.content}}</textarea>
-      </div>
-
-      <div class="form-group" style="margin-top: 2rem !important">
-        <label for="fCover">Cover</label>
-        <input type="file" name="cover" id="fCover" class="form-control d-block" />
+    <div class="col-md-9">
+      <div class="wrap-column">
+        <div class="form-group ">
+          <label for="txtTitle">Tiêu đề</label>
+          <input type="text" name="title" id="txtTitle" class="form-control inputtext-wrap-inside"
+            placeholder="Write post's Title here" size="3em" value="{{this.title}}">
+        </div>
+        <br>
+        <div class="form-group ">
+          <label for="txtAbstract">Tóm tắt</label>
+          <textarea type="text" name="abstract" id="txtAbstract" class="form-control inputtext-wrap-inside"
+            placeholder="Write post's Abstract here">{{this.abstract}}</textarea>
+        </div>
+        <br>
+        <div class="form-group ">
+          <label for="txtContent">Nội dung</label>
+          <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
+            placeholder="Write post's Content here">{{this.content}}</textarea>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="fCover">Cover</label>
+          <input type="file" name="cover" id="fCover" class="form-control d-block" />
+        </div>
       </div>
     </div>
 
-    <div class="col-md-3 ">
-      <div class="form-group wrap-column " style="height: 180px;">
+    <div class="col-md-3">
+      <div class="form-group wrap-column" >
         <label for="selectedCat">Danh mục</label>
         <select class="form-control" id="selectedCat" name="category">
           {{#each this.list_cat}}
@@ -311,8 +198,8 @@
           {{/each}}
         </select>
       </div>
-
-      <div class="form-group wrap-column" style="margin-top: 2rem !important">
+      <br>
+      <div class="form-group wrap-column" >
         <label for="selectedTag">Tags</label>
         <div class="div d-flex  showtag">
           {{#each this.list_tag}}
@@ -328,8 +215,8 @@
         </div>
       </div>
       <input id="postID" type="text" value="{{postID}}" name='postID' style="display:none">
-
-      <div class="form-group" style="margin-top: 2rem !important">
+      <br>
+      <div class="form-group" >
         <button type="submit" class="btn custom-btn w-100 luubaiviet">
           Save
         </button>
