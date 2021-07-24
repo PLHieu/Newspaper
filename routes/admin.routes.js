@@ -349,6 +349,7 @@ router.post('/user/add/writer', async function (req, res) {
         Name: req.body.name,
         Email: req.body.email,
         Address: req.body.address,
+        Active: 1,
     }
     await writer_db.add(user);
     return res.redirect('back');
@@ -378,6 +379,14 @@ router.post('/user/add/subcriber', async function (req, res) {
 })
 router.get('/user/delete/subcriber', async function(req, res) {
     await reader_db.delUser(req.query.userid);
+    return res.redirect('/admin/user/manage');
+});
+router.get('/user/delete/editor', async function(req, res) {
+    await editor_db.delUser(req.query.userid);
+    return res.redirect('/admin/user/manage');
+});
+router.get('/user/delete/writer', async function(req, res) {
+    await writer_db.delUser(req.query.userid);
     return res.redirect('/admin/user/manage');
 });
 router.get('/post/del', async function(req, res) {

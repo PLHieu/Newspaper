@@ -89,4 +89,22 @@ module.exports = {
     async add(user){
       return db('Editors').insert(user);
     },
+    async delUser(userid) {
+      const role = 'editor';
+      await db('Comments')
+      .where({
+          ReaderID: userid,
+          RoleReaderID: role,
+      })
+      .del();
+      const listpost = await db('Drafts')
+      .where({
+          EditorID: userid,
+      })
+      
+      for(i=0;i<listpost.length;i++){
+        await db('Posts').where('ID', listpost[i].PostID).update('StateID', 0);
+      }
+      return db('Editors').where('ID', userid).del();
+    },
 }

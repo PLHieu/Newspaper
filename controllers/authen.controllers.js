@@ -297,13 +297,25 @@ exports.signout = (req, res) => {
 
 function checkPassword(role, rows, req, res) {
   const ret = bcrypt.compareSync(req.body.password, rows.Password);
+  
   if (ret===false){
     return res.render('account/login', {
         err_message: 'Invalid password',
     })
   }
   else{
-   handle_login_successfully(role, rows, req, res);
+    if(role === 'writer'){
+      if (rows.Active=='0'){
+        return res.render('account/login', {
+            err_message: 'Invalid account',
+        })
+      }else{
+        handle_login_successfully(role, rows, req, res);
+      }
+    }
+    else{
+        handle_login_successfully(role, rows, req, res);
+    }
   }
   //return authInfor;
 }

@@ -16,7 +16,7 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+use newspaper;
 -- ----------------------------
 -- Table structure for Admins
 -- ----------------------------
@@ -351,7 +351,7 @@ CREATE TABLE `Writers` (
   `Address` varchar(255) DEFAULT NULL,
   `BirthDay` date DEFAULT NULL,
   `Email` varchar(255) NOT NULL,
-  `Active` bit(1) NOT NULL,
+  `Active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`) USING BTREE,
   UNIQUE KEY `WriterUniqueUsername` (`UserName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

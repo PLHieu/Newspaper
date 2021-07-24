@@ -2,7 +2,7 @@ const db = require('../utils/db')
 
 module.exports = {
     findAll(){
-      return db('Writers');
+      return db('Writers').where('Active', 1);
     },
 
     async findByUsername(username){
@@ -73,11 +73,6 @@ module.exports = {
           RoleReaderID: role,
       })
       .del();
-      await db('Post')
-      .where({
-          WriterID: userid,
-      })
-      .del();
-      return db('Readers').where('ID', userid).del();
+      return db('Writers').where('ID', userid).update('Active', 0);
     },
 }
