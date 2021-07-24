@@ -27,12 +27,16 @@
         background: #fff;
         box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
         /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
-        cursor: pointer;
+        
     }
 
     .card:hover{
         /*transform: scale(1.05); */
         box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
     }
 
     /* width */
@@ -60,7 +64,30 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 <script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     var myChart = new Chart($('#tagChart'),{
         type: 'bar',
         data: {
@@ -168,6 +195,7 @@
 </script>
 {{/section}}
 
+{{> header-top}}
 <div class="container">
     <div class="table-responsive">
         <div class="table-wrapper pb-0">
@@ -190,7 +218,8 @@
             <div><canvas id="tagChart" height="100px"></canvas></div>
         </div>
         <div class="table-wrapper">
-            <h1 style="margin:0 auto;text-align:center" class='mb-4'>Danh sách tags</h1>
+            <h1 style="margin:0 auto;text-align:center" class='mb-3'>Danh sách tags</h1>
+            <h4 style="margin:0 auto;text-align:center" class='mb-5 rounded-circle bg-info w-50'>{{num_tags}} tags</h4>
             <br>
             <div class="row">
                 {{#each list_tags}}

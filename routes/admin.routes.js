@@ -95,6 +95,7 @@ router.get('/category/manage', function(req, res) {
 });
 router.get('/tag/manage', async function(req, res) {
     const list_tags = await tag_db.allTags();
+    const num_tags = list_tags.length;
     let dic_num_post_in_tag = {};
     for (let i = 0; i < list_tags.length; i++) {
         list_tags[i].num_posts = await posttag_db.countPostInTags(list_tags[i].ID);
@@ -113,6 +114,7 @@ router.get('/tag/manage', async function(req, res) {
         list_tags,
         label_chart,
         data_chart,
+        num_tags
     });
 });
 router.post('/tag/add', async function(req, res){
