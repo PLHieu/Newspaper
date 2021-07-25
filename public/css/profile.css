@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(231, 231, 231);
+}
+
+.chinhsuathongtin .wrap-column {
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.chinhsuathongtin h2 {
+    font-weight: bold;
+    color: #ee4a41;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.chinhsuathongtin label {
+    font-weight: normal;
+    font-size: large;
+    color: #ee4a41;
+}
+
+.chinhsuathongtin button.form-submit {
+    background-color: #ee4a41;
+    border: none;
+    border-radius: 3px;
+    padding: 20px;
+    color: white;
+    font-size: larger;
+    text-transform: capitalize;
+}
+
+.chinhsuathongtin button.form-submit:hover {
+    background-color: #c0433c;
+}

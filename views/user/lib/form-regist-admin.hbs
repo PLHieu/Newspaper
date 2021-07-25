@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/profile.css">
 {{/section}}
 
 {{#section 'title'}}
@@ -126,50 +127,13 @@
     });
 </script>
 {{/section}}
-<style>
-    body {
-        background-color: rgb(231, 231, 231);
-    }
-
-    .chinhsuathongtin .wrap-column {
-        padding: 30px;
-        background-color: white;
-        border-radius: 10px;
-    }
-
-    .chinhsuathongtin h2 {
-        font-weight: bold;
-        color: #ee4a41;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .chinhsuathongtin label {
-        font-weight: normal;
-        font-size: x-large;
-    }
-
-    .chinhsuathongtin button.form-submit {
-        background-color: #ee4a41;
-        border: none;
-        border-radius: 3px;
-        padding: 20px;
-        color: white;
-        font-size: larger;
-        font-weight: bold;
-    }
-
-    .chinhsuathongtin button.form-submit:hover {
-        background-color: #c0433c;
-    }
-</style>
 {{> header-top}}
 <div class="container">
     <br>
     <div class="row chinhsuathongtin">
         <div class="col-md-8">
             <div class="wrap-column">
-                <h2>Tạo tài khoản <b>{{role}}</b></h2>
+                <h2>Tạo tài khoản <span class="badge badge-pill badge-danger ">{{role}}</span></h2>
                 <form {{#if editor}} action="/admin/user/add/editor" {{/if}} 
                 {{#if writer}} action="/admin/user/add/writer" {{/if}}
                 {{#if subcriber}} action="/admin/user/add/subcriber" {{/if}} method="POST" id="formGeneralInfor">
@@ -203,7 +167,7 @@
                     </div>
                     {{/if}}
                     {{#if editor}}
-                    <div class="form-group wrap-column" >
+                    <div class="form-group " >
                     <label for="selectedCat">Quản lý chuyên mục</label>
                     <select class="form-control" id="selectedCat" name="category">
                         {{#each this.list_cat}}
@@ -213,7 +177,7 @@
                     </div>
                     {{/if}}
                     {{#if subcriber}}
-                        <div class="form-group wrap-column" >
+                        <div class="form-group " >
                         <label for="selectedCat">Premium</label>
                         <select class="form-control" id="selectedPre" name="premium">
                             <option value="0" selected="selected">Không đăng ký</option>
@@ -257,11 +221,8 @@
         </div>
 
         <div class="col-md-4">
-            
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <img src="/public/image/banner/adm.jpg" class="d-block w-100 " style="border-radius: 10px;" alt="">
-                <img src="/public/template/img/gallery/body_card4.png" class="d-block w-100" alt="">
-            </div>
+             <img src="/public/template/img/news/news_card.jpg" class="d-block"
+                style=" width: 60%; margin-left: auto; margin-right: auto" alt="">
             <!--
             {{#if user.writer}}
             <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">

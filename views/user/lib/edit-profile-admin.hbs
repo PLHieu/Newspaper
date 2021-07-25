@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/profile.css">
+
 {{/section}}
 
 {{#section 'title'}}
@@ -121,43 +123,6 @@
     });
 </script>
 {{/section}}
-<style>
-    body {
-        background-color: rgb(231, 231, 231);
-    }
-
-    .chinhsuathongtin .wrap-column {
-        padding: 30px;
-        background-color: white;
-        border-radius: 10px;
-    }
-
-    .chinhsuathongtin h2 {
-        font-weight: bold;
-        color: #ee4a41;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .chinhsuathongtin label {
-        font-weight: normal;
-        font-size: x-large;
-    }
-
-    .chinhsuathongtin button.form-submit {
-        background-color: #ee4a41;
-        border: none;
-        border-radius: 3px;
-        padding: 20px;
-        color: white;
-        font-size: larger;
-        font-weight: bold;
-    }
-
-    .chinhsuathongtin button.form-submit:hover {
-        background-color: #c0433c;
-    }
-</style>
 {{> header-top}}
 <div class="container">
     <br>
@@ -196,24 +161,28 @@
 
                     {{#if user.sub}}
                         {{#if user.ExpTime}}
-                        <div class="wrap-column d-flex align-items-center" style="padding: 10px;">
+                        {{!-- <div class=" d-flex align-items-center" style="padding: 10px;">
                             <div class="d-inline-block" style="width: 50%;">
                                 <div class="d-flex" style="align-items: center; flex-direction: column;">
                                     <h4>Expired date</h4>
                                     <p>{{user.ExpTime}}</p>
-                                    {{! //TODO set ngay het han }}
                                 </div>
                             </div>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="txtNickname">Expired date:</label>
+                            <span class="ml-1">{{user.ExpTime}}</span>
                         </div>
-                        <br>
                         {{else}}
-                        <div id="dangkypremium">
-                            <p>Hãy đăng ký Premium để đọc các bài viết giới hạn</p>
+                        {{!-- <div id="dangkypremium">
+                            <p >Hãy đăng ký Premium cho tài khoản này </p>
                             <a class = "btn">
-                                <span class="badge badge-danger">Đăng ký</span>
+                                
                             </a>
-                        </div>
-                        
+                        </div> --}}
+
+                        <span style="cursor: pointer;" id="dangkypremium" class="badge badge-danger">Kích hoạt Premium</span>
+                        <hr>
                         {{/if}}
                     {{/if}}
 
@@ -225,7 +194,7 @@
                     </div>
                     {{/if}}
                     {{#if user.editor}}
-                    <div class="form-group wrap-column" >
+                    <div class="form-group" >
                     <label for="selectedCat">Quản lý chuyên mục</label>
                     <select class="form-control" id="selectedCat" name="category">
                         {{#each this.list_cat}}
@@ -281,10 +250,8 @@
 
         <div class="col-md-4">
             
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <img src="/public/image/banner/adm.jpg" class="d-block w-100 " style="border-radius: 10px;" alt="">
-                <img src="/public/template/img/gallery/body_card4.png" class="d-block w-100" alt="">
-            </div>
+             <img src="/public/template/img/news/news_card.jpg" class="d-block"
+                style=" width: 75%; margin-left: auto; margin-right: auto" alt="">
             <!--
             {{#if user.writer}}
             <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
