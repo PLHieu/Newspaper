@@ -40,7 +40,15 @@ module.exports = {
         SubPremium: 0
       });
     },
-    
+    async CancelPremium(readerID){
+      
+      await db('Readers')
+      .where('ID', readerID)
+      .update({
+        ExpTime: null,
+        SubPremium: 0
+      });
+    },
     async findByID(readerID){
       const rows = await db('Readers').where('ID', readerID);
         if (rows.length === 0)

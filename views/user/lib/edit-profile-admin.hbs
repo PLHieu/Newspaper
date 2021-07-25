@@ -51,7 +51,26 @@
         mask: true,
         maxDate: new Date()
     });
-
+    $('.duyet').click(function(){
+        let userid = this.id;
+        
+        //console.log(str);
+        //$('#content_accept').html("Đã duyệt");
+        $.get(`/admin/user/acceptsub?userid=${userid}`,function(data){
+            var str ="#dangkypremium" + userid;
+            var cont = '<span class="badge badge-pill badge-success">Đã kích hoạt Premium</span> <hr>'
+            $(str).html(cont);
+        });
+    });
+    $('.huypremium').click(function(){
+        let userid = this.id;
+        
+        $.get(`/admin/user/cancelpremium?userid=${userid}`,function(data){
+            var str ="#huypremium" + userid;
+            var cont = '<span class="badge badge-pill badge-primary">Đã huỷ Premium</span> <hr>'
+            $(str).html(cont);
+        });
+    });
     $('#formResetPass').on('submit', function (e) {
         e.preventDefault();
         
@@ -161,28 +180,25 @@
 
                     {{#if user.sub}}
                         {{#if user.ExpTime}}
-                        {{!-- <div class=" d-flex align-items-center" style="padding: 10px;">
-                            <div class="d-inline-block" style="width: 50%;">
-                                <div class="d-flex" style="align-items: center; flex-direction: column;">
-                                    <h4>Expired date</h4>
-                                    <p>{{user.ExpTime}}</p>
-                                </div>
-                            </div>
-                        </div> --}}
+                        
                         <div class="form-group">
                             <label for="txtNickname">Expired date:</label>
                             <span class="ml-1">{{user.ExpTime}}</span>
                         </div>
-                        {{else}}
-                        {{!-- <div id="dangkypremium">
-                            <p >Hãy đăng ký Premium cho tài khoản này </p>
-                            <a class = "btn">
-                                
+                        <div id="{{user.ID}}" class="huypremium" >
+                            <a style="cursor: pointer;" id="huypremium{{user.ID}}">
+                                <span class="badge badge-danger">Huỷ Premium</span>
+                                <hr>
                             </a>
-                        </div> --}}
-
-                        <span style="cursor: pointer;" id="dangkypremium" class="badge badge-danger">Kích hoạt Premium</span>
-                        <hr>
+                        </div>
+                        {{else}}
+                        <div id="{{user.ID}}" class="duyet" >
+                            <a style="cursor: pointer;" id="dangkypremium{{user.ID}}">
+                                <span class="badge badge-danger">Kích hoạt Premium</span>
+                                <hr>
+                            </a>
+                        </div>
+                        
                         {{/if}}
                     {{/if}}
 
