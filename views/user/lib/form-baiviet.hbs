@@ -91,12 +91,42 @@
 <script src="/public/template/js/main.js"></script>
 
 <script>
+    if ({{postID}}==-1){
     $('#fCover').fileinput({
-        allowedFileExtensions: ['jpg', 'gif', 'png'],
-        dropZoneEnabled: false,
-        'showUpload': false
+      allowedFileExtensions: ['jpg', 'gif', 'png'],
+      dropZoneEnabled: true,
+      showUpload: false,
+      showClose: false,
+      fileActionSettings: {
+        showDrag: false,
+      },
+      browseLabel: "Chọn ảnh",
+      removeLabel: 'Xoá ảnh',
+      dropZoneTitle: 'Kéo và thả ảnh tại đây',
+      msgPlaceholder: 'Chọn ảnh',
     });
-    $
+  }
+  else{
+    $('#fCover').fileinput({
+      allowedFileExtensions: ['jpg', 'gif', 'png'],
+      dropZoneEnabled: true,
+      showUpload: false,
+      fileActionSettings: {
+        showDrag: false,
+      },
+      browseLabel: "Chọn ảnh",
+      removeLabel: 'Xoá ảnh',
+      dropZoneTitle: 'Kéo và thả ảnh tại đây',
+      msgPlaceholder: 'Chọn ảnh',
+      showClose: false,
+      initialPreview: [
+          `<img src="http://localhost:3000/public/image/posts/{{postID}}/bigavt.jpg" class='file-preview-image' alt='cover' title='cover'>`     
+      ],
+      overwriteInitial: true,
+      initialPreviewShowDelete: false,
+      initialCaption: 'cover.jpg',
+    });
+  }
 
     $('#frmWritePost').on('submit', function (e) {
         e.preventDefault();

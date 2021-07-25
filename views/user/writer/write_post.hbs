@@ -19,8 +19,8 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
-{{!--
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+
+{{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
   crossorigin="anonymous"> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
   crossorigin="anonymous">
@@ -93,11 +93,42 @@
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/fileinput.min.js"></script>
 
 <script>
-  $('#fCover').fileinput({
-    allowedFileExtensions: ['jpg', 'gif', 'png'],
-    dropZoneEnabled: false,
-    'showUpload': false
-  });
+  if ({{postID}}==-1){
+    $('#fCover').fileinput({
+      allowedFileExtensions: ['jpg', 'gif', 'png'],
+      dropZoneEnabled: true,
+      showUpload: false,
+      showClose: false,
+      fileActionSettings: {
+        showDrag: false,
+      },
+      browseLabel: "Chọn ảnh",
+      removeLabel: 'Xoá ảnh',
+      dropZoneTitle: 'Kéo và thả ảnh tại đây',
+      msgPlaceholder: 'Chọn ảnh',
+    });
+  }
+  else{
+    $('#fCover').fileinput({
+      allowedFileExtensions: ['jpg', 'gif', 'png'],
+      dropZoneEnabled: true,
+      showUpload: false,
+      fileActionSettings: {
+        showDrag: false,
+      },
+      browseLabel: "Chọn ảnh",
+      removeLabel: 'Xoá ảnh',
+      dropZoneTitle: 'Kéo và thả ảnh tại đây',
+      msgPlaceholder: 'Chọn ảnh',
+      showClose: false,
+      initialPreview: [
+          `<img src="http://localhost:3000/public/image/posts/{{postID}}/bigavt.jpg" class='file-preview-image' alt='cover' title='cover'>`     
+      ],
+      overwriteInitial: true,
+      initialPreviewShowDelete: false,
+      initialCaption: 'cover.jpg',
+    });
+  }
 
   $('#frmWritePost').on('submit', function (e) {
     e.preventDefault();
@@ -183,7 +214,7 @@
         </div>
         <br>
         <div class="form-group">
-          <label for="fCover">Cover</label>
+          <label for="fCover">Ảnh đại diện</label>
           <input type="file" name="cover" id="fCover" class="form-control d-block" />
         </div>
       </div>
@@ -218,7 +249,7 @@
       <br>
       <div class="form-group" >
         <button type="submit" class="btn custom-btn w-100 luubaiviet">
-          Save
+          Lưu
         </button>
       </div>
     </div>
