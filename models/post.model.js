@@ -93,6 +93,33 @@ module.exports = {
             return await countByLevel2Category(IDcategory);
         }
     },
+    async countAcceptPostByCategory(IDcategory) {
+        let count = await db('Posts')
+                        .where({
+                            CatID: IDcategory,
+                            StateID: 1,
+                        });
+        return count.length;
+
+    },
+    async countRefusePostByCategory(IDcategory) {
+        let count = await db('Posts')
+                        .where({
+                            CatID: IDcategory,
+                            StateID: -1,
+                        });
+        return count.length;
+
+    },
+    async countChuaDuyetPostByCategory(IDcategory) {
+        let count = await db('Posts')
+                        .where({
+                            CatID: IDcategory,
+                            StateID: 0,
+                        });
+        return count.length;
+
+    },
 
     async countPostByTag(IDTag) {
         const rows = await db('PostTag')

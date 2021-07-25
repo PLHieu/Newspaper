@@ -16,6 +16,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { writer } = require("repl");
 const { now } = require("moment");
+const { post } = require("./post.routes");
 
 function updateCoverPost(postID){
     var oldPath = './public/image/posts/bigavt.jpg'
@@ -101,9 +102,117 @@ router.get('/user/manage', async function(req, res) {
         subcriber: list_reader,
     })
 });
-router.get('/category/manage', function(req, res) {
-    return res.render('user/admin/quanlycate')
+router.get('/category/manage', async function(req, res) {
+    const list_dad = await cat_db.findDadCategories();
+    //const num_tags = list_tags.length;
+    //let dic_num_post_in_tag = {};
+    let result = [], numchild = 0, numdad = 0, duyetdad = 0, chuaduyetdad = 0, tuchoidad = 0;
+    let duyetchild = 0, chuaduyetchild = 0, tuchoichild = 0;
+    console.log(list_dad);
+    for (let i = 0; i < list_dad.length; i++) {
+        //let des = objectMapper(dad[i], rule1)
+        //console.log(des);
+        numdad = 0; duyetdad = 0; chuaduyetdad = 0; tuchoidad = 0;
+        const child = await cat_db.findChildCategories(list_dad[i].ID)
+        for (let j =0; j<child.length; j++){
+            duyetchild = await post_db.countAcceptPostByCategory(child[j].ID);
+            chuaduyetchild = await post_db.countChuaDuyetPostByCategory(child[j].ID);
+            tuchoichild = await post_db.countRefusePostByCategory(child[j].ID);
+            numchild = duyetchild + chuaduyetchild + tuchoichild;
+            child[j].numpost = numchild;
+            child[j].accept = duyetchild;
+            child[j].refuse = tuchoichild;
+            child[j].chuaduyet = chuaduyetchild;
+            numdad+=numchild;
+            duyetdad+=duyetchild;
+            chuaduyetdad+= chuaduyetchild;
+            tuchoidad+=tuchoichild;
+        }
+        list_dad[i].child = child;
+        list_dad[i].numpost = numdad;
+        list_dad[i].accept = duyetdad;
+        list_dad[i].refuse = tuchoidad;
+        list_dad[i].chuaduyet = chuaduyetdad;
+        result.push(list_dad[i]);
+    }
+    //console.log(result1[0]);
+    //console.log(result);
+    //console.log(list_dad);
+    
+    return res.render('user/admin/quanlycate',{
+        list_dad,
+    });
 });
+
+router.get('/category/existed-cate', async function (req, res){
+    if(req.query.catid){
+        const cat = await cat_db.findCateByID(req.query.catid);
+        if(cat.Name == req.query.catName){
+            return res.json(false);
+        }
+    }
+    const cate = await cat_db.findByCateName(req.query.catName);
+    if (cate === null)
+        return res.json(false);
+    return res.json(true);
+})
+router.get('/category/edit', async function (req, res){
+    
+    const cateName = req.query.catName;
+    const cateID = req.query.catID;
+    console.log(req.query);
+    const cat = await cat_db.findCateByID(cateID);
+    console.log(cat);
+    let isDad = 1;
+    const list_dad = await cat_db.findDadCategories();
+    for (i = 0; i < list_dad.length ; i++){
+        list_dad[i].selected = false;
+    }
+    if (cat.ParentID != null){
+        //list_dad[cat.ParentID] = true;
+        isDad = null;
+        for (i = 0; i < list_dad.length ; i++){
+            if(list_dad[i].ID == cat.ParentID){
+                list_dad[i].selected = true;
+            }
+            else{
+                list_dad[i].selected = false;
+            }
+        }
+    }else{
+        let flag = 0;
+        for (i = 0; i < list_dad.length ; i++){
+            if(list_dad[i].ID == cateID){
+                flag = i;
+            }
+            list_dad[i].selected = false;
+        }
+        list_dad.splice(flag, 1);
+    }
+    console.log(list_dad);
+    res.render('user/lib/edit-cate-admin', {
+        cateName,
+        cateID,
+        list_dad,
+        isDad,
+    })
+})
+router.post('/category/edit', async function(req, res){
+    //await cat_db.add(req.body.cat_name, req.body.category);
+    console.log(req.body);
+    //res.json(`Bạn đã thêm tag <b>${req.body.cat_name}</b> thành công.`);
+    await cat_db.updateCategory(req.query.cateid, req.body.name, req.body.category );
+    res.redirect('/admin/category/manage');
+})
+router.post('/category/add', async function(req, res){
+    await cat_db.add(req.body.cat_name, req.body.category);
+    //console.log(req.body);
+    res.json(`Bạn đã thêm tag <b>${req.body.cat_name}</b> thành công.`);
+})
+router.get('/category/del', async function(req, res){
+    await cat_db.del(req.query.catID);
+    return res.redirect('/admin/category/manage');
+})
 router.get('/tag/manage', async function(req, res) {
     const list_tags = await tag_db.allTags();
     const num_tags = list_tags.length;
@@ -149,22 +258,30 @@ router.get('/tag/del', async function(req, res){
 router.get('/post/manage', async function(req, res) {
     let all_posts = null;
     const tag_name = req.query.tagName || null;
-    if (req.query.tagID){
-        all_posts = await posttag_db.findPostByTagID(req.query.tagID);
-        for (let i = 0; i < all_posts.length; i++) {
-            all_posts[i] = await post_db.findPostByID(all_posts[i].PostID);
-        }
+    const cat_name = req.query.catName || null;
+    if (req.query.catID){
+        all_posts = await post_db.findByCategory(req.query.catID, 0);
+        
     }
-    else all_posts = await post_db.all();
+    else{
+        
+        if (req.query.tagID){
+            all_posts = await posttag_db.findPostByTagID(req.query.tagID);
+            for (let i = 0; i < all_posts.length; i++) {
+                all_posts[i] = await post_db.findPostByID(all_posts[i].PostID);
+            }
+        }
+        else all_posts = await post_db.all();
+    } 
     const offset = 10;
     const page = parseInt(req.query.page) || 1;
     const start_post = (page - 1) * offset;
     const end_post = start_post + offset;
-    let list_posts = []
+    let list_posts = [];
     for (var i = start_post; i < end_post && i < all_posts.length; i++) {
-        post = all_posts[i];
-        post = await post_db.findPostByID(post.ID);
-        list_posts.push(post);
+        lpost = all_posts[i];
+        lpost = await post_db.findPostByID(lpost.ID);
+        list_posts.push(lpost);
     }
     const num_page = parseInt(all_posts.length / offset) + 1;
     let list_page = [];
@@ -173,6 +290,7 @@ router.get('/post/manage', async function(req, res) {
     }
     return res.render('user/admin/quanlybaiviet',{
         tag_name,
+        cat_name,
         list_posts,
         list_page,
         cur_page: page,
@@ -184,6 +302,12 @@ router.get('/user/acceptsub', async function(req, res) {
     //await post_db.delPost(req.query.postID);
    // console.log(req.query.userid);
     await reader_db.AcceptPremium(req.query.userid);
+    return res.redirect('back');
+});
+router.get('/user/cancelpremium', async function(req, res) {
+    //await post_db.delPost(req.query.postID);
+   // console.log(req.query.userid);
+    await reader_db.CancelPremium(req.query.userid);
     return res.redirect('back');
 });
 router.get('/getinforsubcriber', async function(req, res) {

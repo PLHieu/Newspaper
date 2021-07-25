@@ -8,7 +8,12 @@ module.exports = {
     findLevel: findLevel,
     findRelative: findRelative,
     findNameCateByID: findNameCateByID,
+    findByCateName: findByCateName,
+    findCateByID: findCateByID,
     getTag: tags_db.findByID,
+    del: del,
+    add: add,
+    updateCategory: updateCategory,
     getCategory: getCategory,
     all() {
         return db('Categories');
@@ -17,12 +22,56 @@ module.exports = {
     getAllChildren() {
         return db('Categories').whereNot('ParentID', null);
     },
-
-
-
-
+    
+    
 }
 
+async function updateCategory(catID, name, dad){
+    const level = await findLevel(catID);
+    if (level == '1' && dad != '0'){
+        const child = await findChildCategories(catID);
+        console.log(child);
+        for (i=0; i<child.length; i++){
+            await db('Categories').where('ID', child[i].ID).update({
+                ParentID: dad,
+            })
+        }
+        return db('Categories').where('ID', catID).update({
+            ParentID: dad,
+            Name: name,
+        })
+    }
+    if(dad == '0'){
+        return db('Categories').where('ID', catID).update({
+            ParentID: null,
+            Name: name,
+        })
+    }
+    return db('Categories').where('ID', catID).update({
+        ParentID: dad,
+        Name: name,
+    })
+}
+async function del(catID){
+    return db('Categories').where('ID', catID).del();
+}
+async function add(catName, catParent){
+    let cate = null;
+    if (catParent == '0'){
+        cate = {Name: catName, ParentID: null};
+    }
+    else{
+        cate = {Name: catName, ParentID: catParent};
+    }
+    return db('Categories').insert(cate);
+    
+}
+async function findByCateName(catName){
+    const rows = await db('Categories').where('Name', catName);
+    if (rows.length === 0)
+      return null;
+    return rows[0];
+}
 async function findNameCateByID(catID) {
     cat = await db('Categories').where('ID', catID);
     //console.log(cat);
@@ -30,6 +79,14 @@ async function findNameCateByID(catID) {
         return null;
     //console.log(cat[0].Name);
     return cat[0].Name;
+}
+async function findCateByID(catID) {
+    cat = await db('Categories').where('ID', catID);
+    //console.log(cat);
+    if (cat.length === 0)
+        return null;
+    //console.log(cat[0].Name);
+    return cat[0];
 }
 
 /*

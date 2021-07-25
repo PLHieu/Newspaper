@@ -2,28 +2,78 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+<style>
+    .active_page{
+        background-color: rgb(216, 2, 134);
+        color: red;
+    }
+
+    .card{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        
+    }
+
+    .card:hover{
+        /*transform: scale(1.05); */
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
+    }
+</style>
 {{/section}}
 
 {{#section 'js'}}
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-
-
-        $('.exit-button , .momoaoao').click(function (e) {
-            e.preventDefault();
-            $('.momoaoao').removeClass('hienra');
-            $('.modal_box').removeClass('modal_show');
+    });
+    $("#addCateFrm").on("submit", function(e) {
+        var postData = $(this).serializeArray();
+        console.log(postData);
+        var formURL = $(this).attr("action");
+        $.ajax({
+            url: formURL,
+            type: "POST",
+            data: postData,
+            success: function(data, textStatus, jqXHR) {
+                console.log(data);
+                $('#add_cate .modal-header .modal-title').html("Result");
+                $('#add_cate .modal-body').html(data);
+                $("#submitForm").remove();
+                $("#closeModal").removeAttr('data-dismiss');
+                $("#close_icon").removeAttr('data-dismiss');
+                $("#closeModal").click(function() {
+                    window.location = "/admin/category/manage"
+                });
+                $("#close_icon").click(function() {
+                    window.location = "/admin/category/manage"
+                });
+            },
+            error: function(jqXHR, status, error) {
+                console.log(status + ": " + error);
+            }
         });
-
-        $('.xemchitiet').click(function (e) {
-            e.preventDefault();
-
-            //TODO: goi ajax
-
-            $('.momoaoao').addClass('hienra');
-            $('.modal_ef').addClass('modal_show');
-        });
+        e.preventDefault();
+    });
+     
+    $("#submitForm").on('click', function() {
+        catName = $('#cat_name').val();
+        if (catName.length===0){
+            $('#error_message').html('Chuyên mục không thể rỗng');
+            return;
+        }
+        $.getJSON(`/admin/category/existed-cate?catName=${catName}`, function (data){
+            if (data){
+                $('#error_message').html('Chuyên mục này đã tồn tại.');
+                return;
+            }
+            $("#addCateFrm").submit();
+        })
     });
 </script>
 {{/section}}
@@ -37,8 +87,8 @@
                         <h2>Quản lý <b>Chuyên mục</b></h2>
                     </div>
                     <div class="col-sm-7">
-                        <a href="#" class="btn btn-secondary d-flex align-items-center"><i
-                                class="material-icons">&#xE147;</i> <span>Thêm Chuyên mục mới</span></a>
+                        <a data-toggle="modal" data-target="#add_cate" class="btn btn-secondary d-flex align-items-center"><i
+                                class="material-icons">&#xE147;</i> <span>Thêm chuyên mục mới</span></a>
                     </div>
                 </div>
             </div>
@@ -50,70 +100,88 @@
                 <thead>
                     <tr>
                         <th class="thumname">
-                            <span style="width: 70%; text-align: center; display: inline-block;">Name</span>
+                            <span style="width: 70%; text-align: center; display: inline-block;">ID</span>
                         </th>
-                        <th>Description</th>
-                        <th class="sobaiviet">Số bài viết</th>
+                        <th class="thumname">
+                            <span style="width: 70%; text-align: center; display: inline-block;">Tên</span>
+                        </th>
+                        <th>Đã duyệt</th>
+                        <th>Chưa duyệt</th>
+                        <th>Từ chối</th>
+                        <th class="sobaiviet">Tổng bài viết</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each list_dad}}
+                        
                     <tr>
-                        <td class="thumname">
-                            <div class="name-wrapper">
-                                <div class="name" style="background-color: {{ranBgColor2}};">
-                                    <span>
-                                        Du lịch
-                                    </span>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
-                            facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
-                            alias doloremque repudiandae ullam porro!</td>
-                        <td class="sobaiviet">26</td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
-                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="thumname">
+                        
+                        <td class="sobaiviet">{{ID}}</td>
+                        <td class="sobaiviet">{{Name}}</td>
+                        <!--<td class="thumname">
                             <span><i class="material-icons">subdirectory_arrow_right</i></span>
                             <div class="name-wrapper">
                                 <div class="name" style="background-color: {{ranBgColor2}};">
                                     <span>
-                                        Du lịch
+                                        {{Name}}
                                     </span>
                                 </div>
                             </div>
 
-                        </td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, et odit deleniti sint
-                            facere dolor magni. Explicabo recusandae odit minima tempore fugiat nisi dicta? Quisquam
-                            alias doloremque repudiandae ullam porro!</td>
-                        <td class="sobaiviet">26</td>
+                        </td>-->
+                        <td class="sobaiviet">{{accept}}</td>
+                        <td class="sobaiviet">{{chuaduyet}}</td>
+                        <td class="sobaiviet">{{refuse}}</td>
+                        <td class="sobaiviet">{{numpost}}</td>
                         <td class="dropleft">
                             <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 more_horiz
                             </i>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#">Xem chi tiết</a>
-                                <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#">Xóa</a>
+                                <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                                <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="/admin/category/del?catID={{ID}}">Xóa</a>
                             </div>
                         </td>
                     </tr>
+                    {{#each child}}
+                        
+                    <tr>
+                        <td class="sobaiviet"><span><i class="material-icons">subdirectory_arrow_right</i></span>{{ID}}</td>
+                        <td class="sobaiviet">{{Name}}</td>
+                        <!--<td class="thumname">
+                            <span><i class="material-icons">subdirectory_arrow_right</i></span>
+                            <div class="name-wrapper">
+                                <div class="name" style="background-color: {{ranBgColor2}};">
+                                    <span>
+                                        {{Name}}
+                                    </span>
+                                </div>
+                            </div>
+
+                        </td>-->
+                        
+                        <td class="sobaiviet">{{accept}}</td>
+                        <td class="sobaiviet">{{chuaduyet}}</td>
+                        <td class="sobaiviet">{{refuse}}</td>
+                        <td class="sobaiviet">{{numpost}}</td>
+                        <td class="dropleft">
+                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                more_horiz
+                            </i>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                                <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="/admin/category/del?catID={{ID}}">Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    {{/each}}
+                    {{/each}}
 
 
                 </tbody>
@@ -151,3 +219,33 @@
 </div>
 
 <div class="momoaoao"></div>
+<div class="modal fade" id="add_cate" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm chuyên mục mới</h4>
+                <button type="button" class="close right" id='close_icon' data-dismiss="modal">&times;</button>
+            </div>
+                <div class="modal-body">
+                    <p id='error_message' class='text-danger'></p>
+                    <form id="addCateFrm" action="/admin/category/add" method="POST">
+                        Tên chuyên mục: <input type="text" id='cat_name' name="cat_name"><br/>
+                        <div class="form-group " >
+                            <label for="selectedCat">Chuyên mục cha</label>
+                            <select class="form-control" id="selectedCat" name="category">
+                                 <option value="0" selected="selected">Không có</option>
+                                {{#each this.list_dad}}
+                                <option value="{{ID}}" >{{Name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeModal" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                    <button type="button" id="submitForm" class="btn btn-success">Thêm chuyên mục</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
