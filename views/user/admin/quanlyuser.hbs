@@ -1,25 +1,60 @@
 {{#section 'css'}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+{{!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"> --}}
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+<link rel="stylesheet" href="/public/css/tab.css">
+<style>
+    .table-wrapper{
+        box-shadow: none;
+    }
+</style>
 {{/section}}
 
 {{#section 'js'}}
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 <script>
-    
-    $('.duyet').click(function(){
+
+    $('.duyet').click(function () {
         let userid = this.id;
-        
+
         //console.log(str);
         //$('#content_accept').html("Đã duyệt");
-        $.get(`/admin/user/acceptsub?userid=${userid}`,function(data){
-            var str ="#content_accept" + userid;
+        $.get(`/admin/user/acceptsub?userid=${userid}`, function (data) {
+            var str = "#content_accept" + userid;
             var cont = '<span class="badge badge-pill badge-success">Đã duyệt</span>'
             $(str).html(cont);
-            
+
         });
     });
-    
+
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -34,22 +69,22 @@
             e.preventDefault();
             const roleid = this.id;
             let pos = roleid.indexOf('_');
-            let role = roleid.slice(0,pos); 
+            let role = roleid.slice(0, pos);
             let _id = roleid.slice(pos + 1);
             console.log(this.id);
             console.log(role);
             console.log(_id);
-            if (role == 'subcriber'){
+            if (role == 'subcriber') {
                 //const url = '/admin/getinforsubcriber?userid='+_id;
-                $.getJSON(`/admin/getinforsubcriber?userid=${_id}`, function(data){
+                $.getJSON(`/admin/getinforsubcriber?userid=${_id}`, function (data) {
                     console.log(data.UserName);
-                    if (data.ExpTime){
+                    if (data.ExpTime) {
                         let time = data.ExpTime;
-                        time = time.slice(0,10);
+                        time = time.slice(0, 10);
                         let moreinf = '<td><i class="material-icons">stars</i></td>' + '<td>Expired on <b>' + time + '</b></td>'
                         $('#moreinfor').html(moreinf);
                     }
-                    let contentrole = 'Subcriber - <b>' + data.UserName +'</b>';
+                    let contentrole = 'Subcriber - <b>' + data.UserName + '</b>';
                     $('#fullnameid').html(data.Name);
                     $('#emailid').html(data.Email);
                     $('#usernameid').html(data.UserName);
@@ -58,15 +93,15 @@
                     $('#birthdayid').html(data.BirthDay);
                 })
             }
-            if (role == 'editor'){
+            if (role == 'editor') {
                 //const url = '/admin/getinforsubcriber?userid='+_id;
-                $.getJSON(`/admin/getinforeditor?userid=${_id}`, function(data){
+                $.getJSON(`/admin/getinforeditor?userid=${_id}`, function (data) {
                     console.log(data.UserName);
-                
+
                     let moreinf = '<td><i class="material-icons">stars</i></td>' + '<td>Category <b>' + data.CateName + '</b></td>'
                     $('#moreinfor').html(moreinf);
-                
-                    let contentrole = 'Editor - <b>' + data.UserName +'</b>';
+
+                    let contentrole = 'Editor - <b>' + data.UserName + '</b>';
                     $('#fullnameid').html(data.Name);
                     $('#emailid').html(data.Email);
                     $('#usernameid').html(data.UserName);
@@ -75,274 +110,309 @@
                     $('#birthdayid').html(data.BirthDay);
                 })
             }
-            if (role == 'writer'){
+            if (role == 'writer') {
                 //const url = '/admin/getinforsubcriber?userid='+_id;
-                $.getJSON(`/admin/getinforwriter?userid=${_id}`, function(data){
+                $.getJSON(`/admin/getinforwriter?userid=${_id}`, function (data) {
                     console.log(data.UserName);
                     console.log(data.Address);
                     let moreinf = '<td><i class="material-icons">stars</i></td>' + '<td>Nick name <b>' + data.NickName + '</b></td>'
                     $('#moreinfor').html(moreinf);
-                
-                    let contentrole = 'Writer - <b>' + data.UserName +'</b>';
+
+                    let contentrole = 'Writer - <b>' + data.UserName + '</b>';
                     $('#fullnameid').html(data.Name);
                     $('#emailid').html(data.Email);
                     $('#usernameid').html(data.UserName);
-                    
+
                     $('#addressid').html(data.Address);
                     $('#roleid').html(contentrole);
                     $('#birthdayid').html(data.BirthDay);
                 })
             }
             //TODO: goi ajax
-            
+
             $('.momoaoao').addClass('hienra');
             $('.modal_ef').addClass('modal_show');
         });
     });
-    function Accepted(){
+    function Accepted() {
 
-    } 
+    }
 </script>
 {{/section}}
 
+{{> header-top}}
 <div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper pb-0">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Quản lý <b>Admin</b></h2>
-                    </div>
-                    <div class="col-sm-7">
-                        <a href="/admin/user/add" class="btn btn-secondary d-flex align-items-center" ><i
-                                class="material-icons">&#xE147;</i> <span>Thêm người dùng mới</span></a>
-                    </div>
-                </div>
-            </div>
+    <br>
+    <br>
+    <div class="warpper">
+        <input class="radio" id="admin" name="group" type="radio" checked>
+        <input class="radio" id="editor" name="group" type="radio">
+        <input class="radio" id="writer" name="group" type="radio">
+        <input class="radio" id="sub" name="group" type="radio">
+        <input class="radio" id="duyetPre" name="group" type="radio">
+        <div class="tabs">
+            <label class="tab" id="admin-tab" for="admin">Admin</label>
+            <label class="tab" id="editor-tab" for="editor">Editor</label>
+            <label class="tab" id="writer-tab" for="writer">Writer</label>
+            <label class="tab" id="sub-tab" for="sub">Subcriber</label>
+            <label class="tab" id="duyetPre-tab" for="duyetPre">Duyệt Premium</label>
         </div>
-
-        <br>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Total Post</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    
-                </tbody>
-            </table>
-            <br>
-            <br>
-
-
-
-
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper pb-0">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Quản lý <b>Editor</b></h2>
-                    </div>
-                    <div class="col-sm-7">
-                        <a href="/admin/user/addeditor" class="btn btn-secondary d-flex align-items-center" ><i
-                                class="material-icons">&#xE147;</i> <span>Thêm Editor mới</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-       
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Chuyên mục</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each editor}}
-                    <tr>
-                        <td>{{UserName}}</td>
-                        <td>{{Name}}</td>
-                        <td>{{CateName}}</td>
-                        <td>{{Email}}</td>
-                        <td>{{Address}}</td>
-                        <td><span class="badge badge-pill badge-primary">Editor</span></td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#" id="editor_{{ID}}">Xem chi tiết</a>
-                                <a class="dropdown-item" href="/admin/user/edit/editor?userid={{ID}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/user/delete/editor?userid={{ID}}">Xóa</a>
+        <div class="panels">
+            <div class="panel" id="admin-panel">
+                <div class="table-wrapper pb-0">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2>Quản lý <b>Admin</b></h2>
                             </div>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <br>
-            <br>
+                            <div class="col-sm-7">
+                                <a href="/admin/user/add" class="btn btn-secondary d-flex align-items-center"><i
+                                        class="material-icons">&#xE147;</i> <span>Thêm người dùng mới</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Total Post</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="editor-panel">
+                <div class="table-wrapper pb-0">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2>Quản lý <b>Editor</b></h2>
+                            </div>
+                            <div class="col-sm-7">
+                                <a href="/admin/user/addeditor" class="btn btn-secondary d-flex align-items-center"><i
+                                        class="material-icons">&#xE147;</i> <span>Thêm Editor mới</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Chuyên mục</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each editor}}
+                            <tr>
+                                <td>{{UserName}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{CateName}}</td>
+                                <td>{{Email}}</td>
+                                <td>{{Address}}</td>
+                                <td><span class="badge badge-pill badge-primary">Editor</span></td>
+                                <td class="dropleft">
+                                    <i class=" material-icons" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        more_horiz
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item xemchitiet" href="#" id="editor_{{ID}}">Xem chi tiết</a>
+                                        <a class="dropdown-item" href="/admin/user/edit/editor?userid={{ID}}">Chỉnh
+                                            sửa</a>
+                                        <a class="dropdown-item" href="/admin/user/delete/editor?userid={{ID}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="writer-panel">
+                <div class="table-wrapper pb-0">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2>Quản lý <b>Writer</b></h2>
+                            </div>
+                            <div class="col-sm-7">
+                                <a href="/admin/user/addwriter" class="btn btn-secondary d-flex align-items-center"><i
+                                        class="material-icons">&#xE147;</i> <span>Thêm phóng viên mới</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Nick Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each writer}}
 
-        </div>
-    </div>
-</div>
-<!--Writer-->
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper pb-0">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Quản lý <b>Writer</b></h2>
+                            <tr>
+                                <td>{{UserName}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{NickName}}</td>
+                                <td>{{Email}}</td>
+                                <td>{{Address}}</td>
+                                <td><span class="badge badge-pill badge-primary">Writer</span></td>
+                                <td class="dropleft">
+                                    <i class=" material-icons" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        more_horiz
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item xemchitiet" href="#" id="writer_{{ID}}">Xem chi tiết</a>
+                                        <a class="dropdown-item" href="/admin/user/edit/writer?userid={{ID}}">Chỉnh
+                                            sửa</a>
+                                        <a class="dropdown-item" href="/admin/user/delete/writer?userid={{ID}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="sub-panel">
+                <div class="table-wrapper pb-0">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2>Quản lý <b>Subcriber</b></h2>
+                            </div>
+                            <div class="col-sm-7">
+                                <a href="/admin/user/addsubcriber"
+                                    class="btn btn-secondary d-flex align-items-center"><i
+                                        class="material-icons">&#xE147;</i> <span>Thêm người dùng mới</span></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-7">
-                        <a href="/admin/user/addwriter" class="btn btn-secondary d-flex align-items-center" ><i
-                                class="material-icons">&#xE147;</i> <span>Thêm phóng viên mới</span></a>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Premium</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each subcriber}}
+
+                            <tr>
+                                <td>{{UserName}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{Email}}</td>
+                                <td>{{Address}}</td>
+                                <td>
+                                    {{#if ExpTime}}
+                                    <i class="fa fa-check-circle">Premium</i>
+                                    {{/if}}
+                                </td>
+
+                                <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
+                                <td class="dropleft">
+                                    <i class=" material-icons" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        more_horiz
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item xemchitiet" id="subcriber_{{ID}}" href="#">Xem chi
+                                            tiết</a>
+                                        <a class="dropdown-item" href="/admin/user/edit/subcriber?userid={{ID}}">Chỉnh
+                                            sửa</a>
+                                        <a class="dropdown-item"
+                                            href="/admin/user/delete/subcriber?userid={{ID}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel" id="duyetPre-panel">
+                <div class="table-wrapper pb-0">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2>Duyệt <b>Premium</b></h2>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Birthday</th>
+                                <th>Role</th>
+                                <th>Accept</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each subPremium}}
+                            <tr>
+                                <td>{{ID}}</td>
+                                <td>{{UserName}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{Email}}</td>
+                                <td>{{Address}}</td>
+                                <td>{{Birthday}}</td>
+                                <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
+                                <td id="{{ID}}" class="duyet">
+                                    <a id="content_accept{{ID}}" class="btn" style="padding-left: 0px;">
+                                        <span class="badge badge-pill badge-warning">Duyệt</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-        <br>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Nick Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each writer}}
-                        
-                    <tr>
-                        <td>{{UserName}}</td>
-                        <td>{{Name}}</td>
-                        <td>{{NickName}}</td>
-                        <td>{{Email}}</td>
-                        <td>{{Address}}</td>
-                        <td><span class="badge badge-pill badge-primary">Writer</span></td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" href="#" id="writer_{{ID}}">Xem chi tiết</a>
-                                <a class="dropdown-item" href="/admin/user/edit/writer?userid={{ID}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/user/delete/writer?userid={{ID}}">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <br>
-            <br>
-        </div>
     </div>
 </div>
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper pb-0">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Quản lý <b>Subcriber</b></h2>
-                    </div>
-                    <div class="col-sm-7">
-                        <a href="/admin/user/addsubcriber" class="btn btn-secondary d-flex align-items-center" ><i
-                                class="material-icons">&#xE147;</i> <span>Thêm người dùng mới</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Premium</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each subcriber}}
-                        
-                    <tr>
-                        <td>{{UserName}}</td>
-                        <td>{{Name}}</td>
-                        <td>{{Email}}</td>
-                        <td>{{Address}}</td>
-                        <td>
-                            {{#if ExpTime}}
-                            <i class="fa fa-check-circle">Premium</i>
-                            {{/if}}
-                        </td>
-                        
-                        <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item xemchitiet" id="subcriber_{{ID}}" href="#">Xem chi tiết</a>
-                                <a class="dropdown-item" href="/admin/user/edit/subcriber?userid={{ID}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/user/delete/subcriber?userid={{ID}}">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {{/each}}
-                    
-                </tbody>
-            </table>
-            <br>
-            <br>
-
-
-
-
-        </div>
-    </div>
-</div>
-
-
+<br>
+<br>
 <div class="modal_box modal_ef">
     <div class="modal_content modal-user">
         <i class="exit-button material-icons">close</i>
@@ -389,54 +459,3 @@
 </div>
 
 <div class="momoaoao"></div>
-<div class="container">
-    <div class="table-responsive">
-        <div class="table-wrapper pb-0">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h2>Duyệt <b>Premium</b></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Birthday</th>
-                        <th>Role</th>
-                        <th>Accept</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each subPremium}}
-                    <tr>
-                        <td>{{ID}}</td>
-                        <td>{{UserName}}</td>
-                        <td>{{Name}}</td>
-                        <td>{{Email}}</td>
-                        <td>{{Address}}</td>
-                        <td>{{Birthday}}</td>
-                        <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
-                        <td id="{{ID}}" class="duyet" >
-                            <a id="content_accept{{ID}}" class="btn"  style="padding-left: 0px;">
-                            <span class="badge badge-pill badge-warning" >Duyệt</span>
-                            </a>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <br>
-            <br>
-        </div>
-    </div>
-</div>

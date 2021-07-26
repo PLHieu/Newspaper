@@ -1,0 +1,68 @@
+h2 {
+    text-align: center;
+    font-size: 2em;
+}
+
+.warpper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0px 2px;
+    background: #eb4d4b;
+    display: inline-block;
+    color: #fff;
+    border-radius: 3px 3px 0px 0px;
+    box-shadow: 0 0.5rem 0.8rem #00000080;
+}
+
+.panels {
+    background: #fffffff6;
+    box-shadow: 0 2rem 2rem #00000080;
+    min-height: 200px;
+    width: 100%;
+    border-radius: 7px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.panel {
+    display: none;
+    animation: fadein .8s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+.radio {
+    display: none;
+}
+
+#admin:checked~.panels #admin-panel,
+#editor:checked~.panels #editor-panel,
+#writer:checked~.panels #writer-panel,
+#sub:checked~.panels #sub-panel,
+#duyetPre:checked~.panels #duyetPre-panel {
+    display: block
+}
+
+#admin:checked~.tabs #admin-tab,
+#editor:checked~.tabs #editor-tab,
+#writer:checked~.tabs #writer-tab,
+#sub:checked~.tabs #sub-tab,
+#duyetPre:checked~.tabs #duyetPre-tab {
+    background: #fffffff6;
+    color: #000;
+    border-top: 3px solid #eb4d4b;
+}
