@@ -8,6 +8,35 @@ const nodemailer = require('nodemailer');
 
 
 
+exports.passport_google = async (accessToken, refreshToken, profile, done) => {
+    console.log(profile)
+    //get the user data from google 
+    const newUser = {
+        Name: profile.displayName,
+        Email: profile.emails[0].value,
+        UserName: profile.emails[0].value,
+        Password: bcrypt.hashSync(profile.id,10),
+        OTP:-1,
+    }
+    try {
+        //find the user in our database 
+        let user = await reader.findByEmail(newUser.Email);
+
+        if (user) {
+            //If user present in our database.
+            console.log("Da ton tai google account")
+            done(null, user)
+        } else {
+            // if user is not preset in our database save user data to database.
+            console.log("Chua ton tai google account")
+            userID = await reader.add(newUser);
+            user = reader.findByID(userID);
+            done(null, user)
+        }
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 exports.register = async function(req, res) {
     const hash = bcrypt.hashSync(req.body.raw_password, 10);
@@ -310,11 +339,11 @@ function checkPassword(role, rows, req, res) {
             err_message: 'Invalid account',
         })
       }else{
-        handle_login_successfully(role, rows, req, res);
+        handle_login_successfully(role, rows, req, res, false);
       }
     }
     else{
-        handle_login_successfully(role, rows, req, res);
+        handle_login_successfully(role, rows, req, res, false);
     }
   }
   //return authInfor;
@@ -327,7 +356,9 @@ exports.subcribePremium = async (req, res) => {
     
 };
 
-function handle_login_successfully(role, rows, req, res) {
+exports.login_successfully = handle_login_successfully;
+
+function handle_login_successfully(role, rows, req, res, loggedBySocial) {
     // dang nhap thanh cong thi luu thong tin vao trong session 
     let adm = null, sub = null, wrt = null, edt = null, Premium = 1, nickname = null;
     let exp = moment(rows.ExpTime).format('MMMM D YYYY, HH:mm:ss');
@@ -390,6 +421,7 @@ function handle_login_successfully(role, rows, req, res) {
         writer: wrt,
         editor: edt,
         premium: Premium,
+        loggedBySocial: loggedBySocial,
     };
     //res.locals.session = req.session.user;
     //console.log(req.locals.session);

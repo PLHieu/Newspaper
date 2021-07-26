@@ -1,7 +1,40 @@
 const authentication = require('../controllers/authen.controllers')
 const authorMdw = require('../middlewares/authorUser.mdw')
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const keys = require('../config/const.config');
+const bcrypt = require('bcryptjs');
+
+
+passport.use(new GoogleStrategy({
+    clientID: keys.googleClientID,
+    clientSecret: keys.googleClientSecret,
+    callbackURL: '/auth/google/callback'
+    },
+    authentication.passport_google
+));
+
 
 module.exports = function (app) {
+    app.get('/auth/google',
+    passport.authenticate('google', {
+      scope: ['profile', 'email']
+    }));
+
+    app.get('/auth/google/callback', 
+        passport.authenticate('google',{ 
+        failureRedirect: '/failed',
+        session: false }),(req, res) => {
+            const rows = req.user;
+            let role = "subcriber";
+            authentication.login_successfully(role, rows, req, res,true);
+        }
+    );
+
+    app.get('/failed', async (req, res) => { 
+        res.status(404).send('Error authentification');
+    })
+
     app.get('/register',(req, res) => {
         res.render('account/register');
     })
