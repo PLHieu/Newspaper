@@ -16,7 +16,7 @@ exports.passport_google = async (accessToken, refreshToken, profile, done) => {
         Email: profile.emails[0].value,
         UserName: profile.emails[0].value,
         Password: bcrypt.hashSync(profile.id,10),
-        OTP:-1,
+        OTP:-2,
     }
     try {
         //find the user in our database 
@@ -46,7 +46,7 @@ exports.passport_facebook = async (accessToken, refreshToken, profile, done) => 
         Email: profile.emails[0].value,
         UserName: profile.emails[0].value,
         Password: bcrypt.hashSync(profile.id,10),
-        OTP:-1,
+        OTP:-2,
     }
     try {
         //find the user in our database 

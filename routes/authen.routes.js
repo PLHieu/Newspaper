@@ -32,8 +32,8 @@ module.exports = function (app) {
     app.get('/auth/google/callback', 
         passport.authenticate('google',{ 
         failureRedirect: '/failed',
-        session: false }),(req, res) => {
-            const rows = req.user;
+        session: false }),async (req, res) => {
+            const rows = await req.user;
             let role = "subcriber";
             authentication.login_successfully(role, rows, req, res,true);
         }
@@ -47,9 +47,9 @@ module.exports = function (app) {
     app.get('/auth/facebook/callback', 
         passport.authenticate('facebook',{ 
         failureRedirect: '/failed',
-        session: false }),(req, res) => {
+        session: false }),(req, res) => {//async
             res.redirect('/read/7')
-            // const rows = req.user;
+            // const rows = await req.user;
             // let role = "subcriber";
             // authentication.login_successfully(role, rows, req, res,true);
         }

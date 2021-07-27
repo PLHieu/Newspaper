@@ -213,6 +213,7 @@
                 </form>
             </div>
             <br>
+            {{#eq session.user.loggedBySocial false}}
             <div class="wrap-column">
                 <h2>Thay đổi mật khẩu</h2>
                 <form id="formChangePass">
@@ -226,7 +227,7 @@
                     </div>
                 </form>
             </div>
-
+            {{/eq}}
         </div>
 
         <div class="col-md-4">
