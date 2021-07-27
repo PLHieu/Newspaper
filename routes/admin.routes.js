@@ -94,9 +94,11 @@ router.get('/user/manage', async function(req, res) {
     const list_reader = await reader_db.findAll();
     const list_editor = await editor_db.allEditor();
     const list_writer = await writer_db.findAll();
+    var sublen = list_reader_subPre.length;
     //console.log(list_reader);
     return res.render('user/admin/quanlyuser', {
         subPremium: list_reader_subPre,
+        sublen,
         editor: list_editor,
         writer: list_writer,
         subcriber: list_reader,
@@ -201,9 +203,7 @@ router.get('/category/edit', async function (req, res){
     })
 })
 router.post('/category/edit', async function(req, res){
-    //await cat_db.add(req.body.cat_name, req.body.category);
     console.log(req.body);
-    //res.json(`Bạn đã thêm tag <b>${req.body.cat_name}</b> thành công.`);
     await cat_db.updateCategory(req.query.cateid, req.body.name, req.body.category );
     res.redirect('/admin/category/manage');
 })
@@ -212,9 +212,14 @@ router.post('/category/add', async function(req, res){
     //console.log(req.body);
     res.json(`Bạn đã thêm tag <b>${req.body.cat_name}</b> thành công.`);
 })
-router.get('/category/del', async function(req, res){
-    await cat_db.del(req.query.catID);
-    return res.redirect('/admin/category/manage');
+router.post('/category/del', async function(req, res){
+    try{
+        await cat_db.del(req.body.catID);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 })
 router.get('/tag/manage', async function(req, res) {
     const list_tags = await tag_db.allTags();
@@ -250,9 +255,6 @@ router.get('/tag/existed-tag', async function (req, res){
         return res.json(false);
     return res.json(true);
 })
-// router.get('/tag/edit', (req, res)=>{
-    
-// });
 router.get('/tag/del', async function(req, res){
     await tag_db.del(req.query.tagID);
     return res.redirect('/admin/tag/manage');
@@ -302,22 +304,21 @@ router.get('/post/manage', async function(req, res) {
     })
 });
 router.get('/user/acceptsub', async function(req, res) {
-    //await post_db.delPost(req.query.postID);
-   // console.log(req.query.userid);
     await reader_db.AcceptPremium(req.query.userid);
     return res.redirect('back');
 });
 router.get('/user/cancelpremium', async function(req, res) {
-    //await post_db.delPost(req.query.postID);
-   // console.log(req.query.userid);
-    await reader_db.CancelPremium(req.query.userid);
-    return res.redirect('back');
+    try{
+        await reader_db.CancelPremium(req.query.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
 router.get('/getinforsubcriber', async function(req, res) {
-    //console.log(req.query.userid);
     let reader = await reader_db.findByID(req.query.userid);
     reader.BirthDay = moment(reader.BirthDay).format('DD/MM/YYYY');
-    //console.log(reader);
     return res.json(reader);
 });
 router.get('/getinforeditor', async function(req, res) {
@@ -391,35 +392,52 @@ router.get('/user/edit/subcriber', async function(req, res){
 router.post('/user/edit/subcriber', async function(req, res){
     await reader_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address );
     
-    res.redirect('/admin/user/manage');
+    res.status(200).redirect('back');
 })
 router.post('/user/edit/editor', async function(req, res){
     await editor_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address, req.body.category );
     
-    res.redirect('/admin/user/manage');
+    res.status(200).redirect('back');
 })
 router.post('/user/edit/writer', async function(req, res){
     await writer_db.updateGeneralInfor(req.query.userid, req.body.name, req.body.email, req.body.birthday, req.body.address,req.body.nickname );
     
-    res.redirect('/admin/user/manage');
+    res.status(200).redirect('back');
 })
 router.post('/user/reset/subcriber', async function(req, res){
-    content = 'subcriber';
-    const hash = bcrypt.hashSync(content, 10);
-    await reader_db.changePassByID(hash,req.query.userid);
-    return res.redirect('back');
+    try{
+        content = 'subcriber';
+        const hash = bcrypt.hashSync(content, 10);
+        await reader_db.changePassByID(hash,req.query.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).redirect('back');
+    }
+    return res.status(200).redirect('back');
 })
 router.post('/user/reset/editor', async function(req, res){
-    content = 'editor';
-    const hash = bcrypt.hashSync(content, 10);
-    await editor_db.changePassByID(hash,req.query.userid);
-    return res.redirect('back');
+    try{
+        content = 'editor';
+        const hash = bcrypt.hashSync(content, 10);
+        await editor_db.changePassByID(hash,req.query.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).redirect('back');
+    }
+    return res.status(200).redirect('back');
+   
 })
 router.post('/user/reset/writer', async function(req, res){
-    content = 'writer';
-    const hash = bcrypt.hashSync(content, 10);
-    await writer_db.changePassByID(hash,req.query.userid);
-    return res.redirect('back');
+    try{
+        content = 'writer';
+        const hash = bcrypt.hashSync(content, 10);
+        await writer_db.changePassByID(hash,req.query.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).redirect('back');
+    }
+    return res.status(200).redirect('back');
+   
 })
 
 router.get('/user/addeditor', async function(req, res) {
@@ -504,17 +522,32 @@ router.post('/user/add/subcriber', async function (req, res) {
     await reader_db.add(user);
     return res.redirect('back');
 })
-router.get('/user/delete/subcriber', async function(req, res) {
-    await reader_db.delUser(req.query.userid);
-    return res.redirect('/admin/user/manage');
+router.post('/user/delete/subcriber', async function(req, res) {
+    try{
+        await reader_db.delUser(req.body.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
-router.get('/user/delete/editor', async function(req, res) {
-    await editor_db.delUser(req.query.userid);
-    return res.redirect('/admin/user/manage');
+router.post('/user/delete/editor', async function(req, res) {
+    try{
+        await editor_db.delUser(req.body.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
-router.get('/user/delete/writer', async function(req, res) {
-    await writer_db.delUser(req.query.userid);
-    return res.redirect('/admin/user/manage');
+router.post('/user/delete/writer', async function(req, res) {
+    try{
+        await writer_db.delUser(req.body.userid);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
 });
 router.get('/post/del', async function(req, res) {
     await post_db.delPost(req.query.postID);

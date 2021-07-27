@@ -2,12 +2,49 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
 <style>
-    .active_page{
+    /*.active_page{
         background-color: rgb(216, 2, 134);
         color: red;
+    }*/
+    .active_page {
+        background-color: #d63031;
+        color: white !important;
     }
 
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(102, 102, 102);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #757575;
+    }
     .card{
         border-radius: 4px;
         background: #fff;
@@ -28,9 +65,64 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
+        $('.xoa').click(function (e) {
+            e.preventDefault();
+            var catID = parseInt(this.id)
+            console.log(catID)
+            Swal.fire({
+                title: 'Bạn có muốn xóa chuyên mục này ?',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('/admin/category/del', { catID }, function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa chuyên mục thành công',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#3085d6',
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                    })
+                        .fail((data, status) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Không thể xóa chuyên mục!',
+                            })
+                        });
+                }
+            })
+        })
     });
     $("#addCateFrm").on("submit", function(e) {
         var postData = $(this).serializeArray();
@@ -77,7 +169,7 @@
     });
 </script>
 {{/section}}
-
+{{> header-top}}
 <div class="container">
     <div class="table-responsive">
         <div class="table-wrapper pb-0">
@@ -95,143 +187,82 @@
         </div>
 
         <br>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover table-category ">
-                <thead>
-                    <tr>
-                        <th class="thumname">
-                            <span style="width: 70%; text-align: center; display: inline-block;">ID</span>
-                        </th>
-                        <th class="thumname">
-                            <span style="width: 70%; text-align: center; display: inline-block;">Tên</span>
-                        </th>
-                        <th>Đã duyệt</th>
-                        <th>Chưa duyệt</th>
-                        <th>Từ chối</th>
-                        <th class="sobaiviet">Tổng bài viết</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each list_dad}}
-                        
-                    <tr>
-                        
-                        <td class="sobaiviet">{{ID}}</td>
-                        <td class="sobaiviet">{{Name}}</td>
-                        <!--<td class="thumname">
-                            <span><i class="material-icons">subdirectory_arrow_right</i></span>
-                            <div class="name-wrapper">
-                                <div class="name" style="background-color: {{ranBgColor2}};">
-                                    <span>
-                                        {{Name}}
-                                    </span>
-                                </div>
-                            </div>
-
-                        </td>-->
-                        <td class="sobaiviet">{{accept}}</td>
-                        <td class="sobaiviet">{{chuaduyet}}</td>
-                        <td class="sobaiviet">{{refuse}}</td>
-                        <td class="sobaiviet">{{numpost}}</td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
-                                <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/category/del?catID={{ID}}">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {{#each child}}
-                        
-                    <tr>
-                        <td class="sobaiviet"><span><i class="material-icons">subdirectory_arrow_right</i></span>{{ID}}</td>
-                        <td class="sobaiviet">{{Name}}</td>
-                        <!--<td class="thumname">
-                            <span><i class="material-icons">subdirectory_arrow_right</i></span>
-                            <div class="name-wrapper">
-                                <div class="name" style="background-color: {{ranBgColor2}};">
-                                    <span>
-                                        {{Name}}
-                                    </span>
-                                </div>
-                            </div>
-
-                        </td>-->
-                        
-                        <td class="sobaiviet">{{accept}}</td>
-                        <td class="sobaiviet">{{chuaduyet}}</td>
-                        <td class="sobaiviet">{{refuse}}</td>
-                        <td class="sobaiviet">{{numpost}}</td>
-                        <td class="dropleft">
-                            <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                more_horiz
-                            </i>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
-                                <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="/admin/category/del?catID={{ID}}">Xóa</a>
-                            </div>
-                        </td>
-                    </tr>
+        <table class="table">
+            <thead>
+                <tr style="background-color: #eb344f; text-align: center;color: #fff;">
+                    <th scope="col" style="width:5%"></th>
+                    <th scope="col" style="width:25%">Tên</th>
+                    <th scope="col" style="width:15%">Đã duyệt</th>
+                    <th scope="col" style="width:15%">Chưa duyệt</th>
+                    <th scope="col" style="width:15%">Từ chối</th>
+                    <th scope="col" style="width:15%">Tổng bài viết</th>
+                    <th scope="col" style="width:10%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each list_dad}}
+                <tr style="background-color: rgb(248, 203, 224); text-align: center;border-radius:8px">
+                    <td><i class="fa fa-angle-double-right" aria-hidden="true"></i></td>
+                    <td>{{Name}}</td>
+                    <td>{{accept}}</td>
+                    <td>{{chuaduyet}}</td>
+                    <td>{{refuse}}</td>
+                    <td>{{numpost}}</td>
+                    <td class="dropleft">
+                        <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            more_horiz
+                        </i>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                            <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
+                            <a class="dropdown-item xoa" id="{{ID}}X" href="#">Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                {{#each child}}
                     
-                    {{/each}}
-                    {{/each}}
-
-
-                </tbody>
-            </table>
-            <br>
-            <br>
-
-
-
-
-        </div>
+                <tr style="background-color: #fff; text-align: center;">
+                    <td></td>
+                    <td>{{Name}}</td></span>
+                    <td>{{accept}}</td>
+                    <td>{{chuaduyet}}</td>
+                    <td>{{refuse}}</td>
+                    <td>{{numpost}}</td>
+                    <td class="dropleft">
+                        <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            more_horiz
+                        </i>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                            <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
+                            <a class="dropdown-item xoa" id="{{ID}}X" href="#">Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                
+                {{/each}}
+                {{/each}}
+            </tbody>
+        </table>
     </div>
 </div>
 
-<div class="modal_box modal_ef">
-    <div class="modal_content modal-category">
-        <i class="exit-button material-icons">close</i>
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="name"><b>Du lich</b></h1>
-                <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus magnam facilis,
-                    autem iusto accusamus laborum placeat omnis h
-                    ic necessitatibus! Totam velit fugiat facilis hic inventore maiores officia veniam voluptatibus
-                    vero.
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque nostrum vero adipisci cum nemo
-                    tempora veritatis ab minima recusandae neque, maxime inventore fugiat. Consectetur omnis quas
-                    laudantium libero dolores quo!</p>
-
-                <h5>
-                    Parent Category: <span class="badge badge-pill badge-primary">Du lich parent</span>
-                </h5>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="momoaoao"></div>
 <div class="modal fade" id="add_cate" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Thêm chuyên mục mới</h4>
+                <h4 class="modal-title" style="display: inline-flex;" >Thêm chuyên mục mới</h4>
                 <button type="button" class="close right" id='close_icon' data-dismiss="modal">&times;</button>
             </div>
                 <div class="modal-body">
                     <p id='error_message' class='text-danger'></p>
                     <form id="addCateFrm" action="/admin/category/add" method="POST">
-                        Tên chuyên mục: <input type="text" id='cat_name' name="cat_name"><br/>
-                        <div class="form-group " >
-                            <label for="selectedCat">Chuyên mục cha</label>
+                        <a style="width: 200px;"> Tên chuyên mục: </a> 
+                        <input type="text" id='cat_name' name="cat_name" style="margin-left: 8px; height: 35px; border-radius: 5px; width: 205px; " ><br/>
+                        <div class="form-group" style="margin-top: 20px; display: inline-flex; margin-bottom: 0px;" >
+                            <label for="selectedCat" style="width: 200px; margin-top: 8px" >Chuyên mục cha: </label>
                             <select class="form-control" id="selectedCat" name="category">
                                  <option value="0" selected="selected">Không có</option>
                                 {{#each this.list_dad}}

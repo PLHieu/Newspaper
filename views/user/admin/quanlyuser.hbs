@@ -10,12 +10,55 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/tab.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
-<link rel="stylesheet" href="/public/css/tab.css">
 <style>
     .table-wrapper{
         box-shadow: none;
+    }
+    .active_page {
+        background-color: #d63031;
+        color: white !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(102, 102, 102);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #757575;
+    }
+    .card{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        
+    }
+
+    .card:hover{
+        /*transform: scale(1.05); */
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
     }
 </style>
 {{/section}}
@@ -23,6 +66,8 @@
 {{#section 'js'}}
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
 <script src="/public/template/js/slick.min.js"></script>
@@ -57,7 +102,48 @@
 
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-
+        $('.xoa').click(function (e) {
+            e.preventDefault();
+            var roleid = this.id;
+            let pos = roleid.indexOf('_');
+            let userid = roleid.slice(0, pos);
+            let role = roleid.slice(pos + 1);
+            console.log(this.id);
+            console.log(role);
+            console.log(userid);
+            var _url = '/admin/user/delete/' + role; 
+            console.log(_url)
+            Swal.fire({
+                title: 'Bạn có muốn xóa người dùng này ?',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post(_url, { userid }, function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa người dùng thành công',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#3085d6',
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                    })
+                        .fail((data, status) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Không thể xóa người dùng!',
+                            })
+                        });
+                }
+            })
+        })
 
         $('.exit-button , .momoaoao').click(function (e) {
             e.preventDefault();
@@ -145,51 +231,18 @@
     <br>
     <br>
     <div class="warpper">
-        <input class="radio" id="admin" name="group" type="radio" checked>
-        <input class="radio" id="editor" name="group" type="radio">
+        <input class="radio" id="editor" name="group" type="radio" checked>
         <input class="radio" id="writer" name="group" type="radio">
         <input class="radio" id="sub" name="group" type="radio">
         <input class="radio" id="duyetPre" name="group" type="radio">
         <div class="tabs">
-            <label class="tab" id="admin-tab" for="admin">Admin</label>
             <label class="tab" id="editor-tab" for="editor">Editor</label>
             <label class="tab" id="writer-tab" for="writer">Writer</label>
             <label class="tab" id="sub-tab" for="sub">Subcriber</label>
             <label class="tab" id="duyetPre-tab" for="duyetPre">Duyệt Premium</label>
         </div>
         <div class="panels">
-            <div class="panel" id="admin-panel">
-                <div class="table-wrapper pb-0">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2>Quản lý <b>Admin</b></h2>
-                            </div>
-                            <div class="col-sm-7">
-                                <a href="/admin/user/add" class="btn btn-secondary d-flex align-items-center"><i
-                                        class="material-icons">&#xE147;</i> <span>Thêm người dùng mới</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-wrapper">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Total Post</th>
-                                <th>Role</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
             <div class="panel" id="editor-panel">
                 <div class="table-wrapper pb-0">
                     <div class="table-title">
@@ -213,7 +266,6 @@
                                 <th>Chuyên mục</th>
                                 <th>Email</th>
                                 <th>Address</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -225,7 +277,7 @@
                                 <td>{{CateName}}</td>
                                 <td>{{Email}}</td>
                                 <td>{{Address}}</td>
-                                <td><span class="badge badge-pill badge-primary">Editor</span></td>
+                                <!--<td><span class="badge badge-pill badge-primary">Editor</span></td>-->
                                 <td class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -235,7 +287,7 @@
                                         <a class="dropdown-item xemchitiet" href="#" id="editor_{{ID}}">Xem chi tiết</a>
                                         <a class="dropdown-item" href="/admin/user/edit/editor?userid={{ID}}">Chỉnh
                                             sửa</a>
-                                        <a class="dropdown-item" href="/admin/user/delete/editor?userid={{ID}}">Xóa</a>
+                                        <a class="dropdown-item xoa" id="{{ID}}_editor" href="#">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
@@ -267,7 +319,6 @@
                                 <th>Nick Name</th>
                                 <th>Email</th>
                                 <th>Address</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -280,7 +331,6 @@
                                 <td>{{NickName}}</td>
                                 <td>{{Email}}</td>
                                 <td>{{Address}}</td>
-                                <td><span class="badge badge-pill badge-primary">Writer</span></td>
                                 <td class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -290,7 +340,7 @@
                                         <a class="dropdown-item xemchitiet" href="#" id="writer_{{ID}}">Xem chi tiết</a>
                                         <a class="dropdown-item" href="/admin/user/edit/writer?userid={{ID}}">Chỉnh
                                             sửa</a>
-                                        <a class="dropdown-item" href="/admin/user/delete/writer?userid={{ID}}">Xóa</a>
+                                        <a class="dropdown-item xoa" id="{{ID}}_writer" href="#">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
@@ -323,7 +373,6 @@
                                 <th>Email</th>
                                 <th>Address</th>
                                 <th>Premium</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -340,8 +389,6 @@
                                     <i class="fa fa-check-circle">Premium</i>
                                     {{/if}}
                                 </td>
-
-                                <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
                                 <td class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -352,8 +399,7 @@
                                             tiết</a>
                                         <a class="dropdown-item" href="/admin/user/edit/subcriber?userid={{ID}}">Chỉnh
                                             sửa</a>
-                                        <a class="dropdown-item"
-                                            href="/admin/user/delete/subcriber?userid={{ID}}">Xóa</a>
+                                        <a class="dropdown-item xoa" id="{{ID}}_subcriber" href="#">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
@@ -376,34 +422,38 @@
                 <div class="table-wrapper">
                     <table class="table table-striped table-hover">
                         <thead>
+                            {{#if sublen}}
                             <tr>
-                                <th>ID</th>
                                 <th>Username</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Address</th>
                                 <th>Birthday</th>
-                                <th>Role</th>
                                 <th>Accept</th>
-                            </tr>
+                            </tr>    
+                            {{/if}}
                         </thead>
                         <tbody>
+                            {{#if sublen}}
                             {{#each subPremium}}
                             <tr>
-                                <td>{{ID}}</td>
                                 <td>{{UserName}}</td>
                                 <td>{{Name}}</td>
                                 <td>{{Email}}</td>
                                 <td>{{Address}}</td>
                                 <td>{{Birthday}}</td>
-                                <td><span class="badge badge-pill badge-primary">Subcriber</span></td>
                                 <td id="{{ID}}" class="duyet">
-                                    <a id="content_accept{{ID}}" class="btn" style="padding-left: 0px;">
+                                    <a id="content_accept{{ID}}" style="cursor: pointer; padding-left: 0px;">
                                         <span class="badge badge-pill badge-warning">Duyệt</span>
                                     </a>
                                 </td>
                             </tr>
                             {{/each}}
+                            {{else}}
+                            <p>Không có người dùng đăng ký Premium</p>
+                            {{/if}}
+
+                            
                         </tbody>
                     </table>
                 </div>
@@ -417,11 +467,8 @@
     <div class="modal_content modal-user">
         <i class="exit-button material-icons">close</i>
         <div class="row">
-            <div class="col-md-7">
-                <img src="https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTU3ODc5MDg1ODkyNzA4MDYz/ho-chi-minh-2.jpg"
-                    alt="">
-            </div>
-            <div class="col-md-5" id="showinfor">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="showinfor">
                 <h1 class="name" id="fullnameid">Ho chi minh</h1>
                 <p class="role" id="roleid"></p>
                 <table class="table table-striped table-hover">
@@ -438,22 +485,9 @@
                         <td><i class="material-icons">cake</i></td>
                         <td id="birthdayid">04/08/2000</td>
                     </tr>
-                    <!--
-                    <tr>
-                        <td><i class="material-icons">location_city</i></td>
-                        <td class="showemail">68 Nguyen Du, Thi tran Duc Pho, Quang Ngai</td>
-                    </tr>
-                    
-                    <tr>
-                        <td><i class="material-icons">stars</i></td>
-                        <td class="showemail">Expired on <b>25/6/2021</b></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td class="showemail"><span class="badge badge-primary">Du lich</span></td>
-                    </tr>-->
                 </table>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </div>

@@ -1,6 +1,10 @@
 {{#section 'css'}}
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
+
 <link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/public/template/css/ticker-style.css">
 <link rel="stylesheet" href="/public/template/css/flaticon.css">
@@ -12,16 +16,65 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/quanlipost-user-cate.css">
 <link rel="stylesheet" href="/public/css/profile.css">
+<style>
+    /*.active_page{
+        background-color: rgb(216, 2, 134);
+        color: red;
+    }*/
+    .active_page {
+        background-color: #d63031;
+        color: white !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(102, 102, 102);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #757575;
+    }
+    .card{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        
+    }
+
+    .card:hover{
+        /*transform: scale(1.05); */
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
+    }
+</style>
 
 {{/section}}
 
 {{#section 'title'}}
-<title>Admin Chỉnh sửa thông tin cá nhân</title>
+<title>Admin Chỉnh sửa thông tin chuyên mục</title>
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
 
@@ -41,9 +94,8 @@
 
 <!-- Jquery Plugins, main Jquery -->
 <script src="/public/template/js/main.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <script>
 
     $('#formResetPass').on('submit', function (e) {
@@ -61,23 +113,60 @@
         clearPassForm();
         })
     });
-
-    $('#formGeneralInfor').on('submit', function (e) {
+   $('#formGeneralInfor').on('submit', function (e) {
         e.preventDefault();
-        if (isEmptyText('txtName', "Name"))
-            return;
-        const name = $('#txtName').val();
-        const catid = $('#catid').val();
-        console.log(catid);
+        var name = $('#txtName').val();
+        var catid = $('#catid').val();
+        //var catID = parseInt(this.id);
+        //console.log(catID)
+        if(name.length===0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Chuyên mục không thể rỗng!',
+            })
+        }
+        else{
+        
         $.getJSON(`/admin/category/existed-cate?catName=${name}&&catid=${catid}`, function (data) {
             if(data == true){
-                window.alert('trung ten');
-                return;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Tên chuyên mục đã tồn tại!',
+                })
+            }else{
+                Swal.fire({
+                    title: 'Bạn có muốn lưu thay đổi?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#formGeneralInfor').off('submit').submit();
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Lưu chuyên mục thành công',
+                                showConfirmButton: true,
+                                confirmButtonColor: '#3085d6',
+                            })
+                                .then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+                    }
+                })
+
             }
             console.log(data);
-            $('#formGeneralInfor').off('submit').submit();
+            //$('#formGeneralInfor').off('submit').submit();
         });
-    });
+            
+        }
+        
+    })
 
     function isEmptyText(idtext, message) {
         const text = $(`#${idtext}`).val();
@@ -98,16 +187,15 @@
             <div class="wrap-column">
                 <h2>Chỉnh sửa chuyên mục </h2>
                 <form action="/admin/category/edit?cateid={{cateID}}" method="POST" id="formGeneralInfor">
-
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="txtDOB">ID</label>
                                 <input class="form-control mb-2" name="catid" id="catid"
                                     value="{{cateID}}"  disabled/>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="txtName">Tên chuyên mục</label>
                                 <input class="form-control mb-2" type="text" name="name" id="txtName"
