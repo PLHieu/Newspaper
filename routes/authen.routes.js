@@ -2,8 +2,8 @@ const authentication = require('../controllers/authen.controllers')
 const authorMdw = require('../middlewares/authorUser.mdw')
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('../config/const.config');
-const bcrypt = require('bcryptjs');
 
 
 passport.use(new GoogleStrategy({
@@ -12,6 +12,14 @@ passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/callback'
     },
     authentication.passport_google
+));
+
+passport.use(new FacebookStrategy({
+    clientID: keys.facebookClientID,
+    clientSecret: keys.facebookClientSecret,
+    callbackURL: 'http://localhost:3000/auth/facebook/callback'
+    },
+    authentication.passport_facebook
 ));
 
 
@@ -28,6 +36,22 @@ module.exports = function (app) {
             const rows = req.user;
             let role = "subcriber";
             authentication.login_successfully(role, rows, req, res,true);
+        }
+    );
+
+    app.get('/auth/facebook',
+    passport.authenticate('facebook', {
+      scope: ['email']
+    }));
+
+    app.get('/auth/facebook/callback', 
+        passport.authenticate('facebook',{ 
+        failureRedirect: '/failed',
+        session: false }),(req, res) => {
+            res.redirect('/read/7')
+            // const rows = req.user;
+            // let role = "subcriber";
+            // authentication.login_successfully(role, rows, req, res,true);
         }
     );
 

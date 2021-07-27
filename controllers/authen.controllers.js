@@ -38,6 +38,36 @@ exports.passport_google = async (accessToken, refreshToken, profile, done) => {
     }
 }
 
+exports.passport_facebook = async (accessToken, refreshToken, profile, done) => {
+    console.log(profile)
+    //get the user data from google 
+    const newUser = {
+        Name: profile.displayName,
+        Email: profile.emails[0].value,
+        UserName: profile.emails[0].value,
+        Password: bcrypt.hashSync(profile.id,10),
+        OTP:-1,
+    }
+    try {
+        //find the user in our database 
+        let user = 1;//await reader.findByEmail(newUser.Email);
+
+        if (user) {
+            //If user present in our database.
+            console.log("Da ton tai google account")
+            done(null, user)
+        } else {
+            // if user is not preset in our database save user data to database.
+            console.log("Chua ton tai google account")
+            userID = await reader.add(newUser);
+            user = reader.findByID(userID);
+            done(null, user)
+        }
+    } catch (err) {
+        console.error(err)
+    }
+}
+
 exports.register = async function(req, res) {
     const hash = bcrypt.hashSync(req.body.raw_password, 10);
     const dob = moment(req.body.raw_dob,'DD/MM/YYYY').format('YYYY-MM-DD');
