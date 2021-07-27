@@ -93,6 +93,13 @@
     <input type="text" id="postID" name="postID" value="{{postID}}">
     <div class="col-md-9">
       <div class="wrap-column">
+        <div class="form-group">
+          <label>Ảnh đại diện</label>
+          <div style="margin:0 auto;text-align:center">
+            <img src="http://localhost:3000/public/image/posts/{{postID}}/bigavt.jpg" class="rounded w-75 h-75">    
+          </div>
+        </div>
+        <br>
         <div class="form-group ">
           <label>Tiêu đề</label>
           <input type="text" class="form-control inputtext-wrap-inside" size="3em" value="{{aPost.Title}}" disabled>
@@ -108,7 +115,7 @@
           <textarea rows="20" class="form-control" disabled>{{aPost.Content}}</textarea>
         </div>
         {{!-- <div class="form-group" style="margin-top: 2rem !important">
-          <label>Cover</label>
+          <label>Ảnh đại diện</label>
           <input type="file" name="cover" id="fCover" class="form-control d-block" />
         </div> --}}
       </div>
