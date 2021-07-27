@@ -53,6 +53,10 @@ async function updateCategory(catID, name, dad){
     })
 }
 async function del(catID){
+    /*const level = await findLevel(catID);
+    if(level == '1'){
+       await db('Categories').where('ParentID', catID).del();
+    }*/
     return db('Categories').where('ID', catID).del();
 }
 async function add(catName, catParent){

@@ -112,7 +112,10 @@ router.get('/category/manage', async function(req, res) {
     for (let i = 0; i < list_dad.length; i++) {
         //let des = objectMapper(dad[i], rule1)
         //console.log(des);
-        numdad = 0; duyetdad = 0; chuaduyetdad = 0; tuchoidad = 0;
+        duyetdad = await post_db.countAcceptPostByCategory(list_dad[i].ID);
+        chuaduyetdad = await post_db.countChuaDuyetPostByCategory(list_dad[i].ID);
+        tuchoidad = await post_db.countRefusePostByCategory(list_dad[i].ID);
+        numdad = tuchoidad + chuaduyetdad + duyetdad;
         const child = await cat_db.findChildCategories(list_dad[i].ID)
         for (let j =0; j<child.length; j++){
             duyetchild = await post_db.countAcceptPostByCategory(child[j].ID);
@@ -137,7 +140,7 @@ router.get('/category/manage', async function(req, res) {
     }
     //console.log(result1[0]);
     //console.log(result);
-    //console.log(list_dad);
+    console.log(list_dad);
     
     return res.render('user/admin/quanlycate',{
         list_dad,
