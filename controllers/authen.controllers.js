@@ -409,20 +409,20 @@ function handle_login_successfully(role, rows, req, res, loggedBySocial) {
         else{
             var countDownDate = new Date(exp).getTime();
             var now = new Date().getTime();
-        
-            // Find the distance between now and the count down date
-            var distance = now - countDownDate;
+            var distance = countDownDate - now;
                 
-            // Time calculations for days, hours, minutes and seconds
-            //var days = Math.floor(distance / (1000 * 60 * 60 * 24)); % (1000 * 60 * 60))
-            //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor(distance  / (1000 * 60));
             var minutesleft = 7*24*60  - minutes;
-            
-            if(minutesleft<=0){
+            console.log(countDownDate);
+            console.log(distance);
+            console.log(minutesleft);
+            if(minutesleft<=0 || distance <= 0){
                 exp = null;
                 reader.updateNullExp(rows.ID);
                 Premium = null;
+            }
+            else{
+                exp = moment(rows.ExpTime).format('DD/MM/YYYY HH:mm:ss');
             }
         }
     }

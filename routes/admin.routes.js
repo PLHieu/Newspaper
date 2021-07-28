@@ -92,6 +92,25 @@ router.get('/user/manage', async function(req, res) {
     const list_reader_subPre = await reader_db.findListSubPremium();
     //console.log(list_reader_subPre);
     const list_reader = await reader_db.findAll();
+    for (i =0 ; i<list_reader.length; i++){
+        if(list_reader[i].ExpTime){
+            exp = list_reader[i].ExpTime;
+            var countDownDate = new Date(exp).getTime();
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+                
+            var minutes = Math.floor(distance  / (1000 * 60));
+            var minutesleft = 7*24*60  - minutes;
+            /*console.log(countDownDate);
+            console.log(distance);
+            console.log(minutesleft);*/
+            if(minutesleft<=0 || distance <= 0){
+                exp = null;
+                console.log(list_reader[i]);
+                reader_db.updateNullExp(list_reader[i].ID);
+            } 
+        }
+    }
     const list_editor = await editor_db.allEditor();
     const list_writer = await writer_db.findAll();
     var sublen = list_reader_subPre.length;
@@ -318,7 +337,13 @@ router.get('/user/cancelpremium', async function(req, res) {
 });
 router.get('/getinforsubcriber', async function(req, res) {
     let reader = await reader_db.findByID(req.query.userid);
+    console.log(reader);
     reader.BirthDay = moment(reader.BirthDay).format('DD/MM/YYYY');
+    if(reader.ExpTime){
+        console.log(reader.ExpTime);
+        reader.ExpTime = moment(reader.ExpTime).format('DD/MM/YYYY HH:mm:ss');
+        console.log(reader.ExpTime);
+    }
     return res.json(reader);
 });
 router.get('/getinforeditor', async function(req, res) {
@@ -377,6 +402,8 @@ router.get('/user/edit/subcriber', async function(req, res){
     id_user = req.query.userid;
     user = await reader_db.findByID(id_user);
     if(user.ExpTime){
+        //user.ExpTime = user.ExpTime + 7;
+        console.log(user.ExpTime);
         
     user.ExpTime = moment(user.ExpTime).format('DD/MM/YYYY, HH:MM:SS');
     }
@@ -384,6 +411,10 @@ router.get('/user/edit/subcriber', async function(req, res){
     user.writer = null;
     user.editor = null;
     user.sub = 1;
+    user.social = null;
+    if(user.OTP == '-2'){
+        user.social = 1;
+    }
     console.log(user);
     return res.render('user/lib/edit-profile-admin',{
         user: user,

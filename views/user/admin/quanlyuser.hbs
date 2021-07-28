@@ -166,7 +166,8 @@
                     console.log(data.UserName);
                     if (data.ExpTime) {
                         let time = data.ExpTime;
-                        time = time.slice(0, 10);
+                        console.log(data);
+                        //time = time.slice(0, 10);
                         let moreinf = '<td><i class="material-icons">stars</i></td>' + '<td>Expired on <b>' + time + '</b></td>'
                         $('#moreinfor').html(moreinf);
                     }
@@ -368,12 +369,11 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Premium</th>
-                                <th>Action</th>
+                                <th >Username</th>
+                                <th >Name</th>
+                                <th >Address</th>
+                                <th >Premium</th>
+                                <th >Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -382,7 +382,6 @@
                             <tr>
                                 <td>{{UserName}}</td>
                                 <td>{{Name}}</td>
-                                <td>{{Email}}</td>
                                 <td>{{Address}}</td>
                                 <td>
                                     {{#if ExpTime}}

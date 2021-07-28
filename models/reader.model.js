@@ -31,6 +31,7 @@ module.exports = {
     },
     async AcceptPremium(readerID){
       let date = new Date();
+      date.setDate(date.getDate() + 7);
       date = moment(date).format('YYYY-MM-DD HH:mm:ss');
       
       await db('Readers')

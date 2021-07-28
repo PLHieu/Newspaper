@@ -1,7 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
-<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/public/template/css/ticker-style.css">
 <link rel="stylesheet" href="/public/template/css/flaticon.css">
 <link rel="stylesheet" href="/public/template/css/slicknav.css">
@@ -12,8 +11,57 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/tab.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/public/css/profile.css">
+<style>
+    .table-wrapper{
+        box-shadow: none;
+    }
+    .active_page {
+        background-color: #d63031;
+        color: white !important;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(102, 102, 102);
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #757575;
+    }
+    .card{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        
+    }
+
+    .card:hover{
+        /*transform: scale(1.05); */
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
+    }
+</style>
 {{/section}}
 
 {{#section 'title'}}
@@ -23,6 +71,8 @@
 {{#section 'js'}}
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
 <script src="/public/template/js/slick.min.js"></script>
@@ -42,7 +92,7 @@
 <script src="/public/template/js/main.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
     $('#txtDOB').datetimepicker({
         format: 'd/m/Y',
@@ -56,9 +106,9 @@
         let oldPassword = $("#txtOldPass").val();
         let newPassword = $("#txtNewPass").val();
         let repnewPassword = $("#txtRepNewPass").val();
-
+        
         if (newPassword != repnewPassword) {
-            swal({
+            Swal.fire({
                 title: "Thất bại !",
                 text: "Mật khẩu mới nhập 2 lần phải giống nhau",
                 icon: "error",
@@ -71,46 +121,86 @@
             oldPassword,
             newPassword
         }, (data) => {
-            swal({
-                title: "Thành công!",
-                text: "Thay đổi mật khẩu thành công!",
-                icon: "success",
-                button: "Đóng!",
-            });
+            Swal.fire({
+                icon: 'success',
+                title: 'Cập nhật mật khẩu thành công',
+                showConfirmButton: true,
+                confirmButtonColor: '#3085d6',
+            })
             clearPassForm();
         })
             .fail((data, status) => {
-                swal({
-                    title: "Thất bại !",
-                    text: "Thay đổi mật khẩu thất bại !",
-                    icon: "error",
-                    button: "Đóng!",
-                });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Cập nhật mật khẩu thất bại!',
+                })
                 clearPassForm();
             });
     });
 
     $('#formGeneralInfor').on('submit', function (e) {
         e.preventDefault();
-        if (isEmptyText('txtName', "Name"))
+        if (isEmptyText('txtName', "Name")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Tên người dùng không thể rỗng!',
+            })
             return;
-        if (isEmptyText('txtEmail', "Email"))
+        }
+        if (isEmptyText('txtEmail', "Email")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Email người dùng không thể rỗng!',
+            })
             return;
-        if (isEmptyText('txtDOB', "Date of Birth"))
+        }
+        if (isEmptyText('txtDOB', "Date of Birth")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ngày sinh người dùng không thể rỗng!',
+            })
             return;
-        if (isEmptyText('txtAddress', "Address"))
+        }
+        if (isEmptyText('txtAddress', "Address")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Địa chỉ người dùng không thể rỗng!',
+            })
             return;
+        }
         const username = '';
-        $.getJSON(`/is-available?username=${username}`, function (data) {
-            console.log(data);
-
-            if (!isValidEmail($('#txtEmail').val())) {
-                alert('Email is not valid');
-                $('#txtEmail').focus();
-                return;
-            }
-            $('#formGeneralInfor').off('submit').submit();
-        });
+        if (!isValidEmail($('#txtEmail').val())) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Email không hợp lệ!',
+            })
+            $('#txtEmail').focus();
+            return;
+        }   
+            Swal.fire({
+                title: 'Bạn có muốn lưu thay đổi?',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Lưu thông tin người dùng thành công',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#3085d6',
+                        })
+                    $('#formGeneralInfor').off('submit').submit();
+                }
+            });
     });
 
     function isValidEmail(email) {
@@ -121,8 +211,9 @@
     function isEmptyText(idtext, message) {
         const text = $(`#${idtext}`).val();
         if (text.length === 0 || text === `__/__/____`) {
-            alert(`Invalid ${message}`);
-            $(`#${idtext}`).focus();
+            if(idtext!= 'txtDOB'){
+                $(`#${idtext}`).focus();
+            }
             return true;
         }
         return false;
@@ -138,7 +229,7 @@
         
         $.post(`/subcriber/subpremium?userid=${userid}`,function(data){
             //var str ="#content_accept" + userid;
-            var cont = '<p> Bạn đã đăng ký thành công, hãy chờ admin duyệt nhé </p>'
+            var cont = '<p> Bạn đã đăng ký Premium thành công, hãy chờ admin duyệt nhé </p>'
             $('#dangkypremium').html(cont);
             
         });
@@ -270,11 +361,11 @@
 
             {{#if session.user.subcriber}}
             {{#if session.user.premium}}
-            <div class="wrap-column d-flex align-items-center" style="padding: 10px;">
+            <div class="row wrap-column d-flex align-items-center" style="padding: 10px;">
                 <img src="/public/image/banner/premium.png" style="display: inline-block; width: 40%" alt="">
                 <div class="d-inline-block" style="width: 50%;">
                     <div class="d-flex" style="align-items: center; flex-direction: column;">
-                        <h4>Expired date</h4>
+                        <h4>Thời gian hết hạn</h4>
                         <p>{{session.user.expTime}}</p>
                         {{!-- //TODO set ngay het han --}}
                     </div>
@@ -284,12 +375,17 @@
             <img src="/public/template/img/gallery/body_card4.png" class="d-block"
                 style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
             {{else}}
-            <div id="dangkypremium">
-                <p>Hãy đăng ký Premium để đọc các bài viết giới hạn</p>
-                <a class = "btn">
-                    <span class="badge badge-danger">Đăng ký</span>
-                </a>
-            </div>
+            {{#if session.user.subPremium}}
+                <div class="row wrap-column d-flex align-items-center" >
+                    <p> Bạn đã đăng ký Premium thành công, hãy chờ admin duyệt nhé </p>
+                </div>
+            {{else}}
+                <div class="row wrap-column d-flex align-items-center" id="dangkypremium">
+                    <p>Hãy <a style="cursor: pointer; text-decoration: underline; color:blue;">đăng ký</a> Premium để đọc các bài viết giới hạn</p>
+                    
+                </div>
+            {{/if}}
+            
             <img src="/public/template/img/news/news_card.jpg" class="d-block"
                 style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
             

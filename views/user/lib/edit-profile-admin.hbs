@@ -224,7 +224,7 @@
                 
                 Swal.fire({
                         icon: 'success',
-                        title: 'Lưu chuyên mục thành công',
+                        title: 'Lưu thông tin người dùng thành công',
                         showConfirmButton: true,
                         confirmButtonColor: '#3085d6',
                     })
@@ -233,7 +233,6 @@
             }
         })
             console.log(data);
-            //$('#formGeneralInfor').off('submit').submit();
     });
 
     function isValidEmail(email) {
@@ -375,6 +374,8 @@
                 </form>
             </div>
             <br>
+            {{#if user.social}}
+            {{else}}
             <div class="wrap-column">
                 <h2>Reset mật khẩu</h2> <!--mk mặc định là role -->
                 <form id="formResetPass" {{#if user.writer}}
@@ -386,6 +387,7 @@
                     </div>
                 </form>
             </div>
+            {{/if}}
 
         </div>
 

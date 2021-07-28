@@ -59,7 +59,26 @@
     {{> main-content-detailedView}}
     {{else}}
     {{!-- Thong bao bai nay la premium --}}
-    <p>Bai viet nay la premium</p>
+    <div class="container" style="padding-top: 20px; ">
+    <div class="row wrap-column d-flex align-items-center" style="background-color: white; border-radius: 10px; " >
+        <div style="margin-top: 20px;  height: 100%; width: 100%;
+          display: flex; align-items: center;
+          justify-content: center; align-content:center;">
+            <h4> Đây là bài viết Premium! </h4>
+            <br>
+        </div>
+        <div style=" margin-bottom: 20px; height: 100%; width: 100%;
+          display: flex; align-items: center;
+          justify-content: center; align-content:center;">
+            {{#if session.user.subPremium}}
+                <h4> Bạn đã đăng ký Premium, hãy chờ admin duyệt nhé!</h4>
+            {{else}}
+                <h4> Hãy <a href="/subcriber/profile" style="text-decoration: underline; color:blue;">đăng ký</a> Premium để đọc được bài viết này!</h4>
+            {{/if}}
+        </div>
+        
+    </div>
+    </div>
     {{/if}}
     {{else}}
     {{!-- render bai viet (gom main content, sidebar, phan binh luan) --}}
