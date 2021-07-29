@@ -235,6 +235,8 @@ module.exports = {
 
     async findPostByID(id_post) {
         const post = await findOnlyByID(id_post);
+        if (post === null)
+            return null;
         post.Writer = await writer_db.findByID(post.WriterID);
         post.CatName = await cate_db.findNameCateByID(post.CatID);
         await upView(id_post, post.Views + 1);
@@ -245,6 +247,7 @@ module.exports = {
         post.comments = await comment_db.findCommentByID(id_post);
         post.num_comments = post.comments.length;
         post.five_post_like_cat = await findRelatedPostByCatID(post.ID, post.CatID);
+        post.has_five_post_like_cat = post.five_post_like_cat.length;
         return post;
     },
 
@@ -328,7 +331,6 @@ async function findRelatedPostByCatID(postID, catID) {
         tags = await posttag_db.findTagsByPostID(p.ID);
         five_post_like_cat[i].tags = tags;
         five_post_like_cat[i].PubTime = moment(five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
-        console.log(five_post_like_cat[i].WriterID);
         five_post_like_cat[i].Writer = await writer_db.findByID(five_post_like_cat[i].WriterID);
         five_post_like_cat[i].CatName = await cate_db.findNameCateByID(five_post_like_cat[i].CatID);
     }

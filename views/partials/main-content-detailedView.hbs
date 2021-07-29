@@ -39,7 +39,11 @@
 
                 <div class="content-item white-wrapper mt-3 mb-3" id="comments">
                     <!-- COMMENT other people START  -->
+                    {{#eq this.post.num_comments 0}}
+                    <h3 class="text-dark font-weight-bold">Chưa có Bình Luận</h3>
+                    {{else}}
                     <h3 class="text-dark font-weight-bold">{{this.post.num_comments}} Bình Luận</h3>
+                    {{/eq}}
                     <div class="comments-area " style="padding: 10px; !important">
                         {{#each this.post.comments}}
                         <div class="user justify-content-between align-items-center d-flex w-100 mot-comment">
@@ -114,7 +118,11 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="small-tittle mb-30">
+                                        {{#eq this.post.has_five_post_like_cat 0}}
+                                        <h2>Không có bài viết nào cùng chuyên mục</h2>
+                                        {{else}}
                                         <h2>Bài viết cùng chuyên mục</h2>
+                                        {{/eq}}
                                     </div>
                                 </div>
                             </div>

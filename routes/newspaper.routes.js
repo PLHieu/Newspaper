@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const posts_db = require('../models/post.model');
+const writer_db = require('../models/writer.model');
 const comments_db = require('../models/comment.model');
 const moment = require('moment');
 
 router.get('/:id', async function (req, res){
     id_post = req.params.id;
     post = await posts_db.findPostByID(id_post);
+    console.log(post);
+    if (post === null){
+        return res.redirect('/failed');
+    }
     for (let i = 0; i < post.comments.length; i++) {
         if (post.comments[i].ReaderID == null || req.session.user == null || 
             req.session.user.role!=post.comments[i].RoleReaderID || req.session.user.id!=post.comments[i].ReaderID) {
@@ -16,8 +21,9 @@ router.get('/:id', async function (req, res){
             post.comments[i].cantDelete = false;
         }
     }
-    if (post === null){
-        return res.status(404).send("Khong ton tai bai post");
+    for (let i = 0; i < post.five_post_like_cat.length; i++){
+        post.five_post_like_cat[i].PubTime = moment(post.five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
+        post.five_post_like_cat[i].Writer = await writer_db.findByID(post.five_post_like_cat[i].WriterID);
     }
     res.status(200).render('newspaper/detail_view',{
         post: post,
@@ -41,9 +47,14 @@ router.post('/:id', async function (req, res){
     await comments_db.addComment(new_comment);
     
     id_post = req.params.id;
-    post = await posts_db.findPostByID(id_post);
+    const post = await posts_db.findPostByID(id_post);
+    console.log(post);
     if (post === null){
-        return res.status(404).send("Khong ton tai bai post");
+        return res.redirect('/failed');
+    }
+    for (let i = 0; i < post.five_post_like_cat.length; i++){
+        post.five_post_like_cat[i].PubTime = moment(post.five_post_like_cat[i].PubTime).format("DD/MM/YYYY");
+        post.five_post_like_cat[i].Writer = await writer_db.findByID(post.five_post_like_cat[i].WriterID);
     }
     res.status(200).render('newspaper/detail_view',{
         post: post,

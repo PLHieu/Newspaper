@@ -56,7 +56,7 @@ module.exports = function (app) {
     );
 
     app.get('/failed', async (req, res) => { 
-        res.status(404).send('Error authentification');
+        res.status(404).render('404');
     })
 
     app.get('/register',(req, res) => {
