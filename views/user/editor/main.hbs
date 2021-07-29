@@ -116,9 +116,11 @@
         preConfirm: (reason) => {
           $.post('/editor/reject', { note_reject: reason, postID: selectedPost })
             .fail((data, status) => {
-              Swal.showValidationMessage(
-                `Từ Chối Bài Viết Thất Bại`
-              )
+             Swal.fire({
+              icon: 'error',
+              title: 'Từ chối bài viết thất bại',
+              confirmButtonColor: '#3085d6',
+            })
             });
         }, allowOutsideClick: () => !Swal.isLoading()
       })
