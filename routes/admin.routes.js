@@ -278,6 +278,15 @@ router.get('/tag/del', async function(req, res){
     await tag_db.del(req.query.tagID);
     return res.redirect('/admin/tag/manage');
 })
+router.post('/tag/del', async function(req, res) {
+    try{
+        await tag_db.del(req.body.tagID);
+    }catch(e){
+        console.log(e);
+        return res.status(500).send({deleted: false});
+    }
+    return res.status(200).send({deleted: true});
+});
 
 router.get('/post/manage', async function(req, res) {
     let all_posts = null;

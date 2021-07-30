@@ -61,8 +61,8 @@ router.post('/:id', async function (req, res){
     });
 });
 
-router.get('/:id/del-comment', async function(req, res){
-    await comments_db.delComment(req.query.id);
+router.post('/:id/del-comment', async function(req, res){
+    await comments_db.delComment(req.body.commentID);
     const url = `/read/${req.params.id}`;
     res.redirect(url);
 })

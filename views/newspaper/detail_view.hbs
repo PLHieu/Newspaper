@@ -18,8 +18,7 @@
 {{/section}}
 
 {{#section 'js'}}
-<!-- Jquery, Popper, Bootstrap -->
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
 
@@ -46,6 +45,43 @@
             console.log(this.id);
             window.location.href = "/post/tag/" + this.id;
         });
+
+        $('.xoa').click(function (e) {
+            e.preventDefault();
+            var commentID = parseInt(this.id)
+            console.log(commentID);
+            Swal.fire({
+                title: 'Bạn có muốn xóa bài viết này ?',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log(window.location.href)
+                    $.post(window.location.href+'/del-comment', { commentID }, function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Xóa bài viết thành công',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#3085d6',
+                        })
+                            .then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                    })
+                        .fail((data, status) => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Không thể xóa bài viết!',
+                            })
+                        });
+                }
+            })
+        })
     });
 </script>
 {{/section}}
