@@ -47,7 +47,8 @@ exports.isEditor = async (req, res, next) => {
 exports.checkAlreadyLoggedIn = (req, res, next) => {
     if (req.session.user != null) {
         // TODO: redirect cho tung role
-        return res.redirect('/'+req.session.user.role);
+        const url = req.session.retURL || '/'+req.session.user.role
+        return res.redirect(url);
     }
     next();
 }

@@ -59,6 +59,12 @@ module.exports = function (app) {
         res.status(404).render('404');
     })
 
+    app.post('/saveRetURL', (req, res) => {
+        req.session.retURL = req.body.retURL;
+        console.log(req.session.retURL)
+        res.json(true);
+    })
+
     app.get('/register',(req, res) => {
         res.render('account/register');
     })
