@@ -1,6 +1,5 @@
 {{#section 'css'}}
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+
 <link rel="stylesheet" href="/public/template/css/ticker-style.css">
 <link rel="stylesheet" href="/public/template/css/flaticon.css">
 <link rel="stylesheet" href="/public/template/css/slicknav.css">
@@ -11,9 +10,8 @@
 <link rel="stylesheet" href="/public/template/css/slick.css">
 <link rel="stylesheet" href="/public/template/css/nice-select.css">
 <link rel="stylesheet" href="/public/template/css/style.css">
-<link rel="stylesheet" href="/public/css/tab.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
 <link rel="stylesheet" href="/public/css/profile.css">
 <style>
     .table-wrapper{
@@ -70,26 +68,26 @@
 
 {{#section 'js'}}
 <!-- Jquery Mobile Menu -->
-<script src="/public/template/js/jquery.slicknav.min.js"></script>
+{{!-- <script src="/public/template/js/jquery.slicknav.min.js"></script> --}}
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="/public/template/js/slick.min.js"></script>
+{{!-- <script src="/public/template/js/slick.min.js"></script> --}}
 
 <!-- One Page, Animated-HeadLin -->
-<script src="/public/template/js/wow.min.js"></script>
-<script src="/public/template/js/jquery.magnific-popup.js"></script>
+{{!-- <script src="/public/template/js/wow.min.js"></script> --}}
+{{!-- <script src="/public/template/js/jquery.magnific-popup.js"></script> --}}
 
 <!-- Scrollup, nice-select, sticky -->
-<script src="/public/template/js/jquery.scrollUp.min.js"></script>
-<script src="/public/template/js/jquery.sticky.js"></script>
+{{!-- <script src="/public/template/js/jquery.scrollUp.min.js"></script> --}}
+{{!-- <script src="/public/template/js/jquery.sticky.js"></script> --}}
 
 <!-- contact js -->
-<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+{{!-- <script src="/public/template/js/jquery.ajaxchimp.min.js"></script> --}}
 
 <!-- Jquery Plugins, main Jquery -->
-<script src="/public/template/js/main.js"></script>
+{{!-- <script src="/public/template/js/main.js"></script> --}}
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
@@ -373,7 +371,7 @@
             </div>
             <br>
             <img src="/public/template/img/gallery/body_card4.png" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+                style=" width: 65%; margin-left: auto; margin-right: auto" alt="">
             {{else}}
             {{#if session.user.subPremium}}
                 <div class="row wrap-column d-flex align-items-center" >
@@ -381,13 +379,13 @@
                 </div>
             {{else}}
                 <div class="row wrap-column d-flex align-items-center" id="dangkypremium">
-                    <p>Hãy <a style="cursor: pointer; text-decoration: underline; color:blue;">đăng ký</a> Premium để đọc các bài viết giới hạn</p>
-                    
+                    <p class="mb-0">Hãy <a style="cursor: pointer; text-decoration: underline; color:blue;">đăng ký</a> Premium để đọc các bài viết giới hạn</p>
+
                 </div>
             {{/if}}
             
             <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
+                style=" width: 65%; margin-left: auto; margin-right: auto" alt="">
             
             {{/if}}
             {{/if}}

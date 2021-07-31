@@ -1,10 +1,10 @@
 body {
-    color: #d63031;
+    color: #FF2143;
     background: #f5f5f5;
 }
 
 h2 {
-    color: #d63031;
+    color: #FF2143;
 }
 
 .wrap-column {
@@ -55,7 +55,7 @@ input.file-caption-name.form-control.kv-fileinput-caption {
 }
 
 .btn.btn-primary.btn-file {
-    background: #ee4a41;
+    background: #FF2143;
     border: none;
     padding: 10px;
     height: 100%;

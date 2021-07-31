@@ -88,7 +88,7 @@
         $('#modalbox-Tags').empty();
         if (data.tags) {
           for (let i = 0; i < data.tags.length; i++) {
-            $('#modalbox-Tags').append(`<span class="badge badge-primary">${data.tags[i].Name}</span>`);
+            $('#modalbox-Tags').append(`<span class="badge badge-danger mb-1">${data.tags[i].Name}</span>`);
           }
         }
         $('#modalbox-Thumbnail').attr("src", `public/image/posts/${data.ID}/smallavt.jpg`);
@@ -214,7 +214,7 @@
         <div class="wrapper">
           <h1><b id="modalbox-Title"></b></h1>
           <br>
-          <h2>Danh mục <span class="badge badge-primary" id="modalbox-Category"></span></h2>
+          <h2>Danh mục <span class="badge badge-danger" id="modalbox-Category"></span></h2>
           <br>
           <h2>Tóm tắt</h2>
           <p id="modalbox-Abstract"></p>
@@ -236,8 +236,8 @@
           <div class=" tacgia">
             <div>
               <h2>Tác giả</h2>
-              <p id="modalbox-WriterName"></p>
-              <p>Ngày viết: <b id="modalbox-WriteTime"></b></p>
+              <p style="line-height: normal;" id="modalbox-WriterName"></p>
+              <p class="mb-0 mt-0" style="line-height: normal;">Ngày viết: <b id="modalbox-WriteTime"></b></p>
             </div>
           </div>
         </div>

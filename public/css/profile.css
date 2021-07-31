@@ -10,7 +10,7 @@ body {
 
 .chinhsuathongtin h2 {
     font-weight: bold;
-    color: #ee4a41;
+    color: #ff2143;
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -18,11 +18,11 @@ body {
 .chinhsuathongtin label {
     font-weight: normal;
     font-size: large;
-    color: #ee4a41;
+    color: #ff2143;
 }
 
 .chinhsuathongtin button.form-submit {
-    background-color: #ee4a41;
+    background-color: #ff2143;
     border: none;
     border-radius: 3px;
     padding: 20px;

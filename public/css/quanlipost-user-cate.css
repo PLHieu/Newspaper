@@ -186,13 +186,13 @@ table.table .avatar {
 
 .table-title a{
     padding: 20px;
-    background-color: #eb4d4b !important;
+    background-color: #ff2143 !important;
     color: white !important;
     border-radius: 7px !important;
 }
 
 .table-title a:hover {
- background-color: #e96866 !important;
+ background-color: #ce1a35 !important;
 }
 
 .table.table-striped tbody tr td.dropleft i {
@@ -200,7 +200,7 @@ table.table .avatar {
 }
 
 .table.table-striped tbody tr td.dropleft i:hover {
-    color: #eb4d4b
+    color: #ff2143
 }
 
 /* 1.1.1 Noi dung cua table quan ly (Cate)  */
