@@ -163,12 +163,18 @@ module.exports = {
     */
     async findTop10MostRead() {
         const rows = await db('Posts')
+            .where({
+                StateID: 1,
+            })
             .orderBy('Views', 'desc')
             .limit(10)
         return rows;
     },
     async findTop10New() {
         const rows = await db('Posts')
+            .where({
+                StateID: 1,
+            })
             .orderBy('PubTime', 'desc')
             .limit(10);
         //console.log(rows);
@@ -189,7 +195,7 @@ module.exports = {
         let listCate = [];
         for (let i = 0; i < childCate.length; i++) {
             let des = objectMapper(childCate[i], ruleCate)
-            let post = await findHightlightByLevel2Category(childCate[i].ID, 1, 0)
+            let post = await findNewPostByLevel2Category(childCate[i].ID, 1, 0)
             let parent = await cate_db.findNameCateByID(childCate[i].ParentID);
             // console.log(parent);
             des.ParentCateName = parent;
@@ -208,7 +214,10 @@ module.exports = {
         // console.log(rows);
         //return rows;
         const rows = await db('Posts')
-            .where('WriteTime', '>', d)
+            .where('PubTime', '>', d)
+            .where({
+                StateID: 1,
+            })
             .orderBy('Views', 'desc')
             .limit(3);
         return rows;
@@ -433,6 +442,21 @@ async function findHightlightByLevel2Category(IDcategory, limit, offset) {
             CatID: IDcategory,
         })
         .orderBy('Views', 'desc')
+        .limit(limit)
+        .offset(offset)
+    return rows;
+}
+
+/*
+    Tim bai viet mới nhất theo Category o Level 2 (thap)
+*/
+async function findNewPostByLevel2Category(IDcategory, limit, offset) {
+    const rows = await db('Posts')
+        .where({
+            CatID: IDcategory,
+            StateID: 1,
+        })
+        .orderBy('PubTime', 'desc')
         .limit(limit)
         .offset(offset)
     return rows;
