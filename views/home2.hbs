@@ -89,7 +89,12 @@
                                             <a href="/post/category/{{this.top3HighLightPost.0.ID}}">
                                                 <span class="bgr" data-animation="fadeInUp" data-delay=".2s"
                                                     data-duration="1000ms">{{this.top3HighLightPost.0.CateName}}</span></a>
-                                            <h2><a href="/read/{{this.top3HighLightPost.0.ID}}"
+                                            {{#if this.top3HighLightPost.0.Premium}}
+                                                <a href="#">
+                                                <span class="bgr" data-animation="fadeInUp" data-delay=".2s" style="background-color: yellow; color: black;"
+                                                    data-duration="1000ms">Premium</span></a>
+                                            {{/if}}
+                                            <h2> <a href="/read/{{this.top3HighLightPost.0.ID}}"
                                                     data-animation="fadeInUp" data-delay=".4s"
                                                     data-duration="1000ms">{{this.top3HighLightPost.0.TieuDe}}</a></h2>
                                             <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">
@@ -113,8 +118,13 @@
                                             <a href="/post/category/{{this.top3HighLightPost.1.ID}}">
                                                 <span class="bgb">{{this.top3HighLightPost.1.CateName}}</span>
                                             </a>
-                                            <h2><a
-                                                    href="/read/{{this.top3HighLightPost.1.ID}}">{{this.top3HighLightPost.1.TieuDe}}</a>
+                                            {{#if this.top3HighLightPost.1.Premium}}
+                                                <a href="#">
+                                                <span class="bgr" data-animation="fadeInUp" data-delay=".2s" style="background-color: yellow; color: black;"
+                                                    data-duration="1000ms">Premium</span></a>
+                                            {{/if}}
+                                            <h2>
+                                                <a href="/read/{{this.top3HighLightPost.1.ID}}">{{this.top3HighLightPost.1.TieuDe}}</a>
                                             </h2>
                                             <p>{{this.top3HighLightPost.1.NgayDang}}</p>
                                         </div>
@@ -130,8 +140,13 @@
                                             <a href="/post/category/{{this.top3HighLightPost.2.ID}}">
                                                 <span class="bgb">{{this.top3HighLightPost.2.CateName}}</span>
                                             </a>
-                                            <h2><a
-                                                    href="/read/{{this.top3HighLightPost.2.ID}}">{{this.top3HighLightPost.2.TieuDe}}</a>
+                                            {{#if this.top3HighLightPost.2.Premium}}
+                                                <a href="#">
+                                                <span class="bgr" data-animation="fadeInUp" data-delay=".2s" style="background-color: yellow; color: black;"
+                                                    data-duration="1000ms">Premium</span></a>
+                                            {{/if}}
+                                            <h2>
+                                                <a href="/read/{{this.top3HighLightPost.2.ID}}">{{this.top3HighLightPost.2.TieuDe}}</a>
                                             </h2>
                                             <p>{{this.top3HighLightPost.2.NgayDang}}</p>
                                         </div>
