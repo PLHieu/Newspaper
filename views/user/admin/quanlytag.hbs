@@ -74,7 +74,7 @@
             var tagID = parseInt(this.id)
             //console.log(postID)
             Swal.fire({
-                title: 'Bạn có muốn xóa bài viết này ?',
+                title: 'Bạn có muốn xóa tag này ?',
                 showCancelButton: true,
                 confirmButtonText: 'Xác nhận',
                 confirmButtonColor: '#3085d6',
@@ -84,7 +84,7 @@
                     $.post('/admin/tag/del', { tagID }, function (data) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Xóa bài viết thành công',
+                            title: 'Xóa tag thành công',
                             showConfirmButton: true,
                             confirmButtonColor: '#3085d6',
                         })
@@ -98,7 +98,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Không thể xóa bài viết!',
+                                text: 'Không thể xóa tag!',
                             })
                         });
                 }
