@@ -4,11 +4,7 @@
             {{!-- start main content --}}
             <div class="col-lg-8 posts-list ">
                 <div class="single-post white-wrapper">
-                    <div class="feature-img">
-                        <img class="img-fluid rounded w-100" src="/public/image/posts/{{this.post.ID}}/bigavt.jpg"
-                            alt="">
-                    </div>
-                    <div class="blog_details">
+                    <div class="noidung">
                         <h1>{{this.post.Title}}</h1>
                         <ul class="blog-info-link mt-3 mb-4">
                             <li><a href="/post/category/{{this.post.CatID}}"><i
@@ -24,7 +20,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <p>{{{this.post.Content}}}</p>
+                        {{{this.post.Content}}}
                     </div>
                     <div class="d-flex align-items-center w-100 justify-content-end">
                         <span class="font-italic font-weight-bold">{{this.post.Writer.Name}} -

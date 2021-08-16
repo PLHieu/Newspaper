@@ -102,84 +102,12 @@ body {
 }
 
 
-/* 
-#comments {
-	background-color:#FFFFFF;
-	border-top:1px ridge #DDDDDD;
-}
-
-#comments form {
-	margin-bottom:30px;
-}
-
-#comments .btn {
-	margin-top:7px;
-}
-
-#comments form fieldset {
-	clear:both;
-}
-
-#comments form textarea {
-	height:100px;
-}
-
-#comments .media {
-	border-top:1px dashed #DDDDDD;
-	padding:20px 0;
-	margin:0;
-}
-
-#comments .media > .pull-left {
-    margin-right:20px;
-}
-
-#comments .media img {
-	max-width:100px;
-}
-
-#comments .media h4 {
-	margin:0 0 10px;
-}
-
-#comments .media h4 span {
-	font-size:14px;
-	float:right;
-	color:#999999;
-}
-
-#comments .media p {
-	margin-bottom:15px;
-	text-align:justify;
-}
-
-#comments .media-detail {
-	margin:0;
-}
-
-#comments .media-detail li {
-	color:#AAAAAA;
-	font-size:12px;
-	padding-right: 10px;
-	font-weight:600;
-}
-
-#comments .media-detail a:hover {
-	text-decoration:underline;
-}
-
-#comments .media-detail li:last-child {
-	padding-right:0;
-}
-
-#comments .media-detail li i {
-	color:#666666;
-	font-size:15px;
-	margin-right:10px;
-} */
-
 .comments-area {
     border: none;
     padding-top: 10px;
     margin-top: 10px;
+}
+
+.noidung img{
+    width: 100%;
 }
