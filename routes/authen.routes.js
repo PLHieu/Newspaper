@@ -71,8 +71,8 @@ module.exports = function (app) {
 
     app.get('/is-available',authentication.is_available);
     app.get('/is-available-email',authentication.is_available_email);
+    app.get('/check-exist-email',authentication.is_exist_email);
     
-
     app.post('/register',authentication.register);
 
     app.get('/login', authorMdw.checkAlreadyLoggedIn, (req, res) => {

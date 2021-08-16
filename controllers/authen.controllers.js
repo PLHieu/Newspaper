@@ -140,6 +140,32 @@ exports.is_available_email = async (req, res)=>{
     return res.json(true);
 }
 
+exports.is_exist_email = async (req, res)=>{
+    const email = req.query.email;
+    console.log(email);
+    const rowsReader = await reader.findByEmail(email);
+    const rowsWriter = await writer.findByEmail(email);
+    const rowsEditor = await editor.findByEmail(email);
+    const rowsAdmin = await admin.findByEmail(email);
+    console.log(rowsAdmin);
+    console.log(rowsEditor);
+    console.log(rowsReader);
+    console.log(rowsWriter);
+    if (rowsReader === null  && rowsWriter === null && rowsAdmin === null && rowsEditor === null) 
+        return res.json(false);
+    if(rowsReader){
+        return res.json(rowsReader.UserName);
+    }
+    if(rowsWriter){
+        return res.json(rowsWriter.UserName);
+    }
+    if(rowsEditor){
+        return res.json(rowsEditor.UserName);
+    }
+    if(rowsAdmin){
+        return res.json(rowsAdmin.UserName);
+    }
+}
 
 exports.signin = async (req, res) => {
     const rows_admin = await admin.findByUsername(req.body.username);

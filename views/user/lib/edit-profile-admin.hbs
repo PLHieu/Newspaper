@@ -101,8 +101,6 @@
     $('.duyet').click(function(){
         let userid = this.id;
         
-        //console.log(str);
-        //$('#content_accept').html("Đã duyệt");
         $.get(`/admin/user/acceptsub?userid=${userid}`,function(data){
             var str ="#dangkypremium" + userid;
             var cont = '<span class="badge badge-pill badge-success">Đã kích hoạt Premium</span> <hr>'
@@ -213,26 +211,37 @@
                 $('#txtEmail').focus();
                 return;
         }
-        Swal.fire({
-            title: 'Bạn có muốn lưu thay đổi?',
-            showCancelButton: true,
-            confirmButtonText: 'Xác nhận',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                
-                Swal.fire({
-                        icon: 'success',
-                        title: 'Lưu thông tin người dùng thành công',
-                        showConfirmButton: true,
-                        confirmButtonColor: '#3085d6',
-                    })
-                
-                $('#formGeneralInfor').off('submit').submit();
-            }
-        })
+        const email = $(`#txtEmail`).val();
+        $.getJSON(`/check-exist-email?email=${email}`, function(data){
             console.log(data);
+            usname = $(`#txtusername`).val();
+            if (data != false && data!= usname){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email không khả dụng!',
+                })
+                $('#txtEmail').focus();
+                return;
+            }
+            Swal.fire({
+                title: 'Bạn có muốn lưu thay đổi?',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Lưu thông tin người dùng thành công',
+                            showConfirmButton: true,
+                            confirmButtonColor: '#3085d6',
+                        })
+                    $('#formGeneralInfor').off('submit').submit();
+                }
+            });
+        });
     });
 
     function isValidEmail(email) {
@@ -288,8 +297,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="txtDOB">Username</label>
-                                <input class="form-control mb-2" 
+                                <label for="txtusername">Username</label>
+                                <input class="form-control mb-2" name="username" id="txtusername"
                                     value="{{user.UserName}}"  disabled/>
                             </div>
                         </div>
@@ -395,64 +404,6 @@
             
              <img src="/public/template/img/news/news_card.jpg" class="d-block"
                 style=" width: 75%; margin-left: auto; margin-right: auto" alt="">
-            <!--
-            {{#if user.writer}}
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <div class="wrap-column text-center">
-                    <img src="/public/image/banner/writing.png" class="d-block" style="margin: auto; width: 40%;"
-                        alt="">
-                    <h4>Số lượng bài viết: {{this.num_posts}}</h4>
-                </div>
-                <img src="https://i2.wp.com/www.forbiddenplanetnyc.com/wp-content/uploads/2020/02/redborder.jpeg?resize=397%2C613&ssl=1"
-                    style="width: 85%; margin-left:auto; margin-right:auto; border-radius: 10px;" alt="" srcset="">
-            </div>
-            {{/if}}
-
-            {{#if user.editor}}
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <div class="wrap-column d-flex align-items-center" style="padding: 10px; ">
-                    <img src="/public/image/banner/editor.png" style="display: inline-block; width: 30%" alt="">
-                    <div class="d-inline-block" style="width: 50%; ">
-                        <div class="d-flex" style="align-items: center; flex-direction: column;">
-                            <h4>Category Quản lý</h4>
-                            <h5><span class="badge badge-danger">{{cateName}}</span></h5>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                    style=" width: 68%; margin-left: auto; margin-right: auto" alt="">
-            </div>
-
-            {{/if}}
-
-            {{#if user.subcriber}}
-            {{#if user.ExpTime}}
-            <div class="wrap-column d-flex align-items-center" style="padding: 10px;">
-                <img src="/public/image/banner/premium.png" style="display: inline-block; width: 40%" alt="">
-                <div class="d-inline-block" style="width: 50%;">
-                    <div class="d-flex" style="align-items: center; flex-direction: column;">
-                        <h4>Expired date</h4>
-                        <p>{{user.ExpTime}}</p>
-                        {{! //TODO set ngay het han }}
-                    </div>
-                </div>
-            </div>
-            <br>
-            <img src="/public/template/img/gallery/body_card4.png" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
-            {{else}}
-            <div id="dangkypremium">
-                <p>Hãy đăng ký Premium để đọc các bài viết giới hạn</p>
-                <a class = "btn">
-                    <span class="badge badge-danger">Đăng ký</span>
-                </a>
-            </div>
-            <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
-            
-            {{/if}}
-            {{/if}}-->
 
         </div>
     </div>

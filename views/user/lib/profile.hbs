@@ -70,8 +70,7 @@
 <!-- Jquery Mobile Menu -->
 {{!-- <script src="/public/template/js/jquery.slicknav.min.js"></script> --}}
 
-<script src="/cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Slick , Owl-Carousel Plugins -->
 {{!-- <script src="/public/template/js/slick.min.js"></script> --}}
 
@@ -171,7 +170,6 @@
             })
             return;
         }
-        const username = '';
         if (!isValidEmail($('#txtEmail').val())) {
             Swal.fire({
                 icon: 'error',
@@ -180,7 +178,20 @@
             })
             $('#txtEmail').focus();
             return;
-        }   
+        }
+        const email = $(`#txtEmail`).val();
+        $.getJSON(`/check-exist-email?email=${email}`, function(data){
+            console.log(data);
+            usname = $(`#txtusername`).val();
+            if (data != false && data!= usname){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email không khả dụng!',
+                })
+                $('#txtEmail').focus();
+                return;
+            }
             Swal.fire({
                 title: 'Bạn có muốn lưu thay đổi?',
                 showCancelButton: true,
@@ -189,7 +200,6 @@
                 cancelButtonColor: '#d33',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
                     Swal.fire({
                             icon: 'success',
                             title: 'Lưu thông tin người dùng thành công',
@@ -199,6 +209,7 @@
                     $('#formGeneralInfor').off('submit').submit();
                 }
             });
+        });
     });
 
     function isValidEmail(email) {
@@ -250,7 +261,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="txtDOB">Username</label>
-                                <input class="form-control mb-2" 
+                                <input class="form-control mb-2" id="txtusername"
                                     value="{{session.user.username}}"  disabled/>
                             </div>
                         </div>
