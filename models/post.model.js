@@ -76,11 +76,13 @@ module.exports = {
         const posts = await findPostIDByTag(tagID);
         const postIDs = posts.map(p => p.PostID);
         // console.log(postIDs);
+        let now = new Date();
         const listPosts = await db('Posts')
             .whereIn('ID', postIDs)
-            .where({
-                StateID: 1
+            .andWhere({
+                StateID: 1,
             })
+            .andWhere('PubTime', '<=', now)
             .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
             .limit(postsLimit)
             .offset(offset);
@@ -384,11 +386,13 @@ async function findByLevel1Category(IDcategory, offset) {
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
     // console.log(childrenCateID);
+    let now = new Date();
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
-        .where({
+        .andWhere({
             StateID: 1
         })
+        .andWhere('PubTime', '<=', now)
         .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
         .offset(offset)
@@ -399,11 +403,13 @@ async function findByLevel1Category(IDcategory, offset) {
     Tim bai viet theo Category o Level 2 (thap)
 */
 async function findByLevel2Category(IDcategory, offset) {
+    let now = new Date();
     const rows = await db('Posts')
-        .where({
+        .andWhere({
             CatID: IDcategory,
             StateID: 1
         })
+        .andWhere('PubTime', '<=', now)
         .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
         .offset(offset)
