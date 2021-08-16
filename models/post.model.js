@@ -162,19 +162,23 @@ module.exports = {
     Tim top 10 bài viết xem nhiều nhất
     */
     async findTop10MostRead() {
+        let now = new Date();
         const rows = await db('Posts')
             .where({
                 StateID: 1,
             })
+            .andWhere('PubTime', '<=', now)
             .orderBy('Views', 'desc')
             .limit(10)
         return rows;
     },
     async findTop10New() {
+        var now = new Date();
         const rows = await db('Posts')
             .where({
                 StateID: 1,
             })
+            .andWhere('PubTime', '<=', now)
             .orderBy('PubTime', 'desc')
             .limit(10);
         //console.log(rows);
@@ -210,6 +214,7 @@ module.exports = {
     },
     async top3Post() {
         var d = new Date();
+        var now = new Date();
         d.setDate(d.getDate() - 7);
         // console.log(rows);
         //return rows;
@@ -218,6 +223,7 @@ module.exports = {
             .where({
                 StateID: 1,
             })
+            .andWhere('PubTime', '<=', now)
             .orderBy('Views', 'desc')
             .limit(3);
         return rows;
@@ -451,11 +457,13 @@ async function findHightlightByLevel2Category(IDcategory, limit, offset) {
     Tim bai viet mới nhất theo Category o Level 2 (thap)
 */
 async function findNewPostByLevel2Category(IDcategory, limit, offset) {
+    let now = new Date();
     const rows = await db('Posts')
         .where({
             CatID: IDcategory,
             StateID: 1,
         })
+        .andWhere('PubTime', '<=', now)
         .orderBy('PubTime', 'desc')
         .limit(limit)
         .offset(offset)
