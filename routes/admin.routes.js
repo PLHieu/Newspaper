@@ -393,9 +393,7 @@ router.get('/user/edit/editor', async function(req, res){
     user.writer = null;
     user.editor = 1;
     user.sub = null;
-    list_cat = await cat_db.all();
-    //list_tag = await tag_db.allTags();
-    //list_writer = await writer_db.findAll();
+    list_cat = await cat_db.getAllChildren();
     for (let i = 0; i < list_cat.length; i++) {
         if (user.CatID == list_cat[i].ID)
             list_cat[i].selected = true;
