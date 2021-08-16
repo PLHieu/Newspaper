@@ -5,49 +5,58 @@ INSERT INTO `Editors` VALUES (11, 'Editor 11', 'edt11', '$2a$10$PVQowrDoFnb61ixy
 INSERT INTO `Editors` VALUES (12, 'Editor 12', 'edt12', '$2a$10$PVQowrDoFnb61ixyiNRVl.Ntlu4l9aeqbFCRjTjzi353/Fy83fN7S', '10 Truong Chinh', NULL, 'hieuflong12@gmail.com', 18);
 
 -- writer
-INSERT INTO `Writers` VALUES (5, 'Nguyễn Thị Ngọc An', 'Ngọc An', 'wrt5', '$2a$10$VmT9wfxpoOAvz9e/kVJCkOvkON1CvhJULiDy5gTfkixFczsHe9xke', '20 An Duong Vuong', NULL, 'wrt5@gmail.com', 1);
-INSERT INTO `Writers` VALUES (6, 'Trần Thị Bích Mai', 'Bích Mai', 'wrt6', '$2a$10$VmT9wfxpoOAvz9e/kVJCkOvkON1CvhJULiDy5gTfkixFczsHe9xke', '20 An Duong Vuong', NULL, 'wrt6@gmail.com', 1);
+INSERT INTO `Writers` VALUES (5, 'Nguyễn Ngọc An', 'Ngọc An', 'wrt5', '$2a$10$VmT9wfxpoOAvz9e/kVJCkOvkON1CvhJULiDy5gTfkixFczsHe9xke', '20 An Duong Vuong', NULL, 'wrt5@gmail.com', 1);
+INSERT INTO `Writers` VALUES (6, 'Trần Bích Mai', 'Bích Mai', 'wrt6', '$2a$10$VmT9wfxpoOAvz9e/kVJCkOvkON1CvhJULiDy5gTfkixFczsHe9xke', '20 An Duong Vuong', NULL, 'wrt6@gmail.com', 1);
 
 --draft
 INSERT INTO `Drafts` VALUES (5, 45, 9, 'Tiêu đề chưa đủ', '2021-08-16 05:05:16');
 INSERT INTO `Drafts` VALUES (6, 49, 10, 'Chưa có ảnh hợp lý', '2021-08-16 05:05:16');
 
---PostTags
-INSERT INTO `PostTag` VALUES (41, 9);
-INSERT INTO `PostTag` VALUES (42, 9);
-INSERT INTO `PostTag` VALUES (43, 9);
-INSERT INTO `PostTag` VALUES (44, 7);
-INSERT INTO `PostTag` VALUES (45, 10);
-INSERT INTO `PostTag` VALUES (46, 6);
-INSERT INTO `PostTag` VALUES (46, 17);
-INSERT INTO `PostTag` VALUES (46, 15);
-INSERT INTO `PostTag` VALUES (47, 6);
-INSERT INTO `PostTag` VALUES (47, 15);
-INSERT INTO `PostTag` VALUES (48, 15);
-INSERT INTO `PostTag` VALUES (49, 15);
-INSERT INTO `PostTag` VALUES (49, 17);
-INSERT INTO `PostTag` VALUES (50, 15);
-INSERT INTO `PostTag` VALUES (50, 17);
-INSERT INTO `PostTag` VALUES (51, 7);
-INSERT INTO `PostTag` VALUES (52, 7);
-INSERT INTO `PostTag` VALUES (53, 10);
-INSERT INTO `PostTag` VALUES (53, 18);
-INSERT INTO `PostTag` VALUES (53, 19);
-INSERT INTO `PostTag` VALUES (54, 10);
-INSERT INTO `PostTag` VALUES (54, 19);
-INSERT INTO `PostTag` VALUES (55, 10);
-INSERT INTO `PostTag` VALUES (55, 19);
-INSERT INTO `PostTag` VALUES (56, 7);
-INSERT INTO `PostTag` VALUES (56, 21);
-INSERT INTO `PostTag` VALUES (57, 7);
-INSERT INTO `PostTag` VALUES (57, 21);
-INSERT INTO `PostTag` VALUES (58, 7);
-INSERT INTO `PostTag` VALUES (58, 21);
-INSERT INTO `PostTag` VALUES (59, 7);
-INSERT INTO `PostTag` VALUES (60, 7);
-INSERT INTO `PostTag` VALUES (60, 21);
+--Tags
+INSERT INTO `Tags` VALUES (21, 'amthuc');
+INSERT INTO `Tags` VALUES (22, 'boiduong');
+INSERT INTO `Tags` VALUES (23, 'covid19');
+INSERT INTO `Tags` VALUES (24, 'songxanh');
+INSERT INTO `Tags` VALUES (25, 'ungthu');
+INSERT INTO `Tags` VALUES (26, 'bacsi');
+INSERT INTO `Tags` VALUES (27, 'thidau');
+INSERT INTO `Tags` VALUES (28, 'bongdanuocngoai');
+INSERT INTO `Tags` VALUES (29, 'covua');
+INSERT INTO `Tags` VALUES (30, 'vleague');
+INSERT INTO `Tags` VALUES (31, 'bongdavietnam');
 
--- tin tuc giao thong
+--PostTags
+INSERT INTO `PostTag` VALUES (41, 25);
+INSERT INTO `PostTag` VALUES (42, 24);
+INSERT INTO `PostTag` VALUES (43, 24);
+INSERT INTO `PostTag` VALUES (44, 26);
+INSERT INTO `PostTag` VALUES (45, 26);
+INSERT INTO `PostTag` VALUES (46, 21);
+INSERT INTO `PostTag` VALUES (46, 22);
+INSERT INTO `PostTag` VALUES (47, 21);
+INSERT INTO `PostTag` VALUES (48, 22);
+INSERT INTO `PostTag` VALUES (49, 21);
+INSERT INTO `PostTag` VALUES (49, 22);
+INSERT INTO `PostTag` VALUES (50, 22);
+INSERT INTO `PostTag` VALUES (50, 23);
+INSERT INTO `PostTag` VALUES (51, 27);
+INSERT INTO `PostTag` VALUES (51, 28);
+INSERT INTO `PostTag` VALUES (52, 28);
+INSERT INTO `PostTag` VALUES (53, 30);
+INSERT INTO `PostTag` VALUES (53, 31);
+INSERT INTO `PostTag` VALUES (54, 30);
+INSERT INTO `PostTag` VALUES (54, 31);
+INSERT INTO `PostTag` VALUES (55, 30);
+INSERT INTO `PostTag` VALUES (55, 31);
+INSERT INTO `PostTag` VALUES (56, 27);
+INSERT INTO `PostTag` VALUES (56, 29);
+INSERT INTO `PostTag` VALUES (57, 27);
+INSERT INTO `PostTag` VALUES (57, 29);
+INSERT INTO `PostTag` VALUES (58, 27);
+INSERT INTO `PostTag` VALUES (59, 27);
+INSERT INTO `PostTag` VALUES (60, 27);
+
+-- tin tuc suc khoa
 INSERT INTO `Posts` VALUES(
   41,
   'Ung thư là thông điệp thử thách thái độ sống của tôi',
@@ -76,7 +85,7 @@ INSERT INTO `Posts` VALUES (
     5, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     43, 
     'Cơ thể đầy bệnh tật và ốm yếu - tại sao là tôi?', 
     5, 
@@ -90,7 +99,7 @@ INSERT INTO `Posts` VALUES (
     40, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     44, 
     'Bác sĩ Singapore hầu tòa vì gian dối tình trạng sức khỏe', 
     5, 
@@ -104,7 +113,7 @@ INSERT INTO `Posts` VALUES (
     7, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     45, 
     'Môi trường làm việc y tế Việt Nam nhiều nguy hiểm', 
     6, 
@@ -118,7 +127,7 @@ INSERT INTO `Posts` VALUES (
     0, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     46, 
     'Thực phẩm màu đỏ - cam tác dụng bổ phổi', 
     6, 
@@ -132,7 +141,7 @@ INSERT INTO `Posts` VALUES (
     60, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     47, 
     'Từ nông trại sạch đến thực phẩm dinh dưỡng Gerber cho trẻ', 
     6, 
@@ -146,7 +155,7 @@ INSERT INTO `Posts` VALUES (
     105, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     48, 
     'Bổ sung vitamin C thế nào để tăng đề kháng?', 
     6, 
@@ -160,7 +169,7 @@ INSERT INTO `Posts` VALUES (
     46, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     49, 
     'Người cao tuổi ăn gì để khỏe mạnh trong đại dịch?', 
     5, 
@@ -174,7 +183,7 @@ INSERT INTO `Posts` VALUES (
     0, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     50, 
     'Bí kíp giúp F1, F0 cách ly tại nhà ăn ngon miệng', 
     5, 
@@ -188,7 +197,8 @@ INSERT INTO `Posts` VALUES (
     26, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+--Tin tuc the thao
+INSERT INTO `Posts` VALUES (
     51, 
     'Koeman: "Barca đã có một trận tuyệt vời về mọi mặt" ', 
     6, 
@@ -202,7 +212,7 @@ INSERT INTO `Posts` VALUES (
     74, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     52, 
     'Man City dùng đội hình xuất phát đắt giá nhất lịch sử', 
     6, 
@@ -216,7 +226,7 @@ INSERT INTO `Posts` VALUES (
     50, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     53, 
     'Bầu Đức bác ý tưởng HAGL tranh vô địch với Viettel', 
     6, 
@@ -230,7 +240,7 @@ INSERT INTO `Posts` VALUES (
     43, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     54, 
     'Tạm dừng V-League 2021', 
     5, 
@@ -244,7 +254,7 @@ INSERT INTO `Posts` VALUES (
     47, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     55, 
     'Chuyện thay tướng chờ đổi vận ở V-League', 
     6, 
@@ -258,7 +268,7 @@ INSERT INTO `Posts` VALUES (
     0, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     56, 
     'Quang Liêm nước rút thần tốc ở siêu giải St Louis', 
     6, 
@@ -272,7 +282,7 @@ INSERT INTO `Posts` VALUES (
     8, 
     0);
 
-    INSERT INTO `Posts` VALUES (
+INSERT INTO `Posts` VALUES (
     57, 
     'Quang Liêm tiết lộ bí quyết chơi cờ chớp', 
     6, 
@@ -327,3 +337,8 @@ INSERT INTO `Posts` VALUES (
     DATE_SUB(NOW(), INTERVAL 2 DAY), 
     125, 
     1);
+
+--Comment
+INSERT INTO `Comments` VALUES (1, 1, 50, DATE_SUB(NOW(), INTERVAL 2 HOUR), 'Bài viết hay và hữu ích cho những ai là F0, F1', 'reader');
+INSERT INTO `Comments` VALUES (1, 2, 46, DATE_SUB(NOW(), INTERVAL 2 HOUR), 'Vitamin C rất hữu ích cho sức khoẻ', 'reader');
+INSERT INTO `Comments` VALUES (1, 2, 56, DATE_SUB(NOW(), INTERVAL 2 HOUR), 'Mình rất tự hào về Quang Liêm', 'reader');
