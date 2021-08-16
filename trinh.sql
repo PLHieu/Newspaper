@@ -9,8 +9,8 @@ INSERT INTO `Writers` VALUES (5, 'Nguyễn Ngọc An', 'Ngọc An', 'wrt5', '$2a
 INSERT INTO `Writers` VALUES (6, 'Trần Bích Mai', 'Bích Mai', 'wrt6', '$2a$10$VmT9wfxpoOAvz9e/kVJCkOvkON1CvhJULiDy5gTfkixFczsHe9xke', '20 An Duong Vuong', NULL, 'wrt6@gmail.com', 1);
 
 --draft
-INSERT INTO `Drafts` VALUES (5, 45, 9, 'Tiêu đề chưa đủ', '2021-08-16 05:05:16');
-INSERT INTO `Drafts` VALUES (6, 49, 10, 'Chưa có ảnh hợp lý', '2021-08-16 05:05:16');
+INSERT INTO `Drafts` VALUES (5, 45, 9, 'Tiêu đề chưa đủ', DATE_SUB(NOW(), INTERVAL 2 DAY));
+INSERT INTO `Drafts` VALUES (6, 49, 10, 'Chưa có ảnh hợp lý', DATE_SUB(NOW(), INTERVAL 1 DAY));
 
 --Tags
 INSERT INTO `Tags` VALUES (21, 'amthuc');
@@ -56,7 +56,7 @@ INSERT INTO `PostTag` VALUES (58, 27);
 INSERT INTO `PostTag` VALUES (59, 27);
 INSERT INTO `PostTag` VALUES (60, 27);
 
--- tin tuc suc khoa
+-- tin tuc suc khoe
 INSERT INTO `Posts` VALUES(
   41,
   'Ung thư là thông điệp thử thách thái độ sống của tôi',

@@ -147,7 +147,7 @@ CREATE TABLE `Posts` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` varchar(255) NOT NULL,
   `WriterID` int(11) NOT NULL,
-  `EditorID` int(11) NOT NULL,
+  `EditorID` int(11),
   `CatID` int(11) NOT NULL,
   `StateID` int(11) NOT NULL DEFAULT '0',
   `Content` longtext NOT NULL,
