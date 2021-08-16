@@ -1,10 +1,10 @@
 {{#section 'title'}}
 <title>
-  {{#if postID}}
-  Edit Post
+  {{#eq postID -1}}
+  Tạo bài viết mới
   {{else}}
-  Write Post
-  {{/if}}
+  Chỉnh sửa bài viết
+  {{/eq}}
 </title>
 {{/section}}
 
@@ -210,7 +210,7 @@
         <div class="form-group ">
           <label for="txtContent">Nội dung</label>
           <textarea rows="15" type="text" name="content" id="txtContent" class="form-control "
-            placeholder="Write post's Content here">{{this.content}}</textarea>
+            placeholder="Write post's Content here">{{{this.content}}}</textarea>
         </div>
         <br>
         <div class="form-group">
