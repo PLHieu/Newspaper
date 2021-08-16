@@ -21,6 +21,7 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
 
@@ -77,21 +78,54 @@
             return;
         if (isEmptyText('txtAddress', "Address"))
             return;
+        if (!isValidEmail($('#txtEmail').val())) {
+            alert('Email is not valid');
+            $('#txtEmail').focus();
+            return;
+        }
         const username = $('#username').val();
         console.log(username);
-        $.getJSON(`/is-available?username=${username}`, function (data) {
+        $.getJSON(`/is-available?username=${username}`, function(data){
             console.log(data);
-            if(data == false){
-                alert('Username is not valid');
-                $('#username').focus();
+            if (data === false){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Username không khả dụng!',
+                })
+                $('#txtUsername').focus();
                 return;
-            }
-            if (!isValidEmail($('#txtEmail').val())) {
-                alert('Email is not valid');
-                $('#txtEmail').focus();
-                return;
-            }
-            $('#formGeneralInfor').off('submit').submit();
+            } 
+            const email = $('#txtEmail').val();
+            $.getJSON(`/is-available-email?email=${email}`, function(data){
+                console.log(data);
+                if (data === true){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email không khả dụng!',
+                    })
+                    $('#txtEmail').focus();
+                    return;
+                }
+                Swal.fire({
+                    title: 'Bạn có muốn tạo tài khoản?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Tạo tài khoản thành công',
+                                showConfirmButton: true,
+                                confirmButtonColor: '#3085d6',
+                            })
+                        $('#formGeneralInfor').off('submit').submit();
+                    }
+                });
+            });
         });
     });
 
@@ -103,28 +137,17 @@
     function isEmptyText(idtext, message) {
         const text = $(`#${idtext}`).val();
         if (text.length === 0 || text === `__/__/____`) {
-            alert(`Invalid ${message}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${message} không được rỗng!`,
+            })
             $(`#${idtext}`).focus();
             return true;
         }
         return false;
     }
 
-    function clearPassForm() {
-        $("#txtOldPass").val("");
-        $("#txtNewPass").val("");
-        $("#txtRepNewPass").val("");
-    }
-    $('#dangkypremium').click(function(){
-        let userid = this.id;
-        
-        $.post(`/subcriber/subpremium?userid=${userid}`,function(data){
-            //var str ="#content_accept" + userid;
-            var cont = '<p> Bạn đã đăng ký thành công, hãy chờ admin duyệt nhé </p>'
-            $('#dangkypremium').html(cont);
-            
-        });
-    });
 </script>
 {{/section}}
 {{> header-top}}
@@ -211,7 +234,7 @@
                     </div>
 
                     <div class="form-group form-button ">
-                        <button type="submit" name="signup" id="signup" class="btn form-submit">Lưu thay đổi</button>
+                        <button type="submit" name="signup" id="signup" class="btn form-submit">Tạo tài khoản</button>
                     </div>
                 </form>
             </div>
@@ -223,65 +246,6 @@
         <div class="col-md-4">
              <img src="/public/template/img/news/news_card.jpg" class="d-block"
                 style=" width: 60%; margin-left: auto; margin-right: auto" alt="">
-            <!--
-            {{#if user.writer}}
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <div class="wrap-column text-center">
-                    <img src="/public/image/banner/writing.png" class="d-block" style="margin: auto; width: 40%;"
-                        alt="">
-                    <h4>Số lượng bài viết: {{this.num_posts}}</h4>
-                </div>
-                <img src="https://i2.wp.com/www.forbiddenplanetnyc.com/wp-content/uploads/2020/02/redborder.jpeg?resize=397%2C613&ssl=1"
-                    style="width: 85%; margin-left:auto; margin-right:auto; border-radius: 10px;" alt="" srcset="">
-            </div>
-            {{/if}}
-
-            {{#if user.editor}}
-            <div class="d-flex h-100 " style="justify-content: space-between; flex-direction: column;">
-                <div class="wrap-column d-flex align-items-center" style="padding: 10px; ">
-                    <img src="/public/image/banner/editor.png" style="display: inline-block; width: 30%" alt="">
-                    <div class="d-inline-block" style="width: 50%; ">
-                        <div class="d-flex" style="align-items: center; flex-direction: column;">
-                            <h4>Category Quản lý</h4>
-                            <h5><span class="badge badge-danger">{{cateName}}</span></h5>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                    style=" width: 68%; margin-left: auto; margin-right: auto" alt="">
-            </div>
-
-            {{/if}}
-
-            {{#if user.subcriber}}
-            {{#if user.ExpTime}}
-            <div class="wrap-column d-flex align-items-center" style="padding: 10px;">
-                <img src="/public/image/banner/premium.png" style="display: inline-block; width: 40%" alt="">
-                <div class="d-inline-block" style="width: 50%;">
-                    <div class="d-flex" style="align-items: center; flex-direction: column;">
-                        <h4>Expired date</h4>
-                        <p>{{user.ExpTime}}</p>
-                        {{! //TODO set ngay het han }}
-                    </div>
-                </div>
-            </div>
-            <br>
-            <img src="/public/template/img/gallery/body_card4.png" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
-            {{else}}
-            <div id="dangkypremium">
-                <p>Hãy đăng ký Premium để đọc các bài viết giới hạn</p>
-                <a class = "btn">
-                    <span class="badge badge-danger">Đăng ký</span>
-                </a>
-            </div>
-            <img src="/public/template/img/news/news_card.jpg" class="d-block"
-                style=" width: 80%; margin-left: auto; margin-right: auto" alt="">
-            
-            {{/if}}
-            {{/if}}-->
-
         </div>
     </div>
     <br>

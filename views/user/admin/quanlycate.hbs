@@ -96,7 +96,7 @@
             var catID = parseInt(this.id)
             console.log(catID)
             Swal.fire({
-                title: 'Bạn có muốn xóa chuyên mục này ?',
+                title: 'Bạn muốn xóa chuyên mục này?',
                 showCancelButton: true,
                 confirmButtonText: 'Xác nhận',
                 confirmButtonColor: '#3085d6',
@@ -217,7 +217,7 @@
                             more_horiz
                         </i>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                            <a class="dropdown-item"{{#eq numpost 0}} style="color: #afadad;" data-toggle="modal" data-target="#no_post"{{else}} href="/admin/post/manage?catID={{ID}}&catName={{Name}}"{{/eq}}>Danh sách bài viết</a>
                             <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
                             <a class="dropdown-item xoa" id="{{ID}}X" href="#">Xóa</a>
                         </div>
@@ -238,7 +238,7 @@
                             more_horiz
                         </i>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/admin/post/manage?catID={{ID}}&catName={{Name}}">Danh sách bài viết</a>
+                            <a class="dropdown-item"{{#eq numpost 0}} style="color: #afadad;" data-toggle="modal" data-target="#no_post"{{else}} href="/admin/post/manage?catID={{ID}}&catName={{Name}}"{{/eq}}>Danh sách bài viết</a>
                             <a class="dropdown-item" href="/admin/category/edit?catID={{ID}}&catName={{Name}}">Chỉnh sửa</a>
                             <a class="dropdown-item xoa" id="{{ID}}X" href="#">Xóa</a>
                         </div>
