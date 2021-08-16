@@ -322,7 +322,7 @@ module.exports = {
 
     //return a list
     findPendingPosts(writerID) {
-        return db('Posts').where('StateID', 0).andWhere('WriterID', writerID);
+        return db('Posts').whereIn('StateID', [0,-2]).andWhere('WriterID', writerID);
     },
 
     //return a list
