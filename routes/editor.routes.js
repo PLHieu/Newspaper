@@ -34,6 +34,7 @@ router.post('/reject', async (req, res) => {
         await draft_db.delete(req.body.postID);
     }
     await post_db.changeStateID(post.ID,-1);
+    await post_db.updateEditor(post.ID,req.session.user.id);
     await draft_db.add(draft);
     return res.status(200).send("Thanh Cong")
     return res.redirect('/editor');
@@ -76,6 +77,7 @@ router.post('/approve', async function(req, res){
         await post_db.updateApprovePost(post.ID,catID,pubTime);
     }
 
+    await post_db.updateEditor(post.ID,req.session.user.id);
     await posttag_db.del(post.ID);
     for (let i = 0; i < tags.length; i++){
         const postTag = {

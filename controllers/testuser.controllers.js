@@ -8,9 +8,13 @@ exports.guestPage = (req, res) => {
 exports.editorPage = async (req, res) => {
     editor_id = req.session.user.id;
     editor = await editor_db.findByID(editor_id);
-    posts = await post_db.findDraftPostsByCatID(editor.CatID);
+    draft_posts = await post_db.findDraftPostsByCatID(editor.CatID);
+    rejected_posts = await post_db.findRejectedPostsByEditor(editor_id);
+    approved_posts = await post_db.findApprovedPostsByEditor(editor_id);
     res.status(200).render("user/editor/main", {
-        posts
+        draft_posts,
+        rejected_posts,
+        approved_posts,
     });
 };
 

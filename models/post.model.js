@@ -256,6 +256,10 @@ module.exports = {
         return db('Posts').where('ID',postID).update('StateID', newStateID);
     },
 
+    updateEditor(postID,editorID){
+        return db('Posts').where('ID',postID).update('EditorID', editorID);
+    },
+
     updateApprovePost(postID,catID,pubTime){
         return db('Posts').where('ID',postID)
         .update({PubTime:pubTime,
@@ -309,6 +313,7 @@ module.exports = {
         for (let i = 0; i < rows.length; i++){
             rows[i].WriterName = await writer_db.findNameByID(rows[i].WriterID);
             rows[i].tags = await posttag_db.findTagsByPostID(rows[i].ID);
+            rows[i].WriteTime =  moment(rows[i].WriteTime).format("DD/MM/YYYY HH:mm:ss");
         }
         return rows;
     },
@@ -318,6 +323,28 @@ module.exports = {
         if (rows.length === 0)
             return null;
         return rows[0];
+    },
+
+    async findRejectedPostsByEditor(editorID){
+        const rejectPosts = await db('Posts').where('StateID', -1).andWhere('EditorID', editorID);
+        for (let i = 0; i < rejectPosts.length; i++) {
+            rejectPosts[i].WriterName = await writer_db.findNameByID(rejectPosts[i].WriterID);
+            postID = rejectPosts[i].ID;
+            rejectPosts[i].draft_info = await draft_db.findByPostID(postID);
+            rejectPosts[i].draft_info.EditorName = await editor_db.getNameByID(editorID);
+            rejectPosts[i].draft_info.RateTime = moment(rejectPosts[i].draft_info.RateTime).format("DD/MM/YYYY HH:mm:ss");
+        }
+        return rejectPosts;
+    },
+
+    async findApprovedPostsByEditor(editorID){
+        const rows = await db('Posts').where('StateID', 1).andWhere('EditorID', editorID);
+        for (let i=0; i<rows.length; i++) {
+            rows[i].WriterName = await writer_db.findNameByID(rows[i].WriterID);
+            rows[i].PubTime = moment(rows[i].PubTime).format("DD/MM/YYYY")
+            rows[i].WriteTime = moment(rows[i].WriteTime).format("DD/MM/YYYY")
+        }
+        return rows;
     },
 
     //return a list
