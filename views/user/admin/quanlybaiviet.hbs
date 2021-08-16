@@ -232,6 +232,26 @@
             <!--Start pagination -->
             <nav class="justify-content-center d-flex">
                 <ul class="pagination">
+                    {{#if cat_name}}
+                    <li class="page-item">
+                        <a href="/admin/post/manage?catID={{cat_id}}&catName={{cat_name}}&page={{prev_page}}" class="page-link"
+                            aria-label="Previous">
+                            <i class="ti-angle-left"></i>
+                        </a>
+                    </li>
+                    {{#each this.list_page}}
+                    <li class="page-item">
+                        <a href="/admin/post/manage?catID={{cat_id}}&catName={{cat_name}}&page={{page}}"
+                            class="page-link {{#eq page cur_page}}active_page{{/eq}}">{{page}}</a>
+                    </li>
+                    {{/each}}
+                    <li class="page-item">
+                        <a href="/admin/post/manage?catID={{cat_id}}&catName={{cat_name}}&page={{next_page}}" class="page-link"
+                            aria-label="Next">
+                            <i class="ti-angle-right"></i>
+                        </a>
+                    </li>
+                    {{else}}
                     <li class="page-item">
                         <a href="/admin/post/manage?page={{prev_page}}" class="page-link"
                             aria-label="Previous">
@@ -250,6 +270,7 @@
                             <i class="ti-angle-right"></i>
                         </a>
                     </li>
+                    {{/if}}
                 </ul>
             </nav>
             <!-- End pagination  -->

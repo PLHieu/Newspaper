@@ -23,7 +23,7 @@ module.exports = {
     },
 
     /*
-    Tim bai viet theo Category
+    Tim bai viet theo Category da public
     */
     async findByCategory(IDcategory, offset) {
         let level = await findLevel(IDcategory);
@@ -41,6 +41,24 @@ module.exports = {
         }
     },
 
+    /*
+    Tim tat ca bai viet theo Category
+    */
+    async findAllByCategory(IDcategory, offset) {
+        let level = await findLevel(IDcategory);
+        // console.log(level);
+        if (level == false) {
+            return false;
+        }
+
+        if (level === 1) {
+            return await findAllByLevel1Category(IDcategory, offset);
+        }
+
+        if (level === 2) {
+            return await findAllByLevel2Category(IDcategory, offset);
+        }
+    },
     /*
     Tim bai viet theo Tag
     */
@@ -120,8 +138,8 @@ module.exports = {
         let count = await db('Posts')
                         .where({
                             CatID: IDcategory,
-                            StateID: 0,
-                        });
+                        })
+                        .whereIn('StateID', [-2, 0]);
         return count.length;
 
     },
@@ -380,7 +398,7 @@ async function findPostIDByTag(IDTag) {
 }
 
 /*
-    Tim bai viet theo Category o Level 1 (cao)
+    Tim bai viet theo Category o Level 1 (cao) da public
 */
 async function findByLevel1Category(IDcategory, offset) {
     const childrenCate = await findChildCategories(IDcategory);
@@ -400,7 +418,21 @@ async function findByLevel1Category(IDcategory, offset) {
 }
 
 /*
-    Tim bai viet theo Category o Level 2 (thap)
+    Tim tat ca bai viet theo Category o Level 1 (cao)
+*/
+async function findAllByLevel1Category(IDcategory, offset) {
+    const childrenCate = await findChildCategories(IDcategory);
+    const childrenCateID = childrenCate.map(ele => ele.ID);
+    // console.log(childrenCateID);
+    const rows = await db('Posts')
+        .whereIn('CatID', childrenCateID)
+        .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'WriteTime', order: 'desc' }])
+        .offset(offset)
+    return rows;
+}
+
+/*
+    Tim bai viet theo Category o Level 2 (thap) da public
 */
 async function findByLevel2Category(IDcategory, offset) {
     let now = new Date();
@@ -415,6 +447,20 @@ async function findByLevel2Category(IDcategory, offset) {
         .offset(offset)
     return rows;
 }
+
+/*
+    Tim bai viet theo Category o Level 2 (thap)
+*/
+async function findAllByLevel2Category(IDcategory, offset) {
+    const rows = await db('Posts')
+        .where({
+            CatID: IDcategory,
+        })
+        .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'WriteTime', order: 'desc' }])
+        .offset(offset)
+    return rows;
+}
+
 /*
     So Luong bai viet theo Category o Level 2 (thap)
 */

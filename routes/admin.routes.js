@@ -292,8 +292,9 @@ router.get('/post/manage', async function(req, res) {
     let all_posts = null;
     const tag_name = req.query.tagName || null;
     const cat_name = req.query.catName || null;
+    const cat_id = req.query.catID || null;
     if (req.query.catID){
-        all_posts = await post_db.findByCategory(req.query.catID, 0);
+        all_posts = await post_db.findAllByCategory(req.query.catID, 0);
         
     }
     else{
@@ -316,7 +317,11 @@ router.get('/post/manage', async function(req, res) {
         lpost = await post_db.findPostByID(lpost.ID);
         list_posts.push(lpost);
     }
-    const num_page = parseInt(all_posts.length / offset) + 1;
+    let num_page = parseInt(all_posts.length / offset) + 1;
+    if (parseInt(all_posts.length % offset) == 0){
+        num_page = num_page - 1;
+        console.log("bang 0");
+    } 
     let list_page = [];
     for (let i = 1; i <= num_page; i++) {
         list_page.push({ 'page': i , 'cur_page':page})
@@ -324,6 +329,7 @@ router.get('/post/manage', async function(req, res) {
     return res.render('user/admin/quanlybaiviet',{
         tag_name,
         cat_name,
+        cat_id,
         list_posts,
         list_page,
         cur_page: page,
