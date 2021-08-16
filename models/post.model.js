@@ -78,6 +78,9 @@ module.exports = {
         // console.log(postIDs);
         const listPosts = await db('Posts')
             .whereIn('ID', postIDs)
+            .where({
+                StateID: 1
+            })
             .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
             .limit(postsLimit)
             .offset(offset);
@@ -383,6 +386,9 @@ async function findByLevel1Category(IDcategory, offset) {
     // console.log(childrenCateID);
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
+        .where({
+            StateID: 1
+        })
         .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
         .offset(offset)
@@ -396,6 +402,7 @@ async function findByLevel2Category(IDcategory, offset) {
     const rows = await db('Posts')
         .where({
             CatID: IDcategory,
+            StateID: 1
         })
         .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
         .limit(postsLimit)
