@@ -108,6 +108,10 @@ body {
     margin-top: 10px;
 }
 
-.noidung img{
+.content_main img{
     width: 100%;
+}
+
+.content_main a{
+    color: #e45b54 !important ;
 }
