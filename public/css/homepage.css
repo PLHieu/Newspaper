@@ -1,5 +1,5 @@
 /* css cho phan tin moi  */
-.tin-wrapper{
+/* .tin-wrapper{
     cursor: pointer;
     transition: 0.5s;
 }
@@ -52,12 +52,12 @@
 }
 .tinmoi .ngaydang, .tinmoi .category {
     font-size: small !important;
-}
+} */
 
 /* css cho phan top chuye muc  */
 .top10danhmuc div.one-top10danhmuc{
-    width: 400px;
-    height: 400px;
+    /* width: 400px; */
+    /* height: 400px; */
     position: relative;
     display: inline-block;
     border-radius: 10px;
@@ -71,7 +71,7 @@
     background-color: white;
     bottom: 0;
     left: 0;
-    padding: 30px;
+    padding: 20px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 80%;
@@ -81,8 +81,6 @@
     position: absolute;
     top: 0;
     left: 0; 
-    width: 400px;
-    height: 400px;
 }
 
 .top10danhmuc div.one-top10danhmuc .info a.tieude{
@@ -103,7 +101,7 @@
 }
 
 /* css  cho phan tin tuc phobien */
-.row.baivietphobien{
+/* .row.baivietphobien{
     height: 400px !important;
 }
 
@@ -117,4 +115,93 @@
     display: flex;
     justify-content:space-between ;
     flex-direction: column;
+} */
+
+.whats-right-img img{
+    height: 100%;
+    max-width: -webkit-fill-available;
+}
+
+@media only screen and (min-width: 568px){
+    .whats-right-img img{
+        max-width: 150px;
+    }
+
+    .top10danhmuc div.one-top10danhmuc{
+        width: 350px;
+        height: 350px;
+    }
+    
+    
+    .top10danhmuc div.one-top10danhmuc .info{    
+        padding: 20px;
+    }
+    
+    .top10danhmuc div.one-top10danhmuc img{    
+        width: 350px;
+        height: 350px;
+    }
+}
+
+@media only screen and (max-width: 568px){
+    .whats-right-img img{
+        max-width: 150px;
+    }
+
+    .top10danhmuc div.one-top10danhmuc{
+        width: 200px;
+        height: 200px;
+    }
+        
+    .top10danhmuc div.one-top10danhmuc img{    
+        width: 200px;
+        height: 200px;
+    }
+
+    .top10danhmuc div.one-top10danhmuc .info a.tieude{
+        font-size: small;
+    }
+    
+    
+    .top10danhmuc div.one-top10danhmuc .info .ngay{
+        font-size: x-small;
+    }
+
+    .top10danhmuc div.one-top10danhmuc .info .danhmuc{
+        font-size: x-small;
+    }
+
+    a.flipster__nav__link{
+        font-size: small;
+    }
+}
+
+@media only screen and (max-height: 414px){
+
+    .top10danhmuc div.one-top10danhmuc{
+        width: 200px;
+        height: 200px;
+    }
+        
+    .top10danhmuc div.one-top10danhmuc img{    
+        width: 200px;
+        height: 200px;
+    }
+
+    .top10danhmuc div.one-top10danhmuc .info a.tieude{
+        font-size: small;
+    }
+    
+    
+    .top10danhmuc div.one-top10danhmuc .info .ngay{
+        font-size: x-small;
+    }
+
+    .top10danhmuc div.one-top10danhmuc .info .danhmuc{
+        font-size: x-small;
+    }
+
+    a.flipster__nav__link{
+        font-size: small;
+    }
 }

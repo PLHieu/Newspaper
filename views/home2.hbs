@@ -43,7 +43,7 @@
         style: 'carousel',
         spacing: 0,
         nav: true,
-        buttons: true,
+        buttons: false,
     });
 </script>
 {{/section}}
@@ -272,7 +272,7 @@
                     <div class="col-lg-9">
                         <div class="slider-wrapper h-100">
                             <!-- section Tittle -->
-                            <div class="row ">
+                            <div class="row mb-2">
                                 <div class="col-lg-12">
                                     <div class="">
                                         <h2><b style="color: rgb(233, 67, 94);">Bài viết phổ biến nhất</b></h2>
@@ -292,12 +292,19 @@
                                             <div class="weekly2-caption thongtin">
                                                 <h4><a href="/read/{{ID}}">{{#if Premium}}
                                                         <span class="d-inline-block badge badge-warning">Premium</span>
-                                                        {{/if}}{{TieuDe}} </a>
+                                                        {{/if}}{{TieuDe}} 
+                                                        </a> 
                                                 </h4>
-                                                <div>
-                                                    <p class="d-inline-block"><span class="mb-2 mr-2">{{NgayDang}}</span></p>
-                                                    <span><a href="/post/category/{{CateID}}"
-                                                            class="badge badge-danger float-right">{{CateName}}</a></span>
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <p class="d-inline-block"><span class="mb-2 mr-2">{{NgayDang}}</span></p>
+                                                         <span class="d-inline-block  badge badge-pill badge-danger text-white"><i
+                                                            class="fas fa-eye"></i> {{Views}}</span>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <span><a href="/post/category/{{CateID}}"
+                                                            class="badge badge-danger">{{CateName}}</a></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -336,9 +343,16 @@
                             <img src="../public/image/posts/{{this.post.0.ID}}/smallavt.jpg" alt="" srcset="">
                             <div class="info red">
                                 <a class="tieude" href="read/{{post.0.ID}}">{{post.0.Title}}</a>
-                                <span class="ngay">{{getDate post.0.PubTime}}</span>
-                                <a class="d-inline-block float-right" href="/post/category/{{CateID}}"><span
-                                        class="badge badge-danger ">{{CateName}}</span></a>
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <span class="ngay">{{getDate post.0.PubTime}}</span>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <a class="d-inline-block" href="/post/category/{{CateID}}"><span
+                                            class="badge badge-danger danhmuc ">{{CateName}}</span></a>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </li>
