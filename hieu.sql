@@ -20,7 +20,7 @@ INSERT INTO `Posts` VALUES (
     'Đường vắng, tâm lý chủ quan vì thấy lực lượng CSGT phải tăng cường tham gia phòng, chống dịch, nhiều người vô tư vượt đèn đỏ, đi sai làn.', 
     DATE_SUB(NOW(), INTERVAL 2 DAY), 
     NOW(), 
-    0, 
+    25, 
     0);
 
 INSERT INTO `Posts` VALUES (
@@ -34,7 +34,7 @@ INSERT INTO `Posts` VALUES (
     'Mở các “luồng xanh” đường thủy và thống nhất quy trình kiểm soát vận tải, y tế sẽ giúp vận tải thủy hàng hóa thông thoáng trở lại...', 
     DATE_SUB(NOW(), INTERVAL 3 DAY), 
     DATE_SUB(NOW(), INTERVAL 1 HOUR),
-    0, 
+    30, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -48,7 +48,7 @@ INSERT INTO `Posts` VALUES (
     'Bộ GTVT vừa có văn bản gửi Sở GTVT các địa phương về việc vận chuyển đối với người hết thời hạn cách ly tập trung về nơi sinh sống.', 
     DATE_SUB(NOW(), INTERVAL 3 DAY), 
     NOW(), 
-    1, 
+    51, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -56,7 +56,7 @@ INSERT INTO `Posts` VALUES (
     'Ngăn dòng người về quê tự phát', 
     4, 
     5, 
-    1, 
+    61, 
     1, 
     '<p> Người dân lỉnh kỉnh chở đồ đạc, valy, nhu yếu phẩm, bồng bế theo con cái… khi đi qua chốt kiểm soát dịch ở đoạn trước cổng Khu du lịch Suối Tiên, TP Thủ Đức thì bị chặn lại.</p><p> Dòng người đổ về mỗi lúc một đông, nhiều người gây sức ép để lực lượng chức năng cho qua chốt nhưng bất thành. Dù lực lượng chức năng đã cố gắng vận động, thuyết phục, song vẫn có không ít người cố tình nán lại vài tiếng đồng hồ.</p><div><p> <img src="https://cdn.baogiaothong.vn/upload/images/2021-3/article_img/2021-08-15/img-bgt-2021-5391267653fba4a5fdea-1629032955-width1280height960.jpg" alt="Ngăn dòng người về quê tự phát 1" /></p><p> Sáng 15/8, hàng trăm người dân đi xe máy ùn ùn đổ về quê sau khi hay tin TP.HCM thực hiện giãn cách xã hội theo Chỉ thị 16 thêm 1 tháng nữa</p> <section> </section></div><p> Anh Hoàng Văn Trung (quê Nghệ An) cho biết, anh làm công nhân khu công nghiệp, đã vài tháng nay không có việc làm. Số tiền tích góp hiện không đủ để chi tiêu cho các nhu cầu tối thiểu hàng ngày. Anh Trung thừa nhận, việc đi cùng hội nhóm là nhằm “gây sức ép” với lực lượng chức năng để được về quê.</p><p> Một trường hợp khác là anh Nguyễn Hà An (quê Quảng Nam), chở theo vợ con, cho biết, hai vợ chồng đã thất nghiệp 3 tháng nay. Không có thu nhập, trong khi tiền phòng trọ vẫn phải trả hàng tháng, tiền ăn của 3 người trong gia đình cũng chưa biết trông vào đâu, trong khi rất lo ngại nguy cơ lây nhiễm dịch, anh đã liều lĩnh hòa vào dòng người tự phát về quê.</p><p> “Biết là đang giãn cách xã hội thì ai ở đâu phải ở yên đó, nhưng nếu ở lại tôi cũng không biết phải làm sao”, anh An lý giải về hành động của mình.</p><p> Ngay khi nhận được thông tin, để đảm bảo tình hình <a href="https://www.baogiaothong.vn/an-ninh-hinh-su/" title="an ninh"> an ninh </a> trật tự tại địa phương, tránh gây ùn tắc giao thông, Công an thành phố Thủ Đức đã huy động lực lượng có mặt tại hiện trường, triển khai vận động, tuyên truyền để người dân bình tĩnh, tránh tập trung đông người. Đồng thời, phối hợp hướng dẫn người dân tập kết ở khu vực rộng rãi trước cổng Bến xe miền Đông mới, thay vì tập trung tại chốt kiểm soát.</p><p> Tại đây, lực lượng chức năng yêu cầu người dân trở lại nơi tạm trú, hướng dẫn người dân gọi điện và sẽ được địa phương hỗ trợ.</p><p> Trưa cùng ngày, lãnh đạo MTTQ Việt Nam TP Thủ Đức đã có mặt tại hiện trường phối hợp với lực lượng chức năng bàn phương án giải quyết.</p><p> Theo đại diện Phòng CSGT Công an TP.HCM, việc người dân đi xe máy về quê tự phát, tụ tập đông người, ra đường không lý do chính đáng như vậy là vi phạm các quy định về giãn cách xã hội.</p><p> Người dân càng tự ý di chuyển thì càng gây cản trở việc kiểm soát của lực lượng chức năng, tăng nguy cơ lây lan dịch bệnh.</p><p> Có thể nói, sau khi nghe tin TP.HCM sẽ tiếp tục giãn cách xã hội thêm 1 tháng, nhiều người vội vã tìm đường về quê là điều không khó lý giải.</p><p> Một thực tế có thật là không ít người đã cạn kiệt tích lũy sau thời gian dài giãn cách. Dù TP.HCM cũng như các địa phương đã có nhiều hỗ trợ nhưng chắc chắn chưa thể đáp ứng được đủ nhu cầu.</p><p> Tuy nhiên, việc người dân tự phát về quê như vậy sẽ gây ra rất nhiều hệ lụy. Trong công điện mới đây, Thủ tướng đã yêu cầu các địa phương đang thực hiện Chỉ thị 16 phải làm nghiêm, tuyệt đối không để người dân di chuyển khỏi nơi cư trú từ sau ngày 31/7 tới khi hết giãn cách, trừ trường hợp được chính quyền cho phép.</p><p> Các tỉnh sau đó dừng đón người dân về quê tự phát bằng xe máy, thay vào đó đưa người về quê bằng máy bay, tàu lửa, ô tô.</p><p> Bởi vậy, điều cần nhất lúc này là vận động, thuyết phục người dân thực hiện nghiêm việc giãn cách, không được tự ý di chuyển. Để giúp họ an tâm “ai ở đâu, ở yên đó”, chính quyền và các đoàn thể cần tiếp tục rà soát, khẩn trương hỗ trợ để những người có hoàn cảnh khó khăn đảm bảo được những nhu cầu tối thiểu hàng ngày.</p><p> Mặt khác, cần vận động các chủ nhà trọ giảm hoặc miễn tiền thuê nhà để san sẻ bớt khó khăn cho họ thời điểm này.</p><p> Ngoài ra, các địa phương có người dân đang tạm trú tại TP.HCM cũng cần phối hợp để rà soát người có nhu cầu về quê để lên kế hoạch đưa đón cụ thể, đảm bảo phương án phòng dịch an toàn.</p><p> Việc tổ chức quy củ cũng là một cách để giúp giảm tải cho TP.HCM, cũng là cách làm hiệu quả để người dân không tự ý di chuyển trong lúc này.</p>', 
     'Ngày 15/8, hàng trăm người dân quê ở miền Trung tạm trú ở TP.HCM rủ nhau về quê bằng xe máy đi thành đoàn, hy vọng qua được chốt kiểm soát dịch.', 
@@ -76,7 +76,7 @@ INSERT INTO `Posts` VALUES (
     'TP Thủ Đức đã vận động hơn 500 người dân đi xe máy về quê tránh dịch quay trở lại nơi tạm trú.', 
     DATE_SUB(NOW(), INTERVAL 3 DAY ),  
     DATE_SUB(NOW(), INTERVAL 12 MINUTE),  
-    0, 
+    10, 
     0);
 
 
@@ -92,7 +92,7 @@ INSERT INTO `Posts` VALUES (
     'Chủ tịch UBND TPHCM đã trao quyết định bổ nhiệm chức danh Chủ tịch UBND quận 5, quận 12 cho hai lãnh đạo đang là quyền Chủ tịch UBND quận, đồng thời bổ nhiệm Chủ tịch HĐND quận 1 nhiệm kỳ 2016 – 2021 ', 
     DATE_SUB(NOW(), INTERVAL 3 HOUR),  
     DATE_SUB(NOW(), INTERVAL 2 HOUR ),  
-    0, 
+    21, 
     1);
 
 
@@ -107,7 +107,7 @@ INSERT INTO `Posts` VALUES (
     'Các nhân chứng đã ghi lại được hình ảnh những trực thăng quân sự Mỹ đang sơ tán các nhân viên của đại sứ quán Taliban bắt đầu tổng tiến công thủ đô Afghanistan từ mọi hướng.', 
     DATE_SUB(NOW(), INTERVAL 1 DAY),  
     NOW(),  
-    0, 
+    22, 
     0);
 
 INSERT INTO `Posts` VALUES (
@@ -121,7 +121,7 @@ INSERT INTO `Posts` VALUES (
     'Thủ tướng nêu rõ, mục tiêu cuối cùng là Việt Nam sớm có vaccine Covid-19 tự sản xuất. Nếu mọi việc suôn sẻ, trong tháng 9 này, chúng ta có thể có vaccine sản xuất trong nước.', 
     DATE_SUB(NOW(), INTERVAL 1 DAY ),  
     DATE_SUB(NOW(), INTERVAL 3 HOUR),  
-    0, 
+    32, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -135,7 +135,7 @@ INSERT INTO `Posts` VALUES (
     'Bộ trưởng Quốc phòng đã quyết liệt chỉ đạo các cơ quan, đơn vị phải xác định chống dịch là nhiệm vụ chiến đấu của Quân đội trong thời bình; là nhiệm vụ chính trị hàng đầu trong tình hình hiện nay', 
     DATE_SUB(NOW(), INTERVAL 3 HOUR),  
     DATE_SUB(NOW(), INTERVAL 1 MINUTE),  
-    0, 
+    121, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -149,7 +149,7 @@ INSERT INTO `Posts` VALUES (
     'Một quan chức cấp cao trong quân đội Nga hé lộ rằng nước này đang phát triển tên lửa siêu vượt âm tầm xa được cho có khả năng tấn công mục tiêu trong không gian.', 
     DATE_SUB(NOW(), INTERVAL 2 DAY),  
     DATE_SUB(NOW(), INTERVAL 17 HOUR),  
-    0, 
+    3, 
     0);
 
 -- tin tuc du lich trong nuoc
@@ -164,7 +164,7 @@ INSERT INTO `Posts` VALUES (
     'LÀO CAI Sa Pa có ý nghĩa là bãi cát, Bắc Hà là trăm bó gianh, Bát Xát là miệng thác... tất cả cái tên đều gắn với câu chuyện địa phương.', 
     DATE_SUB(NOW(), INTERVAL 2 DAY),  
     NOW(),
-    0, 
+    1, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -178,7 +178,7 @@ INSERT INTO `Posts` VALUES (
     'Gia Nghĩa là một trong những thành phố trẻ nhất của Việt Nam, còn được biết đến với cái tên yêu kiều - "phố thị hoa vàng"', 
     DATE_SUB(NOW(), INTERVAL 6 HOUR ),  
     DATE_SUB(NOW(), INTERVAL 15 MINUTE),  
-    0, 
+    12, 
     0);
 
 INSERT INTO `Posts` VALUES (
@@ -206,7 +206,7 @@ INSERT INTO `Posts` VALUES (
     'Đi du lịch miền Tây chắc chắn bạn sẽ có cơ hội được thưởng thức rất nhiều món đặc sản trứ danh của mảnh đất này và một trong số đó chắc chắn không thể nào bỏ qua những món ăn ngon từ cua đồng.', 
     DATE_SUB(NOW(), INTERVAL 12 HOUR),  
     DATE_SUB(NOW(), INTERVAL 10 HOUR),  
-    0, 
+    65, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -214,13 +214,13 @@ INSERT INTO `Posts` VALUES (
     'Cầu Vàng Đà Lạt - Địa điểm checkin cực chất cho các cặp tình nhân', 
     3, 
     7, 
-    1, 
+    11, 
     1, 
     '<p> Nếu như Cầu Vàng ở Đà Nẵng, đã quá nổi tiếng với vẻ đẹp đầy ấn tượng. Thì nay, khi đặt chân đến thành phố ngàn hoa này, du khách cũng có thể check-in ngay tại Cầu Vàng Đà Lạt. Tuy xét về độ quy mô có thể không bằng nhưng địa điểm <a href="https://dulichviet.com.vn/du-lich-da-lat">du lịch Đà Lạt</a> này lên ảnh bao đẹp luôn nhé. Nếu du khách chưa có nhiều thông tin về điểm đến này, nhất định đừng bỏ lỡ qua bài viết sau đây mà <a href="https://dulichviet.com.vn/">Du Lịch Việt</a> sẽ giới thiệu đến các bạn. Cùng khám phá thôi nào!</p><p> <img alt="Cầu Vàng Đà Lạt - Địa điểm checkin cực chất cho các cặp tình nhân" src="https://dulichviet.com.vn/images/bandidau/cau-vang-da-lat-dia-diem-checkin-cuc-chat-cho-cac-cap-tinh-nhan.jpg" /></p><p> <em>Cầu Vàng Đà Lạt - Địa điểm checkin cực chất cho các cặp tình nhân</em></p><h2> Cầu Vàng Đà Lạt - Địa điểm checkin cực chất cho các cặp tình nhân</h2><p> Đà Lạt, sẽ chẳng bao giờ nhàm chán với những ai đã lỡ trót yêu thành phố mộng mơ tuyệt đẹp này. Và cầu Vàng Đà Lạt chính là nơi mà du khách không thể bỏ qua khi du lịch Đà Lạt. Cây cầu Vàng này chính là phiên bản mini của cầu Vàng Đà Nẵng. Vì điều kiện địa hình nên không thể nào cho phép thực hiện một cây cầu “sao y bản chính”. Chính vì thế, nên đã có những phiên bản nhỏ hơn nhưng vẫn giữ được tinh thần và vẻ đẹp của cầu Vàng Đà Nẵng là một sự chọn lựa hoàn hảo. Đặc biệt, khi lên ảnh, cây cầu này vẫn toát lên được một vẻ đẹp đầy mộng mơ và hoành tráng không kém gì phiên bản gốc.</p><h3> Cầu Vàng Đà Lạt – Tại khu du lịch Bắc Thang Lên Hỏi Ông Trời</h3><p> Đây là địa điểm có Cầu Vàng Đà Lạt đầu tiên, vừa ra mắt vào dịp trước Tết Nguyên Đán của năm 2020. Giá vé tham quan chính thức của khu du lịch Bắc Thang Lên Hỏi Ông Trời là 20.000đ/người lớn, còn riêng trẻ em sẽ được miễn phí. <br/> <br/> Đến đây, du khách đi <a href="https://dulichviet.com.vn/du-lich-da-lat">tour Đà Lạt</a> sẽ cảm nhận được không gian yên bình cùng nhiều tiểu cảnh thiết kế mới lạ và view đẹp. Nơi đây, đúng chuẩn một địa điểm “sống ảo” mà ai cũng nên ít nhất một lần đặt chân đến. Cây cầu Vàng Đà Lạt này, tuy không hề bắc qua con sông nào nhưng ai ai cũng muốn đến chiêm ngưỡng, thử một lần trải nghiệm vì về cơ bản cây cầu này cũng khá giống với phiên bản gốc. Vẫn là bàn tay Phật được làm bằng đá, các đường nét được vẽ khắc vô cùng tỉ mỉ và công phu.</p><p> Đoạn đường dẫn lên cầu uốn cong, mặt cầu được lát gỗ, lan can cầu làm bằng khung kim loại mạ đồng. Còn hai bên được trồng nhiều loại hoa, đủ màu – một nét đặc trưng không thể nào thiếu được của thành phố ngàn hoa. Cùng với đó là sự góp mặt của rừng thông bạt ngàn được bao bọc xung quanh, bầu trời xanh ngắt cùng ánh nắng vàng lung linh khiến Cầu Vàng trông thật nổi bật. Chỉ cần đưa máy ảnh lên và chỉnh một tí màu là bạn đã có được ngay một tấm hình đẹp không kém gì cây cầu chính đâu nhé! <br/> <br/> Bên cạnh cầu Vàng, trong điểm du lịch này còn rất nhiều góc chụp ảnh rất nên thơ khác để du khách thỏa thích sống ảo. Những cặp tình nhân đang phân vân không biết đi đâu chơi khi <a href="https://dulichviet.com.vn/du-lich-da-lat">du lịch Đà Lạt</a> thì hãy đến ngay đây. Vì bạn sẽ dường như được lạc vào một khu vườn cổ tích. Đó có thể là khung cửa sắt được tô điểm nhiều màu rực rỡ, hay cũng có thể là con đường với những ô cửa hình chữ nhật chất chồng lên nhau hoặc quen thuộc hơn đó chính là “nấc thang lên thiên đường” hướng thẳng lên bầu trời xanh ngắt. Còn gì tuyệt vời hơn khi vào một ngày nắng ấm, được tạo dáng trên cầu Vàng Đà Lạt và có cho mình một bức ảnh xuất sắc để đăng Facebook, Instagram? Còn bây giờ, bạn hãy cùng một nửa yêu thương của mình lên sẵn một kế hoạch du lịch hoàn hảo để chinh phục thành phố mộng mơ này nhé!</p><p> <img alt="Cầu Vàng Đà Lạt - Nơi check in đẹp nhất ở Đà Lạt" src="https://dulichviet.com.vn/images/bandidau/cau-vang-da-lat-noi-check-in-dep-nhat-o-da-lat.jpg" /></p><p> <em>Cầu Vàng Đà Lạt - Nơi check in đẹp nhất ở Đà Lạt</em></p><h3> Cầu Vàng Đà Lạt – Tại cánh đồng hoa cẩm tú cầu Trại Mát</h3><p> Ngoài cây Cầu Vàng mà du khách đi <a href="https://dulichviet.com.vn/du-lich-da-lat">tour du lịch Đà Lạt</a> vừa được chiêm ngưỡng ở trên thì mới đây ngay tại Đà Lạt còn xuất hiện thêm một cây cầu vàng khá ấn tượng khác nữa, có vị trí tọa lạc ở cánh đồng hoa cẩm tú cầu Trại Mát. Với giá vé vào cổng là 15.000đ/người. Vườn hoa này chỉ vừa mới nổi tiếng vào cuối năm 2017,cho đến nay thì địa điểm lại càng nổi hơn với hình ảnh cây cầu Vàng Đà Lạt xuất hiện. <br/> <br/> Cẩm tú cầu Trại Mát, chắc hẳn không còn quá xa lạ đối với các tín đồ thích du lịch Đà Lạt. Nơi đây, đã từng được rất nhiều các cặp đôi lựa chọn để thực hiện những bộ ảnh cưới đáng nhớ cho cuộc đời mình. Cũng là địa điểm sống ảo yêu thích của bất kỳ các bạn trẻ nào khi ghé thăm thành phố ngàn hoa này. Tại Đà Lạt có không ít vườn hoa cẩm tú cầu nhưng cánh đồng Trại Mát là lớn nhất, có hoa nở to và đẹp nhất. Tại đây, cũng có cây Cầu Vàng Đà Lạt mới được đầu tư xây dựng. Tương tự như chiếc cầu thứ nhất, thì cây cầu vàng này cũng có thiết kế khá giống bản gốc nhưng có phần đơn giản hơn, với 2 bàn tay Phật nâng đỡ hai bên còn về cây cầu ở Bắc Thang Lên Hỏi Ông Trời chỉ có 1 bàn tay nâng đỡ nằm phần giữa cầu. <br/> <br/> Nhìn về phần tổng thể thì nó không quá quy mô, hùng vĩ nhưng lại ghi điểm nhờ cảnh sắc thiên nhiên xung quanh. Với background là những cánh đồng hoa cẩm tú cầu mênh mông, chỉ cần chuẩn bị một “bộ cánh” thật đẹp và tạo một vài dáng đơn giản là có ngay một tấm hình xinh. Những tâm hồn đầy lãng mạn, yêu thiên nhiên, hoa lá chắc chắn sẽ không thể nào bỏ qua cơ hội được check-in với vườn hoa nổi tiếng này.</p><p> Nếu các loài hoa như mai anh đào, hoa cải trắng, dã quỳ chỉ nở theo mùa thì đến <a href="https://dulichviet.com.vn/du-lich-da-lat">du lịch Đà Lạt</a> vào bất cứ thời điểm nào trong năm thì bạn vẫn có cơ hội chiêm ngưỡng, chụp ảnh với loài hoa cẩm tú cầu – loài hoa không chỉ xinh đẹp mà còn mang một ý nghĩa tượng trưng cho cả thành phố mộng mơ này. Sau một chuyến du lịch tham quan đầy thú vị, bạn sẽ có dịp được quan sát thêm cảnh những người dân nơi đây trồng và chăm sóc cho những loài hoa như thế nào. <br/> <br/> Cầu Vàng Đà Lạt, đã đốn tim biết bao nhiêu kẻ lữ khách khi đặt chân đến đây. Nếu sắp tới có ý định du dịch Đà Lạt, thì đừng quên note lại 2 địa chỉ mà Du Lịch Việt giới thiệu đến bạn. Để có thể lưu lại cho mình những bức hình “sống ảo” cùng cảnh sắc thiên nhiên tuyệt đẹp, chắc chắn bạn sẽ không ngớt lời khen.</p>', 
     'Cầu Vàng Đà Lạt, đã đốn tim biết bao nhiêu kẻ lữ khách khi đặt chân đến đây. Nếu sắp tới có ý định du dịch Đà Lạt, thì đừng quên note lại 2 địa chỉ mà Du Lịch Việt giới thiệu đến bạn.', 
     DATE_SUB(NOW(), INTERVAL 3 DAY ),  
     DATE_SUB(NOW(), INTERVAL 5 HOUR ),  
-    0, 
+    2, 
     0);
 
 -- tin tuc du lich the gioi
@@ -235,7 +235,7 @@ INSERT INTO `Posts` VALUES (
     'Kết hợp giữa cảnh quang thiên nhiên tươi đẹp cùng ẩm thực đa dạng, phong phú, thời gian gần đây, Đài Loan như thỏi nam châm hút khách.', 
     DATE_SUB(NOW(), INTERVAL 5 HOUR),  
     DATE_SUB(NOW(), INTERVAL 17 MINUTE),  
-    0, 
+    145, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -249,7 +249,7 @@ INSERT INTO `Posts` VALUES (
     'Ancient Siam là bảo tàng nổi tiếng với kiến trúc vô cùng ấn tượng ở Thái Lan. Đây là điểm du lịch hút khách ở xứ Chùa Vàng hiện nay.', 
     DATE_SUB(NOW(), INTERVAL 20 MINUTE),  
     DATE_SUB(NOW(), INTERVAL 1 MINUTE),  
-    0, 
+    123, 
     0);
 
 INSERT INTO `Posts` VALUES (
@@ -263,7 +263,7 @@ INSERT INTO `Posts` VALUES (
     'Xứ sở kim chi Hàn Quốc, Đài Loan, các nước Đông Nam Á hay Dubai, châu Âu là những gợi ý thú vị để bạn lựa chọn cho chuyến du xuân ở nước ngoài.', 
     DATE_SUB(NOW(), INTERVAL 4 HOUR ),  
     DATE_SUB(NOW(), INTERVAL 40 MINUTE),  
-    0, 
+    320, 
     1);
 
 INSERT INTO `Posts` VALUES (
@@ -277,7 +277,7 @@ INSERT INTO `Posts` VALUES (
     'Với 300 nghìn đồng, thuê bao MobiFone có ngay 1GB data sử dụng trong 10 ngày để ung dung check-in, lướt mạng tại 63 quốc gia và vùng lãnh thổ, không lo mua sim', 
     DATE_SUB(NOW(), INTERVAL 4 HOUR ),  
     NOW(),  
-    0, 
+    30, 
     0);
 
 INSERT INTO `Posts` VALUES (
@@ -291,5 +291,57 @@ INSERT INTO `Posts` VALUES (
     'Các cuộc khảo sát về xu hướng du lịch của người Việt chỉ ra rằng những chuyến du lịch nước ngoài ngày càng thịnh hành và được ưa chuộng hơn.', 
     DATE_SUB(NOW(), INTERVAL 2 DAY ),  
     DATE_SUB(NOW(), INTERVAL 5 HOUR),  
-    0, 
+    20, 
     1);
+
+-- them tag cho bai viet
+INSERT INTO `Tags` VALUES (11, 'duongbo');
+INSERT INTO `Tags` VALUES (12, 'giaothong');
+INSERT INTO `Tags` VALUES (13, 'duongthuy');
+INSERT INTO `Tags` VALUES (14, 'quandoi');
+INSERT INTO `Tags` VALUES (15, 'chinhtri');
+INSERT INTO `Tags` VALUES (16, 'dulich');
+INSERT INTO `Tags` VALUES (17, 'travel');
+INSERT INTO `Tags` VALUES (18, 'thegioi');
+INSERT INTO `Tags` VALUES (19, 'covid');
+INSERT INTO `Tags` VALUES (20, 'chientranh');
+
+INSERT INTO `PostTag` VALUES (21, 11);
+INSERT INTO `PostTag` VALUES (21, 12);
+INSERT INTO `PostTag` VALUES (21, 19);
+INSERT INTO `PostTag` VALUES (22, 12);
+INSERT INTO `PostTag` VALUES (22, 19);
+INSERT INTO `PostTag` VALUES (22, 13);
+INSERT INTO `PostTag` VALUES (23, 12);
+INSERT INTO `PostTag` VALUES (23, 19);
+INSERT INTO `PostTag` VALUES (24, 11);
+INSERT INTO `PostTag` VALUES (24, 12);
+INSERT INTO `PostTag` VALUES (24, 19);
+INSERT INTO `PostTag` VALUES (25, 12);
+INSERT INTO `PostTag` VALUES (25, 19);
+INSERT INTO `PostTag` VALUES (26, 15);
+INSERT INTO `PostTag` VALUES (27, 15);
+INSERT INTO `PostTag` VALUES (27, 20);
+INSERT INTO `PostTag` VALUES (27, 18);
+INSERT INTO `PostTag` VALUES (28, 15);
+INSERT INTO `PostTag` VALUES (28, 19);
+INSERT INTO `PostTag` VALUES (29, 14);
+INSERT INTO `PostTag` VALUES (29, 19);
+INSERT INTO `PostTag` VALUES (30, 14);
+INSERT INTO `PostTag` VALUES (30, 19);
+INSERT INTO `PostTag` VALUES (30, 18);
+INSERT INTO `PostTag` VALUES (31, 17);
+INSERT INTO `PostTag` VALUES (32, 17);
+INSERT INTO `PostTag` VALUES (33, 17);
+INSERT INTO `PostTag` VALUES (34, 17);
+INSERT INTO `PostTag` VALUES (35, 17);
+INSERT INTO `PostTag` VALUES (36, 17);
+INSERT INTO `PostTag` VALUES (36, 18);
+INSERT INTO `PostTag` VALUES (37, 17);
+INSERT INTO `PostTag` VALUES (37, 18);
+INSERT INTO `PostTag` VALUES (38, 17);
+INSERT INTO `PostTag` VALUES (38, 18);
+INSERT INTO `PostTag` VALUES (39, 17);
+INSERT INTO `PostTag` VALUES (39, 18);
+INSERT INTO `PostTag` VALUES (40, 17);
+INSERT INTO `PostTag` VALUES (40, 18);
