@@ -68,6 +68,7 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Jquery Mobile Menu -->
 <script src="/public/template/js/jquery.slicknav.min.js"></script>
 
@@ -137,37 +138,74 @@
       return;
     temp = tinymce.get('txtContent').getContent();
     if (temp.length === 0) {
-      alert(`Content is empty`);
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Content is empty!',
+      })
       $(`#txtContent`).focus();
       return;
     }
     if ($('#fCover').get(0).files.length === 0 && {{postID}}==-1) {
-      alert(`A post need a cover`);
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'A post need a cover',
+      })
       $('#fCover').focus();
       return;
     }
     var array = [];
     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
     if (checkboxes.length === 0) {
-      alert(`You must take at least one tag for your post!`);
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You must take at least one tag for your post!',
+      })
       return;
     }
     title = $('#txtTitle').val();
     postID = $('#postID').val();
     $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function (data) {
       if (data === false) {
-        alert('You wrote a post having the same title. Please write another one!');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You wrote a post having the same title. Please write another one!',
+        })
         $('#txtTitle').focus();
         return;
       }
-      $('#frmWritePost').off('submit').submit();
+      Swal.fire({
+          title: 'Bạn có muốn lưu bài viết?',
+          showCancelButton: true,
+          confirmButtonText: 'Xác nhận',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire({
+                      icon: 'success',
+                      title: 'Lưu bài viết thành công',
+                      showConfirmButton: true,
+                      confirmButtonColor: '#3085d6',
+                  })
+              $('#frmWritePost').off('submit').submit();
+          }
+      });
+      
     })
   });
 
   function isEmptyText(idtext, message) {
     const text = $(`#${idtext}`).val();
     if (text.length === 0) {
-      alert(`${message} is empty`);
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${message} is empty`,
+      })
       $(`#${idtext}`).focus();
       return true;
     }
