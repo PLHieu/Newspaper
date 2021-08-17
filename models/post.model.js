@@ -125,6 +125,14 @@ module.exports = {
         return count.length;
 
     },
+    async countAllAcceptPost() {
+        const rows = await db('Posts')
+                    .where({
+                        StateID: 1,
+                    })
+                    .count('*', { as: 'total' });
+      return rows[0].total;
+    },
     async countRefusePostByCategory(IDcategory) {
         let count = await db('Posts')
                         .where({
@@ -132,7 +140,14 @@ module.exports = {
                             StateID: -1,
                         });
         return count.length;
-
+    },
+    async countAllRefusePost() {
+        const rows = await db('Posts')
+                    .where({
+                        StateID: -1,
+                    })
+                    .count('*', { as: 'total' });
+      return rows[0].total;
     },
     async countChuaDuyetPostByCategory(IDcategory) {
         let count = await db('Posts')
@@ -143,7 +158,12 @@ module.exports = {
         return count.length;
 
     },
-
+    async countAllChuaDuyetPost() {
+        const rows = await db('Posts')
+                    .whereIn('StateID', [-2, 0])
+                    .count('*', { as: 'total' });
+      return rows[0].total;
+    },
     async countPostByTag(IDTag) {
         const rows = await db('PostTag')
             .where('TagID', IDTag)

@@ -13,6 +13,11 @@ module.exports = {
       
       return rows;
     },
+    async countEditor(){
+      const rows = await db('Editors')
+        .count('*', { as: 'total' })
+      return rows[0].total;
+    },
     async findByUsername(username){
         const rows = await db('Editors').where('username', username);
         if (rows.length === 0)

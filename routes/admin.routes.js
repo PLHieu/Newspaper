@@ -240,6 +240,58 @@ router.post('/category/del', async function(req, res){
     }
     return res.status(200).send({deleted: true});
 })
+router.get('/dashboard', async function(req, res) {
+    const list_tags = await tag_db.allTags();
+    const num_tags = list_tags.length;
+    let dic_num_post_in_tag = {};
+    for (let i = 0; i < list_tags.length; i++) {
+        list_tags[i].num_posts = await posttag_db.countPostInTags(list_tags[i].ID);
+        dic_num_post_in_tag[list_tags[i].Name] = list_tags[i].num_posts;
+    }
+    dic_num_post_in_tag = sorted_obj(dic_num_post_in_tag);
+    let label_chart = [];
+    let data_chart = [];
+    for (let i = 0; i < dic_num_post_in_tag.length; i++){
+        label_chart.push(dic_num_post_in_tag[i][0])
+        data_chart.push(dic_num_post_in_tag[i][1])
+    }
+    let list_cat = await cat_db.findDadCategories();
+    let label_cat = [];
+    let data_cat = [];
+    for (let i =0; i< list_cat.length; i++){
+        list_cat[i].num_posts = await post_db.countPostByCategory(list_cat[i].ID);
+        label_cat.push(list_cat[i].Name);
+        data_cat.push(list_cat[i].num_posts);
+    }
+    let label_user = ["Subcriber", "Writer", "Editor"];
+    let data_user = [];
+    let num = await reader_db.countReader();
+    data_user.push(num);
+    num = await writer_db.countWriter();
+    data_user.push(num);
+    num = await editor_db.countEditor();
+    data_user.push(num);
+
+    let data_post = [];
+    let label_post = ["Đã duyệt", "Chờ duyệt", "Từ chối"];
+    num = await post_db.countAllAcceptPost();
+    data_post.push(num);
+    num = await post_db.countAllChuaDuyetPost();
+    data_post.push(num);
+    num = await post_db.countAllRefusePost();
+    data_post.push(num);
+
+    return res.render('user/admin/dashboard',{
+        label_chart,
+        data_chart,
+        label_cat,
+        data_cat,
+        label_user,
+        data_user,
+        label_post, 
+        data_post,
+    });
+});
 router.get('/tag/manage', async function(req, res) {
     const list_tags = await tag_db.allTags();
     const num_tags = list_tags.length;

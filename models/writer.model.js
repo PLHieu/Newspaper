@@ -4,7 +4,11 @@ module.exports = {
     findAll(){
       return db('Writers').where('Active', 1);
     },
-
+    async countWriter(){
+      const rows = await db('Writers')
+        .count('*', { as: 'total' })
+      return rows[0].total;
+    },
     async findByUsername(username){
         const rows = await db('Writers').where('username', username);
         if (rows.length === 0)

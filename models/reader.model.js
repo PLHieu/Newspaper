@@ -65,6 +65,12 @@ module.exports = {
           return null;
         return rows;
     },
+    async countReader(){
+      const rows = await db('Readers')
+        .count('*', { as: 'total' })
+      return rows[0].total;
+    },
+
     async updateGeneralInfor(ID, name, email, birthday, address){
       
       let dob = '';

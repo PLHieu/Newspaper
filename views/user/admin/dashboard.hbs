@@ -1,0 +1,403 @@
+{{#section 'title'}}
+<title>Dashboard</title>
+{{/section}}
+{{#section 'css'}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/public/css/dashboard.css">
+
+<link rel="stylesheet" href="/public/template/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/public/template/css/ticker-style.css">
+<link rel="stylesheet" href="/public/template/css/flaticon.css">
+<link rel="stylesheet" href="/public/template/css/slicknav.css">
+<link rel="stylesheet" href="/public/template/css/animate.min.css">
+<link rel="stylesheet" href="/public/template/css/magnific-popup.css">
+<link rel="stylesheet" href="/public/template/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/public/template/css/themify-icons.css">
+<link rel="stylesheet" href="/public/template/css/slick.css">
+<link rel="stylesheet" href="/public/template/css/nice-select.css">
+<link rel="stylesheet" href="/public/template/css/style.css">
+<link rel="stylesheet" href="/public/css/dsPostTheoCateTag.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .active_page{
+        background-color: rgb(216, 2, 134);
+        color: red;
+    }
+
+    .card{
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        /*transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);*/
+        
+    }
+
+    .card:hover{
+        /*transform: scale(1.05); */
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    #dropdownMenuButton{
+        cursor: pointer;
+    }
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Jquery Mobile Menu -->
+<script src="/public/template/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="/public/template/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="/public/template/js/wow.min.js"></script>
+<script src="/public/template/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="/public/template/js/jquery.scrollUp.min.js"></script>
+<script src="/public/template/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="/public/template/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="/public/template/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    var myChart = new Chart($('#tagChart'),{
+        type: 'bar',
+        data: {
+            labels: `{{label_chart}}`.split(","),
+            datasets: [{
+                label: 'Số bài viết',
+                backgroundColor: '#3085d6',
+                data: [{{data_chart}}],
+                hoverBackgroundColor: 'rgb(255, 99, 132)',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: '15 tags nhiều bài viết nhất',
+                    color: '#911',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                        lineHeight: 2,
+                    },
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Tags',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Số bài viết',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    },
+                    beginAtZero: true,
+                    ticks: {stepSize: 1}
+                }
+            }
+        }
+    });
+
+    var myChart2 = new Chart($('#catChart'),{
+        type: 'bar',
+        data: {
+            labels: `{{label_cat}}`.split(","),
+            datasets: [{
+                label: 'Số bài viết',
+                backgroundColor: '#3085d6',
+                data: [{{data_cat}}],
+                hoverBackgroundColor: 'rgb(255, 99, 132)',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Các chuyên mục lớn',
+                    color: '#911',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                        lineHeight: 2,
+                    },
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Chuyên mục',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Số bài viết',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    },
+                    beginAtZero: true,
+                    ticks: {stepSize: 1}
+                }
+            }
+        }
+    });
+    var myChart3 = new Chart($('#userChart'),{
+        type: 'bar',
+        data: {
+            labels: `{{label_user}}`.split(","),
+            datasets: [{
+                label: 'Số bài viết',
+                backgroundColor: '#3085d6',
+                data: [{{data_user}}],
+                hoverBackgroundColor: 'rgb(255, 99, 132)',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Các phân hệ người dùng',
+                    color: '#911',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                        lineHeight: 2,
+                    },
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Người dùng',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Số lượng',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    },
+                    beginAtZero: true,
+                    ticks: {stepSize: 1}
+                }
+            }
+        }
+    });
+    var myChart4 = new Chart($('#postChart'),{
+        type: 'bar',
+        data: {
+            labels: `{{label_post}}`.split(","),
+            datasets: [{
+                label: 'Số bài viết',
+                backgroundColor: '#3085d6',
+                data: [{{data_post}}],
+                hoverBackgroundColor: 'rgb(255, 99, 132)',
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Các trạng thái bài viết',
+                    color: '#911',
+                    font: {
+                        size: 20,
+                        weight: 'bold',
+                        lineHeight: 2,
+                    },
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x:{
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Trạng thái',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    }
+                },
+                y: {
+                    display: true,
+                    title:{
+                        display: true,
+                        text: 'Số bài viết',
+                        color: '#191',
+                        font: {
+                            size: 14,
+                            lineHeight: 1,
+                        }
+                    },
+                    beginAtZero: true,
+                    ticks: {stepSize: 1}
+                }
+            }
+        }
+    });
+    
+</script>
+{{/section}}
+
+{{> header-top}}
+<div class="container">
+    <div class="table-responsive">
+        <div class="table-wrapper pb-0">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <a href="/admin/user/manage" >
+                            <h2>Quản lý <b>NGƯỜI DÙNG</b>
+                                <i class="fa fa-users"></i>
+                            </h2>
+                        </a>
+                        
+                    </div>
+                    <div class="col-sm-7">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-wrapper mb-4 w-75" style="margin:0 auto;text-align:center">
+                        <div><canvas id="userChart" height="100px"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="table-wrapper pb-0">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <a href="/admin/category/manage">
+                            <h2>Quản lý <b>CHUYÊN MỤC</b>
+                                <i class="fa fa-bars"></i>
+                            </h2>
+                        </a>
+                        
+                    </div>
+                    <div class="col-sm-7">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-wrapper mb-4 w-75" style="margin:0 auto;text-align:center">
+                        <div><canvas id="catChart" height="100px"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="table-wrapper pb-0">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <a href="/admin/tag/manage">
+                            <h2>Quản lý <b>TAGS</b>
+                                <i class="fas fa-tags"></i>
+                            </h2>
+                        </a>
+                    </div>
+                    <div class="col-sm-7">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-wrapper mb-4 w-75" style="margin:0 auto;text-align:center">
+                        <div><canvas id="tagChart" height="100px"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="table-wrapper pb-0">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <a href="/admin/post/manage"><h2>Quản lý <b>BÀI VIẾT</b>
+                            <i class="fa fa-newspaper"></i>
+                        </h2></a>
+                        
+                    </div>
+                    <div class="col-sm-7">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-wrapper mb-4 w-75" style="margin:0 auto;text-align:center">
+                        <div><canvas id="postChart" height="100px"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{> footer}}
