@@ -28,16 +28,21 @@ async function checkWriterAccessPostID(req, res, next){//
     next();
 }    
 
-function updateCoverPost(postID){
+async function updateCoverPost(postID){
     var oldPath = './public/image/posts/bigavt.jpg'
     var newPath = `./public/image/posts/${postID}/bigavt.jpg`
-    fs.rename(oldPath, newPath, function (err) {
-        if (err) throw err;
-        else console.log('Successfully renamed - AKA moved!')
-    })
-    fs.copyFile(`./public/image/posts/${postID}/bigavt.jpg`, `./public/image/posts/${postID}/smallavt.jpg`, (err) => {
-        if (err) throw err;
-        else console.log(`bigavt was copied to smallavt`);
+    await fs.access(oldPath, fs.constants.F_OK, async (err) => {
+        console.log(`${oldPath} ${err ? 'does not exist' : 'exists'}`);
+        if (!err) {
+            await fs.rename(oldPath, newPath, function (err) {
+                if (err) throw err;
+                else console.log('Successfully renamed - AKA moved!')
+            })
+            await fs.copyFile(`./public/image/posts/${postID}/bigavt.jpg`, `./public/image/posts/${postID}/smallavt.jpg`, (err) => {
+                if (err) throw err;
+                else console.log(`bigavt was copied to smallavt`);
+            });
+        }
     });
 }
 
@@ -248,7 +253,7 @@ router.post('/post-detail/edit', async function(req, res){
             await post_db.editPost(edit_post,postID);
             await posttag_db.del(postID);
             addPostTag(tag,postID);
-            updateCoverPost(postID);
+            await updateCoverPost(postID);
             res.redirect('/writer');
             }
     });
