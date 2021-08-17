@@ -15,7 +15,7 @@
 {{/section}}
 
 {{#section 'title'}}
-<title>Enter OTP</title>
+<title>Nhập OTP</title>
 {{/section}}
 
 {{#section 'css'}}
@@ -34,11 +34,11 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="../../public/image/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="/register" class="signup-image-link">Create an account</a>
+                        {{!-- <a href="/register" class="signup-image-link">Create an account</a> --}}
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Enter OTP</h2>
+                        <h2 class="form-title">Nhập OTP</h2>
                         <div class="contact">
                           <form method="POST" action="/getOTP" class="sendOTP">
                           {{#if err_message}}
@@ -76,7 +76,7 @@
                               <input type="text" name="otp" required="required">
                             </p>
                             <p class="full">
-                              <button type="submit">Submit</button>
+                              <button type="submit">Xác nhận</button>
                             </p>
                           </form>
 
@@ -84,7 +84,7 @@
                           {{#if this.not_registered}}
                           <form method="POST" action="/reset-password/resendOTP">
                             <p class="full">
-                              <button type="submit">resend otp</button>
+                              <button type="submit">Gửi lại OTP</button>
                             </p>
                           {{/if}}
                         </div>

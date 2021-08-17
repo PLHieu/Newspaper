@@ -13,6 +13,7 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <!-- JS -->
     {{!-- <script src="../../public/js/template/vendor/jquery.min.js"></script>
@@ -39,12 +40,20 @@
     if (isEmptyText('txtDOB',"Date of Birth"))
       return;
     if ($('#txtPassword').val() != $('#txtConfirm').val()){
-        alert('Confirm password is different from Password');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Mật khẩu xác nhận không trùng nhau`,
+            })
         $('#txtConfirm').focus();
         return;
       }
       if (!isValidEmail($('#txtEmail').val())){
-        alert('Email is not valid');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Username không đúng chuẩn. Mẫu: abc@gmail.com`,
+            })
         $('#txtEmail').focus();
         return;
       }
@@ -52,7 +61,11 @@
     $.getJSON(`/is-available?username=${username}`, function(data){
       console.log(data);
       if (data === false){
-        alert('Username is existed.');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Username đã tồn tại`,
+            })
         $('#txtUsername').focus();
         return;
       }
@@ -60,7 +73,11 @@
       $.getJSON(`/is-available-email?email=${email}`, function(data){
         console.log(data);
         if (data === true){
-          alert('Email is existed.');
+          Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Email đã tồn tại`,
+            })
           $('#txtEmail').focus();
           return;
         }
@@ -77,7 +94,11 @@
   function isEmptyText(idtext, message){
     const text = $(`#${idtext}`).val();
     if (text.length === 0 || text ===`__/__/____`){
-      alert( `Invalid ${message}`);
+      Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${message} không được để trống`,
+            })
       $(`#${idtext}`).focus();
       return true;
       }
@@ -91,56 +112,56 @@
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
-                        <h2 class="form-title">Sign up</h2>
+                        <h2 class="form-title">Đăng kí</h2>
                         <form method="POST" class="register-form" id="formRegister">
                             <div class="form-group">
                                 <label for="txtUsername"><i class="fa fa-user"></i></label>
-                                <input type="text" name="username" id="txtUsername" placeholder="Your Username"/>
+                                <input type="text" name="username" id="txtUsername" placeholder="Nhập username"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtPassword"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="raw_password" id="txtPassword" placeholder="Password"/>
+                                <input type="password" name="raw_password" id="txtPassword" placeholder="Nhập mật khẩu"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtConfirm"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="txtConfirm" placeholder="Repeat your password"/>
+                                <input type="password" name="re_pass" id="txtConfirm" placeholder="Xác nhận mật khẩu"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="txtName" placeholder="Your Full Name"/>
+                                <input type="text" name="name" id="txtName" placeholder="Tên đầy đủ"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtEmail"><i class="zmdi zmdi-email"></i></label>
-                                <input type="text" name="email" id="txtEmail" placeholder="Your Email"/>
+                                <input type="text" name="email" id="txtEmail" placeholder="Email của bạn (ví dụ:abc@gmail.com)"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtAddress"><i class="fa fa-map-marker"></i></label>
-                                <input type="text" name="address" id="txtAddress" placeholder="Your Address"/>
+                                <input type="text" name="address" id="txtAddress" placeholder="Địa chỉ"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtDOB"><i class="fa fa-birthday-cake"></i></label>
-                                <input type="text" name="raw_dob" id="txtDOB" placeholder="Your Date of Birth"/>
+                                <input type="text" name="raw_dob" id="txtDOB" placeholder="Ngày sinh"/>
                             </div>
                             {{!-- <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                                 <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                             </div> --}}
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng kí"/>
                             </div>
                         </form>
                     </div>
                     <div class="signup-image">
                         <figure><img src="../../public/image/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="/login" class="signup-image-link">I am already member</a>
+                        <a href="/login" class="signup-image-link">Tôi đã có tài khoản rồi</a>
                     </div>
-                    <div class="social-login">
+                    {{!-- <div class="social-login">
                             <span class="social-label">Or signup with</span>
                             <ul class="socials">
                                 <li><a href="/auth/facebook"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
                                 <li><a href="/auth/google"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                 </div>
             </div>
         </section>
