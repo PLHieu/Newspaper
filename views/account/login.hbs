@@ -26,11 +26,11 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="../../public/image/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="/register" class="signup-image-link">Create an account</a>
+                        <a href="/register" class="signup-image-link">Tạo tài khoản mới</a>
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Sign in</h2>
+                        <h2 class="form-title">Đăng nhập</h2>
                         {{#if err_message}}
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -67,14 +67,14 @@
                                 <input type="password" name="password" id="password" placeholder="Password"/>
                             </div>
                             <div style="text-align: right;">
-                                <a id="forgot_pass" class="label-agree-term text-danger" href="/reset-password">Forgot Password</a>
+                                <a id="forgot_pass" class="label-agree-term text-danger" href="/reset-password">Quên mật khẩu</a>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                             </div>
                         </form>
                         <div class="social-login">
-                            <span class="social-label">Or login with</span>
+                            <span class="social-label">Hoặc đăng nhập bằng</span>
                             <ul class="socials">
                                 {{!-- <li><a href="/auth/facebook"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li> --}}
                                 <li><a href="/auth/google"><i class="display-flex-center zmdi zmdi-google"></i></a></li>

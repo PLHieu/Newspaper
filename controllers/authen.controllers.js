@@ -230,7 +230,7 @@ exports.signin = async (req, res) => {
 
     // Khong ton tai tai khoang trong he thong 
     return res.render('account/login', {
-        err_message: 'Invalid Username',
+        err_message: 'Username không đúng',
     })
 }
 
@@ -301,7 +301,7 @@ exports.handleReceiveOTP = async (req, res) =>{
         }
         else{
             return res.render('account/enter_otp',{
-                msg : 'otp is incorrect',
+                msg : 'OTP không chính xác',
                 activeAccount: true
             });
         }
@@ -312,7 +312,7 @@ exports.handleReceiveOTP = async (req, res) =>{
     }
     else{
         res.render('account/enter_otp',{
-            msg : 'otp is incorrect',
+            msg : 'OTP không chính xác',
         });
     }
 }
@@ -385,14 +385,14 @@ function checkPassword(role, rows, req, res) {
   
   if (ret===false){
     return res.render('account/login', {
-        err_message: 'Invalid password',
+        err_message: 'Password không đúng',
     })
   }
   else{
     if(role === 'writer'){
       if (rows.Active=='0'){
         return res.render('account/login', {
-            err_message: 'Invalid account',
+            err_message: 'Tài khoản không có sẵn',
         })
       }else{
         handle_login_successfully(role, rows, req, res, false);
