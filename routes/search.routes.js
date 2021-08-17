@@ -7,11 +7,11 @@ router.get('/', async function(req, res) {
     search_text = req.query.text_search;
     let search_posts = null;
     let query_title = null;
-    query_title = `SELECT ID FROM Posts WHERE Title LIKE ('%${search_text}%') and StateID=1 and PubTime<='NOW()'`;
+    query_title = `SELECT ID FROM Posts WHERE Title LIKE ('%${search_text}%') and StateID=1 and PubTime<=NOW()`;
     let search_posts_like = await knex.raw(query_title);
     search_posts_like = search_posts_like[0];
     console.log("Search title like: ",search_posts_like)
-    query_AbsCon = `SELECT ID FROM Posts WHERE (Abstract LIKE ('%${search_text}%') or Content LIKE ('%${search_text} %')) and StateID=1 and PubTime<='NOW()'`;
+    query_AbsCon = `SELECT ID FROM Posts WHERE (Abstract LIKE ('%${search_text}%') or Content LIKE ('%${search_text} %')) and StateID=1 and PubTime<=NOW()`;
     add_posts = await knex.raw(query_AbsCon);
     add_posts = add_posts[0];
     console.log("Search abstract like: ",add_posts)
@@ -20,7 +20,7 @@ router.get('/', async function(req, res) {
         search_posts_like.push(add_posts[i]);
     
     if  (search_text.length > 2) {
-        query_title = `SELECT ID, MATCH (Title) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<='NOW()' ORDER BY Score desc;`;
+        query_title = `SELECT ID, MATCH (Title) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<=NOW() ORDER BY Score desc;`;
         search_posts = await knex.raw(query_title);
         search_posts = search_posts[0];
         console.log("Search title: " ,search_posts)
@@ -31,7 +31,7 @@ router.get('/', async function(req, res) {
 
         let threshold = 0.2;
 
-        query_AbsCon = `SELECT ID, MATCH (Abstract) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<='NOW()' ORDER BY Score desc;`; // WITH QUERY EXPANSION
+        query_AbsCon = `SELECT ID, MATCH (Abstract) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<=NOW() ORDER BY Score desc;`; // WITH QUERY EXPANSION
         add_posts = await knex.raw(query_AbsCon);
         add_posts = add_posts[0];
         console.log("add_posts Abstract: ",add_posts)
@@ -58,7 +58,7 @@ router.get('/', async function(req, res) {
         }
         console.log("Search post sorted_obj: ", search_posts);
 
-        query_AbsCon = `SELECT ID, MATCH (Title, Abstract, Content) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<='NOW()' ORDER BY Score desc;`; // WITH QUERY EXPANSION
+        query_AbsCon = `SELECT ID, MATCH (Title, Abstract, Content) AGAINST ('${search_text}' IN NATURAL LANGUAGE MODE) as Score FROM Posts WHERE StateID=1 and PubTime<=NOW() ORDER BY Score desc;`; // WITH QUERY EXPANSION
         add_posts = await knex.raw(query_AbsCon);
         add_posts = add_posts[0];
         console.log("add_posts 2 columns posts: ",add_posts)
