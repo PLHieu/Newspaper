@@ -463,6 +463,18 @@ async function findByLevel1Category(IDcategory, offset) {
     const childrenCateID = childrenCate.map(ele => ele.ID);
     // console.log(childrenCateID);
     let now = new Date();
+    if(childrenCateID.length == 0){
+        const rows = await db('Posts')
+            .where('CatID', IDcategory)
+            .andWhere({
+                StateID: 1
+            })
+            .andWhere('PubTime', '<=', now)
+            .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'PubTime', order: 'desc' }])
+            .limit(postsLimit)
+            .offset(offset)
+        return rows;
+    }
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
         .andWhere({
@@ -482,6 +494,13 @@ async function findAllByLevel1Category(IDcategory, offset) {
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
     // console.log(childrenCateID);
+    if(childrenCateID.length == 0){
+        const rows = await db('Posts')
+                    .where('CatID', IDcategory)
+                    .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'WriteTime', order: 'desc' }])
+                    .offset(offset);
+        return rows;
+    }
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
         .orderBy([{ column: 'Premium', order: 'desc' }, { column: 'WriteTime', order: 'desc' }])
@@ -540,6 +559,16 @@ async function countByLevel1Category(IDcategory) {
     let now = new Date();
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
+    if (childrenCateID.length == 0){
+        const rows = await db('Posts')
+                    .where('CatID', IDcategory)
+                    .andWhere({
+                        StateID: 1,
+                    })
+                    .andWhere('PubTime', '<=', now)
+                    .count('*', { as: 'total' })
+        return rows[0].total;
+    }
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
         .andWhere({
@@ -557,6 +586,18 @@ async function findHightlightByLevel1Category(IDcategory, limit, offset) {
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
     // console.log(childrenCateID);
+    if(childrenCateID.length == 0){
+        const rows = await db('Posts')
+            .where('CatID', IDcategory)
+            .andWhere({
+                StateID: 1,
+            })
+            .andWhere('PubTime', '<=', now)
+            .orderBy('Views', 'desc')
+            .limit(limit)
+            .offset(offset)
+        return rows;
+    }
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
         .andWhere({
