@@ -110,12 +110,17 @@ body {
 
 .content_main img{
     width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .content_main a{
     color: #e45b54 !important ;
 }
-
+.blog_details{
+    display: inline;
+    text-align: justify;
+}
 @media only screen and (max-width: 568px){
     div.noidung h1.tieude{
         font-size: 2rem !important;
