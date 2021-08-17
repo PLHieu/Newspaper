@@ -79,7 +79,11 @@
         if (isEmptyText('txtAddress', "Address"))
             return;
         if (!isValidEmail($('#txtEmail').val())) {
-            alert('Email is not valid');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Email không khả dụng!',
+            })
             $('#txtEmail').focus();
             return;
         }
