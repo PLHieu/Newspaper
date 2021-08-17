@@ -665,7 +665,10 @@ router.post('/post/add', async function(req, res){
         if (err) console.log(err);
         else {
             //console.log(req.body);
-            const {category, title, abstract, content, tag, postID, writerID} = req.body;
+            let {category, title, abstract, content, tag, postID, writerID, premium} = req.body;
+            if (premium)
+                premium=1
+            else premium=0
             //console.log(category, title, abstract, content, tag);
             const new_post = {
                 Title: title,
@@ -676,6 +679,7 @@ router.post('/post/add', async function(req, res){
                 Abstract: abstract,
                 WriteTime: new Date(),
                 PubTime: new Date(),
+                Premium: premium,
             }
             await post_db.addPost(new_post);
             just_post = await post_db.findPostByTitleWriter(new_post.Title, new_post.WriterID);
@@ -748,15 +752,19 @@ router.post('/post/edit', (req, res) => {
     upload.single('cover')(req, res, async function(err){
         if (err) console.log(err);
         else {
-            const {category, title, abstract, content, tag, postID} = req.body;
-            console.log(category, title, abstract, content, tag, postID);
+            let {category, title, abstract, content, tag, postID, premium} = req.body;
+            if (premium)
+                premium=1
+            else premium=0
+            // console.log(category, title, abstract, content, tag, postID,premium);
             const edit_post = {
                 Title: title,
                 CatID: category,
                 Content: content,
                 Abstract: abstract,
                 StateID: 1,
-                PubTime: new Date()
+                PubTime: new Date(),
+                Premium: premium,
             }
             const isDraft = await draft_db.findByPostID(postID);
             if (isDraft != null) {
