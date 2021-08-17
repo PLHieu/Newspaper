@@ -66,6 +66,8 @@
 {{/section}}
 
 {{#section 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/fileinput.min.js"></script>
@@ -136,18 +138,30 @@
             return;
         temp = tinymce.get('txtContent').getContent();
         if (temp.length === 0) {
-            alert(`Content is empty`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Nội dung không được để trống`,
+            })
             $(`#txtContent`).focus();
             return;
         }
         if ($('#fCover').get(0).files.length === 0 && {{postID}}==-1) {
-            alert(`A post need a cover`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Cần bổ sung ảnh đại diện cho bài viết`,
+            })
             $('#fCover').focus();
             return;
         }
         var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
         if (checkboxes.length === 0) {
-            alert(`You must take at least one tag for your post!`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Bạn cần bổ sung ít nhất 1 tag cho bài viết`,
+            })
             return;
         }
         title = $('#txtTitle').val();
@@ -155,7 +169,11 @@
         writerID = $('#selectedWriter').val();
         $.getJSON(`/admin/post/is_duplicate_post?title=${title}&postID=${postID}&writerID=${writerID}`, function (data) {
             if (data === false) {
-                alert('You wrote a post having the same title. Please write another one!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `Tiêu đề bị trùng. Vui lòng chọn một tiêu đề khác`,
+                })
                 $('#txtTitle').focus();
                 return;
             }
@@ -166,7 +184,11 @@
     function isEmptyText(idtext, message) {
         const text = $(`#${idtext}`).val();
         if (text.length === 0) {
-            alert(`${message} is empty`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${message} không được để trống`,
+            })
             $(`#${idtext}`).focus();
             return true;
         }

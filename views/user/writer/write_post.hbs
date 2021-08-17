@@ -139,19 +139,19 @@
     temp = tinymce.get('txtContent').getContent();
     if (temp.length === 0) {
       Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Content is empty!',
-      })
+                icon: 'error',
+                title: 'Oops...',
+                text: `Nội dung không được để trống`,
+            })
       $(`#txtContent`).focus();
       return;
     }
     if ($('#fCover').get(0).files.length === 0 && {{postID}}==-1) {
       Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'A post need a cover',
-      })
+                icon: 'error',
+                title: 'Oops...',
+                text: `Cần bổ sung ảnh đại diện cho bài viết`,
+            })
       $('#fCover').focus();
       return;
     }
@@ -159,10 +159,10 @@
     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
     if (checkboxes.length === 0) {
       Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You must take at least one tag for your post!',
-      })
+                icon: 'error',
+                title: 'Oops...',
+                text: `Bạn cần bổ sung ít nhất 1 tag cho bài viết`,
+            })
       return;
     }
     title = $('#txtTitle').val();
@@ -170,10 +170,10 @@
     $.getJSON(`/writer/is_duplicate_post?title=${title}&postID=${postID}`, function (data) {
       if (data === false) {
         Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You wrote a post having the same title. Please write another one!',
-        })
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `Tiêu đề bị trùng. Vui lòng chọn một tiêu đề khác`,
+                })
         $('#txtTitle').focus();
         return;
       }
@@ -201,11 +201,11 @@
   function isEmptyText(idtext, message) {
     const text = $(`#${idtext}`).val();
     if (text.length === 0) {
-      Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: `${message} is empty`,
-      })
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${message} không được để trống`,
+        })
       $(`#${idtext}`).focus();
       return true;
     }
