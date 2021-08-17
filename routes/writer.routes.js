@@ -34,14 +34,16 @@ async function updateCoverPost(postID){
     await fs.access(oldPath, fs.constants.F_OK, async (err) => {
         console.log(`${oldPath} ${err ? 'does not exist' : 'exists'}`);
         if (!err) {
-            await fs.rename(oldPath, newPath, function (err) {
-                if (err) throw err;
-                else console.log('Successfully renamed - AKA moved!')
+            await fs.rename(oldPath, newPath, async function (err) {
+                if (err) console.log(err);
+                else {
+                    console.log('Successfully renamed - AKA moved!')
+                    await fs.copyFile(`./public/image/posts/${postID}/bigavt.jpg`, `./public/image/posts/${postID}/smallavt.jpg`, (err) => {
+                        if (err) throw err;
+                        else console.log(`bigavt was copied to smallavt`);
+                    });
+                }
             })
-            await fs.copyFile(`./public/image/posts/${postID}/bigavt.jpg`, `./public/image/posts/${postID}/smallavt.jpg`, (err) => {
-                if (err) throw err;
-                else console.log(`bigavt was copied to smallavt`);
-            });
         }
     });
 }
