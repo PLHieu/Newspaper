@@ -160,8 +160,11 @@ CREATE TABLE `Posts` (
   UNIQUE KEY `PostUniqueTitleWriter` (`Title`,`WriterID`),
   KEY `Posts_Categories` (`CatID`),
   KEY `Writers_Cat` (`WriterID`),
-  FULLTEXT KEY `Abstract_Content` (`Abstract`,`Content`),
   FULLTEXT KEY `Title` (`Title`),
+  FULLTEXT KEY `Abstract` (`Abstract`),
+  FULLTEXT KEY `Content` (`Content`),
+  FULLTEXT KEY `Title_Abstract` (`Title`,`Abstract`),
+  FULLTEXT KEY `Abstract_Content` (`Abstract`,`Content`),
   FULLTEXT KEY `Title_Abstract_Content` (`Title`,`Abstract`,`Content`),
   CONSTRAINT `PostCat` FOREIGN KEY (`CatID`) REFERENCES `Categories` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `PostWriter` FOREIGN KEY (`WriterID`) REFERENCES `Writers` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
