@@ -122,14 +122,13 @@
       msgPlaceholder: 'Chọn ảnh',
       showClose: false,
       initialPreview: [
-          `<img src="http://localhost:3000/public/image/posts/{{postID}}/bigavt.jpg" class='file-preview-image' alt='cover' title='cover'>`     
+          `<img src="http://localhost:3000/public/image/posts/{{postID}}/smallavt.jpg" class='file-preview-image' alt='cover' title='cover'>`     
       ],
       overwriteInitial: true,
       initialPreviewShowDelete: false,
       initialCaption: 'cover.jpg',
     });
   }
-
   $('#frmWritePost').on('submit', function (e) {
     e.preventDefault();
     if (isEmptyText('txtTitle', "Title"))
@@ -142,7 +141,7 @@
       $(`#txtContent`).focus();
       return;
     }
-    if ($('#fCover').get(0).files.length === 0) {
+    if ($('#fCover').get(0).files.length === 0 && postID==-1) {
       alert(`A post need a cover`);
       $('#fCover').focus();
       return;
