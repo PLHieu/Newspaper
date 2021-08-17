@@ -167,7 +167,8 @@ CREATE TABLE `Posts` (
   FULLTEXT KEY `Abstract_Content` (`Abstract`,`Content`),
   FULLTEXT KEY `Title_Abstract_Content` (`Title`,`Abstract`,`Content`),
   CONSTRAINT `PostCat` FOREIGN KEY (`CatID`) REFERENCES `Categories` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `PostWriter` FOREIGN KEY (`WriterID`) REFERENCES `Writers` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `PostWriter` FOREIGN KEY (`WriterID`) REFERENCES `Writers` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `PostEditor` FOREIGN KEY (`EditorID`) REFERENCES `Editors` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
