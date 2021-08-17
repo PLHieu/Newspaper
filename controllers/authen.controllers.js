@@ -483,6 +483,8 @@ function handle_login_successfully(role, rows, req, res, loggedBySocial) {
     //console.log(req.locals.session);
     console.log(req.session.user);
     // TODO: render cac file sao cho phu hop voi tung role
-    const url = req.session.retURL || "/" +role;
+    let url = req.session.retURL || "/" +role;
+    if (role=='admin')
+        url = req.session.retURL || "/" +role + '/dashboard';
     return res.redirect(url )
 }
