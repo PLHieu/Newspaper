@@ -36,7 +36,8 @@ module.exports = {
         "Title": "TieuDe",
         "Abstract": "TomTat",
         "PubTime": "NgayDang",
-        "Premium": "Premium"
+        "Premium": "Premium",
+        "WriterID": "WriterID",
     },
     ruleCate: {
         "ID": "CateID",

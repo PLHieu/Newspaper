@@ -79,7 +79,7 @@
                                         {{/if}}
                                         <p>{{TomTat}}</p>
                                     </div>
-                                    <div>
+                                    <div class="mb-2">
                                         <i class="fas fa-tags"></i>
                                         {{#each this.tags}}
                                         <span><a href="/post/tag/{{TagID}}"
@@ -132,13 +132,19 @@
                 {{!-- cac bai viet noi bat --}}
                 <div class="col-lg-4">
                     <div class="w-100 tieude-right-sidebar">
-                        Nổi bật trong <span class="badge badge-danger">#{{tagname}}</span>
+                        <h2>Nổi bật trong <span class="badge badge-danger">#{{tagname}}</span></h2>
                     </div>
                     {{#each this.hightlightPosts}}
-                    <a href="/read/{{ID}}" class="w-100 d-flex mt-2 news-right-sidebar" style="border-radius: 10px">
-                        <div class="w-75 d-inline-block p-3" style="font-size: medium;">{{Title}}</div>
-                        <img src="/public/image/posts/{{ID}}/smallavt.jpg" class="d-inline-block w-25 p-1"
-                            style="border-radius: 10px;" alt="">
+                    <a href="/read/{{ID}}" class="d-block w-100 mt-2 news-right-sidebar p-3" style="border-radius: 10px">
+                        <div class="row">
+                            <div class="col-sm-8 mb-1">{{Title}}</div>
+                            <div class="col-sm-4">
+                                <div class="d-flex align-items-center justify-content-end img-wrapper-rightside">
+                                    <img src="/public/image/posts/{{ID}}/smallavt.jpg"
+                                    style="border-radius: 10px;" alt="">
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     {{/each}}
 

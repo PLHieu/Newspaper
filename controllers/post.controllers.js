@@ -4,6 +4,7 @@ const { findByCategory, findTagsOfPost, findPostsByTag, countPostByCategory, cou
 const { findDadCategories, findRelative, getTag, findChildCategories, findNameCateByID } = require('../models/category.model');
 const { rule1, ruleCate, ruleTag } = require('../utils/mapper');
 const { postsLimit } = require('../config/const.config');
+const { findNameByID } = require('../models/writer.model');
 
 module.exports = {
 
@@ -34,6 +35,7 @@ module.exports = {
         const posts = await findByCategory(IDcategory, offset);
         for (let i = 0; i < posts.length; i++) {
             let des = objectMapper(posts[i], rule1)
+            des.TacGia = await findNameByID(des.WriterID)
             const tags = await findTagsOfPost(posts[i].ID)
             des.tags = tags;
             result.push(des)
@@ -85,6 +87,7 @@ module.exports = {
         let result = [];
         for (let i = 0; i < posts.length; i++) {
             let des = objectMapper(posts[i], rule1)
+            des.TacGia = await findNameByID(des.WriterID)
             const tags = await findTagsOfPost(posts[i].ID)
             des.tags = tags;
             result.push(des)
