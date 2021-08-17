@@ -50,7 +50,6 @@
 
 .news-right-sidebar {
     color: black;
-    height: 100px;
     transition: 0.4s;
     background-color: white;
 }
@@ -68,15 +67,23 @@
     padding: 10px;
     font-weight: bold;
     /* font-style: italic; */
-    font-size: x-large;
+    /* font-size: x-large; */
 }
+
+.news-right-sidebar img{
+    max-height: 80px;
+}   
 
 p {
     font-size: smaller;
     font-style: italic;
-    text-align: justify;
 }
 
-h4 {
-    text-align: justify;
+@media only screen and (max-width: 568px){
+    .tieude-right-sidebar h2 {
+        font-size: 1.5rem !important;
+    } 
+    div.img-wrapper-rightside{
+        justify-content: start !important;
+    }
 }

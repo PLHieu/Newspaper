@@ -161,8 +161,11 @@
         </div>
       </div>
     </div>
+
     <br>
+
     <div class="table-wrapper">
+      <h1 class="text-center text-warning">Chờ Duyệt</h1>
       <table class="table table-striped table-hover table-post">
         <thead>
           <tr>
@@ -172,11 +175,10 @@
             <th>Tóm tắt</th>
             <th>Ngày viết</th>
             <th>Tác giả</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {{#each posts}}
+          {{#each draft_posts}}
           <tr class="clickable-row" id="{{ID}}">
             <td>{{ID}}</td>
             <td class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
@@ -192,16 +194,90 @@
                 <span>{{WriterName}}</span>
               </div>
             </td>
-            <td class="td-status"><span class="status                
-              {{#eq StateID 0}} text-warning">&bull;</span> Chờ duyệt
-              {{else}} text-danger">&bull;</span> Bị từ chối
-              {{/eq}}
-            </td>
           </tr>
           {{/each}}
         </tbody>
       </table>
     </div>
+
+    <div class="table-wrapper">
+      <h1 class="text-center text-primary">Đã Duyệt</h1>
+      <table class="table table-striped table-hover table-post ">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Tóm tắt</th>
+            <th>Tác giả</th>
+            <th>Ngày viết</th>
+            <th>Ngày XB</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.approved_posts}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg"  ></td>
+            <td>{{Title}}</td>
+            <td>{{Abstract}}</td>
+            <td class="tacgia">
+              <div class="d-flex align-items-center">
+                <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
+                  <span>{{firstChar WriterName}}</span>
+                </div>
+                <span>{{WriterName}}</span>
+              </div>
+            </td>
+            <td>{{WriteTime}}</td>
+            <td>{{PubTime}}</td>
+          </tr>
+          <tr>
+            {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="table-wrapper">
+      <h1 class="text-center text-danger">Đã Từ chối</h1>
+      <table class="table table-striped table-hover table-post ">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Thumbails</th>
+            <th>Tiêu đề</th>
+            <th>Tóm tắt</th>
+            <th>Tác giả</th>
+            <th>Ngày từ chối bài</th>
+            <th>Lý do từ chối</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.rejected_posts}}
+          <tr>
+            <td>{{math @index "+" 1}}</td>
+            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg" ></td>
+            <td class="tieude">{{Title}}</td>
+            <td>{{Abstract}}</td>
+            <td class="tacgia">
+              <div class="d-flex align-items-center">
+                <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
+                  <span>{{firstChar WriterName}}</span>
+                </div>
+                <span>{{WriterName}}</span>
+              </div>
+            </td>
+            <td>{{draft_info.RateTime}}</td>
+            <td class="lido">{{draft_info.Note}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>
 
