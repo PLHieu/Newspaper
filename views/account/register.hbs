@@ -39,12 +39,20 @@
     if (isEmptyText('txtDOB',"Date of Birth"))
       return;
     if ($('#txtPassword').val() != $('#txtConfirm').val()){
-        alert('Confirm password is different from Password');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Mật khẩu xác nhận không trùng nhau`,
+            })
         $('#txtConfirm').focus();
         return;
       }
       if (!isValidEmail($('#txtEmail').val())){
-        alert('Email is not valid');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Username không đúng chuẩn. Mẫu: abc@gmail.com`,
+            })
         $('#txtEmail').focus();
         return;
       }
@@ -52,7 +60,11 @@
     $.getJSON(`/is-available?username=${username}`, function(data){
       console.log(data);
       if (data === false){
-        alert('Username is existed.');
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Username đã tồn tại`,
+            })
         $('#txtUsername').focus();
         return;
       }
@@ -60,7 +72,11 @@
       $.getJSON(`/is-available-email?email=${email}`, function(data){
         console.log(data);
         if (data === true){
-          alert('Email is existed.');
+          Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Email đã tồn tại`,
+            })
           $('#txtEmail').focus();
           return;
         }
@@ -77,7 +93,11 @@
   function isEmptyText(idtext, message){
     const text = $(`#${idtext}`).val();
     if (text.length === 0 || text ===`__/__/____`){
-      alert( `Invalid ${message}`);
+      Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${message} không được để trống`,
+            })
       $(`#${idtext}`).focus();
       return true;
       }
@@ -111,7 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtEmail"><i class="zmdi zmdi-email"></i></label>
-                                <input type="text" name="email" id="txtEmail" placeholder="Email của bạn"/>
+                                <input type="text" name="email" id="txtEmail" placeholder="Email của bạn (ví dụ:abc@gmail.com)"/>
                             </div>
                             <div class="form-group">
                                 <label for="txtAddress"><i class="fa fa-map-marker"></i></label>
