@@ -165,8 +165,14 @@ module.exports = {
       return rows[0].total;
     },
     async countPostByTag(IDTag) {
+        let now = new Date();
         const rows = await db('PostTag')
-            .where('TagID', IDTag)
+            .join('Posts', 'PostTag.PostID', '=', 'Posts.ID' )
+            .where({
+                TagID: IDTag,  
+                StateID: 1 
+            })
+            .andWhere('PubTime', '<=', now)
             .count('*', { as: 'total' });
         // console.log(rows);
         return rows[0].total;
@@ -176,11 +182,16 @@ module.exports = {
         Tim danh sach bai viet NOIBAT theo Tag
     */
     async findHightlightPostsByTag(tagID, limit, offset) {
+        let now = new Date();
         const posts = await findPostIDByTag(tagID);
         const postIDs = posts.map(p => p.PostID);
         // console.log(postIDs);
         const listPosts = await db('Posts')
             .whereIn('ID', postIDs)
+            .andWhere({
+                StateID: 1,
+            })
+            .andWhere('PubTime', '<=', now)
             .orderBy('Views', 'desc')
             .limit(limit)
             .offset(offset);
@@ -512,10 +523,13 @@ async function findAllByLevel2Category(IDcategory, offset) {
     So Luong bai viet theo Category o Level 2 (thap)
 */
 async function countByLevel2Category(IDcategory) {
+    let now = new Date();
     const rows = await db('Posts')
         .where({
             CatID: IDcategory,
+            StateID: 1,
         })
+        .andWhere('PubTime', '<=', now)
         .count('*', { as: 'total' })
     return rows[0].total;
 }
@@ -523,10 +537,15 @@ async function countByLevel2Category(IDcategory) {
     So Luong bai viet theo Category o Level 1 (cao)
 */
 async function countByLevel1Category(IDcategory) {
+    let now = new Date();
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
+        .andWhere({
+            StateID: 1,
+        })
+        .andWhere('PubTime', '<=', now)
         .count('*', { as: 'total' })
     return rows[0].total;
 }
@@ -534,11 +553,16 @@ async function countByLevel1Category(IDcategory) {
     Tim bai viet NOIBAT theo Category o Level 1 (cao)
 */
 async function findHightlightByLevel1Category(IDcategory, limit, offset) {
+    let now = new Date();
     const childrenCate = await findChildCategories(IDcategory);
     const childrenCateID = childrenCate.map(ele => ele.ID);
     // console.log(childrenCateID);
     const rows = await db('Posts')
         .whereIn('CatID', childrenCateID)
+        .andWhere({
+            StateID: 1,
+        })
+        .andWhere('PubTime', '<=', now)
         .orderBy('Views', 'desc')
         .limit(limit)
         .offset(offset)
@@ -549,10 +573,13 @@ async function findHightlightByLevel1Category(IDcategory, limit, offset) {
     Tim bai viet NOIBAT theo Category o Level 2 (thap)
 */
 async function findHightlightByLevel2Category(IDcategory, limit, offset) {
+    let now = new Date();
     const rows = await db('Posts')
         .where({
             CatID: IDcategory,
+            StateID: 1,
         })
+        .andWhere('PubTime', '<=', now)
         .orderBy('Views', 'desc')
         .limit(limit)
         .offset(offset)
