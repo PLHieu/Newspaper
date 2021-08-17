@@ -111,7 +111,6 @@ router.get('/user/manage', async function(req, res) {
             console.log(minutesleft);*/
             if(minutesleft<=0 || distance <= 0){
                 exp = null;
-                console.log(list_reader[i]);
                 reader_db.updateNullExp(list_reader[i].ID);
             } 
         }
@@ -134,7 +133,7 @@ router.get('/category/manage', async function(req, res) {
     //let dic_num_post_in_tag = {};
     let result = [], numchild = 0, numdad = 0, duyetdad = 0, chuaduyetdad = 0, tuchoidad = 0;
     let duyetchild = 0, chuaduyetchild = 0, tuchoichild = 0;
-    console.log(list_dad);
+    
     for (let i = 0; i < list_dad.length; i++) {
         //let des = objectMapper(dad[i], rule1)
         //console.log(des);
@@ -166,7 +165,7 @@ router.get('/category/manage', async function(req, res) {
     }
     //console.log(result1[0]);
     //console.log(result);
-    console.log(list_dad);
+    //console.log(list_dad);
     
     return res.render('user/admin/quanlycate',{
         list_dad,
@@ -189,9 +188,7 @@ router.get('/category/edit', async function (req, res){
     
     const cateName = req.query.catName;
     const cateID = req.query.catID;
-    console.log(req.query);
     const cat = await cat_db.findCateByID(cateID);
-    console.log(cat);
     let isDad = 1;
     const list_dad = await cat_db.findDadCategories();
     for (i = 0; i < list_dad.length ; i++){
@@ -218,7 +215,6 @@ router.get('/category/edit', async function (req, res){
         }
         list_dad.splice(flag, 1);
     }
-    console.log(list_dad);
     res.render('user/lib/edit-cate-admin', {
         cateName,
         cateID,
@@ -227,7 +223,6 @@ router.get('/category/edit', async function (req, res){
     })
 })
 router.post('/category/edit', async function(req, res){
-    console.log(req.body);
     await cat_db.updateCategory(req.query.cateid, req.body.name, req.body.category );
     res.redirect('/admin/category/manage');
 })
@@ -352,7 +347,6 @@ router.get('/post/manage', async function(req, res) {
     const cat_id = req.query.catID || null;
     if (req.query.catID){
         all_posts = await post_db.findAllByCategory(req.query.catID, 0);
-        
     }
     else{
         
@@ -377,7 +371,6 @@ router.get('/post/manage', async function(req, res) {
     let num_page = parseInt(all_posts.length / offset) + 1;
     if (parseInt(all_posts.length % offset) == 0){
         num_page = num_page - 1;
-        console.log("bang 0");
     } 
     let list_page = [];
     for (let i = 1; i <= num_page; i++) {
@@ -409,17 +402,13 @@ router.get('/user/cancelpremium', async function(req, res) {
 });
 router.get('/getinforsubcriber', async function(req, res) {
     let reader = await reader_db.findByID(req.query.userid);
-    console.log(reader);
     reader.BirthDay = moment(reader.BirthDay).format('DD/MM/YYYY');
     if(reader.ExpTime){
-        console.log(reader.ExpTime);
         reader.ExpTime = moment(reader.ExpTime).format('DD/MM/YYYY HH:mm:ss');
-        console.log(reader.ExpTime);
     }
     return res.json(reader);
 });
 router.get('/getinforeditor', async function(req, res) {
-    console.log(req.query.userid);
     let editor = await editor_db.findByID(req.query.userid);
     let catename = await cat_db.getCategory(editor.CatID);
     editor.CateName = catename.Name;
@@ -428,10 +417,8 @@ router.get('/getinforeditor', async function(req, res) {
     return res.json(editor);
 });
 router.get('/getinforwriter', async function(req, res) {
-    console.log(req.query.userid);
     let writer = await writer_db.findByID(req.query.userid);
     writer.BirthDay = moment(writer.BirthDay).format('DD/MM/YYYY');
-    console.log(writer);
     return res.json(writer);
 });
 router.get('/user/edit/writer', async function(req, res){
@@ -473,9 +460,7 @@ router.get('/user/edit/subcriber', async function(req, res){
     user = await reader_db.findByID(id_user);
     if(user.ExpTime){
         //user.ExpTime = user.ExpTime + 7;
-        console.log(user.ExpTime);
-        
-    user.ExpTime = moment(user.ExpTime).format('DD/MM/YYYY, HH:MM:SS');
+        user.ExpTime = moment(user.ExpTime).format('DD/MM/YYYY, HH:MM:SS');
     }
     user.BirthDay = moment(user.BirthDay).format('DD/MM/YYYY');
     user.writer = null;
@@ -485,7 +470,6 @@ router.get('/user/edit/subcriber', async function(req, res){
     if(user.OTP == '-2'){
         user.social = 1;
     }
-    console.log(user);
     return res.render('user/lib/edit-profile-admin',{
         user: user,
     })
@@ -569,7 +553,7 @@ router.get('/user/addwriter', async function(req, res) {
 });
 router.post('/user/add/editor', async function (req, res) {
     let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
-    console.log(req.body);
+    
     const hash = bcrypt.hashSync('editor', 10);
     const user = {
         UserName: req.body.username,
@@ -584,7 +568,6 @@ router.post('/user/add/editor', async function (req, res) {
     return res.redirect('back');
 })
 router.post('/user/add/writer', async function (req, res) {
-    console.log(req.body);
     let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
     const hash = bcrypt.hashSync('writer', 10);
     const user = {
@@ -601,7 +584,6 @@ router.post('/user/add/writer', async function (req, res) {
     return res.redirect('back');
 })
 router.post('/user/add/subcriber', async function (req, res) {
-    console.log(req.body);
     let dob = req.body.birthday.slice(6) + '-' + req.body.birthday.slice(3,5) + '-' + req.body.birthday.slice(0,2);
     const hash = bcrypt.hashSync('subcriber', 10);
     let date = new Date();
