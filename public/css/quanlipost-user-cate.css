@@ -407,34 +407,34 @@ table.table.table-post tbody .td-status{
 
 /* 1.3.3 Noi dung ben trong modal_box cua xem chi tiet mot bai viet (quan ly post - admin) */
 
-.modal_box.modal_box-chitietpost {
+/* .modal_box.modal_box-chitietpost {
     width: 80%;
-}
+} */
 
-.modal_content.modal_content-chitietpost {
+/* .modal_content.modal_content-chitietpost {
     background: none;
-}
+} */
 
-.modal_content.modal_content-chitietpost .wrapper {
+/* .modal_content.modal_content-chitietpost .wrapper {
     background-color: white;
     border-radius: 10px;
-    padding: 30px;
-}
+    padding: 20px;
+} */
 
-.modal_content.modal_content-chitietpost .trai {
+/* .modal_content.modal_content-chitietpost .trai {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+} */
 
-.modal_content.modal_content-chitietpost .phai  {
+/* .modal_content.modal_content-chitietpost .phai  {
     border-radius: 10px;
-}
+} */
 
-.modal_content.modal_content-chitietpost .phai .wrapper{
+/* .modal_content.modal_content-chitietpost .phai .wrapper{
     overflow-y: scroll;
     height: 85vh;
-}
+} */
 
 .modal_content.modal_content-chitietpost .tags div span{
     font-size: medium;
@@ -455,4 +455,88 @@ table.table.table-post tbody .td-status{
 .modal_content.modal_content-chitietpost .thumbnail img {
     width: 100%;
     height: 80%;
+    object-fit: cover;
 }
+
+.modal_box.modal_box-chitietpost  {
+    width: 60%;
+}
+
+.modal_content.modal_content-chitietpost{
+    background: none;
+}
+
+.modal_content.modal_content-chitietpost .wrapper {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+.modal_box.modal_box-chitietpost .phantren{
+    height: 60vh;
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}   
+
+.modal_box.modal_box-chitietpost .phanduoi{
+    height: 30vh;
+    overflow-y: scroll;
+    margin-right: auto;
+    margin-left: auto;
+}   
+
+.modal_box.modal_box-chitietpost .phanduoi .thumbnail{
+    height: 100%;
+} 
+
+.modal_box.modal_box-chitietpost .phanduoi img{
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 80%;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+    .modal_box.modal_box-chitietpost .phanduoi .nutduyet a{
+        padding: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .modal_box.modal_box-chitietpost  {
+        width: 80%;
+    }
+
+    .modal_box.modal_box-chitietpost .phantren{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 568px){
+    .modal_box.modal_box-chitietpost .phanduoi{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 568px){
+    .modal_box.modal_box-chitietpost .phantren h1{
+        font-size: 1.6rem;
+    }
+
+    .modal_box.modal_box-chitietpost .phantren h2{
+        font-size: 1.3rem;
+    }
+
+    .modal_box.modal_box-chitietpost .phanduoi h3{
+        font-size: 1.2rem;
+    }
+
+    .modal_box.modal_box-chitietpost .phanduoi .wrapper{
+        padding: 10px;
+    }
+} 

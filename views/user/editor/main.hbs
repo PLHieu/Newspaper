@@ -286,52 +286,48 @@
 
 <div class="modal_box modal_ef modal_box-chitietpost">
   <div class="modal_content modal_content-chitietpost">
-    <div class="row">
-      <div class="col-md-8 phai">
-        <div class="wrapper">
-          <h1><b id="modalbox-Title"></b></h1>
-          <br>
-          <h2>Danh mục <span class="badge badge-danger" id="modalbox-Category"></span></h2>
-          <br>
-          <h2>Tóm tắt</h2>
-          <p id="modalbox-Abstract"></p>
-          <br>
-          <h2>Nội dung</h2>
-          <div id="modalbox-Content"></div>
-        </div>
-
+    <div class="row phantren wrapper">
+      <div class="">
+        <h1><b id="modalbox-Title"></b></h1>
+        <br>
+        <h2>Danh mục <span class="badge badge-danger" id="modalbox-Category"></span></h2>
+        <br>
+        <h2>Tóm tắt</h2>
+        <p id="modalbox-Abstract"></p>
+        <br>
+        <h2>Nội dung</h2>
+        <div id="modalbox-Content"></div>
       </div>
-      <div class="col-md-4 trai" style="height: 85vh">
-        <div class="" style="height: 5%">
-          <a href="" id="modalbox-ButtonDuyet" type="button" class="btn btn-success h-100 w-25 mr-3"
-            style="border-radius: 5px; font-weight: bold; padding: 30px ;">Duyệt</a>
-          <a href="" id="modalbox-ButtonTuChoi" type="button" class="btn btn-danger h-100 w-25"
-            style="border-radius: 5px; font-weight: bold;  padding: 30px ">Từ chối</a>
-        </div>
-
-        <div class="wrapper" style="height: 20%">
-          <div class=" tacgia">
-            <div>
-              <h2>Tác giả</h2>
-              <p style="line-height: normal;" id="modalbox-WriterName"></p>
-              <p class="mb-0 mt-0" style="line-height: normal;">Ngày viết: <b id="modalbox-WriteTime"></b></p>
-            </div>
+    </div>
+    <br>
+    <div class="row phanduoi">
+      <div class="col-xl-4 col-md-6 mb-3">
+        <div class=" tacgia wrapper">
+          <div>
+            <h3>Tác giả</h3>
+            <p style="line-height: normal;" id="modalbox-WriterName"></p>
+            <p class="mb-0 mt-0" style="line-height: normal;">Ngày viết: <b id="modalbox-WriteTime"></b></p>
           </div>
         </div>
-        <!-- <br> -->
-        <div class="wrapper tags" style="height: 25%">
-          <h2>Tags</h2>
+        <div class="mt-3 nutduyet">
+          <a href="" id="modalbox-ButtonDuyet" type="button" class="btn btn-success "
+            style="border-radius: 5px; font-weight: bold; padding: 30px ; width: 45%">Duyệt</a>
+          <a href="" id="modalbox-ButtonTuChoi" type="button" class="btn "
+            style="border-radius: 5px; font-weight: bold;  padding: 30px; width: 45% ">Từ chối</a>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 mb-3">
+        <div class="wrapper tags">
+          <h3>Tags</h3>
           <div id="modalbox-Tags">
           </div>
         </div>
-        <!-- <br> -->
-        <div class="wrapper thumbnail" style="height: 40%">
-          <h2>Ảnh đại diện</h2>
-          <img id="modalbox-Thumbnail" />
-        </div>
+      </div>
+      <div class="col-xl-4 wrapper thumbnail">
+        <h3>Ảnh đại diện</h3>
+        <img id="modalbox-Thumbnail" />
       </div>
     </div>
-
   </div>
 </div>
 {{> footer}}
