@@ -3001,9 +3001,9 @@ hr {
     position: relative
 }
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@media only screen and (min-width: 960px) and (max-width: 1199px) {
     .main-header .main-menu ul li a {
-        padding: 28px 19px
+        padding: 28px 13px
     }
 }
 
