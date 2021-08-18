@@ -19,6 +19,14 @@
             width: 85px;
         }
     }
+    @media only screen and (max-width: 768px){
+        .main-header .main-menu ul li a{
+            padding: 25px 15px;
+        }
+        .info{
+            margin-bottom: 10px;
+        }
+    }
     @media only screen and (max-width: 568px){
         .info-open img{
             width: 85px;
@@ -35,7 +43,7 @@
 <div class="header-bottom header-sticky">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
+            <div class="col-lg-10 header-flex">
                 <!-- sticky -->
                 <div class="sticky-logo">
                     <a href="/"><img src="/public/image/logo/logo.png" alt=""></a>
@@ -61,7 +69,7 @@
             </div>
 
 
-            <div class="col-xl-2 col-lg-2 col-md-2 d-flex align-items-center">
+            <div class="col-lg-2 d-flex align-items-center">
                 <ul class="info">
                     {{#if session.user.logged}}
                     <li class="dropdown">

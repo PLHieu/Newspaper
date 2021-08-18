@@ -174,7 +174,7 @@
 	position: relative;
 	z-index: 99;
 }
-/* .slicknav_menu .slicknav_open .slicknav_icon-bar:nth-child(2) {
+.slicknav_menu .slicknav_open .slicknav_icon-bar:nth-child(2) {
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
@@ -189,7 +189,7 @@
         transform: rotate(-45deg) translateY(-6px);
         position: relative;
         top: -1px;
-} */
+}
 .slicknav_menu {
   margin: 0;
   padding: 0;
