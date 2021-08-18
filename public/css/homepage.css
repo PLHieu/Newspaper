@@ -116,15 +116,24 @@
     justify-content:space-between ;
     flex-direction: column;
 } */
+.tinmoi .tieude{
+    font-weight: bold;
+}
+.tinmoi .tieude:hover{
+    color: #EE4A41 !important;
+}
 
-.whats-right-img img{
+.right-img img{
+    width: 100%;
     height: 100%;
-    max-width: -webkit-fill-available;
+    /* max-width: -webkit-fill-available; */
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 @media only screen and (min-width: 568px){
-    .whats-right-img img{
-        max-width: 150px;
+    .right-img img{
+        /* max-width: 150px; */
     }
 
     .top10danhmuc div.one-top10danhmuc{
@@ -144,8 +153,8 @@
 }
 
 @media only screen and (max-width: 568px){
-    .whats-right-img img{
-        max-width: 150px;
+    .right-img img{
+        /* max-width: 150px; */
     }
 
     .top10danhmuc div.one-top10danhmuc{

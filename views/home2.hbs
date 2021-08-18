@@ -187,19 +187,19 @@
                                         <div class="row">
                                             <!-- Left Details Caption -->
                                             {{#each this.top10PostNew}}
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-10">
-                                                <div class="whats-right-single mb-20">
-                                                    <div class="whats-right-img">
+                                            <div class="col-md-6 col-sm-10 mb-3 tinmoi">
+                                                <div class="row">
+                                                    <div class="col-lg-4 right-img">
                                                         <img src="../public/image/posts/{{ID}}/smallavt.jpg" alt="">
                                                     </div>
-                                                    <div class="whats-right-cap">
+                                                    <div class="col-lg-8">
                                                          <a href="/post/category/{{CateID}}" class="">
-                                                            <span class="colorb">{{CateName}}</span>
+                                                            <span class="badge badge-success">{{CateName}}</span>
                                                         </a>
-                                                        <h4> {{#if Premium}}
+                                                        <h5> {{#if Premium}}
                                                                     <span class="pt-0 pb-0 mb-0 mr-2"><a href="#"
                                                                             class="badge badge-warning mb-1 mt-1">Premium</a></span>
-                                                                    {{/if}}<a href="/read/{{ID}}">{{TieuDe}}</a></h4>
+                                                                    {{/if}}<a href="/read/{{ID}}" class="tieude">{{TieuDe}}</a></h5>
                                                         <p class="mb-2">{{NgayDang}}</p>
                                                         <p>{{TomTat}}</p>
                                                     </div>
