@@ -2,12 +2,13 @@ const express = require('express');
 const sub_db = require('../models/reader.model');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-
+const auth = require('../controllers/authen.controllers');
+const moment = require('moment');
 router.get('/', (req,res) => {
     res.redirect('/subcriber/profile')
 });
 
-router.get('/profile', (req,res) => {
+router.get('/profile', async (req,res) => {
     res.render('user/lib/profile')
 });
 
