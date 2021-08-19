@@ -44,9 +44,14 @@
 
 {{#section 'css'}}
     <!-- Font Icon -->
-    <link rel="stylesheet" href="../../public/css/template/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <!-- Main css -->
     <link rel="stylesheet" href="../../public/css/style.css">
+    <style>
+        body, h2.form-title, .form-submit {
+            font-family: "Roboto", sans-serif !important;
+        }
+    </style>
 {{/section}}
 
 
@@ -84,9 +89,8 @@
                             </div>
                         </form>
                         <div class="social-login">
-                            <span class="social-label">Or login with</span>
+                            <span class="social-label">Hoặc đăng nhập bằng</span>
                             <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
                                 <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
                             </ul>
                         </div>
