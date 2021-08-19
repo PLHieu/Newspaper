@@ -354,6 +354,10 @@ table.table.table-post tbody .td-status{
         justify-content: flex-end;
     }
 
+    .tabs .tab{
+        margin-bottom: 5px;
+    }
+
 }
 /* 1.2 modal box de hien thi chi tiet */
 
