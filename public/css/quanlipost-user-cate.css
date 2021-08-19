@@ -440,8 +440,14 @@ table.table.table-post tbody .td-status{
 }
 
 .modal_box .modal_content img{
-    width: 100%;
+    /* width: 100%; */
     border-radius: 5px 5px;
+}
+
+@media only screen and (max-width: 1104px) {
+    .modal_box .modal_content img{
+        width: 100%;
+    }
 }
 
 /* 1.3.1 noi dung ben trong modal-content (cho user) */
@@ -550,8 +556,13 @@ table.table.table-post tbody .td-status{
     margin-left: auto;
 }   
 
+.modal_box.modal_box-chitietpost .phanduoi .tags{
+    height: 100%
+}  
+
 .modal_box.modal_box-chitietpost .phanduoi .thumbnail{
     height: 100%;
+    margin-bottom: 1rem !important;
 } 
 
 .modal_box.modal_box-chitietpost .phanduoi img{
