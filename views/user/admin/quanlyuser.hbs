@@ -276,13 +276,13 @@
                         <tbody>
                             {{#each editor}}
                             <tr>
-                                <td>{{UserName}}</td>
-                                <td>{{Name}}</td>
-                                <td>{{CateName}}</td>
-                                <td>{{Email}}</td>
-                                <td>{{Address}}</td>
+                                <td data-label="UserName">{{UserName}}</td>
+                                <td data-label="Name">{{Name}}</td>
+                                <td data-label="Danh mục">{{CateName}}</td>
+                                <td data-label="Email">{{Email}}</td>
+                                <td data-label="Address">{{Address}}</td>
                                 <!--<td><span class="badge badge-pill badge-primary">Editor</span></td>-->
-                                <td class="dropleft">
+                                <td data-label="Options" class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         more_horiz
@@ -330,12 +330,12 @@
                             {{#each writer}}
 
                             <tr>
-                                <td>{{UserName}}</td>
-                                <td>{{Name}}</td>
-                                <td>{{NickName}}</td>
-                                <td>{{Email}}</td>
-                                <td>{{Address}}</td>
-                                <td class="dropleft">
+                                <td data-label="UserName">{{UserName}}</td>
+                                <td data-label="Name">{{Name}}</td>
+                                <td data-label="Bút Name">{{NickName}}</td>
+                                <td data-label="Email">{{Email}}</td>
+                                <td data-label="Address">{{Address}}</td>
+                                <td data-label="Options" class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         more_horiz
@@ -383,15 +383,17 @@
                             {{#each subcriber}}
 
                             <tr>
-                                <td>{{UserName}}</td>
-                                <td>{{Name}}</td>
-                                <td>{{Address}}</td>
-                                <td>
+                                <td data-label="UserName" >{{UserName}}</td>
+                                <td data-label="Name" >{{Name}}</td>
+                                <td data-label="Address" >{{Address}}</td>
+                                <td data-label="Premium ?">
                                     {{#if ExpTime}}
                                     <i class="fa fa-check-circle">Premium</i>
+                                    {{else}}
+                                    <span>Chưa đăng ký</span>
                                     {{/if}}
                                 </td>
-                                <td class="dropleft">
+                                <td data-label="Options" class="dropleft">
                                     <i class=" material-icons" type="button" id="dropdownMenuButton"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         more_horiz
@@ -439,12 +441,12 @@
                             {{#if sublen}}
                             {{#each subPremium}}
                             <tr>
-                                <td>{{UserName}}</td>
-                                <td>{{Name}}</td>
-                                <td>{{Email}}</td>
-                                <td>{{Address}}</td>
-                                <td>{{Birthday}}</td>
-                                <td id="{{ID}}" class="duyet">
+                                <td data-label="UserName" >{{UserName}}</td>
+                                <td data-label="Name"></td>>{{Name}}</td>
+                                <td data-label="Email">{{Email}}</td>
+                                <td data-label="Address">{{Address}}</td>
+                                <td data-label="Birthday">{{Birthday}}</td>
+                                <td data-label="Options" id="{{ID}}" class="duyet">
                                     <a id="content_accept{{ID}}" style="cursor: pointer; padding-left: 0px;">
                                         <span class="badge badge-pill badge-warning">Duyệt</span>
                                     </a>

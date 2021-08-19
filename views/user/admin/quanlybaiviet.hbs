@@ -154,13 +154,13 @@
         <div class="table-wrapper pb-0">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-md-5">
                         <h2>Quản lý <b>Bài viết</b>
                         {{#if tag_name}}cho tag <b class="text-danger">{{tag_name}}</b>{{/if}}
                         {{#if cat_name}}cho chuyên mục <b class="text-danger">{{cat_name}}</b>{{/if}}
                         </h2>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-md-7">
                         <a href="/admin/post/add" class="btn btn-secondary d-flex align-items-center"><i
                                 class="material-icons">&#xE147;</i> <span>Thêm bài viết mới</span></a>
                     </div>
@@ -187,22 +187,22 @@
                 <tbody>
                     {{#each list_posts}}
                     <tr>
-                        <td>{{math @index '+' 1}}</td>
-                        <td class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg"
+                        <td data-label="#">{{math @index '+' 1}}</td>
+                        <td data-label="Thumbnail" class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg"
                                 alt="" srcset=""></td>
-                        <td>{{Title}}</td>
-                        <td>{{WriteTime}}</td>
-                        <td>{{PubTime}}</td>
-                        <td class="tacgia">
-                            <div class="d-flex align-items-center">
+                        <td data-label="Title">{{Title}}</td>
+                        <td data-label="Ngày viết">{{WriteTime}}</td>
+                        <td data-label="Ngày XB">{{PubTime}}</td>
+                        <td data-label="Tác giả" class="tacgia">
+                            <div class="d-flex align-items-center tacgia-wrap">
                                 <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
                                     <span>{{firstChar Writer.NickName}}</span>
                                 </div>
                                 <span>{{Writer.NickName}}</span>
                             </div>
                         </td>
-                        <td><span class="badge badge-pill badge-danger">{{CatName}}</span></td>
-                        <td class="td-status"><span class="status 
+                        <td data-label="Danh mục"><span class="badge badge-pill badge-danger">{{CatName}}</span></td>
+                        <td data-label="Status" class="td-status"><span class="status 
                         {{#switch StateID}}
                             {{#case 1}}text-success">&bull;</span> Đã duyệt{{/case}}
                             {{#case 0}}text-warning">&bull;</span> Chờ duyệt{{/case}}
@@ -210,7 +210,7 @@
                             {{#case -1}}text-danger">&bull;</span> Bị từ chối{{/case}}
                             {{/switch}}
                         </td>
-                        <td class="dropleft">
+                        <td data-label="Option" class="dropleft">
                             <i class=" material-icons" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 more_horiz

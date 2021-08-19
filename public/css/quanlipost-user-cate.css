@@ -8,7 +8,7 @@ body {
     margin: 30px 0;
 }
 .table-wrapper {
-    min-width: 1000px;
+    /* min-width: 1000px; */
     background: #fff;
     padding: 20px 25px;
     border-radius: 7px;
@@ -203,6 +203,15 @@ table.table .avatar {
     color: #ff2143
 }
 
+@media only screen and (max-width: 768px)  {
+    .table-title .btn{
+        margin-left: 0px;
+        float: left;
+        padding: 12px;
+        margin-top: 10px;
+    } 
+    
+}
 /* 1.1.1 Noi dung cua table quan ly (Cate)  */
 table.table.table-category .sobaiviet{
     width: 10%; 
@@ -293,7 +302,58 @@ table.table.table-post tbody .tacgia .tacgia-thumbnail{
 }
 
 table.table.table-post tbody .td-status{
-    min-width: 140px;
+    /* min-width: 140px; */
+}
+
+@media only screen and (max-width: 1000px) {
+
+    
+    /* css chung  */
+    table.table-striped.table-hover tbody tr:hover{
+        background-color: white;
+    }
+
+    table.table  thead{
+        height: 1px;
+        width: 1px;
+        overflow-y: hidden;
+        position: absolute;
+    }
+
+    table.table tbody tr {
+        display: block;
+        margin-bottom: 1em;
+        background-color: white;
+        padding: 10px;
+        border-radius:5px ;
+    }
+
+    table.table tbody tr td{
+        display: block;
+        text-align: right !important;
+    }
+
+    table.table tbody tr td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    table.table tbody tr td::after{
+        width: 80%;
+    } 
+
+    .table-wrapper{
+        background: none;
+        padding: 0px;
+    }
+
+    /* css rieng cho tung loai quan ly */
+    table.table.table-post tbody tr .tacgia .tacgia-wrap{
+        justify-content: flex-end;
+    }
+
 }
 /* 1.2 modal box de hien thi chi tiet */
 

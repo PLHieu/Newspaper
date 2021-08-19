@@ -181,14 +181,14 @@
         <tbody>
           {{#each draft_posts}}
           <tr class="clickable-row" id="{{ID}}">
-            <td>{{ID}}</td>
-            <td class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
+            <td data-label="ID">{{ID}}</td>
+            <td data-label="Thumbnail" class="thumbnail"><img src="http://localhost:3000/public/image/posts/{{ID}}/smallavt.jpg" alt=""
                 srcset=""></td>
-            <td>{{Title}}</td>
-            <td>{{Abstract}}</td>
-            <td>{{WriteTime}}</td>
-            <td class="tacgia">
-              <div class="d-flex align-items-center">
+            <td data-label="Tiêu đề">{{Title}}</td>
+            <td data-label="Tóm tắt">{{Abstract}}</td>
+            <td data-label="Ngày viết">{{WriteTime}}</td>
+            <td data-label="Tác giả" class="tacgia">
+              <div class="d-flex align-items-center tacgia-wrap">
                 <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
                   <span>{{firstChar WriterName}}</span>
                 </div>
@@ -218,20 +218,20 @@
         <tbody>
           {{#each this.approved_posts}}
           <tr>
-            <td>{{math @index "+" 1}}</td>
-            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg"  ></td>
-            <td>{{Title}}</td>
-            <td>{{Abstract}}</td>
-            <td class="tacgia">
-              <div class="d-flex align-items-center">
+            <td data-label="#" >{{math @index "+" 1}}</td>
+            <td data-label="Thumbnail" class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg"  ></td>
+            <td data-label="Tiêu đề">{{Title}}</td>
+            <td data-label="Tóm tắt">{{Abstract}}</td>
+            <td data-label="Tác giả" class="tacgia">
+              <div class="d-flex align-items-center tacgia-wrap">
                 <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
                   <span>{{firstChar WriterName}}</span>
                 </div>
                 <span>{{WriterName}}</span>
               </div>
             </td>
-            <td>{{WriteTime}}</td>
-            <td>{{PubTime}}</td>
+            <td data-label="Ngày viết">{{WriteTime}}</td>
+            <td data-label="Ngày XB">{{PubTime}}</td>
           </tr>
           <tr>
             {{/each}}
@@ -259,20 +259,20 @@
         <tbody>
           {{#each this.rejected_posts}}
           <tr>
-            <td>{{math @index "+" 1}}</td>
-            <td class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg" ></td>
-            <td class="tieude">{{Title}}</td>
-            <td>{{Abstract}}</td>
-            <td class="tacgia">
-              <div class="d-flex align-items-center">
+            <td data-label="#" >{{math @index "+" 1}}</td>
+            <td data-label="Thumbnail" class="thumbnail"><img src="/public/image/posts/{{ID}}/smallavt.jpg" ></td>
+            <td data-label="Tiêu đề" class="tieude">{{Title}}</td>
+            <td data-label="Tóm tắt">{{Abstract}}</td>
+            <td data-label="Tác giả" class="tacgia">
+              <div class="d-flex align-items-center tacgia-wrap">
                 <div class="tacgia-thumbnail" style="background-color: {{ranBgColor}};">
                   <span>{{firstChar WriterName}}</span>
                 </div>
                 <span>{{WriterName}}</span>
               </div>
             </td>
-            <td>{{draft_info.RateTime}}</td>
-            <td class="lido">{{draft_info.Note}}</td>
+            <td data-label="Rated date">{{draft_info.RateTime}}</td>
+            <td data-label="Lý do" class="lido">{{draft_info.Note}}</td>
           </tr>
           {{/each}}
         </tbody>
